@@ -1,7 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobemu</title>
+  <style>
+    :root {
+      --primary-color: #007AFF;
+      --hover-color: #0056b3;
+      --bg-color: #1a1a1a;
+      --text-color: white;
+      --secondary-text-color: #ccc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg-color), #000);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .device-selector {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .device-option {
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: var(--primary-color);
+      color: var(--text-color);
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .device-option:hover {
+      background: var(--hover-color);
+      transform: scale(1.05);
+    }
+
+    .device-option.selected {
+      border: 2px solid var(--hover-color);
+    }
+
+    .emulator-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      width: 340px;
+      height: 700px;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 122, 255, 0.2);
+    }
+
+    .device-info {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--secondary-text-color);
+    }
+
+    .ad-container {
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 728px;
+      padding: 10px;
+    }
+
+    @media (max-width: 480px) {
+      iframe {
+        width: 100%;
+        height: 400px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .ad-container {
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <h1>Mobemu</h1>
+
+  <div class="device-selector">
+    <div class="device-option" data-device="iphone14pro" data-os="ios">iPhone 14 Pro (iOS 17)</div>
+    <div class="device-option" data-device="pixel7" data-os="android">Pixel 7 (Android 14)</div>
+    <div class="device-option" data-device="ipadpro" data-os="ios">iPad Pro (iOS 17)</div>
+  </div>
+
+  <div class="emulator-wrapper">
+    <iframe id="emulator-frame" src=""></iframe>
+  </div>
+
+  <div class="device-info" id="device-info">Select a device to start the emulator</div>
+
+  <!-- Contenedor para anuncios -->
+  <div class="ad-container">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Mobemu Responsive Ad -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const deviceOptions = document.querySelectorAll('.device-option');
+    const emulatorFrame = document.getElementById('emulator-frame');
+    const deviceInfo = document.getElementById('device-info');
+
+    const savedDevice = localStorage.getItem('selectedDevice');
+    if (savedDevice) {
+      const { device, os } = JSON.parse(savedDevice);
+      loadEmulator(device, os);
+      highlightSelectedDevice(device);
+    }
+
+    deviceOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const device = option.dataset.device;
+        const os = option.dataset.os;
+        loadEmulator(device, os);
+        highlightSelectedDevice(device);
+
+        localStorage.setItem('selectedDevice', JSON.stringify({ device, os }));
+      });
+    });
+
+    function loadEmulator(device, os) {
+      const baseUrl = "https://appetize.io/embed/demo";
+      const osVersion = os === "ios" ? "16" : "14";
+
+      const screenWidth = window.innerWidth;
+      const scale = screenWidth > 768 ? 100 : 75;
+
+      emulatorFrame.style.width = `${Math.min(screenWidth * 0.9, 600)}px`;
+      emulatorFrame.style.height = `${Math.min(window.innerHeight * 0.8, 800)}px`;
+
+      const url = `${baseUrl}?device=${device}&scale=${scale}&osVersion=${osVersion}`;
+      emulatorFrame.src = url;
+
+      deviceInfo.textContent = `Device: ${device} | OS: ${os.toUpperCase()} ${osVersion}`;
+    }
+
+    function highlightSelectedDevice(selectedDevice) {
+      deviceOptions.forEach(option => {
+        option.classList.toggle('selected', option.dataset.device === selectedDevice);
+      });
+    }
+  });
+</script>
 </body>
 </html>
