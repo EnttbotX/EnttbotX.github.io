@@ -3,191 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobemu</title>
+  <title>Ad Reward Game</title>
   <style>
-    :root {
-      --primary-color: #007AFF;
-      --hover-color: #0056b3;
-      --bg-color: #1a1a1a;
-      --text-color: white;
-      --secondary-text-color: #ccc;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg-color), #000);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: #1a1a1a;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .container {
       padding: 20px;
     }
 
-    h1 {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .device-selector {
-      margin: 20px 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .device-option {
-      padding: 10px 20px;
+    .game-box {
+      margin: 20px auto;
+      padding: 20px;
+      border: 2px solid #007aff;
       border-radius: 10px;
-      background: var(--primary-color);
-      color: var(--text-color);
-      cursor: pointer;
-      text-align: center;
-      transition: transform 0.2s, background 0.3s;
+      width: 80%;
+      max-width: 400px;
+      background: #333;
     }
 
-    .device-option:hover {
-      background: var(--hover-color);
-      transform: scale(1.05);
-    }
-
-    .device-option.selected {
-      border: 2px solid var(--hover-color);
-    }
-
-    .emulator-wrapper {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    iframe {
-      width: 340px;
-      height: 700px;
+    .button {
+      padding: 10px 20px;
+      margin: 10px;
       border: none;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0, 122, 255, 0.2);
+      border-radius: 5px;
+      background: #007aff;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
     }
 
-    .device-info {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--secondary-text-color);
+    .button:hover {
+      background: #0056b3;
     }
 
-    .ad-container {
-      margin-top: 20px;
-      text-align: center;
-      width: 100%;
-      max-width: 728px;
-      padding: 10px;
-    }
-
-    @media (max-width: 480px) {
-      iframe {
-        width: 100%;
-        height: 400px;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .ad-container {
-        max-width: 320px;
-      }
+    .ad-block-warning {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Mobemu</h1>
-
-  <div class="device-selector">
-    <div class="device-option" data-device="iphone14pro" data-os="ios">iPhone 14 Pro (iOS 17)</div>
-    <div class="device-option" data-device="pixel7" data-os="android">Pixel 7 (Android 14)</div>
-    <div class="device-option" data-device="ipadpro" data-os="ios">iPad Pro (iOS 17)</div>
+  <div class="container">
+    <h1>Ad Reward Game</h1>
+    <div id="ad-block-detection" class="ad-block-warning hidden">
+      <p>We detected an ad blocker. Please disable it to play and earn rewards.</p>
+    </div>
+    <div id="game-container" class="hidden">
+      <p>Earn gold by playing the game and watching ads!</p>
+      <div class="game-box">
+        <p>Gold: <span id="gold-count">0</span></p>
+        <button class="button" id="play-button">Play</button>
+        <button class="button" id="watch-ad-button">Watch Ad</button>
+        <button class="button" id="withdraw-button">Withdraw</button>
+      </div>
+      <p id="message"></p>
+    </div>
   </div>
 
-  <div class="emulator-wrapper">
-    <iframe id="emulator-frame" src=""></iframe>
-  </div>
-
-  <div class="device-info" id="device-info">Select a device to start the emulator</div>
-
-  <!-- Contenedor para anuncios -->
-  <div class="ad-container">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Mobemu Responsive Ad -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXX"
-         data-ad-slot="XXXXXXXXXX"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+  <!-- Fake Ad Banner -->
+  <div id="fake-ad-banner" style="display: none;">
     <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
+      // Fake ad content to detect ad blockers
     </script>
   </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const deviceOptions = document.querySelectorAll('.device-option');
-    const emulatorFrame = document.getElementById('emulator-frame');
-    const deviceInfo = document.getElementById('device-info');
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const adBlockDetection = document.getElementById("ad-block-detection");
+      const gameContainer = document.getElementById("game-container");
+      const goldCount = document.getElementById("gold-count");
+      const playButton = document.getElementById("play-button");
+      const watchAdButton = document.getElementById("watch-ad-button");
+      const withdrawButton = document.getElementById("withdraw-button");
+      const message = document.getElementById("message");
 
-    const savedDevice = localStorage.getItem('selectedDevice');
-    if (savedDevice) {
-      const { device, os } = JSON.parse(savedDevice);
-      loadEmulator(device, os);
-      highlightSelectedDevice(device);
-    }
+      let gold = 0;
+      const minimumWithdrawal = 100;
 
-    deviceOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        const device = option.dataset.device;
-        const os = option.dataset.os;
-        loadEmulator(device, os);
-        highlightSelectedDevice(device);
+      // Ad blocker detection
+      const adBlockTest = document.getElementById("fake-ad-banner");
+      if (adBlockTest.offsetHeight === 0 || adBlockTest.style.display === "none") {
+        adBlockDetection.classList.remove("hidden");
+      } else {
+        gameContainer.classList.remove("hidden");
+      }
 
-        localStorage.setItem('selectedDevice', JSON.stringify({ device, os }));
+      // Play button logic
+      playButton.addEventListener("click", () => {
+        gold += 10;
+        goldCount.textContent = gold;
+        message.textContent = "You earned 10 gold!";
+      });
+
+      // Watch ad button logic
+      watchAdButton.addEventListener("click", () => {
+        gold += 20;
+        goldCount.textContent = gold;
+        message.textContent = "You earned 20 gold for watching an ad!";
+      });
+
+      // Withdraw button logic
+      withdrawButton.addEventListener("click", () => {
+        if (gold >= minimumWithdrawal) {
+          gold -= minimumWithdrawal;
+          goldCount.textContent = gold;
+          message.textContent = "You have successfully withdrawn $1 to your PayPal!";
+          // In a real implementation, integrate PayPal payouts here.
+        } else {
+          message.textContent = `You need at least ${minimumWithdrawal} gold to withdraw.`;
+        }
       });
     });
-
-    function loadEmulator(device, os) {
-      const baseUrl = "https://appetize.io/embed/demo";
-      const osVersion = os === "ios" ? "16" : "14";
-
-      const screenWidth = window.innerWidth;
-      const scale = screenWidth > 768 ? 100 : 75;
-
-      emulatorFrame.style.width = `${Math.min(screenWidth * 0.9, 600)}px`;
-      emulatorFrame.style.height = `${Math.min(window.innerHeight * 0.8, 800)}px`;
-
-      const url = `${baseUrl}?device=${device}&scale=${scale}&osVersion=${osVersion}`;
-      emulatorFrame.src = url;
-
-      deviceInfo.textContent = `Device: ${device} | OS: ${os.toUpperCase()} ${osVersion}`;
-    }
-
-    function highlightSelectedDevice(selectedDevice) {
-      deviceOptions.forEach(option => {
-        option.classList.toggle('selected', option.dataset.device === selectedDevice);
-      });
-    }
-  });
-</script>
+  </script>
 </body>
 </html>
