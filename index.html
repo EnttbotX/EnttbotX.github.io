@@ -1,130 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ad Reward Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      background: #1a1a1a;
-      color: white;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .game-box {
-      margin: 20px auto;
-      padding: 20px;
-      border: 2px solid #007aff;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 400px;
-      background: #333;
-    }
-
-    .button {
-      padding: 10px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      background: #007aff;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background: #0056b3;
-    }
-
-    .ad-block-warning {
-      color: red;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support me by donating and checking out the announcements!">
+    <title>Support My Work</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .announcement {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: #f1f1f1;
+        }
+        .donation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .donation button {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .donation button:hover {
+            background-color: #005c99;
+        }
+        .ads {
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Ad Reward Game</h1>
-    <div id="ad-block-detection" class="ad-block-warning hidden">
-      <p>We detected an ad blocker. Please disable it to play and earn rewards.</p>
-    </div>
-    <div id="game-container" class="hidden">
-      <p>Earn gold by playing the game and watching ads!</p>
-      <div class="game-box">
-        <p>Gold: <span id="gold-count">0</span></p>
-        <button class="button" id="play-button">Play</button>
-        <button class="button" id="watch-ad-button">Watch Ad</button>
-        <button class="button" id="withdraw-button">Withdraw</button>
-      </div>
-      <p id="message"></p>
-    </div>
-  </div>
+    <header>
+        <h1>Support My Work</h1>
+        <p>Check out the announcements below and consider donating!</p>
+    </header>
+    <main>
+        <section class="announcements">
+            <h2>Announcements</h2>
+            <div class="announcement">
+                <h3>Announcement 1</h3>
+                <p>Exciting news! I'm working on a new project that will revolutionize parallel dimension exploration games. Stay tuned!</p>
+            </div>
+            <div class="announcement">
+                <h3>Announcement 2</h3>
+                <p>Your support helps me create more awesome projects like ClansX and SpiggOff. Thank you!</p>
+            </div>
+        </section>
 
-  <!-- Fake Ad Banner -->
-  <div id="fake-ad-banner" style="display: none;">
-    <script>
-      // Fake ad content to detect ad blockers
-    </script>
-  </div>
+        <section class="ads">
+            <h2>Sponsored Ads</h2>
+            <!-- Google AdSense Placeholder -->
+            <p>Your ad here</p>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const adBlockDetection = document.getElementById("ad-block-detection");
-      const gameContainer = document.getElementById("game-container");
-      const goldCount = document.getElementById("gold-count");
-      const playButton = document.getElementById("play-button");
-      const watchAdButton = document.getElementById("watch-ad-button");
-      const withdrawButton = document.getElementById("withdraw-button");
-      const message = document.getElementById("message");
-
-      let gold = 0;
-      const minimumWithdrawal = 100;
-
-      // Ad blocker detection
-      const adBlockTest = document.getElementById("fake-ad-banner");
-      if (adBlockTest.offsetHeight === 0 || adBlockTest.style.display === "none") {
-        adBlockDetection.classList.remove("hidden");
-      } else {
-        gameContainer.classList.remove("hidden");
-      }
-
-      // Play button logic
-      playButton.addEventListener("click", () => {
-        gold += 10;
-        goldCount.textContent = gold;
-        message.textContent = "You earned 10 gold!";
-      });
-
-      // Watch ad button logic
-      watchAdButton.addEventListener("click", () => {
-        gold += 20;
-        goldCount.textContent = gold;
-        message.textContent = "You earned 20 gold for watching an ad!";
-      });
-
-      // Withdraw button logic
-      withdrawButton.addEventListener("click", () => {
-        if (gold >= minimumWithdrawal) {
-          gold -= minimumWithdrawal;
-          goldCount.textContent = gold;
-          message.textContent = "You have successfully withdrawn $1 to your PayPal!";
-          // In a real implementation, integrate PayPal payouts here.
-        } else {
-          message.textContent = `You need at least ${minimumWithdrawal} gold to withdraw.`;
-        }
-      });
-    });
-  </script>
+        <section class="donation">
+            <h2>Support Me</h2>
+            <p>If you enjoy my work, please consider making a donation to support future projects.</p>
+            <!-- PayPal Button -->
+            <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                <input type="hidden" name="hosted_button_id" value="YOUR_BUTTON_ID">
+                <button type="submit">Donate via PayPal</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
