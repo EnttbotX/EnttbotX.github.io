@@ -1,0 +1,5 @@
+<title> &2Nota de prueba
+<version> &cNinguna
+<plugin> &cNingun
+<texto>:
+Esta nota es puramente para probar el sistema
