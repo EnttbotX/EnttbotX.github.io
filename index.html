@@ -3,194 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnttbotX | Page</title>
+    <title>EnttbotX | Plugin Development</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #ff6600;
+            --primary-dark: #e65c00;
+            --dark: #1a1a1a;
+            --darker: #000;
+            --light: #fff;
+            --gray: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            background-color: #000;
-            color: #fff;
+            background-color: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            position: relative;
         }
 
         header {
-            background: #ff6600;
-            color: #fff;
-            padding: 20px 10px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            padding: 2rem 1rem;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         nav {
+            background: var(--dark);
+            padding: 1rem;
             display: flex;
             justify-content: center;
-            background: #333;
-            padding: 10px;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .tab-btn {
-            margin: 0 10px;
-            padding: 10px 15px;
-            background: #ff6600;
-            border: none;
+        nav a {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
             cursor: pointer;
-            border-radius: 5px;
-            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
         }
 
-        .tab-btn.active {
-            background: #000;
-            color: #ff6600;
+        nav a:hover,
+        nav a.active {
+            background: var(--primary);
+            color: var(--light);
         }
 
-        .tab-content {
-            display: none;
-            padding: 20px;
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
-        .tab-content.active {
-            display: block;
+        section {
+            margin-bottom: 3rem;
         }
 
         .demo {
+            background: var(--darker);
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #1a1a1a;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(255, 102, 0, 0.5);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .demo:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+        }
+
+        .demo h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
         }
 
         .get-plugin-btn {
             text-decoration: none;
-            padding: 8px 12px;
-            background: #ff6600;
-            color: #fff;
-            border-radius: 5px;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .get-plugin-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .contact p {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .contact strong {
+            color: var(--primary);
         }
 
         .sidebar-ads {
             position: fixed;
-            top: 0;
-            width: 150px;
-            background: #1a1a1a;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            height: 100%;
-            overflow-y: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 180px;
+            background: var(--dark);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .left-ads {
-            left: 0;
+            left: 1rem;
         }
 
         .right-ads {
-            right: 0;
+            right: 1rem;
         }
 
-        .donation button {
-            padding: 10px 20px;
-            background: #ff3300;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .contact {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .contact h2 {
-            color: #ff6600;
-        }
-
-        .contact p {
-            margin: 10px 0;
-            color: #ccc;
+        @media (max-width: 1400px) {
+            .sidebar-ads {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar-ads left-ads">
-        <p>Ad space 1</p>
+        <p>Advertisement Space</p>
     </div>
 
     <header>
-        <h1>EnttbotX | Page</h1>
+        <h1>EnttbotX</h1>
     </header>
 
     <nav>
-        <button class="tab-btn active" data-tab="home">Home</button>
-        <button class="tab-btn" data-tab="comments">Comments</button>
-        <button class="tab-btn" data-tab="contact">Contact Me</button>
+        <a href="#home" class="active">Home</a>
+        <a href="#notes">Creator Notes</a>
+        <a href="#contact">Contact Me</a>
     </nav>
 
-    <div id="home" class="tab-content active">
-        <section>
-            <h2>Plugin Demonstrations</h2>
+    <div class="main-content">
+        <section id="home">
+            <h2>Featured Plugins</h2>
             <div class="demo">
                 <div>
                     <h3>ClansX</h3>
-                    <p>The best clans system for your server, for Free.</p>
+                    <p>The best clans system for your server, completely free. Build communities, create alliances, and enhance player engagement.</p>
                 </div>
-                <a class="get-plugin-btn" href="#">Get</a>
+                <a class="get-plugin-btn" href="#">Download Plugin</a>
             </div>
             <div class="demo">
                 <div>
                     <h3>FunkyFeather</h3>
-                    <p>Why still using the old KeepInventory? Make it more Funky and Funny!</p>
+                    <p>Revolutionize your KeepInventory experience with fun and unique mechanics. Make death less punishing and more entertaining!</p>
                 </div>
-                <a class="get-plugin-btn" href="#">Get</a>
+                <a class="get-plugin-btn" href="#">Download Plugin</a>
             </div>
-            <!-- Add more plugins as needed -->
         </section>
 
-        <section class="donation">
-            <h2>Support Me</h2>
-            <form action="https://ko-fi.com/enttbot" method="post" target="_blank">
-                <button type="submit">Donate on Ko-fi</button>
-            </form>
+        <section id="notes">
+            <h2>Creator Notes</h2>
+            <p>Updates, features, and news from the creator.</p>
         </section>
-    </div>
 
-    <div id="comments" class="tab-content">
-        <section>
-            <h2>Updates & Notes</h2>
-            <p>Loading update logs...</p>
-        </section>
-    </div>
-
-    <div id="contact" class="tab-content">
-        <section class="contact">
+        <section id="contact">
             <h2>Contact Me</h2>
             <p><strong>Email:</strong> enttbotx@gmail.com</p>
             <p><strong>Discord:</strong> Enttbot</p>
-            <p>Feel free to reach out for collaborations, plugin support, or feedback!</p>
         </section>
     </div>
 
     <div class="sidebar-ads right-ads">
-        <p>Ad space 2</p>
+        <p>Advertisement Space</p>
     </div>
 
     <script>
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-
-                btn.classList.add('active');
-                document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+        // Resaltar el botón activo al hacer clic
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelectorAll('nav a').forEach(nav => nav.classList.remove('active'));
+                link.classList.add('active');
             });
         });
     </script>
