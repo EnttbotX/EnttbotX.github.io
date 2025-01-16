@@ -10,12 +10,12 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #000;
+            color: #fff;
         }
 
         header {
-            background: #993300;
+            background: #ff6600;
             color: #fff;
             padding: 20px 10px;
             text-align: center;
@@ -23,50 +23,29 @@
 
         header h1 {
             margin: 0;
-            font-size: 2rem;
-            text-decoration: underline;
-        }
-
-        header p {
-            font-style: italic;
-        }
-
-        .header-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .control-btn {
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            background: #fff;
-            color: #993300;
-            font-weight: bold;
-            text-decoration: none;
+            font-size: 2.5rem;
         }
 
         nav {
             display: flex;
             justify-content: center;
-            background: #e3e3e3;
+            background: #333;
             padding: 10px;
         }
 
         .tab-btn {
-            margin: 0 5px;
+            margin: 0 10px;
             padding: 10px 15px;
-            background: #ddd;
+            background: #ff6600;
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            color: #fff;
         }
 
         .tab-btn.active {
-            background: #993300;
-            color: #fff;
+            background: #000;
+            color: #ff6600;
         }
 
         .tab-content {
@@ -78,60 +57,79 @@
             display: block;
         }
 
-        section {
-            margin-bottom: 20px;
-        }
-
         .demo {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #fff;
+            background: #1a1a1a;
             margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(255, 102, 0, 0.5);
         }
 
         .get-plugin-btn {
             text-decoration: none;
             padding: 8px 12px;
-            background: #993300;
+            background: #ff6600;
             color: #fff;
             border-radius: 5px;
         }
 
+        .sidebar-ads {
+            position: fixed;
+            top: 0;
+            width: 150px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .left-ads {
+            left: 0;
+        }
+
+        .right-ads {
+            right: 0;
+        }
+
         .donation button {
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-            background: #ff5a5f;
+            padding: 10px 20px;
+            background: #ff3300;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        .bottom-ads {
+        .contact {
             text-align: center;
-            margin: 20px 0;
+            padding: 20px;
+        }
+
+        .contact h2 {
+            color: #ff6600;
+        }
+
+        .contact p {
+            margin: 10px 0;
+            color: #ccc;
         }
     </style>
 </head>
 <body>
+    <div class="sidebar-ads left-ads">
+        <p>Ad space 1</p>
+    </div>
+
     <header>
-        <div class="header-controls">
-            <a class="control-btn spigot-btn" href="https://434.erewrw">Go to Spigot</a>
-            <div class="right-controls">
-                <button class="control-btn" id="themeToggle">🌙</button>
-                <button class="control-btn" id="langToggle">EN</button>
-            </div>
-        </div>
         <h1>EnttbotX | Page</h1>
-        <p>EnttbotX official web page</p>
     </header>
 
-    <nav class="tabs">
+    <nav>
         <button class="tab-btn active" data-tab="home">Home</button>
         <button class="tab-btn" data-tab="comments">Comments</button>
         <button class="tab-btn" data-tab="contact">Contact Me</button>
@@ -141,28 +139,26 @@
         <section>
             <h2>Plugin Demonstrations</h2>
             <div class="demo">
-                <div class="demo-content">
+                <div>
                     <h3>ClansX</h3>
-                    <p>The best clans system for your server and for Free.</p>
+                    <p>The best clans system for your server, for Free.</p>
                 </div>
                 <a class="get-plugin-btn" href="#">Get</a>
             </div>
             <div class="demo">
-                <div class="demo-content">
+                <div>
                     <h3>FunkyFeather</h3>
                     <p>Why still using the old KeepInventory? Make it more Funky and Funny!</p>
                 </div>
                 <a class="get-plugin-btn" href="#">Get</a>
             </div>
+            <!-- Add more plugins as needed -->
         </section>
 
         <section class="donation">
             <h2>Support Me</h2>
-            <p>You are supporting my work, thank you!</p>
             <form action="https://ko-fi.com/enttbot" method="post" target="_blank">
-                <button type="submit">
-                    <img src="https://storage.ko-fi.com/cdn/logomarkLogo.png" alt="Ko-fi" height="16"> Donate
-                </button>
+                <button type="submit">Donate on Ko-fi</button>
             </form>
         </section>
     </div>
@@ -175,15 +171,17 @@
     </div>
 
     <div id="contact" class="tab-content">
-        <section>
+        <section class="contact">
             <h2>Contact Me</h2>
-            <p>Placeholder for contact details.</p>
+            <p><strong>Email:</strong> enttbotx@gmail.com</p>
+            <p><strong>Discord:</strong> Enttbot</p>
+            <p>Feel free to reach out for collaborations, plugin support, or feedback!</p>
         </section>
     </div>
 
-    <section class="bottom-ads">
-        <p>Advertisement placeholder</p>
-    </section>
+    <div class="sidebar-ads right-ads">
+        <p>Ad space 2</p>
+    </div>
 
     <script>
         document.querySelectorAll('.tab-btn').forEach(btn => {
