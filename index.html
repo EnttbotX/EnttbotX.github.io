@@ -1,14 +1,8 @@
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnttbotX | Plugin Development</title>
-    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-XXXXXXX",
-          enable_page_level_ads: true
-        });
-    </script>
     <style>
         :root {
             --primary: #ff6600;
@@ -88,25 +82,17 @@
             padding: 2rem;
         }
 
-        section {
-            margin-bottom: 3rem;
-            display: none;
-        }
-
-        section.active {
-            display: block;
-        }
-
         .demo {
             background: var(--darker);
             border-radius: 15px;
             margin: 1.5rem 0;
-            padding: 1.5rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: var(--transition);
             border: 1px solid transparent;
+            font-size: 0.9rem;
         }
 
         .demo:hover {
@@ -118,12 +104,12 @@
         .demo h3 {
             color: var(--primary);
             margin-bottom: 0.5rem;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }
 
         .get-plugin-btn {
             text-decoration: none;
-            padding: 0.8rem 1.5rem;
+            padding: 0.6rem 1rem;
             background: var(--primary);
             color: var(--light);
             border-radius: 25px;
@@ -136,24 +122,22 @@
             transform: scale(1.05);
         }
 
-        .contact p {
-            margin: 1rem 0;
-            font-size: 1.1rem;
-        }
-
-        .contact strong {
-            color: var(--primary);
-        }
-
         .sidebar-ads {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
             width: 180px;
-            background: var(--dark);
-            padding: 1rem;
+            height: 250px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 1.2rem;
+            text-align: center;
         }
 
         .left-ads {
@@ -162,6 +146,18 @@
 
         .right-ads {
             right: 1rem;
+        }
+
+        .top-banner,
+        .bottom-banner {
+            width: 100%;
+            height: 100px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin: 1rem 0;
         }
 
         .ko-fi-button {
@@ -187,92 +183,69 @@
     </style>
 </head>
 <body>
-
-    <!-- Google Ads in Sidebar Left -->
-    <div class="sidebar-ads left-ads">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" <!--="" replace="" with="" your="" publisher="" id="" --="">
-             data-ad-slot="XXXXXXX"            <!-- Replace with the ad slot ID -->
-             data-ad-format="auto"&gt;</ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <div class="top-banner">
+        Mini-banner superior
     </div>
 
-    <!-- Google Ads in Sidebar Right -->
+    <div class="sidebar-ads left-ads">
+        AD Placeholder
+    </div>
+
     <div class="sidebar-ads right-ads">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" <!--="" replace="" with="" your="" publisher="" id="" --="">
-             data-ad-slot="XXXXXXX"            <!-- Replace with the ad slot ID -->
-             data-ad-format="auto"&gt;</ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        AD Placeholder
     </div>
 
     <header>
         <h1>EnttbotX</h1>
     </header>
 
-    <nav>
-        <a href="#home" class="active" data-section="home">Home</a>
-        <a href="#notes" data-section="notes" class="">Creator Notes</a>
-        <a href="#contact" data-section="contact" class="">Contact Me</a>
-    </nav>
-
     <div class="main-content">
-        <section id="home" class="active">
-            <h2>Featured Plugins</h2>
-            <div class="demo">
-                <div>
-                    <h3>ClansX</h3>
-                    <p>The best clans system for your server, completely free.</p>
-                </div>
-                <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/clansx-the-best-clan-system-1-8-1-21.114316/">Download Plugin</a>
+        <h2>Featured Plugins</h2>
+        <div class="demo">
+            <div>
+                <h3>ClansX</h3>
+                <p>The best clans system for your server, completely free.</p>
             </div>
-            <div class="demo">
-                <div>
-                    <h3>FunkyFeather</h3>
-                    <p>The best way to make a Funny Keep Inventory System!</p>
-                </div>
-                <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/funky-feather-better-keepinv-1-8-1-21.115289/">Download Plugin</a>
+            <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/clansx-the-best-clan-system-1-8-1-21.114316/">Download Plugin</a>
+        </div>
+        <div class="demo">
+            <div>
+                <h3>FunkyFeather</h3>
+                <p>The best way to make a Funny Keep Inventory System!</p>
             </div>
-            <div class="demo">
-                <div>
-                    <h3>GreetiX</h3>
-                    <p>Execute actions when a player joins.</p>
-                </div>
-                <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/greetix-join-event-handler-1-8-1-21.116849/">Download Plugin</a>
+            <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/funky-feather-better-keepinv-1-8-1-21.115289/">Download Plugin</a>
+        </div>
+        <div class="demo">
+            <div>
+                <h3>GreetiX</h3>
+                <p>Execute actions when a player joins.</p>
             </div>
-            <div class="demo">
-                <div>
-                    <h3>XPad</h3>
-                    <p>The best way to add Jump-Pads to your Server! Used in a Lot of Servers!</p>
-                </div>
-                <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/xpad-the-best-jumppads-plugin-1-8-1-21.116150/">Download Plugin</a>
+            <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/greetix-join-event-handler-1-8-1-21.116849/">Download Plugin</a>
+        </div>
+        <div class="demo">
+            <div>
+                <h3>XPad</h3>
+                <p>The best way to add Jump-Pads to your Server! Used in a Lot of Servers!</p>
             </div>
-            <div class="demo">
-                <div>
-                    <h3>Advanced Teleport GUI (ATG)</h3>
-                    <p>No more teleport Commands, just use a GUI!</p>
-                    <p>{PAID PLUGIN}</p>
-                </div>
-                <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/⭐%EF%B8%8F-atg-advanced-teleport-gui-1-8-1-21.119860/">Download Plugin</a>
+            <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/xpad-the-best-jumppads-plugin-1-8-1-21.116150/">Download Plugin</a>
+        </div>
+        <div class="demo">
+            <div>
+                <h3>Advanced Teleport GUI (ATG)</h3>
+                <p>No more teleport Commands, just use a GUI!</p>
+                <p>{PAID PLUGIN}</p>
             </div>
-        </section>
+            <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/⭐%EF%B8%8F-atg-advanced-teleport-gui-1-8-1-21.119860/">Download Plugin</a>
+        </div>
 
-        <section id="notes" class="">
-            <h2>Creator Notes</h2>
-            <p>Updates, features, and news from the creator.</p>
-        </section>
-
-        <section id="contact" class="">
-            <h2>Contact Me</h2>
-            <p><strong>Email:</strong> enttbotx@gmail.com</p>
-            <p><strong>Discord:</strong> Enttbot</p>
-        </section>
+        <div class="bottom-banner">
+            Mini-banner inferior
+        </div>
     </div>
 
-    <!-- Ko-fi Button -->
     <button class="ko-fi-button" onclick="window.location.href='https://ko-fi.com/enttbot'">
         <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support me on Ko-fi">
     </button>
-</body></html>
+
+</body>
+</html>
