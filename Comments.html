@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments | EnttbotX</title>
+    <style>
+        :root {
+            --primary: #ff6600;
+            --primary-dark: #e65c00;
+            --dark: #1a1a1a;
+            --darker: #000;
+            --light: #fff;
+            --gray: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .comment-box {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: var(--dark);
+            color: var(--light);
+            border: 1px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-box input, .comment-box select, .comment-box textarea {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            background-color: var(--gray);
+            color: var(--light);
+            border: none;
+        }
+
+        .comment-box button {
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--light);
+            border-radius: 25px;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .comment-box button:hover {
+            background: var(--primary-dark);
+        }
+
+        .comments-list {
+            margin-top: 2rem;
+        }
+
+        .comment {
+            background-color: var(--gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .comment p {
+            margin: 0.5rem 0;
+        }
+
+        .comment .user-info {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EnttbotX - Comments</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="comment-box">
+            <h3>Leave a Comment</h3>
+            <!-- Form for user input -->
+            <input type="text" id="username" placeholder="Enter your username" required />
+            <select id="plugin">
+                <option value="" disabled selected>Select a Plugin</option>
+                <option value="ClansX">ClansX</option>
+                <option value="FunkyFeather">FunkyFeather</option>
+                <option value="GreetiX">GreetiX</option>
+                <option value="XPad">XPad</option>
+                <option value="ATG">Advanced Teleport GUI</option>
+            </select>
+            <textarea id="opinion" rows="4" placeholder="Write your opinion here..." required></textarea>
+            <button id="submit-comment">Submit Comment</button>
+        </div>
+
+        <div class="comments-list" id="comments-list">
+            <!-- Comments will appear here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to load saved comments from localStorage
+        function loadComments() {
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            const commentsList = document.getElementById('comments-list');
+            commentsList.innerHTML = ''; // Clear existing comments
+
+            comments.forEach((comment) => {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                commentDiv.innerHTML = `<div class="user-info">${comment.username} (Plugin: ${comment.plugin})</div>
+                                        <p>${comment.opinion}</p>`;
+                commentsList.appendChild(commentDiv);
+            });
+        }
+
+        // Function to save a new comment to localStorage
+        function saveComment(username, plugin, opinion) {
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push({ username, plugin, opinion });
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // Event listener for the submit button
+        document.getElementById('submit-comment').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const plugin = document.getElementById('plugin').value;
+            const opinion = document.getElementById('opinion').value;
+
+            // Validate input fields
+            if (username && plugin && opinion) {
+                saveComment(username, plugin, opinion);
+                loadComments(); // Reload comments after saving
+                document.getElementById('username').value = ''; // Clear the username field
+                document.getElementById('plugin').value = ''; // Clear the plugin selection
+                document.getElementById('opinion').value = ''; // Clear the opinion textarea
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        // Load comments when the page is loaded
+        window.onload = loadComments;
+    </script>
+</body>
+</html>
