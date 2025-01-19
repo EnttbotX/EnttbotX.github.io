@@ -1,4 +1,3 @@
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,6 +73,36 @@
         nav a.active {
             background: var(--primary);
             color: var(--light);
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .styled-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.5rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .styled-button:hover {
+            background: var(--primary-dark);
+            color: var(--light);
+            transform: translateY(-5px);
+        }
+
+        .styled-button:active {
+            background: var(--primary-dark);
+            transform: translateY(0);
         }
 
         .main-content {
@@ -197,16 +226,16 @@
 <body>
     <header>
         <div class="top-banner">
-        Mini-banner superior
-    </div><h1>EnttbotX</h1>
-     <div class="button-container">
-        <a href="https://enttbotx.gitbook.io" target="_blank">Home</a>
-        <a href="https://enttbotx.gitbook.io" target="_blank">Comments</a>
-        <a href="https://enttbotx.gitbook.io" target="_blank">Terms & Conditions</a>
-        <a href="https://enttbotx.gitbook.io" target="_blank">Privacy Policy</a>
-    </div>
-    </header>
-
+            Mini-banner superior
+        </div>
+        <h1>EnttbotX</h1>
+        <div class="button-container">
+            <a href="https://enttbotx.gitbook.io" target="_blank" class="styled-button">Home</a>
+            <a href="https://enttbotx.gitbook.io/Comments" target="_blank" class="styled-button">Comments</a>
+            <a href="https://enttbotx.gitbook.io/TermsOfUse" target="_blank" class="styled-button">Terms & Conditions</a>
+            <a href="https://enttbotx.gitbook.io/PrivacyPolicy" target="_blank" class="styled-button">Privacy Policy</a>
+        </div>
+    </header> 
     <div class="main-content">
         <h2>Who am I?</h2>
         <p>Hey! My Name is Enttbot, you can callme Entt, im a java developer specialized on Spigot/Bukkit/Paper plugins, i have some important plugins like ClansX and XPad with a lot of downloads, i have 16 years, yeah that is not important but i think interesting to people who thinks i have 32, LOL, anyways this page is to make a recaudations, cuz a big part of my plugins are free and i dont get money for my work and the hours spent here.
