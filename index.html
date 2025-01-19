@@ -1,4 +1,5 @@
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnttbotX | Plugin Development</title>
@@ -174,20 +175,26 @@
             height: auto;
         }
 
+        .plugin-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .plugin-info img {
+            width: 50px;
+            height: auto;
+            border-radius: 8px;
+        }
+
         @media (max-width: 1400px) {
             .sidebar-ads {
                 display: none;
             }
         }
     </style>
-<style type="text/css"></style><style type="text/css" id="operaUserStyle"></style></head>
+</head>
 <body>
-    
-
-    
-
-    
-
     <header>
         <div class="top-banner">
         Mini-banner superior
@@ -195,55 +202,73 @@
     </header>
 
     <div class="main-content">
+        <h2>About Me</h2>
+        <p>I am a passionate plugin developer who loves creating tools to enhance Minecraft servers. With years of experience, I strive to provide high-quality plugins that are easy to use and improve the gameplay experience.</p>
+
         <h2>Featured Plugins</h2>
         <div class="demo">
-            <div>
-                <h3>ClansX</h3>
-                <p>The best clans system for your server, completely free.</p>
+            <div class="plugin-info">
+                <img src="https://rus.rus.gov" alt="ClansX Image">
+                <div>
+                    <h3>ClansX</h3>
+                    <p>ClansX is the best clans system for your server, providing an intuitive and feature-rich experience. It is completely free and offers a lot of customization to fit your server's needs.</p>
+                </div>
             </div>
             <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/clansx-the-best-clan-system-1-8-1-21.114316/">Download Plugin</a>
         </div>
         <div class="demo">
-            <div>
-                <h3>FunkyFeather</h3>
-                <p>The best way to make a Funny Keep Inventory System!</p>
+            <div class="plugin-info">
+                <img src="https://rus.rus.gov" alt="FunkyFeather Image">
+                <div>
+                    <h3>FunkyFeather</h3>
+                    <p>FunkyFeather is the best way to create a fun Keep Inventory system on your server. It adds some quirky features and is highly customizable, making your gameplay more engaging.</p>
+                </div>
             </div>
             <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/funky-feather-better-keepinv-1-8-1-21.115289/">Download Plugin</a>
         </div>
         <div class="demo">
-            <div>
-                <h3>GreetiX</h3>
-                <p>Execute actions when a player joins.</p>
+            <div class="plugin-info">
+                <img src="https://rus.rus.gov" alt="GreetiX Image">
+                <div>
+                    <h3>GreetiX</h3>
+                    <p>GreetiX is designed to execute actions when a player joins the server. You can easily customize it to trigger commands, send messages, or do anything else you need when a player connects.</p>
+                </div>
             </div>
             <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/greetix-join-event-handler-1-8-1-21.116849/">Download Plugin</a>
         </div>
         <div class="demo">
-            <div>
-                <h3>XPad</h3>
-                <p>The best way to add Jump-Pads to your Server! Used in a Lot of Servers!</p>
+            <div class="plugin-info">
+                <img src="https://rus.rus.gov" alt="XPad Image">
+                <div>
+                    <h3>XPad</h3>
+                    <p>XPad is the best way to add jump pads to your Minecraft server. It is used on many servers and offers great customization and ease of use for players and admins alike.</p>
+                </div>
             </div>
             <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/xpad-the-best-jumppads-plugin-1-8-1-21.116150/">Download Plugin</a>
         </div>
         <div class="demo">
-            <div>
-                <h3>Advanced Teleport GUI (ATG)</h3>
-                <p>No more teleport Commands, just use a GUI!</p>
-                <p>{PAID PLUGIN}</p>
+            <div class="plugin-info">
+                <img src="https://rus.rus.gov" alt="Advanced Teleport GUI Image">
+                <div>
+                    <h3>Advanced Teleport GUI (ATG)</h3>
+                    <p>ATG removes the need for teleport commands and introduces a user-friendly GUI for teleportation. It makes the teleportation process smooth and intuitive, especially for new players.</p>
+                    <p><strong>{PAID PLUGIN}</strong></p>
+                </div>
             </div>
             <a class="get-plugin-btn" href="https://www.spigotmc.org/resources/⭐%EF%B8%8F-atg-advanced-teleport-gui-1-8-1-21.119860/">Download Plugin</a>
         </div>
 
-<div class="contact-section" style="text-align:center; margin-top: 3rem; padding: 2rem; background-color: #333; border-radius: 8px; color: #fff;">
-        <h2>Contact Me</h2>
-        <p>Have any questions or want to learn more about my plugins? Feel free to reach out!</p>
-        <p><strong>Email:</strong> <a href="mailto:enttbotx@gmail.com" style="color: #ff6600;">enttbotx@gmail.com</a></p>
-        <p><strong>Discord:</strong> <a href="https://discord.com/users/enttbot" style="color: #ff6600;">@enttbot</a></p>
-    </div>
+        <div class="contact-section" style="text-align:center; margin-top: 3rem; padding: 2rem; background-color: #333; border-radius: 8px; color: #fff;">
+            <h2>Contact Me</h2>
+            <p>Have any questions or want to learn more about my plugins? Feel free to reach out!</p>
+            <p><strong>Email:</strong> <a href="mailto:enttbotx@gmail.com" style="color: #ff6600;">enttbotx@gmail.com</a></p>
+ <p><strong>Discord:</strong> <a href="https://discord.com/users/enttbot" style="color: #ff6600;">@enttbot</a></p>
+        </div>
     </div>
 
- <div class="bottom-banner">
-            Mini-banner inferior
-      </div>
+    <div class="bottom-banner">
+        Mini-banner inferior
+    </div>
 
     <button class="ko-fi-button" onclick="window.location.href='https://ko-fi.com/enttbot'">
         <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support me on Ko-fi">
