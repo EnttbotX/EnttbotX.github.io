@@ -36,7 +36,13 @@
 
         .styled-button:hover {
             background: var(--primary-dark);
+            color: var(--light);
             transform: translateY(-5px);
+        }
+
+        .styled-button:active {
+            background: var(--primary-dark);
+            transform: translateY(0);
         }
 
         * {
@@ -47,51 +53,93 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             background-color: var(--darker);
             color: var(--light);
+            min-height: 100vh;
+            position: relative;
         }
 
-        .comment-box, .comment {
-            margin-bottom: 1rem;
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .comment-box {
+            width: 100%;
             padding: 1rem;
             border-radius: 8px;
             background-color: var(--dark);
+            color: var(--light);
+            border: 1px solid var(--primary);
+            margin-bottom: 1.5rem;
         }
 
-        .comment-box input, .comment-box textarea, select {
+        .comment-box input, .comment-box select, .comment-box textarea {
             width: 100%;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
             background-color: var(--gray);
-            border: none;
-            border-radius: 4px;
             color: var(--light);
+            border: none;
         }
 
-        .comment-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
+        .comment-box button {
+            padding: 0.5rem 1rem;
             background: var(--primary);
-            border: none;
-            border-radius: 4px;
             color: var(--light);
-            padding: 0.5rem;
-            cursor: pointer;
+            border-radius: 25px;
+            font-weight: 600;
+            border: none;
             transition: var(--transition);
         }
 
-        button:hover {
+        .comment-box button:hover {
             background: var(--primary-dark);
+        }
+
+        .comments-list {
+            margin-top: 2rem;
+        }
+
+        .comment {
+            background-color: var(--gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .comment p {
+            margin: 0.5rem 0;
+        }
+
+        .comment .user-info {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>EnttbotX - Comments</h1>
-    </header>
+    </header> 
 
     <div class="button-container">
         <a href="https://enttbotx.github.io" class="styled-button">Home</a>
@@ -103,97 +151,65 @@
     <div class="main-content">
         <div class="comment-box">
             <h3>Leave a Comment</h3>
-            <input type="text" id="username" placeholder="Your Username" />
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" required />
+            <label for="plugin">Select a Plugin</label>
             <select id="plugin">
-                <option value="" disabled selected>Select Plugin</option>
+                <option value="" disabled selected>Select a Plugin</option>
                 <option value="ClansX">ClansX</option>
                 <option value="FunkyFeather">FunkyFeather</option>
                 <option value="GreetiX">GreetiX</option>
                 <option value="XPad">XPad</option>
                 <option value="ATG">Advanced Teleport GUI</option>
             </select>
-            <textarea id="opinion" placeholder="Your Comment"></textarea>
-            <button id="submit-comment">Submit</button>
+            <label for="opinion">Your Opinion</label>
+            <textarea id="opinion" rows="4" placeholder="Write your opinion here..." required></textarea>
+            <button id="submit-comment">Submit Comment</button>
         </div>
 
         <div class="comments-list" id="comments-list">
-            <!-- Comentarios -->
+            <!-- Comments will appear here -->
         </div>
     </div>
 
     <script>
-        const apiUrl = "https://github.com/EnttbotX/EnttbotX.github.io/blob/main/commentaries.txt";
-
-        let comments = [];
-
-        function loadComments() {
-            const commentsList = document.getElementById("comments-list");
-            commentsList.innerHTML = comments
-                .map((comment, index) => `
-                    <div class="comment">
-                        <p><b>${comment.username}</b> on <i>${comment.plugin}</i></p>
-                        <p>${comment.opinion}</p>
-                        <div class="comment-actions">
-                            <button onclick="editComment(${index})">Edit</button>
-                            <button onclick="deleteComment(${index})">Delete</button>
-                        </div>
-                        <div id="reply-${index}" class="replies">
-                            ${comment.replies.map(reply => `<div>${reply}</div>`).join("")}
-                        </div>
-                        <textarea placeholder="Reply..." id="reply-text-${index}"></textarea>
-                        <button onclick="addReply(${index})">Reply</button>
-                    </div>
-                `)
-                .join("");
-        }
-
-        function saveComments() {
-            fetch(apiUrl, {
-                method: "POST",
-                body: JSON.stringify(comments),
-                headers: { "Content-Type": "application/json" }
-            }).catch(err => console.error("Error saving comments:", err));
-        }
-
-        function addComment() {
+        async function submitComment() {
             const username = document.getElementById("username").value;
             const plugin = document.getElementById("plugin").value;
             const opinion = document.getElementById("opinion").value;
 
             if (username && plugin && opinion) {
-                comments.push({ username, plugin, opinion, replies: [] });
-                saveComments();
-                loadComments();
+                const comment = { username, plugin, opinion, timestamp: new Date().toISOString() };
+
+                // Enviar el comentario a GitHub Actions
+                await fetch("https://api.github.com/repos/EnttbotX/EnttbotX.github.io/dispatches", {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/vnd.github+json",
+                        "Authorization": "Bearer YOUR_GITHUB_PERSONAL_ACCESS_TOKEN", // Sustituir con tu token
+                    },
+                    body: JSON.stringify({
+                        event_type: "new_comment",
+                        client_payload: comment,
+                    }),
+                });
+
+                alert("Comentario enviado. Puede tardar unos segundos en aparecer.");
+            } else {
+                alert("Por favor, completa todos los campos.");
             }
         }
 
-        function deleteComment(index) {
-            comments.splice(index, 1);
-            saveComments();
-            loadComments();
+        async function loadComments() {
+            const response = await fetch("https://enttbotx.github.io/commentaries.txt");
+            const text = await response.text();
+
+            const commentsList = document.getElementById("comments-list");
+            commentsList.textContent = text;
         }
 
-        function editComment(index) {
-            const newOpinion = prompt("Edit your comment:", comments[index].opinion);
-            if (newOpinion) {
-                comments[index].opinion = newOpinion;
-                saveComments();
-                loadComments();
-            }
-        }
-
-        function addReply(index) {
-            const replyText = document.getElementById(`reply-text-${index}`).value;
-            if (replyText) {
-                comments[index].replies.push(replyText);
-                saveComments();
-                loadComments();
-            }
-        }
-
-        document.getElementById("submit-comment").addEventListener("click", addComment);
-
-        loadComments();
+        window.onload = loadComments;
+        document.getElementById("submit-comment").addEventListener("click", submitComment);
     </script>
 </body>
 </html>
