@@ -1,0 +1,29 @@
+name: Add Comments
+
+on:
+  repository_dispatch:
+    types: [new_comment]
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Add comment to file
+        run: |
+          echo "Usuario: ${{ github.event.client_payload.username }}" >> commentaries.txt
+          echo "Plugin: ${{ github.event.client_payload.plugin }}" >> commentaries.txt
+          echo "Comentario: ${{ github.event.client_payload.opinion }}" >> commentaries.txt
+          echo "Fecha: ${{ github.event.client_payload.timestamp }}" >> commentaries.txt
+          echo "---" >> commentaries.txt
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+          git add commentaries.txt
+          git commit -m "Add new comment from ${{ github.event.client_payload.username }}"
+          git push
