@@ -181,12 +181,11 @@
             if (username && plugin && opinion) {
                 const comment = { username, plugin, opinion, timestamp: new Date().toISOString() };
 
-                // Enviar el comentario a GitHub Actions
                 await fetch("https://api.github.com/repos/EnttbotX/EnttbotX.github.io/dispatches", {
                     method: "POST",
                     headers: {
                         "Accept": "application/vnd.github+json",
-                        "Authorization": "Bearer YOUR_GITHUB_PERSONAL_ACCESS_TOKEN", // Sustituir con tu token
+                        "Authorization": "Bearer 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",
                     },
                     body: JSON.stringify({
                         event_type: "new_comment",
@@ -194,9 +193,9 @@
                     }),
                 });
 
-                alert("Comentario enviado. Puede tardar unos segundos en aparecer.");
+                alert("Comment sended! can take some seconds to appear.");
             } else {
-                alert("Por favor, completa todos los campos.");
+                alert("Please, fill all the fields to continue.");
             }
         }
 
