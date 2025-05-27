@@ -2,116 +2,120 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Juego de Lengua</title>
   <style>
     body {
       font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
       background: #f4f4f4;
-      padding: 30px;
     }
     .container {
+      max-width: 500px;
+      margin: auto;
       background: white;
       padding: 20px;
-      border-radius: 10px;
-      max-width: 600px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
     .question {
-      font-size: 1.3em;
+      font-size: 1.2em;
       margin-bottom: 20px;
     }
     .options button {
       display: block;
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 1em;
       width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      background-color: #e0e0e0;
       cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options button:hover {
+      background-color: #d0d0d0;
     }
     .feedback {
+      margin-top: 15px;
       font-weight: bold;
+      text-align: center;
+    }
+    #loadMore {
       margin-top: 20px;
+      background-color: #007bff;
+      color: white;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="game">
-      <div id="question" class="question"></div>
-      <div class="options" id="options"></div>
-      <div id="feedback" class="feedback"></div>
-    </div>
+    <div id="question" class="question">Cargando pregunta...</div>
+    <div class="options" id="options"></div>
+    <div id="feedback" class="feedback"></div>
+    <button id="loadMore" onclick="loadQuestion()">Otra pregunta</button>
   </div>
 
   <script>
-    const questions = [
-      {
-        sentence: "Ayer ___ mucho calor.",
-        correct: "hizo",
-        options: ["hiso", "hizo", "izo"]
-      },
-      {
-        sentence: "Voy a ___ un pastel.",
-        correct: "hacer",
-        options: ["aser", "hacer", "acer"]
-      },
-      {
-        sentence: "¿Dónde está tu ___?",
-        correct: "mamá",
-        options: ["mama", "mamá", "mamáh"]
-      },
-      {
-        sentence: "El perro está ___ la cama.",
-        correct: "debajo",
-        options: ["debajo", "de bajo", "debajoh"]
-      },
-      {
-        sentence: "Ella ___ muy bonita hoy.",
-        correct: "está",
-        options: ["esta", "está", "estah"]
-      },
-      {
-        sentence: "Me gusta el ___ de chocolate.",
-        correct: "pastel",
-        options: ["pastel", "paster", "pastél"]
-      },
-      {
-        sentence: "No sé ___ vendrá mañana.",
-        correct: "si",
-        options: ["sí", "si", "sih"]
-      },
-      {
-        sentence: "Él siempre ___ con respeto.",
-        correct: "habla",
-        options: ["abla", "habla", "hablá"]
-      },
-      {
-        sentence: "Mi casa está ___ de la escuela.",
-        correct: "cerca",
-        options: ["cerca", "serca", "cerka"]
-      },
-      {
-        sentence: "¿___ comido ya?",
-        correct: "Has",
-        options: ["Haz", "Has", "As"]
+    const API_KEY = "AIzaSyD85W7WtS_sxpTESiX-mlY7TGU402EizPw";
+    const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+
+    let current = null;
+
+    async function fetchQuestion() {
+      const prompt = `Generá una sola pregunta de ortografía en formato JSON:
+{
+  "sentence": "frase con ___",
+  "correct": "respuesta correcta",
+  "options": ["opción1", "opción2", "correcta"]
+}
+Las opciones deben tener errores ortográficos comunes (tildes, confusiones, etc.).`;
+      
+      const response = await fetch(MODEL_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{ text: prompt }]
+          }]
+        })
+      });
+      const data = await response.json();
+      const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      try {
+        const json = JSON.parse(raw);
+        return json;
+      } catch (e) {
+        console.error("Error al parsear JSON:", e, raw);
+        return null;
       }
-    ];
+    }
 
-    let current = 0;
+    async function loadQuestion() {
+      document.getElementById("question").innerText = "Generando...";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("feedback").innerText = "";
 
-    function showQuestion() {
-      const q = questions[current];
+      const q = await fetchQuestion();
+      if (!q) {
+        document.getElementById("question").innerText = "Error al generar pregunta.";
+        return;
+      }
+
+      current = q;
       document.getElementById("question").innerText = q.sentence.replace("___", "_____");
+      const shuffled = [...q.options].sort(() => Math.random() - 0.5);
       const opts = document.getElementById("options");
-      const feedback = document.getElementById("feedback");
-      feedback.innerText = "";
-      opts.innerHTML = "";
-      q.options.sort(() => Math.random() - 0.5);
-      q.options.forEach(opt => {
+
+      shuffled.forEach(opt => {
         const btn = document.createElement("button");
         btn.innerText = opt;
         btn.onclick = () => {
+          const feedback = document.getElementById("feedback");
           if (opt === q.correct) {
             feedback.innerText = "¡Correcto!";
             feedback.style.color = "green";
@@ -119,16 +123,12 @@
             feedback.innerText = "Incorrecto. Era: " + q.correct;
             feedback.style.color = "red";
           }
-          setTimeout(() => {
-            current = (current + 1) % questions.length;
-            showQuestion();
-          }, 1500);
         };
         opts.appendChild(btn);
       });
     }
 
-    showQuestion();
+    loadQuestion();
   </script>
 </body>
 </html>
