@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de Lengua</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+    .options button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1em;
+      width: 100%;
+      cursor: pointer;
+    }
+    .feedback {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="game">
+      <div id="question" class="question"></div>
+      <div class="options" id="options"></div>
+      <div id="feedback" class="feedback"></div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        sentence: "Ayer ___ mucho calor.",
+        correct: "hizo",
+        options: ["hiso", "hizo", "izo"]
+      },
+      {
+        sentence: "Voy a ___ un pastel.",
+        correct: "hacer",
+        options: ["aser", "hacer", "acer"]
+      },
+      {
+        sentence: "¿Dónde está tu ___?",
+        correct: "mamá",
+        options: ["mama", "mamá", "mamáh"]
+      },
+      {
+        sentence: "El perro está ___ la cama.",
+        correct: "debajo",
+        options: ["debajo", "de bajo", "debajoh"]
+      },
+      {
+        sentence: "Ella ___ muy bonita hoy.",
+        correct: "está",
+        options: ["esta", "está", "estah"]
+      },
+      {
+        sentence: "Me gusta el ___ de chocolate.",
+        correct: "pastel",
+        options: ["pastel", "paster", "pastél"]
+      },
+      {
+        sentence: "No sé ___ vendrá mañana.",
+        correct: "si",
+        options: ["sí", "si", "sih"]
+      },
+      {
+        sentence: "Él siempre ___ con respeto.",
+        correct: "habla",
+        options: ["abla", "habla", "hablá"]
+      },
+      {
+        sentence: "Mi casa está ___ de la escuela.",
+        correct: "cerca",
+        options: ["cerca", "serca", "cerka"]
+      },
+      {
+        sentence: "¿___ comido ya?",
+        correct: "Has",
+        options: ["Haz", "Has", "As"]
+      }
+    ];
+
+    let current = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById("question").innerText = q.sentence.replace("___", "_____");
+      const opts = document.getElementById("options");
+      const feedback = document.getElementById("feedback");
+      feedback.innerText = "";
+      opts.innerHTML = "";
+      q.options.sort(() => Math.random() - 0.5);
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => {
+          if (opt === q.correct) {
+            feedback.innerText = "¡Correcto!";
+            feedback.style.color = "green";
+          } else {
+            feedback.innerText = "Incorrecto. Era: " + q.correct;
+            feedback.style.color = "red";
+          }
+          setTimeout(() => {
+            current = (current + 1) % questions.length;
+            showQuestion();
+          }, 1500);
+        };
+        opts.appendChild(btn);
+      });
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
