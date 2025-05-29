@@ -54,19 +54,18 @@ let currentQuestionIndex = 0;
 let score = 0;
 let selectedAnswer = null;
 let questionsOrder = [];
-const totalQuestions = 50;
+let nextButton = document.getElementById('next-btn');
+const totalQuestions = 10;
 
 const questionElement = document.getElementById('question');
 const optionsContainer = document.getElementById('options');
 const feedbackElement = document.getElementById('feedback');
-const nextButton = document.getElementById('next-btn');
 const scoreElement = document.getElementById('score');
 const questionCountElement = document.getElementById('question-count');
 const progressBar = document.getElementById('progress-bar');
 
 function getRandomQuestions() {
-  const shuffled = [...questions].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, totalQuestions);
+  return [...questions].sort(() => Math.random() - 0.5).slice(0, totalQuestions);
 }
 
 function initGame() {
@@ -74,6 +73,15 @@ function initGame() {
   currentQuestionIndex = 0;
   selectedAnswer = null;
   questionsOrder = getRandomQuestions();
+  questionElement.textContent = 'Cargando pregunta...';
+  optionsContainer.innerHTML = '';
+  feedbackElement.textContent = '';
+  feedbackElement.className = 'feedback';
+  progressBar.style.width = '0%';
+  nextButton.replaceWith(nextButton.cloneNode(true));
+  nextButton = document.getElementById('next-btn');
+  nextButton.disabled = true;
+  nextButton.textContent = 'Siguiente';
   updateScore();
   showQuestion();
 }
@@ -86,7 +94,7 @@ function showQuestion() {
     const button = document.createElement('button');
     button.classList.add('option-btn');
     button.textContent = option;
-    button.addEventListener('click', () => selectAnswer(option, button));
+    button.onclick = () => selectAnswer(option, button);
     optionsContainer.appendChild(button);
   });
   feedbackElement.textContent = '';
