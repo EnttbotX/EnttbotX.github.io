@@ -1,267 +1,60 @@
 const questions = [
-  {
-    sentence: "El niño ___ su tarea cuidadosamente.",
-    correct: "hizo",
-    options: ["hizo", "izo", "hiso"]
-  },
-  {
-    sentence: "Vamos a ___ el examen mañana.",
-    correct: "hacer",
-    options: ["hacer", "aser", "haser"]
-  },
-  {
-    sentence: "El cielo está ___ nublado hoy.",
-    correct: "muy",
-    options: ["muy", "mui", "muí"]
-  },
-  {
-    sentence: "___ importante estudiar para el examen.",
-    correct: "Es",
-    options: ["Es", "Ez", "Hez"]
-  },
-  {
-    sentence: "La ___ del libro es muy interesante.",
-    correct: "historia",
-    options: ["historia", "istoría", "histeria"]
-  },
-  {
-    sentence: "Me gusta el ___ de manzana.",
-    correct: "jugo",
-    options: ["jugo", "hugo", "juego"]
-  },
-  {
-    sentence: "El ___ de la montaña es impresionante.",
-    correct: "vista",
-    options: ["vista", "bista", "vihta"]
-  },
-  {
-    sentence: "___ a la fiesta el sábado.",
-    correct: "Voy",
-    options: ["Voy", "Boi", "Boy"]
-  },
-  {
-    sentence: "Necesito ___ agua por favor.",
-    correct: "un vaso de",
-    options: ["un vaso de", "un baso de", "un vaso e"]
-  },
-  {
-    sentence: "Ella ___ muy bien el piano.",
-    correct: "toca",
-    options: ["toca", "toka", "tocá"]
-  },
-  {
-    sentence: "El ___ de fútbol fue emocionante.",
-    correct: "partido",
-    options: ["partido", "partío", "partdo"]
-  },
-  {
-    sentence: "___ el libro que me recomendaste.",
-    correct: "He leído",
-    options: ["He leído", "E leído", "He leido"]
-  },
-  {
-    sentence: "La ___ del museo es gratis los domingos.",
-    correct: "entrada",
-    options: ["entrada", "entra", "entradá"]
-  },
-  {
-    sentence: "___ frío hoy, necesito abrigo.",
-    correct: "Hace",
-    options: ["Hace", "Ase", "Haze"]
-  },
-  {
-    sentence: "El ___ del coche es muy cómodo.",
-    correct: "asiento",
-    options: ["asiento", "aciento", "asiénto"]
-  },
-  {
-    sentence: "No me ___ lo que dijiste.",
-    correct: "creo",
-    options: ["creo", "créo", "crio"]
-  },
-  {
-    sentence: "¿___ vas a venir a la reunión?",
-    correct: "Cuándo",
-    options: ["Cuándo", "Cuando", "Cúando"]
-  },
-  {
-    sentence: "Ellos ya ___ terminado el trabajo.",
-    correct: "han",
-    options: ["han", "an", "ám"]
-  },
-  {
-    sentence: "Siempre ___ con respeto a los mayores.",
-    correct: "habla",
-    options: ["habla", "abla", "hablà"]
-  },
-  {
-    sentence: "La leche está ___, no la tomes.",
-    correct: "agria",
-    options: ["agria", "agrea", "agría"]
-  },
-  {
-    sentence: "Voy a ___ el regalo en papel rojo.",
-    correct: "envolver",
-    options: ["envolver", "envolber", "enbolver"]
-  },
-  {
-    sentence: "El tren llega a las ___.",
-    correct: "ocho",
-    options: ["ocho", "hocho", "ochoh"]
-  },
-  {
-    sentence: "Ese ___ es muy peligroso.",
-    correct: "animal",
-    options: ["animal", "anímal", "aninal"]
-  },
-  {
-    sentence: "___ comida mexicana es deliciosa.",
-    correct: "La",
-    options: ["La", "Lá", "El"]
-  },
-  {
-    sentence: "La casa tiene un gran ___.",
-    correct: "jardín",
-    options: ["jardín", "yardín", "jardin"]
-  },
-  {
-    sentence: "El profesor nos dejó mucha ___.",
-    correct: "tarea",
-    options: ["tarea", "tária", "taria"]
-  },
-  {
-    sentence: "Mi hermana ___ en el hospital.",
-    correct: "trabaja",
-    options: ["trabaja", "trabaja", "travaja"]
-  },
-  {
-    sentence: "No ___ lo que dijo el jefe.",
-    correct: "entendí",
-    options: ["entendí", "entendi", "entendié"]
-  },
-  {
-    sentence: "El perro está muy ___.",
-    correct: "feliz",
-    options: ["feliz", "felíz", "felis"]
-  },
-  {
-    sentence: "El examen fue ___ difícil.",
-    correct: "bastante",
-    options: ["bastante", "bastanté", "vastante"]
-  },
-  {
-    sentence: "___ a buscarte en media hora.",
-    correct: "Voy",
-    options: ["Voy", "Boy", "Boi"]
-  },
-  {
-    sentence: "¿Sabes ___ está el baño?",
-    correct: "dónde",
-    options: ["dónde", "donde", "don de"]
-  },
-  {
-    sentence: "El agua del río está muy ___.",
-    correct: "clara",
-    options: ["clara", "clára", "clarra"]
-  },
-  {
-    sentence: "Vamos a la ___ después de clase.",
-    correct: "biblioteca",
-    options: ["biblioteca", "bivlioteca", "viblioteca"]
-  },
-  {
-    sentence: "___ demasiado tarde para salir.",
-    correct: "Es",
-    options: ["Es", "Ez", "Hez"]
-  },
-  {
-    sentence: "El ___ del reloj es muy preciso.",
-    correct: "mecanismo",
-    options: ["mecanismo", "mecanizmo", "mecanísmo"]
-  },
-  {
-    sentence: "___ cuidado con ese escalón.",
-    correct: "Ten",
-    options: ["Ten", "Tén", "Then"]
-  },
-  {
-    sentence: "El ___ del problema es complejo.",
-    correct: "origen",
-    options: ["origen", "horigen", "origén"]
-  },
-  {
-    sentence: "___ una película interesante anoche.",
-    correct: "Vi",
-    options: ["Vi", "Bí", "Ví"]
-  },
-  {
-    sentence: "La ___ del árbol es muy ancha.",
-    correct: "copa",
-    options: ["copa", "kopa", "cópa"]
-  },
-  {
-    sentence: "___ a casa temprano hoy.",
-    correct: "Voy",
-    options: ["Voy", "Boi", "Boy"]
-  },
-  {
-    sentence: "El ___ del avión fue suave.",
-    correct: "aterrizaje",
-    options: ["aterrizaje", "aterrisaje", "aterrizage"]
-  },
-  {
-    sentence: "___ importante ser puntual.",
-    correct: "Es",
-    options: ["Es", "Ez", "Hez"]
-  },
-  {
-    sentence: "La ___ del vestido es azul.",
-    correct: "tela",
-    options: ["tela", "tella", "téla"]
-  },
-  {
-    sentence: "___ mucho calor en verano.",
-    correct: "Hace",
-    options: ["Hace", "Ase", "Haze"]
-  },
-  {
-    sentence: "El ___ del equipo fue excelente.",
-    correct: "rendimiento",
-    options: ["rendimiento", "rendimientoh", "rendimíento"]
-  },
-  {
-    sentence: "___ el periódico todas las mañanas.",
-    correct: "Leo",
-    options: ["Leo", "Leó", "Lio"]
-  },
-  {
-    sentence: "La ___ del edificio es imponente.",
-    correct: "fachada",
-    options: ["fachada", "fachata", "facháda"]
-  },
-  {
-    sentence: "___ a la playa el próximo fin de semana.",
-    correct: "Iré",
-    options: ["Iré", "Hiré", "Irè"]
-  },
-  {
-    sentence: "El ___ del concierto fue increíble.",
-    correct: "éxito",
-    options: ["éxito", "exito", "écsito"]
-  },
-  {
-    sentence: "___ las instrucciones cuidadosamente.",
-    correct: "Sigue",
-    options: ["Sigue", "Cigue", "Sígue"]
-  }
+  { sentence: "El niño ___ su tarea cuidadosamente.", correct: "hizo", options: ["hizo", "izo", "hiso"] },
+  { sentence: "Vamos a ___ el examen mañana.", correct: "hacer", options: ["hacer", "aser", "haser"] },
+  { sentence: "El cielo está ___ nublado hoy.", correct: "muy", options: ["muy", "mui", "muí"] },
+  { sentence: "___ importante estudiar para el examen.", correct: "Es", options: ["Es", "Ez", "Hez"] },
+  { sentence: "La ___ del libro es muy interesante.", correct: "historia", options: ["historia", "istoría", "histeria"] },
+  { sentence: "Me gusta el ___ de manzana.", correct: "jugo", options: ["jugo", "hugo", "juego"] },
+  { sentence: "La ___ de la montaña es impresionante.", correct: "vista", options: ["vista", "bista", "vihta"] },
+  { sentence: "___ a la fiesta el sábado.", correct: "Voy", options: ["Voy", "Boi", "Boy"] },
+  { sentence: "Necesito ___ agua por favor.", correct: "un vaso de", options: ["un vaso de", "un baso de", "un vaso e"] },
+  { sentence: "Ella ___ muy bien el piano.", correct: "toca", options: ["toca", "toka", "tocá"] },
+  { sentence: "El ___ de fútbol fue emocionante.", correct: "partido", options: ["partido", "partío", "partdo"] },
+  { sentence: "___ el libro que me recomendaste.", correct: "He leído", options: ["He leído", "E leído", "He leido"] },
+  { sentence: "La ___ del museo es gratis los domingos.", correct: "entrada", options: ["entrada", "entra", "entradá"] },
+  { sentence: "___ frío hoy, necesito abrigo.", correct: "Hace", options: ["Hace", "Ase", "Haze"] },
+  { sentence: "El ___ del coche es muy cómodo.", correct: "asiento", options: ["asiento", "aciento", "asiénto"] },
+  { sentence: "No me ___ lo que dijiste.", correct: "creo", options: ["creo", "créo", "crio"] },
+  { sentence: "¿___ vas a venir a la reunión?", correct: "Cuándo", options: ["Cuándo", "Cuando", "Cúando"] },
+  { sentence: "Ellos ya ___ terminado el trabajo.", correct: "han", options: ["han", "an", "ám"] },
+  { sentence: "Siempre ___ con respeto a los mayores.", correct: "habla", options: ["habla", "abla", "hablà"] },
+  { sentence: "La leche está ___, no la tomes.", correct: "agria", options: ["agria", "agrea", "agría"] },
+  { sentence: "___ de casa temprano cada día.", correct: "Salgo", options: ["Salgo", "Saljo", "Zalgo"] },
+  { sentence: "No ___ que eso iba a pasar.", correct: "sabía", options: ["sabía", "savía", "sabia"] },
+  { sentence: "El perro ___ toda la noche.", correct: "ladró", options: ["ladró", "ladro", "ladru"] },
+  { sentence: "¿___ viste mis llaves?", correct: "Has", options: ["Has", "Haz", "As"] },
+  { sentence: "Juan ___ una gran presentación.", correct: "hizo", options: ["hizo", "hico", "iso"] },
+  { sentence: "___ lo que te dije.", correct: "Recuerda", options: ["Recuerda", "Recuerdas", "Recuérda"] },
+  { sentence: "Hoy vamos a ___ un nuevo tema.", correct: "aprender", options: ["aprender", "aprendar", "aprendir"] },
+  { sentence: "María ___ una carta a su amiga.", correct: "escribió", options: ["escribió", "escribio", "escrivió"] },
+  { sentence: "Este problema es más ___ de lo que parece.", correct: "difícil", options: ["difícil", "dificil", "difísil"] },
+  { sentence: "El tren llega a las ocho ___.", correct: "en punto", options: ["en punto", "empunto", "enpunto"] },
+  { sentence: "Nos vemos ___ de la escuela.", correct: "fuera", options: ["fuera", "fuerá", "fura"] },
+  { sentence: "Paco ___ un sándwich.", correct: "comió", options: ["comió", "comio", "comío"] },
+  { sentence: "La película fue muy ___", correct: "aburrida", options: ["aburrida", "aburridá", "aburida"] },
+  { sentence: "¿___ ayudás con esto?", correct: "Me", options: ["Me", "Mhe", "Mé"] },
+  { sentence: "El examen fue ___ difícil.", correct: "bastante", options: ["bastante", "vastante", "bastanté"] },
+  { sentence: "Mañana vamos al ___", correct: "cine", options: ["cine", "sine", "cene"] },
+  { sentence: "Ese auto es muy ___", correct: "rápido", options: ["rápido", "rapido", "rapído"] },
+  { sentence: "Se me ___ el celular.", correct: "cayó", options: ["cayó", "calló", "caió"] },
+  { sentence: "¿A qué hora ___ a casa?", correct: "vuelves", options: ["vuelves", "buélves", "vuelvez"] },
+  { sentence: "No ___ nada de eso.", correct: "sabía", options: ["sabía", "sabia", "zavía"] },
+  { sentence: "___ que estudiar más.", correct: "Tienes", options: ["Tienes", "Tíenes", "Tienes"] },
+  { sentence: "No me gusta esa ___", correct: "respuesta", options: ["respuesta", "respueta", "respuestas"] },
+  { sentence: "Hoy es un día muy ___", correct: "especial", options: ["especial", "espesial", "espacial"] },
+  { sentence: "El gato se subió al ___", correct: "árbol", options: ["árbol", "arbol", "arvól"] },
+  { sentence: "¿___ estás mirando?", correct: "Qué", options: ["Qué", "Que", "Ké"] },
+  { sentence: "El jefe me ___ un aumento.", correct: "dio", options: ["dio", "deó", "dió"] },
+  { sentence: "Mis abuelos me ___ regalos.", correct: "trajeron", options: ["trajeron", "trageron", "trajierón"] },
+  { sentence: "Ese tema ya lo ___.", correct: "estudiamos", options: ["estudiamos", "estudiámos", "estudíamos"] },
+  { sentence: "No me ___ la canción.", correct: "gusta", options: ["gusta", "gústa", "gúzta"] }
 ];
 
-// Resto del código permanece igual...
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedAnswer = null;
 let questionsOrder = [];
-const totalQuestions = 10;
+const totalQuestions = 50;
 
 const questionElement = document.getElementById('question');
 const optionsContainer = document.getElementById('options');
@@ -271,19 +64,16 @@ const scoreElement = document.getElementById('score');
 const questionCountElement = document.getElementById('question-count');
 const progressBar = document.getElementById('progress-bar');
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+function getRandomQuestions() {
+  const shuffled = [...questions].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, totalQuestions);
 }
 
 function initGame() {
   score = 0;
   currentQuestionIndex = 0;
   selectedAnswer = null;
-  questionsOrder = shuffleArray([...questions]).slice(0, totalQuestions);
+  questionsOrder = getRandomQuestions();
   updateScore();
   showQuestion();
 }
@@ -291,31 +81,27 @@ function initGame() {
 function showQuestion() {
   const question = questionsOrder[currentQuestionIndex];
   questionElement.textContent = question.sentence.replace("___", "_____");
-  const shuffledOptions = shuffleArray([...question.options]);
   optionsContainer.innerHTML = '';
-  
-  shuffledOptions.forEach(option => {
+  question.options.forEach(option => {
     const button = document.createElement('button');
     button.classList.add('option-btn');
     button.textContent = option;
     button.addEventListener('click', () => selectAnswer(option, button));
     optionsContainer.appendChild(button);
   });
-  
   feedbackElement.textContent = '';
   feedbackElement.className = 'feedback';
   nextButton.disabled = true;
   nextButton.textContent = 'Siguiente';
+  nextButton.onclick = nextQuestion;
   questionCountElement.textContent = `Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`;
   progressBar.style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
 }
 
 function selectAnswer(selectedOption, button) {
   if (selectedAnswer !== null) return;
-  
   selectedAnswer = selectedOption;
   const question = questionsOrder[currentQuestionIndex];
-  
   const allButtons = document.querySelectorAll('.option-btn');
   allButtons.forEach(btn => {
     btn.disabled = true;
@@ -323,7 +109,6 @@ function selectAnswer(selectedOption, button) {
       btn.classList.add('correct');
     }
   });
-  
   if (selectedOption !== question.correct) {
     button.classList.add('incorrect');
     feedbackElement.textContent = `Incorrecto. La respuesta correcta es: "${question.correct}"`;
@@ -334,14 +119,12 @@ function selectAnswer(selectedOption, button) {
     feedbackElement.textContent = '¡Correcto!';
     feedbackElement.classList.add('correct');
   }
-  
   nextButton.disabled = false;
 }
 
 function nextQuestion() {
   currentQuestionIndex++;
   selectedAnswer = null;
-  
   if (currentQuestionIndex < questionsOrder.length) {
     showQuestion();
   } else {
@@ -362,13 +145,5 @@ function endGame() {
   nextButton.onclick = initGame;
   progressBar.style.width = '100%';
 }
-
-nextButton.addEventListener('click', () => {
-  if (nextButton.textContent === 'Jugar de nuevo') {
-    initGame();
-  } else {
-    nextQuestion();
-  }
-});
 
 window.addEventListener('load', initGame);
