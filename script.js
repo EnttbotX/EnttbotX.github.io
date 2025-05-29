@@ -155,7 +155,7 @@ const questions = [
     options: ["Voy", "Boy", "Boi"]
   },
   {
-    sentence: "¿Sabés ___ está el baño?",
+    sentence: "¿Sabes ___ está el baño?",
     correct: "dónde",
     options: ["dónde", "donde", "don de"]
   },
@@ -168,17 +168,101 @@ const questions = [
     sentence: "Vamos a la ___ después de clase.",
     correct: "biblioteca",
     options: ["biblioteca", "bivlioteca", "viblioteca"]
+  },
+  {
+    sentence: "___ demasiado tarde para salir.",
+    correct: "Es",
+    options: ["Es", "Ez", "Hez"]
+  },
+  {
+    sentence: "El ___ del reloj es muy preciso.",
+    correct: "mecanismo",
+    options: ["mecanismo", "mecanizmo", "mecanísmo"]
+  },
+  {
+    sentence: "___ cuidado con ese escalón.",
+    correct: "Ten",
+    options: ["Ten", "Tén", "Then"]
+  },
+  {
+    sentence: "El ___ del problema es complejo.",
+    correct: "origen",
+    options: ["origen", "horigen", "origén"]
+  },
+  {
+    sentence: "___ una película interesante anoche.",
+    correct: "Vi",
+    options: ["Vi", "Bí", "Ví"]
+  },
+  {
+    sentence: "La ___ del árbol es muy ancha.",
+    correct: "copa",
+    options: ["copa", "kopa", "cópa"]
+  },
+  {
+    sentence: "___ a casa temprano hoy.",
+    correct: "Voy",
+    options: ["Voy", "Boi", "Boy"]
+  },
+  {
+    sentence: "El ___ del avión fue suave.",
+    correct: "aterrizaje",
+    options: ["aterrizaje", "aterrisaje", "aterrizage"]
+  },
+  {
+    sentence: "___ importante ser puntual.",
+    correct: "Es",
+    options: ["Es", "Ez", "Hez"]
+  },
+  {
+    sentence: "La ___ del vestido es azul.",
+    correct: "tela",
+    options: ["tela", "tella", "téla"]
+  },
+  {
+    sentence: "___ mucho calor en verano.",
+    correct: "Hace",
+    options: ["Hace", "Ase", "Haze"]
+  },
+  {
+    sentence: "El ___ del equipo fue excelente.",
+    correct: "rendimiento",
+    options: ["rendimiento", "rendimientoh", "rendimíento"]
+  },
+  {
+    sentence: "___ el periódico todas las mañanas.",
+    correct: "Leo",
+    options: ["Leo", "Leó", "Lio"]
+  },
+  {
+    sentence: "La ___ del edificio es imponente.",
+    correct: "fachada",
+    options: ["fachada", "fachata", "facháda"]
+  },
+  {
+    sentence: "___ a la playa el próximo fin de semana.",
+    correct: "Iré",
+    options: ["Iré", "Hiré", "Irè"]
+  },
+  {
+    sentence: "El ___ del concierto fue increíble.",
+    correct: "éxito",
+    options: ["éxito", "exito", "écsito"]
+  },
+  {
+    sentence: "___ las instrucciones cuidadosamente.",
+    correct: "Sigue",
+    options: ["Sigue", "Cigue", "Sígue"]
   }
 ];
 
-// Variables del juego
+// Resto del código permanece igual...
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedAnswer = null;
 let questionsOrder = [];
 const totalQuestions = 10;
 
-// Elementos del DOM
 const questionElement = document.getElementById('question');
 const optionsContainer = document.getElementById('options');
 const feedbackElement = document.getElementById('feedback');
@@ -187,7 +271,6 @@ const scoreElement = document.getElementById('score');
 const questionCountElement = document.getElementById('question-count');
 const progressBar = document.getElementById('progress-bar');
 
-// Función para mezclar array (Fisher-Yates)
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -196,27 +279,19 @@ function shuffleArray(array) {
   return array;
 }
 
-// Inicializar el juego
 function initGame() {
   score = 0;
   currentQuestionIndex = 0;
   selectedAnswer = null;
-  
-  // Mezclar preguntas y seleccionar las primeras 10 sin repetición
   questionsOrder = shuffleArray([...questions]).slice(0, totalQuestions);
-  
   updateScore();
   showQuestion();
 }
 
-// Mostrar pregunta actual
 function showQuestion() {
   const question = questionsOrder[currentQuestionIndex];
   questionElement.textContent = question.sentence.replace("___", "_____");
-  
-  // Mezclar opciones
   const shuffledOptions = shuffleArray([...question.options]);
-  
   optionsContainer.innerHTML = '';
   
   shuffledOptions.forEach(option => {
@@ -231,12 +306,10 @@ function showQuestion() {
   feedbackElement.className = 'feedback';
   nextButton.disabled = true;
   nextButton.textContent = 'Siguiente';
-  
   questionCountElement.textContent = `Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`;
   progressBar.style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
 }
 
-// Seleccionar respuesta
 function selectAnswer(selectedOption, button) {
   if (selectedAnswer !== null) return;
   
@@ -265,7 +338,6 @@ function selectAnswer(selectedOption, button) {
   nextButton.disabled = false;
 }
 
-// Siguiente pregunta
 function nextQuestion() {
   currentQuestionIndex++;
   selectedAnswer = null;
@@ -277,12 +349,10 @@ function nextQuestion() {
   }
 }
 
-// Actualizar puntuación
 function updateScore() {
   scoreElement.textContent = `Puntuación: ${score}`;
 }
 
-// Finalizar juego
 function endGame() {
   questionElement.textContent = `¡Juego completado! Puntuación final: ${score}/${totalQuestions}`;
   optionsContainer.innerHTML = '';
@@ -293,7 +363,6 @@ function endGame() {
   progressBar.style.width = '100%';
 }
 
-// Event listeners
 nextButton.addEventListener('click', () => {
   if (nextButton.textContent === 'Jugar de nuevo') {
     initGame();
@@ -302,5 +371,4 @@ nextButton.addEventListener('click', () => {
   }
 });
 
-// Iniciar el juego al cargar la página
 window.addEventListener('load', initGame);
