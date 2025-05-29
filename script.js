@@ -150,7 +150,7 @@ function endGame() {
   feedbackElement.textContent = '';
   nextButton.textContent = 'Jugar de nuevo';
   nextButton.disabled = false;
-  nextButton.onclick = initGame;
+  nextButton.onclick = () => location.reload();
   progressBar.style.width = '100%';
 }
 
