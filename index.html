@@ -2,265 +2,34 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Juego de Lengua</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f4f4f4;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .question {
-      font-size: 1.2em;
-      margin-bottom: 20px;
-      min-height: 60px;
-    }
-    .options button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      background-color: #e0e0e0;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .options button:hover {
-      background-color: #d0d0d0;
-    }
-    .options button.correct {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .options button.incorrect {
-      background-color: #f44336;
-      color: white;
-    }
-    .feedback {
-      margin-top: 15px;
-      font-weight: bold;
-      text-align: center;
-      min-height: 24px;
-    }
-    #loadMore {
-      display: block;
-      width: 100%;
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    #loadMore:hover {
-      background-color: #0069d9;
-    }
-    #loadMore:disabled {
-      background-color: #cccccc;
-      cursor: not-allowed;
-    }
-    .loading {
-      opacity: 0.6;
-      position: relative;
-    }
-    .loading:after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #3498db;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Ortografía</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <div id="question" class="question">Cargando pregunta...</div>
-    <div class="options" id="options"></div>
-    <div id="feedback" class="feedback"></div>
-    <button id="loadMore" onclick="loadQuestion()">Otra pregunta</button>
+    <h1>Juego de Ortografía</h1>
+    
+    <div class="score-container">
+      <span id="score">Puntuación: 0</span>
+      <span id="question-count">Pregunta 1 de 10</span>
+    </div>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div class="question-container" id="question">
+      Cargando pregunta...
+    </div>
+    
+    <div class="options-container" id="options"></div>
+    
+    <div class="feedback" id="feedback"></div>
+    
+    <button class="next-btn" id="next-btn" disabled>Siguiente</button>
   </div>
 
-  <script>
-    // Configuración de la API
-    const API_KEY = "TU_API_KEY_AQUI"; // Reemplaza con tu API key válida
-    const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
-    
-    // Preguntas de respaldo en caso de que falle la API
-    const backupQuestions = [
-      {
-        "sentence": "El niño ___ su tarea cuidadosamente.",
-        "correct": "hizo",
-        "options": ["hizo", "izo", "hiso"]
-      },
-      {
-        "sentence": "Vamos a ___ el examen mañana.",
-        "correct": "hacer",
-        "options": ["hacer", "aser", "haser"]
-      },
-      {
-        "sentence": "El cielo está ___ nublado hoy.",
-        "correct": "muy",
-        "options": ["muy", "mui", "muí"]
-      }
-    ];
-
-    let currentQuestion = null;
-    let isLoading = false;
-
-    async function fetchQuestion() {
-      try {
-        const prompt = `Genera exactamente una pregunta de ortografía en español en formato JSON válido sin comentarios ni explicaciones. El formato debe ser:
-{
-  "sentence": "Una oración con un espacio en blanco marcado con ___ donde va la palabra",
-  "correct": "la opción correcta",
-  "options": ["opción incorrecta1", "opción incorrecta2", "la opción correcta"]
-}
-Las opciones deben incluir errores ortográficos comunes (tildes, confusiones b/v, h, etc.). Solo responde con el JSON.`;
-        
-        const response = await fetch(MODEL_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{ text: prompt }]
-            }]
-          })
-        });
-        
-        if (!response.ok) {
-          throw new Error(`Error en la API: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        
-        // Limpiar la respuesta para extraer solo el JSON
-        const jsonStart = rawText.indexOf('{');
-        const jsonEnd = rawText.lastIndexOf('}') + 1;
-        const jsonString = rawText.slice(jsonStart, jsonEnd);
-        
-        const question = JSON.parse(jsonString);
-        
-        // Validar la estructura de la pregunta
-        if (!question.sentence || !question.correct || !question.options || 
-            !question.options.includes(question.correct) || question.options.length < 2) {
-          throw new Error("Estructura de pregunta inválida");
-        }
-        
-        return question;
-        
-      } catch (error) {
-        console.error("Error al obtener pregunta:", error);
-        // Usar una pregunta de respaldo aleatoria
-        return backupQuestions[Math.floor(Math.random() * backupQuestions.length)];
-      }
-    }
-
-    function disableButtons() {
-      const buttons = document.querySelectorAll('.options button');
-      buttons.forEach(button => {
-        button.disabled = true;
-      });
-      document.getElementById('loadMore').disabled = true;
-    }
-
-    function enableButtons() {
-      const buttons = document.querySelectorAll('.options button');
-      buttons.forEach(button => {
-        button.disabled = false;
-      });
-      document.getElementById('loadMore').disabled = false;
-    }
-
-    async function loadQuestion() {
-      if (isLoading) return;
-      
-      isLoading = true;
-      document.getElementById("question").innerText = "Generando pregunta...";
-      document.getElementById("options").innerHTML = "";
-      document.getElementById("feedback").innerText = "";
-      document.getElementById('loadMore').disabled = true;
-      document.getElementById('container').classList.add('loading');
-      
-      try {
-        const question = await fetchQuestion();
-        currentQuestion = question;
-        
-        document.getElementById("question").innerText = question.sentence.replace("___", "_____");
-        const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
-        const optionsContainer = document.getElementById("options");
-        
-        shuffledOptions.forEach(option => {
-          const button = document.createElement("button");
-          button.innerText = option;
-          button.onclick = () => checkAnswer(option, button);
-          optionsContainer.appendChild(button);
-        });
-        
-      } catch (error) {
-        console.error("Error:", error);
-        document.getElementById("question").innerText = "Error al cargar la pregunta. Intenta de nuevo.";
-      } finally {
-        isLoading = false;
-        document.getElementById('container').classList.remove('loading');
-        document.getElementById('loadMore').disabled = false;
-      }
-    }
-
-    function checkAnswer(selectedOption, buttonElement) {
-      if (!currentQuestion) return;
-      
-      disableButtons();
-      
-      const feedback = document.getElementById("feedback");
-      const allButtons = document.querySelectorAll('.options button');
-      
-      // Marcar todas las opciones
-      allButtons.forEach(btn => {
-        if (btn.textContent === currentQuestion.correct) {
-          btn.classList.add('correct');
-        } else if (btn.textContent === selectedOption && selectedOption !== currentQuestion.correct) {
-          btn.classList.add('incorrect');
-        }
-      });
-      
-      if (selectedOption === currentQuestion.correct) {
-        feedback.innerText = "¡Correcto!";
-        feedback.style.color = "green";
-      } else {
-        feedback.innerText = `Incorrecto. La respuesta correcta es: "${currentQuestion.correct}"`;
-        feedback.style.color = "red";
-      }
-    }
-
-    // Cargar la primera pregunta al iniciar
-    window.onload = loadQuestion;
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
