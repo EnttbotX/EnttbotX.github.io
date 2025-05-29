@@ -1,4 +1,3 @@
-// Banco de preguntas
 const questions = [
   {
     sentence: "El niño ___ su tarea cuidadosamente.",
@@ -74,6 +73,101 @@ const questions = [
     sentence: "El ___ del coche es muy cómodo.",
     correct: "asiento",
     options: ["asiento", "aciento", "asiénto"]
+  },
+  {
+    sentence: "No me ___ lo que dijiste.",
+    correct: "creo",
+    options: ["creo", "créo", "crio"]
+  },
+  {
+    sentence: "¿___ vas a venir a la reunión?",
+    correct: "Cuándo",
+    options: ["Cuándo", "Cuando", "Cúando"]
+  },
+  {
+    sentence: "Ellos ya ___ terminado el trabajo.",
+    correct: "han",
+    options: ["han", "an", "ám"]
+  },
+  {
+    sentence: "Siempre ___ con respeto a los mayores.",
+    correct: "habla",
+    options: ["habla", "abla", "hablà"]
+  },
+  {
+    sentence: "La leche está ___, no la tomes.",
+    correct: "agria",
+    options: ["agria", "agrea", "agría"]
+  },
+  {
+    sentence: "Voy a ___ el regalo en papel rojo.",
+    correct: "envolver",
+    options: ["envolver", "envolber", "enbolver"]
+  },
+  {
+    sentence: "El tren llega a las ___.",
+    correct: "ocho",
+    options: ["ocho", "hocho", "ochoh"]
+  },
+  {
+    sentence: "Ese ___ es muy peligroso.",
+    correct: "animal",
+    options: ["animal", "anímal", "aninal"]
+  },
+  {
+    sentence: "___ comida mexicana es deliciosa.",
+    correct: "La",
+    options: ["La", "Lá", "El"]
+  },
+  {
+    sentence: "La casa tiene un gran ___.",
+    correct: "jardín",
+    options: ["jardín", "yardín", "jardin"]
+  },
+  {
+    sentence: "El profesor nos dejó mucha ___.",
+    correct: "tarea",
+    options: ["tarea", "tária", "taria"]
+  },
+  {
+    sentence: "Mi hermana ___ en el hospital.",
+    correct: "trabaja",
+    options: ["trabaja", "trabaja", "travaja"]
+  },
+  {
+    sentence: "No ___ lo que dijo el jefe.",
+    correct: "entendí",
+    options: ["entendí", "entendi", "entendié"]
+  },
+  {
+    sentence: "El perro está muy ___.",
+    correct: "feliz",
+    options: ["feliz", "felíz", "felis"]
+  },
+  {
+    sentence: "El examen fue ___ difícil.",
+    correct: "bastante",
+    options: ["bastante", "bastanté", "vastante"]
+  },
+  {
+    sentence: "___ a buscarte en media hora.",
+    correct: "Voy",
+    options: ["Voy", "Boy", "Boi"]
+  },
+  {
+    sentence: "¿Sabés ___ está el baño?",
+    correct: "dónde",
+    options: ["dónde", "donde", "don de"]
+  },
+  {
+    sentence: "El agua del río está muy ___.",
+    correct: "clara",
+    options: ["clara", "clára", "clarra"]
+  },
+  {
+    sentence: "Vamos a la ___ después de clase.",
+    correct: "biblioteca",
+    options: ["biblioteca", "bivlioteca", "viblioteca"]
   }
 ];
 
