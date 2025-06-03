@@ -1,3 +1,4 @@
+//questions
 const questions = [
   { sentence: "El niño ___ su tarea cuidadosamente.", correct: "hizo", options: ["hizo", "izo", "hiso"] },
   { sentence: "Vamos a ___ el examen mañana.", correct: "hacer", options: ["hacer", "aser", "haser"] },
