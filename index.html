@@ -16,174 +16,27 @@
       --border-radius: 12px;
       --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--dark);
-      color: var(--text-light);
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 600px;
-      background: #1e1e1e;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      overflow: hidden;
-      padding: 25px;
-      border: 1px solid #333;
-    }
-
-    h1 {
-      color: var(--primary);
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-    }
-
-    .score-container {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      font-weight: bold;
-      color: var(--text-gray);
-    }
-
-    .question-container {
-      background: var(--light);
-      padding: 20px;
-      border-radius: var(--border-radius);
-      margin-bottom: 20px;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 1.2rem;
-      position: relative;
-      border: 1px solid #333;
-    }
-
-    .options-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .option-btn {
-      padding: 15px;
-      border: 2px solid #333;
-      border-radius: var(--border-radius);
-      background: #2d3436;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-      color: var(--text-light);
-    }
-
-    .option-btn:hover:not(:disabled) {
-      background: #3d4346;
-      border-color: var(--primary);
-    }
-
-    .option-btn:disabled {
-      cursor: not-allowed;
-    }
-
-    .option-btn.correct {
-      background: var(--success);
-      color: white;
-      border-color: var(--success);
-    }
-
-    .option-btn.incorrect {
-      background: var(--error);
-      color: white;
-      border-color: var(--error);
-    }
-
-    .feedback {
-      text-align: center;
-      margin: 20px 0;
-      font-weight: bold;
-      min-height: 24px;
-    }
-
-    .feedback.correct {
-      color: var(--success);
-    }
-
-    .feedback.incorrect {
-      color: var(--error);
-    }
-
-    .next-btn {
-      width: 100%;
-      padding: 15px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .next-btn:hover {
-      background: #5a4bd1;
-    }
-
-    .next-btn:disabled {
-      background: #444;
-      cursor: not-allowed;
-    }
-
-    .progress-container {
-      width: 100%;
-      height: 8px;
-      background: #333;
-      border-radius: 4px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: var(--primary);
-      transition: width 0.4s ease;
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 15px;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .question-container {
-        padding: 15px;
-        font-size: 1.1rem;
-      }
-
-      .option-btn {
-        padding: 12px;
-      }
-    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:var(--dark);color:var(--text-light);padding:20px;min-height:100vh;display:flex;justify-content:center;align-items:center;}
+    .container{width:100%;max-width:600px;background:#1e1e1e;border-radius:var(--border-radius);box-shadow:var(--box-shadow);overflow:hidden;padding:25px;border:1px solid #333;}
+    h1{color:var(--primary);text-align:center;margin-bottom:20px;font-size:1.8rem;}
+    .score-container{display:flex;justify-content:space-between;margin-bottom:20px;font-weight:bold;color:var(--text-gray);}
+    .question-container{background:var(--light);padding:20px;border-radius:var(--border-radius);margin-bottom:20px;min-height:100px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.2rem;position:relative;border:1px solid #333;}
+    .options-container{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
+    .option-btn{padding:15px;border:2px solid #333;border-radius:var(--border-radius);background:#2d3436;font-size:1rem;cursor:pointer;transition:all .3s;text-align:center;color:var(--text-light);}
+    .option-btn:hover:not(:disabled){background:#3d4346;border-color:var(--primary);}
+    .option-btn:disabled{cursor:not-allowed;}
+    .option-btn.correct{background:var(--success);color:white;border-color:var(--success);}
+    .option-btn.incorrect{background:var(--error);color:white;border-color:var(--error);}
+    .feedback{text-align:center;margin:20px 0;font-weight:bold;min-height:24px;}
+    .feedback.correct{color:var(--success);}
+    .feedback.incorrect{color:var(--error);}
+    .next-btn{width:100%;padding:15px;background:var(--primary);color:white;border:none;border-radius:var(--border-radius);font-size:1rem;cursor:pointer;transition:background .3s;}
+    .next-btn:hover{background:#5a4bd1;}
+    .next-btn:disabled{background:#444;cursor:not-allowed;}
+    .progress-container{width:100%;height:8px;background:#333;border-radius:4px;margin-bottom:20px;overflow:hidden;}
+    .progress-bar{height:100%;background:var(--primary);transition:width .4s ease;}
+    @media(max-width:480px){.container{padding:15px;}h1{font-size:1.5rem;}.question-container{padding:15px;font-size:1.1rem;}.option-btn{padding:12px;}}
   </style>
 </head>
 <body>
@@ -191,138 +44,112 @@
     <h1>Juego de Ortografía</h1>
     <div class="score-container">
       <span id="score">Puntuación: 0</span>
-      <span id="question-count">Pregunta 1 de 10</span>
+      <span id="question-count">Pregunta 1 de 30</span>
     </div>
-    <div class="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
     <div class="question-container" id="question">Cargando pregunta...</div>
     <div class="options-container" id="options"></div>
     <div class="feedback" id="feedback"></div>
     <button class="next-btn" id="next-btn" disabled>Siguiente</button>
-    <p style="text-align: center; margin-top: 30px; color: var(--text-gray); font-size: 0.9rem;">
-      Octavio Campana - Nicolas Cardozo - Ignacio Soria - Sebastián Albert
-    </p>
+    <p style="text-align:center;margin-top:30px;color:var(--text-gray);font-size:.9rem;">Octavio Campana - Nicolas Cardozo - Ignacio Soria - Sebastián Albert</p>
   </div>
   <script>
     const questions = [
-      { sentence: "El niño ___ su tarea cuidadosamente.", correct: "hizo", options: ["hizo", "izo", "hiso"] },
-      { sentence: "Vamos a ___ el examen mañana.", correct: "hacer", options: ["hacer", "aser", "haser"] },
-      { sentence: "La leche está ___, no la tomes.", correct: "agria", options: ["agria", "agrea", "agría"] },
-      { sentence: "___ frío hoy, necesito abrigo.", correct: "Hace", options: ["Hace", "Ase", "Haze"] },
-      { sentence: "El cielo está ___ nublado hoy.", correct: "muy", options: ["muy", "mui", "muí"] },
-      { sentence: "La ___ del museo es gratis los domingos.", correct: "entrada", options: ["entrada", "entra", "entradá"] },
-      { sentence: "___ ayudás con esto?", correct: "Me", options: ["Me", "Mhe", "Mé"] },
-      { sentence: "___ una carta a mi abuela.", correct: "Escribí", options: ["Escribí", "Escribi", "Eskribí"] },
-      { sentence: "La ___ del coche es muy cómoda.", correct: "asiento", options: ["asiento", "aciento", "asiénto"] },
-      { sentence: "Ella ___ muy bien el piano.", correct: "toca", options: ["toca", "toka", "tocá"] }
+      { sentence: "El niño ___ su tarea cuidadosamente.", correct: "hizo", options: ["hizo","izo","hiso"] },
+      { sentence: "Vamos a ___ el examen mañana.", correct: "hacer", options: ["hacer","aser","haser"] },
+      { sentence: "El cielo está ___ nublado hoy.", correct: "muy", options: ["muy","mui","muí"] },
+      { sentence: "___ importante estudiar para el examen.", correct: "Es", options: ["Es","Ez","Hez"] },
+      { sentence: "La ___ del libro es muy interesante.", correct: "historia", options: ["historia","istoría","histeria"] },
+      { sentence: "Me gusta el ___ de manzana.", correct: "jugo", options: ["jugo","hugo","juego"] },
+      { sentence: "La ___ de la montaña es impresionante.", correct: "vista", options: ["vista","bista","vihta"] },
+      { sentence: "___ a la fiesta el sábado.", correct: "Voy", options: ["Voy","Boi","Boy"] },
+      { sentence: "Necesito ___ agua por favor.", correct: "un vaso de", options: ["un vaso de","un baso de","un vaso e"] },
+      { sentence: "Ella ___ muy bien el piano.", correct: "toca", options: ["toca","toka","tocá"] },
+      { sentence: "El ___ de fútbol fue emocionante.", correct: "partido", options: ["partido","partío","partdo"] },
+      { sentence: "___ el libro que me recomendaste.", correct: "He leído", options: ["He leído","E leído","He leido"] },
+      { sentence: "La ___ del museo es gratis los domingos.", correct: "entrada", options: ["entrada","entra","entradá"] },
+      { sentence: "___ frío hoy, necesito abrigo.", correct: "Hace", options: ["Hace","Ase","Haze"] },
+      { sentence: "El ___ del coche es muy cómodo.", correct: "asiento", options: ["asiento","aciento","asiénto"] },
+      { sentence: "No me ___ lo que dijiste.", correct: "creo", options: ["creo","créo","crio"] },
+      { sentence: "¿___ vas a venir a la reunión?", correct: "Cuándo", options: ["Cuándo","Cuando","Cúando"] },
+      { sentence: "Ellos ya ___ terminado el trabajo.", correct: "han", options: ["han","an","ám"] },
+      { sentence: "Siempre ___ con respeto a los mayores.", correct: "habla", options: ["habla","abla","hablà"] },
+      { sentence: "La leche está ___, no la tomes.", correct: "agria", options: ["agria","agrea","agría"] },
+      { sentence: "___ de casa temprano cada día.", correct: "Salgo", options: ["Salgo","Saljo","Zalgo"] },
+      { sentence: "No ___ que eso iba a pasar.", correct: "sabía", options: ["sabía","savía","sabia"] },
+      { sentence: "El perro ___ toda la noche.", correct: "ladró", options: ["ladró","ladro","ladru"] },
+      { sentence: "¿___ viste mis llaves?", correct: "Has", options: ["Has","Haz","As"] },
+      { sentence: "Juan ___ una gran presentación.", correct: "hizo", options: ["hizo","hico","iso"] },
+      { sentence: "___ lo que te dije.", correct: "Recuerda", options: ["Recuerda","Recuerdas","Recuérda"] },
+      { sentence: "Hoy vamos a ___ un nuevo tema.", correct: "aprender", options: ["aprender","aprendar","aprendir"] },
+      { sentence: "María ___ una carta a su amiga.", correct: "escribió", options: ["escribió","escribio","escrivió"] },
+      { sentence: "Este problema es más ___ de lo que parece.", correct: "difícil", options: ["difícil","dificil","difísil"] }
     ];
+    let currentQuestionIndex=0,score=0,selectedAnswer=null;
+    const totalQuestions=questions.length;
+    const questionElement=document.getElementById('question');
+    const optionsContainer=document.getElementById('options');
+    const feedbackElement=document.getElementById('feedback');
+    const scoreElement=document.getElementById('score');
+    const questionCountElement=document.getElementById('question-count');
+    const progressBar=document.getElementById('progress-bar');
+    const nextButton=document.getElementById('next-btn');
+    let questionsOrder;
 
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let selectedAnswer = null;
-    let questionsOrder = [];
-    let nextButton = document.getElementById('next-btn');
-    const totalQuestions = 10;
-
-    const questionElement = document.getElementById('question');
-    const optionsContainer = document.getElementById('options');
-    const feedbackElement = document.getElementById('feedback');
-    const scoreElement = document.getElementById('score');
-    const questionCountElement = document.getElementById('question-count');
-    const progressBar = document.getElementById('progress-bar');
-
-    function getRandomQuestions() {
-      return [...questions].sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+    function shuffle(arr){return arr.sort(()=>Math.random()-.5);}
+    function initGame(){
+      score=0;currentQuestionIndex=0;selectedAnswer=null;
+      questionsOrder=shuffle([...questions]);
+      updateScore();showQuestion();
     }
-
-    function initGame() {
-      score = 0;
-      currentQuestionIndex = 0;
-      selectedAnswer = null;
-      questionsOrder = getRandomQuestions();
-      questionElement.textContent = 'Cargando pregunta...';
-      optionsContainer.innerHTML = '';
-      feedbackElement.textContent = '';
-      feedbackElement.className = 'feedback';
-      progressBar.style.width = '0%';
-      nextButton.replaceWith(nextButton.cloneNode(true));
-      nextButton = document.getElementById('next-btn');
-      nextButton.disabled = true;
-      nextButton.textContent = 'Siguiente';
-      updateScore();
-      showQuestion();
-    }
-
-    function showQuestion() {
-      const question = questionsOrder[currentQuestionIndex];
-      questionElement.textContent = question.sentence.replace("___", "_____");
-      optionsContainer.innerHTML = '';
-      question.options.forEach(option => {
-        const button = document.createElement('button');
-        button.classList.add('option-btn');
-        button.textContent = option;
-        button.onclick = () => selectAnswer(option, button);
-        optionsContainer.appendChild(button);
+    function showQuestion(){
+      const q=questionsOrder[currentQuestionIndex];
+      questionElement.textContent=q.sentence.replace("___","_____");
+      optionsContainer.innerHTML="";
+      const shuffledOptions=shuffle([...q.options]);
+      shuffledOptions.forEach(opt=>{
+        const btn=document.createElement('button');
+        btn.className='option-btn';btn.textContent=opt;
+        btn.onclick=()=>selectAnswer(opt,btn);
+        optionsContainer.appendChild(btn);
       });
-      feedbackElement.textContent = '';
-      feedbackElement.className = 'feedback';
-      nextButton.disabled = true;
-      nextButton.textContent = 'Siguiente';
-      nextButton.onclick = nextQuestion;
-      questionCountElement.textContent = `Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`;
-      progressBar.style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
+      feedbackElement.textContent="";feedbackElement.className='feedback';
+      nextButton.disabled=true;questionCountElement.textContent=`Pregunta ${currentQuestionIndex+1} de ${totalQuestions}`;
+      progressBar.style.width=`${((currentQuestionIndex+1)/totalQuestions)*100}%`;
     }
-
-    function selectAnswer(selectedOption, button) {
-      if (selectedAnswer !== null) return;
-      selectedAnswer = selectedOption;
-      const question = questionsOrder[currentQuestionIndex];
-      const allButtons = document.querySelectorAll('.option-btn');
-      allButtons.forEach(btn => {
-        btn.disabled = true;
-        if (btn.textContent === question.correct) {
-          btn.classList.add('correct');
-        }
+    function selectAnswer(opt,btn){
+      if(selectedAnswer!==null)return;
+      selectedAnswer=opt;
+      const q=questionsOrder[currentQuestionIndex];
+      document.querySelectorAll('.option-btn').forEach(b=>{
+        b.disabled=true;
+        if(b.textContent===q.correct)b.classList.add('correct');
       });
-      if (selectedOption !== question.correct) {
-        button.classList.add('incorrect');
-        feedbackElement.textContent = `Incorrecto. La respuesta correcta es: "${question.correct}"`;
-        feedbackElement.classList.add('incorrect');
-      } else {
-        score++;
-        updateScore();
-        feedbackElement.textContent = '¡Correcto!';
-        feedbackElement.classList.add('correct');
+      if(opt!==q.correct){
+        btn.classList.add('incorrect');
+        feedbackElement.textContent=`Incorrecto. Correcta: "${q.correct}"`;feedbackElement.classList.add('incorrect');
+      } else{
+        score++;updateScore();
+        feedbackElement.textContent='¡Correcto!';feedbackElement.classList.add('correct');
       }
-      nextButton.disabled = false;
+      nextButton.disabled=false;
+      nextButton.onclick=nextQuestion;
     }
-
-    function nextQuestion() {
+    function nextQuestion(){
       currentQuestionIndex++;
-      selectedAnswer = null;
-      if (currentQuestionIndex < questionsOrder.length) {
-        showQuestion();
-      } else {
-        endGame();
-      }
+      selectedAnswer=null;
+      if(currentQuestionIndex<totalQuestions)showQuestion();
+      else endGame();
     }
-
-    function updateScore() {
-      scoreElement.textContent = `Puntuación: ${score}`;
+    function updateScore(){scoreElement.textContent=`Puntuación: ${score}`;}
+    function endGame(){
+      questionElement.textContent=`¡Juego completado! Puntuación final: ${score}/${totalQuestions}`;
+      optionsContainer.innerHTML="";feedbackElement.textContent="";
+      nextButton.textContent='Jugar de nuevo';nextButton.disabled=false;
+      nextButton.onclick=()=>location.reload();
+      progressBar.style.width='100%';
     }
-
-    function endGame() {
-      questionElement.textContent = `¡Juego completado! Puntuación final: ${score}/${totalQuestions}`;
-      optionsContainer.innerHTML = '';
-      feedbackElement.textContent = '';
-      nextButton.textContent = 'Jugar de nuevo';
-      nextButton.disabled = false;
-      nextButton.onclick = () => location.reload();
-      progressBar.style.width = '100%';
-    }
-
-    window.addEventListener('load', initGame);
+    window.addEventListener('load',initGame);
   </script>
 </body>
 </html>
