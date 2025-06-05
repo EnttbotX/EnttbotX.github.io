@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Juego de Ortografía</title>
   <style>
     :root {
@@ -27,7 +27,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--dark);
       color: var(--text-light);
-      line-height: 1.6;
       padding: 20px;
       min-height: 100vh;
       display: flex;
@@ -206,18 +205,124 @@
     </p>
   </div>
   <script>
-    // JavaScript mínimo para funcionalidad (placeholder)
-    window.addEventListener('load', () => {
-      document.getElementById('question').textContent = 'Ejemplo de pregunta: El niño ___ su tarea cuidadosamente.';
-      const options = ['hizo', 'hiso', 'izo'];
-      const container = document.getElementById('options');
-      options.forEach(option => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = option;
-        container.appendChild(btn);
+    const questions = [
+      { sentence: "El niño ___ su tarea cuidadosamente.", correct: "hizo", options: ["hizo", "izo", "hiso"] },
+      { sentence: "Vamos a ___ el examen mañana.", correct: "hacer", options: ["hacer", "aser", "haser"] },
+      { sentence: "La leche está ___, no la tomes.", correct: "agria", options: ["agria", "agrea", "agría"] },
+      { sentence: "___ frío hoy, necesito abrigo.", correct: "Hace", options: ["Hace", "Ase", "Haze"] },
+      { sentence: "El cielo está ___ nublado hoy.", correct: "muy", options: ["muy", "mui", "muí"] },
+      { sentence: "La ___ del museo es gratis los domingos.", correct: "entrada", options: ["entrada", "entra", "entradá"] },
+      { sentence: "___ ayudás con esto?", correct: "Me", options: ["Me", "Mhe", "Mé"] },
+      { sentence: "___ una carta a mi abuela.", correct: "Escribí", options: ["Escribí", "Escribi", "Eskribí"] },
+      { sentence: "La ___ del coche es muy cómoda.", correct: "asiento", options: ["asiento", "aciento", "asiénto"] },
+      { sentence: "Ella ___ muy bien el piano.", correct: "toca", options: ["toca", "toka", "tocá"] }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedAnswer = null;
+    let questionsOrder = [];
+    let nextButton = document.getElementById('next-btn');
+    const totalQuestions = 10;
+
+    const questionElement = document.getElementById('question');
+    const optionsContainer = document.getElementById('options');
+    const feedbackElement = document.getElementById('feedback');
+    const scoreElement = document.getElementById('score');
+    const questionCountElement = document.getElementById('question-count');
+    const progressBar = document.getElementById('progress-bar');
+
+    function getRandomQuestions() {
+      return [...questions].sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+    }
+
+    function initGame() {
+      score = 0;
+      currentQuestionIndex = 0;
+      selectedAnswer = null;
+      questionsOrder = getRandomQuestions();
+      questionElement.textContent = 'Cargando pregunta...';
+      optionsContainer.innerHTML = '';
+      feedbackElement.textContent = '';
+      feedbackElement.className = 'feedback';
+      progressBar.style.width = '0%';
+      nextButton.replaceWith(nextButton.cloneNode(true));
+      nextButton = document.getElementById('next-btn');
+      nextButton.disabled = true;
+      nextButton.textContent = 'Siguiente';
+      updateScore();
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const question = questionsOrder[currentQuestionIndex];
+      questionElement.textContent = question.sentence.replace("___", "_____");
+      optionsContainer.innerHTML = '';
+      question.options.forEach(option => {
+        const button = document.createElement('button');
+        button.classList.add('option-btn');
+        button.textContent = option;
+        button.onclick = () => selectAnswer(option, button);
+        optionsContainer.appendChild(button);
       });
-    });
+      feedbackElement.textContent = '';
+      feedbackElement.className = 'feedback';
+      nextButton.disabled = true;
+      nextButton.textContent = 'Siguiente';
+      nextButton.onclick = nextQuestion;
+      questionCountElement.textContent = `Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`;
+      progressBar.style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
+    }
+
+    function selectAnswer(selectedOption, button) {
+      if (selectedAnswer !== null) return;
+      selectedAnswer = selectedOption;
+      const question = questionsOrder[currentQuestionIndex];
+      const allButtons = document.querySelectorAll('.option-btn');
+      allButtons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === question.correct) {
+          btn.classList.add('correct');
+        }
+      });
+      if (selectedOption !== question.correct) {
+        button.classList.add('incorrect');
+        feedbackElement.textContent = `Incorrecto. La respuesta correcta es: "${question.correct}"`;
+        feedbackElement.classList.add('incorrect');
+      } else {
+        score++;
+        updateScore();
+        feedbackElement.textContent = '¡Correcto!';
+        feedbackElement.classList.add('correct');
+      }
+      nextButton.disabled = false;
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      selectedAnswer = null;
+      if (currentQuestionIndex < questionsOrder.length) {
+        showQuestion();
+      } else {
+        endGame();
+      }
+    }
+
+    function updateScore() {
+      scoreElement.textContent = `Puntuación: ${score}`;
+    }
+
+    function endGame() {
+      questionElement.textContent = `¡Juego completado! Puntuación final: ${score}/${totalQuestions}`;
+      optionsContainer.innerHTML = '';
+      feedbackElement.textContent = '';
+      nextButton.textContent = 'Jugar de nuevo';
+      nextButton.disabled = false;
+      nextButton.onclick = () => location.reload();
+      progressBar.style.width = '100%';
+    }
+
+    window.addEventListener('load', initGame);
   </script>
 </body>
 </html>
