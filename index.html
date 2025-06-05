@@ -44,7 +44,7 @@
     <h1>Juego de Ortografía</h1>
     <div class="score-container">
       <span id="score">Puntuación: 0</span>
-      <span id="question-count">Pregunta 1 de 30</span>
+      <span id="question-count">Pregunta 1 de 10</span>
     </div>
     <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
     <div class="question-container" id="question">Cargando pregunta...</div>
@@ -85,6 +85,7 @@
       { sentence: "María ___ una carta a su amiga.", correct: "escribió", options: ["escribió","escribio","escrivió"] },
       { sentence: "Este problema es más ___ de lo que parece.", correct: "difícil", options: ["difícil","dificil","difísil"] }
     ];
+  
     let currentQuestionIndex=0,score=0,selectedAnswer=null;
     const totalQuestions=questions.length;
     const questionElement=document.getElementById('question');
