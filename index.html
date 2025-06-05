@@ -36,18 +36,28 @@
     .next-btn:disabled{background:#444;cursor:not-allowed;}
     .progress-container{width:100%;height:8px;background:#333;border-radius:4px;margin-bottom:20px;overflow:hidden;}
     .progress-bar{height:100%;background:var(--primary);transition:width .4s ease;}
+    .mode-selector{display:flex;justify-content:center;gap:15px;margin-bottom:20px;}
+    .mode-btn{padding:10px 20px;border-radius:var(--border-radius);cursor:pointer;font-weight:bold;transition:all .3s;border:2px solid var(--primary);}
+    .mode-btn.normal{background:var(--primary);color:white;}
+    .mode-btn.expert{background:transparent;color:var(--primary);}
+    .mode-btn.normal:hover{background:#5a4bd1;}
+    .mode-btn.expert:hover{background:rgba(108, 92, 231, 0.1);}
     @media(max-width:480px){.container{padding:15px;}h1{font-size:1.5rem;}.question-container{padding:15px;font-size:1.1rem;}.option-btn{padding:12px;}}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Juego de Ortografía</h1>
+    <div class="mode-selector" id="mode-selector">
+      <button class="mode-btn normal" id="normal-btn">Normal (10 preguntas)</button>
+      <button class="mode-btn expert" id="expert-btn">Experto (50 preguntas)</button>
+    </div>
     <div class="score-container">
       <span id="score">Puntuación: 0</span>
-      <span id="question-count">Pregunta 1 de 10</span>
+      <span id="question-count">Selecciona un modo</span>
     </div>
     <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
-    <div class="question-container" id="question">Cargando pregunta...</div>
+    <div class="question-container" id="question">Selecciona un modo de juego para comenzar</div>
     <div class="options-container" id="options"></div>
     <div class="feedback" id="feedback"></div>
     <button class="next-btn" id="next-btn" disabled>Siguiente</button>
@@ -55,39 +65,80 @@
   </div>
   <script>
     const questions = [
+      // Verbos comunes
       { sentence: "El niño ___ su tarea cuidadosamente.", correct: "hizo", options: ["hizo","izo","hiso"] },
       { sentence: "Vamos a ___ el examen mañana.", correct: "hacer", options: ["hacer","aser","haser"] },
-      { sentence: "El cielo está ___ nublado hoy.", correct: "muy", options: ["muy","mui","muí"] },
-      { sentence: "___ importante estudiar para el examen.", correct: "Es", options: ["Es","Ez","Hez"] },
-      { sentence: "La ___ del libro es muy interesante.", correct: "historia", options: ["historia","istoría","histeria"] },
-      { sentence: "Me gusta el ___ de manzana.", correct: "jugo", options: ["jugo","hugo","juego"] },
-      { sentence: "La ___ de la montaña es impresionante.", correct: "vista", options: ["vista","bista","vihta"] },
-      { sentence: "___ a la fiesta el sábado.", correct: "Voy", options: ["Voy","Boi","Boy"] },
-      { sentence: "Necesito ___ agua por favor.", correct: "un vaso de", options: ["un vaso de","un baso de","un vaso e"] },
       { sentence: "Ella ___ muy bien el piano.", correct: "toca", options: ["toca","toka","tocá"] },
-      { sentence: "El ___ de fútbol fue emocionante.", correct: "partido", options: ["partido","partío","partdo"] },
-      { sentence: "___ el libro que me recomendaste.", correct: "He leído", options: ["He leído","E leído","He leido"] },
-      { sentence: "La ___ del museo es gratis los domingos.", correct: "entrada", options: ["entrada","entra","entradá"] },
-      { sentence: "___ frío hoy, necesito abrigo.", correct: "Hace", options: ["Hace","Ase","Haze"] },
-      { sentence: "El ___ del coche es muy cómodo.", correct: "asiento", options: ["asiento","aciento","asiénto"] },
+      { sentence: "___ a la fiesta el sábado.", correct: "Voy", options: ["Voy","Boi","Boy"] },
       { sentence: "No me ___ lo que dijiste.", correct: "creo", options: ["creo","créo","crio"] },
-      { sentence: "¿___ vas a venir a la reunión?", correct: "Cuándo", options: ["Cuándo","Cuando","Cúando"] },
-      { sentence: "Ellos ya ___ terminado el trabajo.", correct: "han", options: ["han","an","ám"] },
-      { sentence: "Siempre ___ con respeto a los mayores.", correct: "habla", options: ["habla","abla","hablà"] },
-      { sentence: "La leche está ___, no la tomes.", correct: "agria", options: ["agria","agrea","agría"] },
       { sentence: "___ de casa temprano cada día.", correct: "Salgo", options: ["Salgo","Saljo","Zalgo"] },
       { sentence: "No ___ que eso iba a pasar.", correct: "sabía", options: ["sabía","savía","sabia"] },
       { sentence: "El perro ___ toda la noche.", correct: "ladró", options: ["ladró","ladro","ladru"] },
-      { sentence: "¿___ viste mis llaves?", correct: "Has", options: ["Has","Haz","As"] },
       { sentence: "Juan ___ una gran presentación.", correct: "hizo", options: ["hizo","hico","iso"] },
+      { sentence: "María ___ una carta a su amiga.", correct: "escribió", options: ["escribió","escribio","escrivió"] },
+      
+      // Adjetivos y adverbios
+      { sentence: "El cielo está ___ nublado hoy.", correct: "muy", options: ["muy","mui","muí"] },
+      { sentence: "Este problema es más ___ de lo que parece.", correct: "difícil", options: ["difícil","dificil","difísil"] },
+      { sentence: "La leche está ___, no la tomes.", correct: "agria", options: ["agria","agrea","agría"] },
+      { sentence: "El coche está ___ sucio.", correct: "extremadamente", options: ["extremadamente","extremandamente","extremademente"] },
+      { sentence: "Esa película fue ___ aburrida.", correct: "increíblemente", options: ["increíblemente","increiblemente","incríblemente"] },
+      { sentence: "El pastel está ___ delicioso.", correct: "especialmente", options: ["especialmente","especialemnte","espesialmente"] },
+      { sentence: "El examen fue ___ complicado.", correct: "aparentemente", options: ["aparentemente","aparentemiente","aparentemente"] },
+      { sentence: "El agua está ___ fría.", correct: "excesivamente", options: ["excesivamente","excesivamiente","exsesivamente"] },
+      { sentence: "Su respuesta fue ___ correcta.", correct: "parcialmente", options: ["parcialmente","parcialemnte","parcialmente"] },
+      { sentence: "El museo está ___ cerrado los lunes.", correct: "habitualmente", options: ["habitualmente","abitudalmente","habitualmiente"] },
+      
+      // Sustantivos
+      { sentence: "La ___ del libro es muy interesante.", correct: "historia", options: ["historia","istoría","histeria"] },
+      { sentence: "Me gusta el ___ de manzana.", correct: "jugo", options: ["jugo","hugo","juego"] },
+      { sentence: "La ___ de la montaña es impresionante.", correct: "vista", options: ["vista","bista","vihta"] },
+      { sentence: "Necesito ___ agua por favor.", correct: "un vaso de", options: ["un vaso de","un baso de","un vaso e"] },
+      { sentence: "El ___ de fútbol fue emocionante.", correct: "partido", options: ["partido","partío","partdo"] },
+      { sentence: "La ___ del museo es gratis los domingos.", correct: "entrada", options: ["entrada","entra","entradá"] },
+      { sentence: "El ___ del coche es muy cómodo.", correct: "asiento", options: ["asiento","aciento","asiénto"] },
+      { sentence: "Compré un nuevo ___ para mi computadora.", correct: "teclado", options: ["teclado","tecládo","teclao"] },
+      { sentence: "El ___ de la ciudad es muy antiguo.", correct: "alumbrado", options: ["alumbrado","alumbrádo","alumbrao"] },
+      { sentence: "La ___ del edificio es imponente.", correct: "fachada", options: ["fachada","facháda","fachata"] },
+      
+      // Ortografía general
+      { sentence: "___ importante estudiar para el examen.", correct: "Es", options: ["Es","Ez","Hez"] },
+      { sentence: "___ el libro que me recomendaste.", correct: "He leído", options: ["He leído","E leído","He leido"] },
+      { sentence: "___ frío hoy, necesito abrigo.", correct: "Hace", options: ["Hace","Ase","Haze"] },
+      { sentence: "¿___ vas a venir a la reunión?", correct: "Cuándo", options: ["Cuándo","Cuando","Cúando"] },
+      { sentence: "Ellos ya ___ terminado el trabajo.", correct: "han", options: ["han","an","ám"] },
+      { sentence: "Siempre ___ con respeto a los mayores.", correct: "habla", options: ["habla","abla","hablà"] },
+      { sentence: "¿___ viste mis llaves?", correct: "Has", options: ["Has","Haz","As"] },
       { sentence: "___ lo que te dije.", correct: "Recuerda", options: ["Recuerda","Recuerdas","Recuérda"] },
       { sentence: "Hoy vamos a ___ un nuevo tema.", correct: "aprender", options: ["aprender","aprendar","aprendir"] },
-      { sentence: "María ___ una carta a su amiga.", correct: "escribió", options: ["escribió","escribio","escrivió"] },
-      { sentence: "Este problema es más ___ de lo que parece.", correct: "difícil", options: ["difícil","dificil","difísil"] }
+      { sentence: "___ de llamarte más tarde.", correct: "Acuérdate", options: ["Acuérdate","Acuerdate","Acuerdáte"] },
+      
+      // Preguntas más difíciles
+      { sentence: "El concierto fue ___ por la lluvia.", correct: "suspendido", options: ["suspendido","subpendido","suspéndido"] },
+      { sentence: "La ___ del proyecto fue un éxito.", correct: "implementación", options: ["implementación","implemantación","implementasión"] },
+      { sentence: "El ___ de la reunión fue muy productivo.", correct: "desarrollo", options: ["desarrollo","desarroyo","desalloro"] },
+      { sentence: "___ una explicación detallada.", correct: "Proporcionó", options: ["Proporcionó","Proporciono","Proporcióno"] },
+      { sentence: "El documento necesita ser ___ nuevamente.", correct: "revisado", options: ["revisado","rebisado","revisáo"] },
+      { sentence: "La ___ del software tomó más tiempo del esperado.", correct: "actualización", options: ["actualización","actualisación","actualizasión"] },
+      { sentence: "___ los documentos en el archivo correspondiente.", correct: "Archivé", options: ["Archivé","Archive","Archié"] },
+      { sentence: "El ___ del problema fue más complejo de lo esperado.", correct: "análisis", options: ["análisis","analisis","análises"] },
+      { sentence: "___ todos los requisitos para el puesto.", correct: "Cumplo", options: ["Cumplo","Cumpló","Cunplo"] },
+      { sentence: "La ___ de datos fue exitosa.", correct: "migración", options: ["migración","migrasión","migracion"] },
+      
+      // Más preguntas difíciles
+      { sentence: "El ___ del edificio está programado para mañana.", correct: "derribo", options: ["derribo","derríbo","derivo"] },
+      { sentence: "___ una respuesta inmediata a su solicitud.", correct: "Solicité", options: ["Solicité","Solicite","Solicité"] },
+      { sentence: "La ___ del equipo mejoró significativamente.", correct: "productividad", options: ["productividad","productividád","productividat"] },
+      { sentence: "El ___ del contrato está pendiente.", correct: "cumplimiento", options: ["cumplimiento","cumplímiento","cumpliemiento"] },
+      { sentence: "___ los cambios en el documento final.", correct: "Incorporé", options: ["Incorporé","Incorpore","Incorpóre"] },
+      { sentence: "La ___ del sistema es responsabilidad del administrador.", correct: "configuración", options: ["configuración","configurasión","configuracion"] },
+      { sentence: "El ___ del proyecto fue aprobado por unanimidad.", correct: "presupuesto", options: ["presupuesto","presupueto","presupuesto"] },
+      { sentence: "___ todas las observaciones en el informe.", correct: "Consideré", options: ["Consideré","Considere","Considéree"] },
+      { sentence: "La ___ de la empresa se mantuvo estable.", correct: "rentabilidad", options: ["rentabilidad","rentabilidád","rentabilidat"] },
+      { sentence: "El ___ del equipo fue reconocido públicamente.", correct: "desempeño", options: ["desempeño","desempeño","desempeño"] }
     ];
   
-    let currentQuestionIndex=0,score=0,selectedAnswer=null;
-    const totalQuestions=questions.length;
+    let currentQuestionIndex=0,score=0,selectedAnswer=null,totalQuestions=10,gameMode='normal';
     const questionElement=document.getElementById('question');
     const optionsContainer=document.getElementById('options');
     const feedbackElement=document.getElementById('feedback');
@@ -95,14 +146,34 @@
     const questionCountElement=document.getElementById('question-count');
     const progressBar=document.getElementById('progress-bar');
     const nextButton=document.getElementById('next-btn');
+    const normalBtn=document.getElementById('normal-btn');
+    const expertBtn=document.getElementById('expert-btn');
     let questionsOrder;
 
     function shuffle(arr){return arr.sort(()=>Math.random()-.5);}
-    function initGame(){
+    
+    function initGame(mode){
+      gameMode = mode;
+      totalQuestions = mode === 'expert' ? 50 : 10;
       score=0;currentQuestionIndex=0;selectedAnswer=null;
-      questionsOrder=shuffle([...questions]);
-      updateScore();showQuestion();
+      questionsOrder=shuffle([...questions]).slice(0, totalQuestions);
+      updateScore();
+      showQuestion();
+      
+      // Actualizar botones de modo
+      if(mode === 'normal') {
+        normalBtn.classList.add('normal');
+        normalBtn.classList.remove('expert');
+        expertBtn.classList.add('expert');
+        expertBtn.classList.remove('normal');
+      } else {
+        expertBtn.classList.add('normal');
+        expertBtn.classList.remove('expert');
+        normalBtn.classList.add('expert');
+        normalBtn.classList.remove('normal');
+      }
     }
+    
     function showQuestion(){
       const q=questionsOrder[currentQuestionIndex];
       questionElement.textContent=q.sentence.replace("___","_____");
@@ -115,9 +186,11 @@
         optionsContainer.appendChild(btn);
       });
       feedbackElement.textContent="";feedbackElement.className='feedback';
-      nextButton.disabled=true;questionCountElement.textContent=`Pregunta ${currentQuestionIndex+1} de ${totalQuestions}`;
+      nextButton.disabled=true;
+      questionCountElement.textContent=`Pregunta ${currentQuestionIndex+1} de ${totalQuestions}`;
       progressBar.style.width=`${((currentQuestionIndex+1)/totalQuestions)*100}%`;
     }
+    
     function selectAnswer(opt,btn){
       if(selectedAnswer!==null)return;
       selectedAnswer=opt;
@@ -136,21 +209,30 @@
       nextButton.disabled=false;
       nextButton.onclick=nextQuestion;
     }
+    
     function nextQuestion(){
       currentQuestionIndex++;
       selectedAnswer=null;
       if(currentQuestionIndex<totalQuestions)showQuestion();
       else endGame();
     }
+    
     function updateScore(){scoreElement.textContent=`Puntuación: ${score}`;}
+    
     function endGame(){
       questionElement.textContent=`¡Juego completado! Puntuación final: ${score}/${totalQuestions}`;
       optionsContainer.innerHTML="";feedbackElement.textContent="";
       nextButton.textContent='Jugar de nuevo';nextButton.disabled=false;
-      nextButton.onclick=()=>location.reload();
+      nextButton.onclick=()=>{
+        initGame(gameMode);
+        nextButton.textContent='Siguiente';
+      };
       progressBar.style.width='100%';
     }
-    window.addEventListener('load',initGame);
+    
+    // Event listeners para los botones de modo
+    normalBtn.addEventListener('click',()=>initGame('normal'));
+    expertBtn.addEventListener('click',()=>initGame('expert'));
   </script>
 </body>
 </html>
