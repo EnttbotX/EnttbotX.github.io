@@ -1,53 +1,411 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Portfolio</title>
+  <meta charset="UTF-8">
+  <title>EnttbotX Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
   <style>
-    :root {
-      --primary: #6c5ce7;
-      --success: #00b894;
-      --error: #d63031;
-      --light: #2d3436;
-      --dark: #121212;
-      --text-light: #f8f9fa;
-      --text-gray: #b2bec3;
-      --border-radius: 12px;
-      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:var(--dark);color:var(--text-light);padding:20px;min-height:100vh;display:flex;justify-content:center;align-items:center;}
-    .container{width:100%;max-width:600px;background:#1e1e1e;border-radius:var(--border-radius);box-shadow:var(--box-shadow);overflow:hidden;padding:25px;border:1px solid #333;}
-    h1{color:var(--primary);text-align:center;margin-bottom:20px;font-size:1.8rem;}
-    .score-container{display:flex;justify-content:space-between;margin-bottom:20px;font-weight:bold;color:var(--text-gray);}
-    .question-container{background:var(--light);padding:20px;border-radius:var(--border-radius);margin-bottom:20px;min-height:100px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.2rem;position:relative;border:1px solid #333;}
-    .options-container{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
-    .option-btn{padding:15px;border:2px solid #333;border-radius:var(--border-radius);background:#2d3436;font-size:1rem;cursor:pointer;transition:all .3s;text-align:center;color:var(--text-light);}
-    .option-btn:hover:not(:disabled){background:#3d4346;border-color:var(--primary);}
-    .option-btn:disabled{cursor:not-allowed;}
-    .option-btn.correct{background:var(--success);color:white;border-color:var(--success);}
-    .option-btn.incorrect{background:var(--error);color:white;border-color:var(--error);}
-    .feedback{text-align:center;margin:20px 0;font-weight:bold;min-height:24px;}
-    .feedback.correct{color:var(--success);}
-    .feedback.incorrect{color:var(--error);}
-    .next-btn{width:100%;padding:15px;background:var(--primary);color:white;border:none;border-radius:var(--border-radius);font-size:1rem;cursor:pointer;transition:background .3s;}
-    .next-btn:hover{background:#5a4bd1;}
-    .next-btn:disabled{background:#444;cursor:not-allowed;}
-    .progress-container{width:100%;height:8px;background:#333;border-radius:4px;margin-bottom:20px;overflow:hidden;}
-    .progress-bar{height:100%;background:var(--primary);transition:width .4s ease;}
-    .mode-selector{display:flex;justify-content:center;gap:15px;margin-bottom:20px;}
-    .mode-btn{padding:10px 20px;border-radius:var(--border-radius);cursor:pointer;font-weight:bold;transition:all .3s;border:2px solid var(--primary);}
-    .mode-btn.normal{background:var(--primary);color:white;}
-    .mode-btn.expert{background:transparent;color:var(--primary);}
-    .mode-btn.normal:hover{background:#5a4bd1;}
-    .mode-btn.expert:hover{background:rgba(108, 92, 231, 0.1);}
-    @media(max-width:480px){.container{padding:15px;}h1{font-size:1.5rem;}.question-container{padding:15px;font-size:1.1rem;}.option-btn{padding:12px;}}
+    body {
+      min-height: 100vh;
+      min-width: 100vw;
+      background: linear-gradient(135deg, #181a20 0%, #1c232b 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #FFF;
+    }
+
+    header {
+      width: 100%;
+      background: #171922e0;
+      box-shadow: 0 2px 16px #15141bbb;
+      padding: 0.8rem 0;
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      margin-bottom: 22px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+    .logo-avatar {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: 2.5px solid #5562ff77;
+      object-fit: cover;
+      box-shadow: 0 3px 18px #2332ff30;
+      background: #1e232e;
+    }
+    .logo-title {
+      font-size: 1.7rem;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      background: linear-gradient(90deg, #5f95f5 0%, #8fffd3 70%);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .subtitle {
+      font-size: 1.22rem;
+      color: #b8bacb;
+      margin-bottom: 24px;
+      margin-top: 6px;
+      text-shadow: 0 0 4px #1a233540;
+    }
+
+    .content-container {
+      max-width: 850px;
+      width: 96vw;
+      display: flex;
+      gap: 26px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .about-section {
+      flex: 1 1 270px;
+      background: rgba(30,40,53, 0.91);
+      border-radius: 16px;
+      padding: 32px 24px 22px 24px;
+      box-shadow: 0 6px 22px 0 #191c23b0;
+      min-width: 240px;
+      margin-bottom: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .about-section .socials {
+      margin-top: 14px;
+      display: flex;
+      gap: 15px;
+    }
+    .about-section .socials a {
+      color: #87a3fe;
+      background: #23283a;
+      border-radius: 50%;
+      padding: 8px;
+      font-size: 1.18rem;
+      transition: background .15s, color .17s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-section .socials a:hover {
+      color: #fff;
+      background: #445fff;
+    }
+    .about-section .desc {
+      color: #b5bfd3;
+      font-size: 1.08rem;
+      line-height: 1.64;
+      margin-bottom: 0.3rem;
+    }
+
+    .kofi-btn {
+      display: inline-block;
+      background: #FF5E5B;
+      color: #fff;
+      border-radius: 23px;
+      font-weight: 600;
+      padding: 14px 28px 14px 52px;
+      font-size: 1.13rem;
+      text-decoration: none;
+      box-shadow: 0 2px 14px #ff5e5b44;
+      position: relative;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 0;
+      transition: background 0.17s, box-shadow 0.17s;
+    }
+    .kofi-btn:hover {
+      background: #dd4844;
+      box-shadow: 0 2px 22px #ff8a7f90;
+    }
+    .kofi-cup {
+      position: absolute;
+      left: 17px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+    }
+
+    .projects-section {
+      flex: 2 1 350px;
+      background: rgba(24,29,38, 0.89);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px #191c23a5;
+      min-width: 270px;
+      padding: 32px 24px 26px 24px;
+      margin-bottom: 26px;
+    }
+    .projects-section h2 {
+      font-size: 1.48rem;
+      font-weight: 600;
+      letter-spacing: 0.015em;
+      border-bottom: 2.5px solid #4558ff46;
+      padding-bottom: 8px;
+      margin: 0 0 22px 0;
+      color: #bfcfff;
+    }
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .project-item {
+      background: #202838db;
+      border-radius: 13px;
+      padding: 18px 18px 16px 19px;
+      box-shadow: 0 2px 10px #1d1d2833;
+      display: flex;
+      align-items: flex-start;
+      gap: 19px;
+      position: relative;
+    }
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: #232941;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.0rem;
+      color: #57e6cd;
+      margin-top: 2px;
+    }
+    .project-info {
+      flex: 1 1 auto;
+    }
+    .project-title {
+      font-weight: 600;
+      font-size: 1.13rem;
+      margin-bottom: 4px;
+      color: #fff;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .project-title .tag {
+      font-size: .94rem;
+      color: #6fecf7;
+      background: #252f39;
+      border-radius: 10px;
+      padding: 2px 9px;
+      margin-left: 4px;
+    }
+    .project-desc {
+      color: #b4c6d8;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      line-height: 1.47;
+    }
+    .project-links {
+      display: flex;
+      gap: 13px;
+      margin-top: 4px;
+    }
+    .project-links a {
+      color: #fff;
+      background: #3c4787;
+      border-radius: 7px;
+      padding: 3px 11px;
+      font-size: 0.97rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.13s;
+    }
+    .project-links a:hover {
+      background: #516bfc;
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .content-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .about-section, .projects-section {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+    @media (max-width: 700px) {
+      .about-section {
+        padding: 22px 5vw 17px 5vw;
+      }
+      .projects-section {
+        padding: 22px 4vw 18px 4vw;
+      }
+      .logo-avatar {
+        width: 39px; height: 39px;
+      }
+      .logo-title {
+        font-size: 1.18rem;
+      }
+      .project-icon {
+        width: 32px; height: 32px; font-size: 1.2rem;
+      }
+    }
+    @media (max-width: 520px) {
+      header {padding-top: 0.6rem;}
+      .about-section, .projects-section {padding-left: 8px; padding-right: 8px;}
+      .project-title {font-size: 1.01rem;}
+      .project-desc {font-size: 0.92rem;}
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <p style="text-align:center;margin-top:30px;color:var(--text-gray);font-size:.9rem;">Working...</p>
-  </div>
+  <header>
+    <div class="logo">
+      <img class="logo-avatar" src="https://www.spigotmc.org/data/avatars/l/1937/1937569.jpg?1707920150" alt="EnttbotX Avatar">
+      <span class="logo-title">EnttbotX</span>
+    </div>
+  </header>
+  <main class="content-container">
+    <section class="about-section">
+      <div class="subtitle">Professional Plugin Developer
+      </div>
+<div class="desc">
+  <p>Hey! Enttbot here.</p>
+  
+  <p>Well, I'll introduce myself. My name is "Enttbot," obviously not my real name. I'm a 16-year-old plugin developer looking to acquire his own acoustic drum kit. I started 4 years ago, around 2021, when I was bored looking for ways to make money. I found <strong>Ajneb97</strong>. He's a YouTuber who makes Minecraft plugins and uploaded a series showing how to create them. This inspired me, given my lack of capital, to start making plugins. That's why every time I submit a plugin or you download one, the donations and profits are welcome and give me a sense of existence, as it makes me feel valued.</p>
+  
+  <p>The goal is to achieve the highest quality of the plugin you're paying for!</p>
+</div>
+      <div class="socials">
+        <a href="https://github.com/EnttbotX" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://discord.com/invite/NK4wHNfFrr" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://www.spigotmc.org/members/enttbotx.1937569/" target="_blank" title="SpigotMC"><i class="fas fa-cube"></i></a>
+        <a href="mailto:enttbotx@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+      <a class="kofi-btn" href="https://ko-fi.com/enttbotx" target="_blank" rel="noopener">
+        <span class="kofi-cup">
+          <svg viewBox="0 0 36 36" fill="none">
+            <g>
+              <rect width="36" height="36" rx="18" fill="#fff1"/>
+              <path d="M27.35 16.11a1 1 0 0 1 1.08.92c.13 1.24-.14 2.23-.62 3.01-.48.77-1.27 1.41-2.52 1.78C23.39 22.42 21.27 23 18 23c-3.27 0-5.39-.58-7.29-1.18-1.25-.37-2.04-1-2.52-1.78-.48-.78-.75-1.77-.62-3.01a1 1 0 0 1 1.08-.92h18.7ZM10 12c-1.1 0-2 .9-2 2v4.21c-.25 1.9.23 3.32.97 4.48.74 1.16 2.09 2.09 4.02 2.63C15.06 26.45 16.48 27 18 27c1.52 0 2.94-.55 5.01-1.68 1.93-.54 3.28-1.47 4.02-2.63.74-1.16 1.22-2.58.97-4.48V14c0-1.1-.9-2-2-2H10Z" fill="#FF5E5B"/>
+              <ellipse cx="11.2" cy="15.9" rx="1.2" ry="0.8" fill="#fff" opacity="0.8"/>
+            </g>
+          </svg>
+        </span>
+        Support me on Ko-fi
+      </a>
+    </section>
+    <section class="projects-section">
+      <h2>Plugin Gallery</h2>
+      <div class="project-list">
+        <!-- 1. ClansX -->
+        <div class="project-item">
+          <div class="project-icon" style="background:#3d5aa7; padding:0;">
+            <img src="https://www.spigotmc.org/data/resource_icons/114/114316.jpg?1724109041" alt="ClansX Logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          </div>
+          <div class="project-info">
+            <div class="project-title">ClansX <span class="tag">Minecraft</span></div>
+            <div class="project-desc">
+  Simple and efficient clans plugin by EnttbotX.<br>
+  Create and manage clans with invites, chat, friendly fire toggle, and basic wars.<br>
+  Compatible with 1.8 to 1.21, no dependencies, easy to set up.
+</div>
+            <div class="project-links">
+              <a href="https://github.com/EnttbotX/ClansX" target="_blank"><i class="fab fa-github"></i> Source</a>
+              <a href="https://www.spigotmc.org/resources/clansx-the-best-clan-system-1-8-1-21.114316/" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+        <!-- 2. FunkyFeather -->
+        <div class="project-item">
+          <div class="project-icon" style="background:#ffb642; padding:0;">
+            <img src="https://www.spigotmc.org/data/resource_icons/115/115289.jpg?1708979359" alt="FunkyFeather Logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          </div>
+          <div class="project-info">
+            <div class="project-title">FunkyFeather <span class="tag">Minecraft</span></div>
+            <div class="project-desc">
+  A better keep-inventory system using a special feather!<br>
+  Players keep items and XP on death if holding a Funky Feather.<br>
+  Simple, lightweight, and works from 1.8 to 1.21.
+</div>
+            <div class="project-links">
+              <a href="https://github.com/EnttbotX/FunkyFeather" target="_blank"><i class="fab fa-github"></i> Source</a>
+              <a href="https://www.spigotmc.org/resources/funky-feather-better-keepinv-1-8-1-21.115289/" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+        <!-- 3. XPad -->
+        <div class="project-item">
+          <div class="project-icon" style="background:#5967d6; padding:0;">
+            <img src="https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701" alt="XPad Logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          </div>
+          <div class="project-info">
+            <div class="project-title">XPad <span class="tag">Minecraft</span></div>
+           <div class="project-desc">
+  Adds customizable jump pads for easy player movement on your Minecraft server.<br>
+  Simple setup, permission support, and compatible with versions 1.8 to 1.21.
+</div>
+            <div class="project-links">
+              <a href="https://github.com/EnttbotX/XPad" target="_blank"><i class="fab fa-github"></i> Source</a>
+              <a href="https://www.spigotmc.org/resources/instafriend-1-8-1-21.121036/" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+        <!-- 4. FastGive -->
+        <div class="project-item">
+          <div class="project-icon" style="background:#5967d6; padding:0;">
+            <img src="https://www.spigotmc.org/data/resource_icons/124/124823.jpg?1746700062" alt="FastGive Logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          </div>
+          <div class="project-info">
+            <div class="project-title">FastGive <span class="tag">Minecraft</span></div>
+            <div class="project-desc">
+  Instantly give items to players via chat commands or GUI.<br>
+  Fast, supports all item types, with detailed logs and permission control.
+</div>
+            <div class="project-links">
+              <a href="https://github.com/EnttbotX/FastGive" target="_blank"><i class="fab fa-github"></i> Source</a>
+              <a href="https://www.spigotmc.org/resources/fastgive-chat-item-giver-1-8-1-21.124823/" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+        <!-- 5. InstaFriend -->
+        <div class="project-item">
+          <div class="project-icon" style="background:#3d5aa7; padding:0;">
+            <img src="https://www.spigotmc.org/data/resource_icons/121/121036.jpg?1732856873" alt="InstaFriend Logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          </div>
+          <div class="project-info">
+            <div class="project-title">InstaFriend <span class="tag">Minecraft</span></div>
+            <div class="project-desc">
+  Instantly tame a wolf by using a spawn egg—no commands needed!<br>
+  Fully configurable, supports versions 1.8 to 1.21, and includes permission nodes for control.
+</div>
+            <div class="project-links">
+              <a href="https://www.spigotmc.org/resources/instafriend-1-8-1-21.121036/" target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
