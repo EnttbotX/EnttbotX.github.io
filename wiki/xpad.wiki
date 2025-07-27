@@ -1,8 +1,6 @@
 test wiki
 
-\*
-
-
+*
 sdasdSA
 DASdAS
 Das
@@ -12,4 +10,4 @@ DSAD
 SD
 as
 DAS
-\*
+*
