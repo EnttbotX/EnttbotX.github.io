@@ -1,13 +1,21 @@
-test wiki
+\\\\ Introducción a XPad \\\\
 
-*
-sdasdSA
-DASdAS
-Das
-DSa
-DS
-DSAD
-SD
-as
-DAS
-*
+Este es el plugin **XPad** que permite crear jumppads avanzados.
+
+[[pag."Características"]]
+*Configuración básica:*
+/xpad create <nombre>
+/xpad edit <nombre>
+
+[[pag."Comandos"]]
+Todos los comandos disponibles:
+
+**/xpad create** - Crea un nuevo jump pad
+**/xpad delete** - Elimina un jump pad
+
+{spoiler<Configuración avanzada>
+Estas son opciones para administradores:
+
+**/xpad setpower 5**
+**/xpad setcooldown 10**
+}
