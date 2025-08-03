@@ -9,14 +9,12 @@
         .wiki-tab-container {
             margin-bottom: 2rem;
         }
-
         .wiki-tab-nav {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
             flex-wrap: wrap;
         }
-
         .wiki-tab-btn {
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
@@ -27,27 +25,22 @@
             transition: all 0.3s ease;
             font-weight: 600;
         }
-
         .wiki-tab-btn:hover {
             background: rgba(59, 130, 246, 0.2);
         }
-
         .wiki-tab-btn.active {
             background: rgba(59, 130, 246, 0.3);
             border-color: #3b82f6;
         }
-
         .wiki-tab-page {
             display: none;
         }
-
         .wiki-spoiler {
             margin: 1rem 0;
             border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: 8px;
             overflow: hidden;
         }
-
         .wiki-spoiler-btn {
             width: 100%;
             padding: 1rem;
@@ -61,17 +54,14 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .wiki-spoiler-content {
             padding: 1rem;
             background: rgba(15, 23, 42, 0.3);
             display: none;
         }
-
         .wiki-spoiler-btn:hover {
             background: rgba(59, 130, 246, 0.1);
         }
-
         .wiki-callout-title {
             color: #8b5cf6;
             font-size: 1.5rem;
@@ -79,7 +69,6 @@
             padding-bottom: 0.5rem;
             border-bottom: 2px solid rgba(139, 92, 246, 0.3);
         }
-
         .wiki-inline-code {
             background: rgba(59, 130, 246, 0.1);
             padding: 0.2rem 0.4rem;
@@ -88,13 +77,18 @@
             font-family: monospace;
             font-size: 0.9em;
         }
-        
+        .wiki-msg-highlight {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            border-left: 3px solid #8b5cf6;
+            font-family: monospace;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
@@ -102,7 +96,6 @@
             line-height: 1.6;
             min-height: 100vh;
         }
-
         header {
             background: rgba(15, 15, 35, 0.95);
             backdrop-filter: blur(10px);
@@ -114,14 +107,12 @@
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-
         nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
             gap: 2rem;
         }
-
         nav ul li a {
             display: block;
             padding: 1.2rem 1.5rem;
@@ -134,7 +125,6 @@
             position: relative;
             overflow: hidden;
         }
-
         nav ul li a::before {
             content: '';
             position: absolute;
@@ -145,28 +135,23 @@
             background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
             transition: left 0.5s;
         }
-
         nav ul li a:hover::before {
             left: 100%;
         }
-
         nav ul li a:hover {
             color: #3b82f6;
             transform: translateY(-2px);
         }
-
         nav ul li a.active {
             color: #3b82f6;
             border-bottom-color: #3b82f6;
             background: rgba(59, 130, 246, 0.1);
         }
-
         main {
             padding: 120px 2rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .page {
             display: none;
             background: rgba(30, 41, 59, 0.4);
@@ -177,11 +162,9 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .page.active {
             display: block;
         }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -192,7 +175,6 @@
                 transform: translateY(0);
             }
         }
-
         h1 {
             color: #f1f5f9;
             font-size: 2.5rem;
@@ -204,7 +186,6 @@
             background-clip: text;
             position: relative;
         }
-
         h1::after {
             content: '';
             position: absolute;
@@ -215,13 +196,11 @@
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 2px;
         }
-
         .about-section {
             max-width: 900px;
             margin: 0 auto;
             padding: 2rem 0;
         }
-
         .about-hero {
             text-align: center;
             margin-bottom: 3rem;
@@ -232,7 +211,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .about-hero::before {
             content: '';
             position: absolute;
@@ -243,12 +221,10 @@
             background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
             animation: shimmer 3s infinite;
         }
-
         @keyframes shimmer {
             0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
-
         .about-intro {
             font-size: 1.3rem;
             color: #f1f5f9;
@@ -259,7 +235,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .about-description {
             font-size: 1.1rem;
             color: #cbd5e1;
@@ -267,7 +242,6 @@
             max-width: 700px;
             margin: 0 auto;
         }
-
         .contract-section {
             background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
             padding: 2.5rem;
@@ -276,7 +250,6 @@
             margin: 2rem 0;
             position: relative;
         }
-
         .contract-section::before {
             content: '💼';
             position: absolute;
@@ -288,7 +261,6 @@
             font-size: 1.2rem;
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
-
         .contract-title {
             color: #10b981;
             font-size: 1.5rem;
@@ -298,12 +270,10 @@
             align-items: center;
             gap: 0.5rem;
         }
-
         .contract-terms {
             list-style: none;
             margin: 1.5rem 0;
         }
-
         .contract-terms li {
             display: flex;
             align-items: flex-start;
@@ -315,12 +285,10 @@
             border-left: 4px solid #10b981;
             transition: all 0.3s ease;
         }
-
         .contract-terms li:hover {
             background: rgba(16, 185, 129, 0.1);
             transform: translateX(5px);
         }
-
         .contract-terms li::before {
             content: '✓';
             color: #10b981;
@@ -331,7 +299,6 @@
             border-radius: 50%;
             flex-shrink: 0;
         }
-
         .contact-section {
             background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
             padding: 2.5rem;
@@ -340,7 +307,6 @@
             margin: 2rem 0;
             position: relative;
         }
-
         .contact-section::before {
             content: '📧';
             position: absolute;
@@ -352,20 +318,17 @@
             font-size: 1.2rem;
             border: 1px solid rgba(139, 92, 246, 0.3);
         }
-
         .contact-title {
             color: #8b5cf6;
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
         }
-
         .contact-methods {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-
         .contact-item {
             display: flex;
             align-items: center;
@@ -380,7 +343,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .contact-item::before {
             content: '';
             position: absolute;
@@ -391,17 +353,14 @@
             background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
             transition: left 0.5s;
         }
-
         .contact-item:hover::before {
             left: 100%;
         }
-
         .contact-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2);
             border-color: rgba(139, 92, 246, 0.5);
         }
-
         .contact-icon {
             width: 40px;
             height: 40px;
@@ -409,34 +368,28 @@
             flex-shrink: 0;
             transition: transform 0.3s ease;
         }
-
         .contact-item:hover .contact-icon {
             transform: scale(1.1) rotate(5deg);
         }
-
         .contact-info {
             flex: 1;
         }
-
         .contact-platform {
             font-weight: 600;
             color: #f1f5f9;
             font-size: 1.1rem;
             margin-bottom: 0.2rem;
         }
-
         .contact-handle {
             color: #94a3b8;
             font-size: 0.95rem;
         }
-
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-
         .tile {
             background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(51, 65, 85, 0.3));
             backdrop-filter: blur(10px);
@@ -447,7 +400,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .tile::before {
             content: '';
             position: absolute;
@@ -459,24 +411,20 @@
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
-
         .tile:hover::before {
             transform: scaleX(1);
         }
-
         .tile:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 25px 50px rgba(59, 130, 246, 0.15);
             border-color: rgba(59, 130, 246, 0.4);
         }
-
         .tile-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-
         .tile-icon {
             width: 56px;
             height: 56px;
@@ -488,19 +436,16 @@
             border: 2px solid rgba(59, 130, 246, 0.3);
             transition: all 0.3s ease;
         }
-
         .tile:hover .tile-icon {
             transform: rotate(5deg) scale(1.1);
             border-color: rgba(59, 130, 246, 0.6);
         }
-
         .tile-title {
             font-size: 1.5rem;
             color: #f1f5f9;
             margin: 0;
             font-weight: 700;
         }
-
         .tile-category {
             font-size: 0.9rem;
             color: #10b981;
@@ -511,20 +456,17 @@
             border: 1px solid rgba(16, 185, 129, 0.3);
             margin-left: 0.5rem;
         }
-
         .tile-description {
             font-size: 1rem;
             color: #cbd5e1;
             line-height: 1.7;
             margin-bottom: 2rem;
         }
-
         .tile-actions {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
         }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -539,7 +481,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .btn::before {
             content: '';
             position: absolute;
@@ -550,35 +491,29 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: left 0.5s;
         }
-
         .btn:hover::before {
             left: 100%;
         }
-
         .btn-source {
             background: linear-gradient(135deg, #374151, #4b5563);
             color: #f9fafb;
             border-color: #6b7280;
         }
-
         .btn-source:hover {
             background: linear-gradient(135deg, #4b5563, #6b7280);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-
         .btn-download {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: #ffffff;
             border-color: #3b82f6;
         }
-
         .btn-download:hover {
             background: linear-gradient(135deg, #1d4ed8, #1e40af);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
         }
-
         .overlay {
             display: none;
             position: fixed;
@@ -594,16 +529,13 @@
             overflow-y: auto;
             animation: fadeIn 0.3s ease;
         }
-
         .overlay.active {
             display: flex;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         .wiki-modal {
             background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(51, 65, 85, 0.9));
             backdrop-filter: blur(20px);
@@ -617,7 +549,6 @@
             position: relative;
             animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         @keyframes modalSlideIn {
             from {
                 opacity: 0;
@@ -628,7 +559,6 @@
                 transform: scale(1) translateY(0);
             }
         }
-
         .close-btn {
             position: absolute;
             top: 20px;
@@ -643,13 +573,11 @@
             border-radius: 10px;
             transition: all 0.3s ease;
         }
-
         .close-btn:hover {
             background: rgba(239, 68, 68, 0.2);
             border-color: rgba(239, 68, 68, 0.6);
             transform: scale(1.1);
         }
-
         .wiki-modal-header {
             display: flex;
             align-items: center;
@@ -658,7 +586,6 @@
             border-bottom: 2px solid rgba(59, 130, 246, 0.2);
             padding-bottom: 1rem;
         }
-
         .wiki-plugin-icon {
             width: 56px;
             height: 56px;
@@ -669,21 +596,18 @@
             padding: 4px;
             border: 2px solid rgba(59, 130, 246, 0.3);
         }
-
         .wiki-modal h2 {
             color: #f1f5f9;
             margin: 0;
             font-size: 2rem;
             font-weight: 700;
         }
-
         .wiki-modal p {
             color: #cbd5e1;
             line-height: 1.8;
             margin-bottom: 1.5rem;
             font-size: 1rem;
         }
-
         .wiki-code-block {
             background: linear-gradient(145deg, #0f172a, #1e293b);
             border-radius: 12px;
@@ -692,7 +616,6 @@
             border: 1px solid rgba(59, 130, 246, 0.2);
             overflow: hidden;
         }
-
         .wiki-code-block::before {
             content: '';
             position: absolute;
@@ -702,7 +625,6 @@
             height: 2px;
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
         }
-
         .wiki-code-block pre {
             margin: 0;
             padding: 1.5rem;
@@ -712,7 +634,6 @@
             font-size: 0.9em;
             line-height: 1.6;
         }
-
         .wiki-code-block .copy-btn {
             position: absolute;
             top: 15px;
@@ -727,70 +648,55 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
-
         .wiki-code-block .copy-btn:hover {
             background: linear-gradient(135deg, #1d4ed8, #1e40af);
             transform: scale(1.05);
         }
-
         @media (max-width: 768px) {
             header {
                 padding: 0 1rem;
             }
-
             nav ul {
                 gap: 1rem;
             }
-
             nav ul li a {
                 padding: 1rem 0.8rem;
                 font-size: 0.9rem;
             }
-
             main {
                 padding: 100px 1rem 2rem;
             }
-
             .page {
                 padding: 2rem;
             }
-
             h1 {
                 font-size: 2rem;
             }
-
             .about-hero {
                 padding: 2rem;
             }
-
             .about-intro {
                 font-size: 1.1rem;
             }
-
             .about-description {
                 font-size: 1rem;
             }
-
             .contact-methods {
                 grid-template-columns: 1fr;
             }
-
             .portfolio-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-
             .tile {
                 padding: 1.5rem;
             }
-
             .wiki-modal {
                 padding: 2rem;
                 margin: 10px;
                 width: calc(100% - 20px);
             }
         }
-
         .sparkle {
             position: absolute;
             width: 4px;
@@ -799,7 +705,6 @@
             border-radius: 50%;
             animation: sparkle 2s infinite;
         }
-
         @keyframes sparkle {
             0%, 100% {
                 opacity: 0;
@@ -810,20 +715,16 @@
                 transform: scale(1);
             }
         }
-
         ::-webkit-scrollbar {
             width: 8px;
         }
-
         ::-webkit-scrollbar-track {
             background: rgba(30, 41, 59, 0.3);
         }
-
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 4px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #1d4ed8, #7c3aed);
         }
@@ -1056,7 +957,6 @@
                 }
                 const textContent = await response.text();
                 
-                // Parse the wiki.txt file to extract JSON objects
                 const wikiObjects = {};
                 const jsonBlocks = textContent.split(/(?=\{[\s\S]*?\})/);
                 
@@ -1066,7 +966,6 @@
                         try {
                             const jsonData = JSON.parse(trimmedBlock);
                             if (jsonData.title) {
-                                // Use title as key, but also create a lowercase version for filename matching
                                 wikiObjects[jsonData.title.toLowerCase()] = jsonData;
                             }
                         } catch (e) {
@@ -1090,7 +989,6 @@
                     return null;
                 }
                 
-                // Try to find the wiki content by filename (case insensitive)
                 const lowerFileName = fileName.toLowerCase();
                 return wikiData[lowerFileName] || null;
             } catch (error) {
@@ -1107,15 +1005,12 @@
                 return;
             }
 
-            // Use title from JSON or fallback to parameter
             wikiTitle.textContent = jsonData.title || title;
             
-            // Update icon if provided
             if (jsonData.icon && wikiPluginIcon) {
                 wikiPluginIcon.src = jsonData.icon;
             }
 
-            // Group content by sections
             const sections = {};
             let currentSection = 'main';
             
@@ -1132,7 +1027,6 @@
                 sections[currentSection].push(line);
             });
 
-            // Create tabs if there are multiple sections
             const sectionKeys = Object.keys(sections);
             if (sectionKeys.length > 1) {
                 const tabContainer = document.createElement('div');
@@ -1175,7 +1069,6 @@
                 tabContainer.appendChild(contentContainer);
                 wikiContentDiv.appendChild(tabContainer);
             } else {
-                // Single section, display directly
                 const sectionContent = sections[sectionKeys[0]] || [];
                 processSection(sectionContent, wikiContentDiv);
             }
@@ -1185,7 +1078,6 @@
             contentLines.forEach(line => {
                 if (!line.trim()) return;
                 
-                // Handle code blocks /*code/*
                 if (line.includes('/*') && line.includes('/*')) {
                     const codeMatch = line.match(/\/\*(.+?)\*\//);
                     if (codeMatch) {
@@ -1212,7 +1104,6 @@
                         codeBlockDiv.appendChild(copyBtn);
                         container.appendChild(codeBlockDiv);
                         
-                        // Process remaining text after code block
                         const remainingText = line.replace(/\/\*(.+?)\*\//, '').trim();
                         if (remainingText) {
                             const p = document.createElement('p');
@@ -1223,7 +1114,6 @@
                     }
                 }
                 
-                // Regular text with inline formatting
                 const p = document.createElement('p');
                 p.innerHTML = processInlineFormatting(line);
                 container.appendChild(p);
@@ -1231,33 +1121,19 @@
         }
 
         function processInlineFormatting(text) {
-            // Process *msg*text*msg* for bold formatting
-            return text.replace(/\*msg\*([^*]+)\*msg\*/g, '<code class="wiki-inline-code">$1</code>');
+            return text.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
         }
 
-        async function copyToClipboard(text, button) {
-            try {
-                await navigator.clipboard.writeText(text);
-                const originalText = button.textContent;
-                button.textContent = '¡Copiado!';
-                button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '';
-                }, 2000);
-            } catch (err) {
-                console.error('Error al copiar:', err);
-                alert('Error al copiar el texto.');
-            }
-        }
-
-        function openWikiOverlay(pluginName, wikiFileName, wikiIconUrl) {
+        async function openWikiOverlay(pluginName, wikiFileName, wikiIconUrl) {
             wikiOverlay.scrollTop = 0;
             wikiOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
             wikiContentDiv.innerHTML = '<p>Cargando contenido...</p>';
             wikiTitle.textContent = pluginName;
+            if (wikiIconUrl) {
+                wikiPluginIcon.src = wikiIconUrl;
+            }
 
             fetchWikiContent(wikiFileName)
                 .then(jsonData => {
@@ -1353,19 +1229,6 @@
             });
         });
 
-        function typeWriter(element, text, speed = 100) {
-            element.innerHTML = '';
-            let i = 0;
-            const timer = setInterval(() => {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(timer);
-                }
-            }, speed);
-        }
-
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1388,10 +1251,6 @@
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(el);
             });
-        });
-
-        window.addEventListener('error', (event) => {
-            console.error('Error:', event.error);
         });
 
         const debounce = (func, wait) => {
