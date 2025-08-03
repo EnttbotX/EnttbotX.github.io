@@ -1074,51 +1074,53 @@
             }
         }
 
-        function processSection(contentLines, container) {
-            contentLines.forEach(line => {
-                if (!line.trim()) return;
+        function processSectionContent(lines, container) {
+    lines.forEach(line => {
+        if (!line.trim()) return;
+        
+        const codeBlocks = line.split(/(\/\*.*?\*\/)/g);
+        
+        if (codeBlocks.length > 1) {
+            codeBlocks.forEach(block => {
+                if (!block.trim()) return;
                 
-                if (line.includes('/*') && line.includes('/*')) {
-                    const codeMatch = line.match(/\/\*(.+?)\*\//);
-                    if (codeMatch) {
-                        const codeBlockDiv = document.createElement('div');
-                        codeBlockDiv.className = 'wiki-code-block';
-                        
-                        const pre = document.createElement('pre');
-                        const code = document.createElement('code');
-                        code.textContent = codeMatch[1].trim();
-                        pre.appendChild(code);
-                        codeBlockDiv.appendChild(pre);
-                        
-                        const copyBtn = document.createElement('button');
-                        copyBtn.className = 'copy-btn';
-                        copyBtn.textContent = 'Copiar';
-                        copyBtn.addEventListener('click', () => {
-                            navigator.clipboard.writeText(codeMatch[1].trim())
-                                .then(() => {
-                                    copyBtn.textContent = '¡Copiado!';
-                                    setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
-                                });
-                        });
-                        
-                        codeBlockDiv.appendChild(copyBtn);
-                        container.appendChild(codeBlockDiv);
-                        
-                        const remainingText = line.replace(/\/\*(.+?)\*\//, '').trim();
-                        if (remainingText) {
-                            const p = document.createElement('p');
-                            p.innerHTML = processInlineFormatting(remainingText);
-                            container.appendChild(p);
-                        }
-                        return;
-                    }
+                if (block.startsWith('/*') && block.endsWith('/*')) {
+                    const codeContent = block.slice(2, -2).trim();
+                    const codeBlock = document.createElement('div');
+                    codeBlock.className = 'wiki-code-block';
+                    
+                    const pre = document.createElement('pre');
+                    const code = document.createElement('code');
+                    code.textContent = codeContent;
+                    pre.appendChild(code);
+                    codeBlock.appendChild(pre);
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-btn';
+                    copyBtn.textContent = 'Copiar';
+                    copyBtn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(codeContent)
+                            .then(() => {
+                                copyBtn.textContent = '¡Copiado!';
+                                setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
+                            });
+                    });
+                    
+                    codeBlock.appendChild(copyBtn);
+                    container.appendChild(codeBlock);
+                } else {
+                    const p = document.createElement('p');
+                    p.innerHTML = block.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
+                    container.appendChild(p);
                 }
-                
-                const p = document.createElement('p');
-                p.innerHTML = processInlineFormatting(line);
-                container.appendChild(p);
             });
+        } else {
+            const p = document.createElement('p');
+            p.innerHTML = line.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
+            container.appendChild(p);
         }
+    });
+}
 
         function processInlineFormatting(text) {
             return text.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
