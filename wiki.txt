@@ -2,10 +2,38 @@
   "title": "XPad",
   "icon": "https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701",
   "content": [
-    "[section==main]",
-    "Texto normal con *msj*palabras destacadas*msj* adentro.",
-    "[section==commands]",
-    "/*System.out.println(\"Hola Mundo\");/*",
-    "Más texto normal acá."
+    "[section==Info]",
+    "*msg*XPad*msg* is the best launch-pads plugin",
+    "in this wiki you will have a tutorial",
+    "of how to configure the plugin",
+    "[section==Starting (CMDs)]",
+    "*msg*USING COMMANDS*msg*",
+    "use /xpad create <id> (like 3)",
+    "",
+    "you can use that default pad",
+    "or can use '/xpad edit' command";
+    "[section==Starting (Via Config)]",
+    "you can change:",
+    "- bottom-block",
+    "- launch-plate",
+    "- sound"
+    "",
+    "etc."
+    "[section==General Errors]",
+    "Generally errors are caused by bad config",
+    "like invalid launch-plate,",
+    "invalid bottom-block,"
+    "or something like that",
+    "[section==General Tips]",
+    "Check the config after changes",
+    "- do not touch config-version",
+    "- see if you block name is the one",
+    "of your version."
+    "[section==Recomended steps]",
+    "1: /*/xpad create 3/*",
+    "2: /*/xpad edit 3 bottom-block ANY/*",
+    "3: /*/xpad edit 3 direction player-view/*",
+    "",
+    "and there you have a default pad!",
   ]
 }
