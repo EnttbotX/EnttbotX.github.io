@@ -40,52 +40,52 @@
         }
 
         .wiki-spoiler {
-    margin: 1rem 0;
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
-}
+            margin: 1rem 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-.wiki-spoiler-btn {
-    width: 100%;
-    padding: 1rem;
-    background: rgba(30, 41, 59, 0.5);
-    border: none;
-    color: #e2e8f0;
-    text-align: left;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .wiki-spoiler-btn {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: none;
+            color: #e2e8f0;
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.wiki-spoiler-content {
-    padding: 1rem;
-    background: rgba(15, 23, 42, 0.3);
-    display: none;
-}
+        .wiki-spoiler-content {
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.3);
+            display: none;
+        }
 
-.wiki-spoiler-btn:hover {
-    background: rgba(59, 130, 246, 0.1);
-}
+        .wiki-spoiler-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
 
-.wiki-callout-title {
-    color: #8b5cf6;
-    font-size: 1.5rem;
-    margin: 1.5rem 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(139, 92, 246, 0.3);
-}
+        .wiki-callout-title {
+            color: #8b5cf6;
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+        }
 
-.wiki-inline-code {
-    background: rgba(59, 130, 246, 0.1);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    font-family: monospace;
-    font-size: 0.9em;
-}
+        .wiki-inline-code {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-family: monospace;
+            font-size: 0.9em;
+        }
         
         * {
             margin: 0;
@@ -212,6 +212,220 @@
             height: 3px;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 2px;
+        }
+
+        .about-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .about-intro {
+            font-size: 1.3rem;
+            color: #f1f5f9;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-description {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contract-section {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .contract-section::before {
+            content: '💼';
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(51, 65, 85, 0.9));
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .contract-title {
+            color: #10b981;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contract-terms {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .contract-terms li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #10b981;
+            transition: all 0.3s ease;
+        }
+
+        .contract-terms li:hover {
+            background: rgba(16, 185, 129, 0.1);
+            transform: translateX(5px);
+        }
+
+        .contract-terms li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.1rem;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 0.3rem 0.6rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .contact-section {
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .contact-section::before {
+            content: '📧';
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(51, 65, 85, 0.9));
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .contact-title {
+            color: #8b5cf6;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(51, 65, 85, 0.3));
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-item:hover::before {
+            left: 100%;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-platform {
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-handle {
+            color: #94a3b8;
+            font-size: 0.95rem;
         }
 
         .portfolio-grid {
@@ -543,6 +757,22 @@
                 font-size: 2rem;
             }
 
+            .about-hero {
+                padding: 2rem;
+            }
+
+            .about-intro {
+                font-size: 1.1rem;
+            }
+
+            .about-description {
+                font-size: 1rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
             .portfolio-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
@@ -596,40 +826,80 @@
             background: linear-gradient(135deg, #1d4ed8, #7c3aed);
         }
     </style>
-<style type="text/css" id="operaUserStyle"></style></head>
+</head>
 <body style="overflow: hidden;">
     <header>
         <nav>
             <ul>
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#wiki" class="nav-link active">Wiki</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#wiki" class="nav-link">Wiki</a></li>
                 <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
             </ul>
         </nav>
+
+        <a href="https://www.spigotmc.org/members/enttbotx.1937569" target="_blank" style="position: absolute; top: 10px; left: 10px; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <img src="https://avatars.githubusercontent.com/u/155677534?v=4&size=64" alt="EnttbotX" style="width: 40px; height: 40px; border-radius: 8px;">
+            <span style="color: white; font-weight: 600; font-size: 16px;">EnttbotX | Hub</span>
+        </a>
+
+        <a href="https://ko-fi.com/enttbot" target="_blank" style="position: absolute; top: 10px; right: 10px;">
+            <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support me on Ko-fi" style="height: 48px;">
+        </a>
     </header>
 
     <main>
-        <section id="home" class="page" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s, transform 0.6s;">
-            <h1>Welcome</h1>
-            <p>
-  Hi friend, if you're on this website, you either arrived by accident, you're really lost with a plugin, or you just want to check out my work.
-  Let me introduce myself properly.
-</p>
-<p>
-  Hi, I'm <strong>Enttbot</strong>, a 16-year-old Argentinian YouTuber and developer. I focus on making quality plugins with the time I have. I aim for value over hype and like contributing unusual but useful plugins to the Minecraft Spigot community.
-</p>
-<p>
-  I mainly work with Spigot from <strong>1.8 to 1.12</strong> and from <strong>1.16 to 1.21</strong>.
-</p>
+        <section id="home" class="page active">
+            <div class="about-section">
+                <div class="about-hero">
+                    <div class="about-intro">
+                        Hi, I'm Enttbot, or EnttbotX, or Entt, whatever you want to call me.
+                    </div>
+                    <div class="about-description">
+                        I'm a 16-year-old Spigot plugin developer who loves releasing interesting plugins and following long-term projects. If you like my plugins, I'd appreciate your donation. If you're looking for long-term dev work, you can contact me via Discord, where I'll let you know if I'm busy or not. Preferably, short projects like just one plugin.
+                    </div>
+                </div>
 
-            
+                <div class="contract-section">
+                    <div class="contract-title">
+                        Terms of Contract
+                    </div>
+                    <ul class="contract-terms">
+                        <li>Payment is due before the plugin is delivered</li>
+                        <li>I must be able to upload the plugin to Spigot</li>
+                        <li>Clear information required</li>
+                        <li>Direct communication preferred</li>
+                    </ul>
+                </div>
+
+                <div class="contact-section">
+                    <div class="contact-title">
+                        Contact me via
+                    </div>
+                    <div class="contact-methods">
+                        <a href="https://discord.com/users/enttbot" target="_blank" class="contact-item">
+                            <img src="https://static.vecteezy.com/system/resources/previews/023/986/880/non_2x/discord-logo-discord-logo-transparent-discord-icon-transparent-free-free-png.png" alt="Discord" class="contact-icon">
+                            <div class="contact-info">
+                                <div class="contact-platform">Discord</div>
+                                <div class="contact-handle">@enttbot</div>
+                            </div>
+                        </a>
+                        <a href="mailto:enttbotx@gmail.com" class="contact-item">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png" alt="Gmail" class="contact-icon">
+                            <div class="contact-info">
+                                <div class="contact-platform">Email</div>
+                                <div class="contact-handle">enttbotx@gmail.com</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="wiki" class="page active" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s, transform 0.6s;">
+        <section id="wiki" class="page">
             <h1>Wiki</h1>
             <p>Here are the Wikies of some of my plugins or softwares</p>
             <div class="portfolio-grid">
-                <div class="tile" style="opacity: 1; transition: opacity 0.6s, transform 0.6s;">
+                <div class="tile">
                     <div class="tile-header">
                         <img class="tile-icon" src="https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701" alt="XPad Icon">
                         <div>
@@ -645,10 +915,10 @@
             </div>
         </section>
 
-        <section id="portfolio" class="page" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+        <section id="portfolio" class="page">
             <h1>My Projects</h1>
             <div class="portfolio-grid">
-                <div class="tile" style="opacity: 0; transition: opacity 0.6s, transform 0.6s; transform: translateY(30px);">
+                <div class="tile">
                     <div class="tile-header">
                         <img class="tile-icon" src="https://www.spigotmc.org/data/resource_icons/114/114316.jpg?1724109041" alt="ClansX Icon">
                         <div>
@@ -659,12 +929,11 @@
                     <p class="tile-description">ClansX is a high-performance, modular Minecraft clan plugin. It offers complete clan creation, management, and war systems, placeholder integration, and support for multiple economies. It is designed to be scalable, customizable, and easy to integrate into survival, PvP, or RPG servers.</p>
                     <div class="tile-actions">
                         <a href="https://github.com/EnttbotX/ClansX" target="_blank" class="btn btn-source">Source</a>
-                        <a href="https://www.spigotmc.org/resources/clansx-the-best-clan-system-1-8-1-21.114316
-    " target="_blank" class="btn btn-download">Spigot</a>
+                        <a href="https://www.spigotmc.org/resources/clansx-the-best-clan-system-1-8-1-21.114316" target="_blank" class="btn btn-download">Spigot</a>
                     </div>
                 </div>
 
-                <div class="tile" style="opacity: 0; transition: opacity 0.6s, transform 0.6s; transform: translateY(30px);">
+                <div class="tile">
                     <div class="tile-header">
                         <img class="tile-icon" src="https://www.spigotmc.org/data/resource_icons/115/115289.jpg?1708979359" alt="FunkyFeather Icon">
                         <div>
@@ -679,7 +948,7 @@
                     </div>
                 </div>
 
-                <div class="tile" style="opacity: 0; transition: opacity 0.6s, transform 0.6s; transform: translateY(30px);">
+                <div class="tile">
                     <div class="tile-header">
                         <img class="tile-icon" src="https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701" alt="XPad Icon">
                         <div>
@@ -694,7 +963,7 @@
                     </div>
                 </div>
 
-                <div class="tile" style="opacity: 0; transition: opacity 0.6s, transform 0.6s; transform: translateY(30px);">
+                <div class="tile">
                     <div class="tile-header">
                         <img class="tile-icon" src="https://www.spigotmc.org/data/resource_icons/124/124823.jpg?1746700062" alt="FastGive Icon">
                         <div>
@@ -709,7 +978,7 @@
                     </div>
                 </div>
 
-                <div class="tile" style="opacity: 0; transition: opacity 0.6s, transform 0.6s; transform: translateY(30px);">
+                <div class="tile">
                     <div class="tile-header">
                         <img class="tile-icon" src="https://www.spigotmc.org/data/resource_icons/121/121036.jpg?1732856873" alt="InstaFriend Icon">
                         <div>
@@ -718,8 +987,8 @@
                         </div>
                     </div>
                     
-                    <p class="tile-description">InstaFriend is a Spigot plugin that allows players to instantly obtain a tamed wolfdog by using a wolf spawner egg. This plugin is designed to be lightweight, easy to configure, and compatible with Minecraft versions 1.8 through 1.21.</p><div class="tile-actions">
-                        
+                    <p class="tile-description">InstaFriend is a Spigot plugin that allows players to instantly obtain a tamed wolfdog by using a wolf spawner egg. This plugin is designed to be lightweight, easy to configure, and compatible with Minecraft versions 1.8 through 1.21.</p>
+                    <div class="tile-actions">
                         <a href="https://www.spigotmc.org/resources/instafriend-1-8-1-21.121036" target="_blank" class="btn btn-download">Spigot</a>
                     </div>
                 </div>
@@ -727,14 +996,14 @@
         </section>
     </main>
 
-    <div id="wiki-overlay" class="overlay active">
+    <div id="wiki-overlay" class="overlay">
         <div class="wiki-modal">
             <button class="close-btn">×</button>
             <div class="wiki-modal-header">
-                <img id="wiki-plugin-icon" class="wiki-plugin-icon" src="https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701" alt="Plugin Icon" style="display: block;">
+                <img id="wiki-plugin-icon" class="wiki-plugin-icon" src="https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701" alt="Plugin Icon">
                 <h2 id="wiki-title">XPad</h2>
             </div>
-            <div id="wiki-content"><div class="wiki-tab-container"><div class="wiki-tab-nav"><button class="wiki-tab-btn active">Características</button><button class="wiki-tab-btn">Comandos</button></div><div class="wiki-tab-content"><div class="wiki-tab-page" id="wiki-page-características" style="display: block;"><div class="wiki-code-block"><pre><code>Configuración básica:</code></pre><button class="copy-btn">Copiar</button></div><p>/xpad create <nombre></nombre></p><p>/xpad edit <nombre></nombre></p><div class="wiki-code-block"><pre><code>Configuración básica:</code></pre><button class="copy-btn">Copiar</button></div><p>/xpad create <nombre></nombre></p><p>/xpad edit <nombre></nombre></p></div><div class="wiki-tab-page" id="wiki-page-comandos"><p>Todos los comandos disponibles:</p><p>*</p><div class="wiki-code-block"><pre><code>/xpad create</code></pre><button class="copy-btn">Copiar</button></div><div class="wiki-code-block"><pre><code>- Crea un nuevo jump pad</code></pre><button class="copy-btn">Copiar</button></div><div class="wiki-code-block"><pre><code>/xpad delete</code></pre><button class="copy-btn">Copiar</button></div><p>* - Elimina un jump pad</p><div class="wiki-spoiler"><button class="wiki-spoiler-btn">Configuración avanzada <span class="spoiler-arrow">▼</span></button><div class="wiki-spoiler-content"><p>Estas son opciones para administradores:</p><p>*</p><div class="wiki-code-block"><pre><code>/xpad setpower 5</code></pre><button class="copy-btn">Copiar</button></div><div class="wiki-code-block"><pre><code></code></pre><button class="copy-btn">Copiar</button></div><div class="wiki-code-block"><pre><code>/xpad setcooldown 10</code></pre><button class="copy-btn">Copiar</button></div><p>*</p></div></div></div></div></div></div>
+            <div id="wiki-content"></div>
         </div>
     </div>
 
@@ -785,170 +1054,157 @@
         }
 
         function parseAndDisplayWikiContent(content, title) {
-    wikiContentDiv.innerHTML = '';
-    wikiTitle.textContent = title;
+            wikiContentDiv.innerHTML = '';
+            wikiTitle.textContent = title;
 
-    if (!content) {
-        wikiContentDiv.innerHTML = '<p>No se pudo cargar el contenido de la wiki.</p>';
-        return;
-    }
+            if (!content) {
+                wikiContentDiv.innerHTML = '<p>No se pudo cargar el contenido de la wiki.</p>';
+                return;
+            }
 
-    // Procesar subdivisiones de páginas primero
-    const pageSections = content.split(/\[\[pag\."([^"]+)"\]\]/);
-    
-    if (pageSections.length > 1) {
-        const tabContainer = document.createElement('div');
-        tabContainer.className = 'wiki-tab-container';
-        
-        const tabNav = document.createElement('div');
-        tabNav.className = 'wiki-tab-nav';
-        
-        const contentContainer = document.createElement('div');
-        contentContainer.className = 'wiki-tab-content';
-        
-        for (let i = 1; i < pageSections.length; i += 2) {
-            const pageName = pageSections[i].trim();
-            const pageContent = pageSections[i+1] || '';
+            const pageSections = content.split(/\[\[pag\."([^"]+)"\]\]/);
             
-            const tabBtn = document.createElement('button');
-            tabBtn.className = 'wiki-tab-btn';
-            tabBtn.textContent = pageName;
-            
-            const tabPage = document.createElement('div');
-            tabPage.className = 'wiki-tab-page';
-            tabPage.id = `wiki-page-${pageName.toLowerCase().replace(/\s+/g, '-')}`;
-            
-            // Procesar el contenido de la página (incluyendo spoilers)
-            processPageContent(pageContent, tabPage);
-            
-            tabBtn.addEventListener('click', () => {
-                document.querySelectorAll('.wiki-tab-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.wiki-tab-page').forEach(page => page.style.display = 'none');
-                tabBtn.classList.add('active');
-                tabPage.style.display = 'block';
-            });
-            
-            tabNav.appendChild(tabBtn);
-            contentContainer.appendChild(tabPage);
-        }
-        
-        // Activar primera pestaña
-        if (tabNav.firstChild) {
-            tabNav.firstChild.classList.add('active');
-            contentContainer.firstChild.style.display = 'block';
-        }
-        
-        tabContainer.appendChild(tabNav);
-        tabContainer.appendChild(contentContainer);
-        wikiContentDiv.appendChild(tabContainer);
-    } else {
-        // No hay subdivisiones, procesar todo el contenido
-        processPageContent(content, wikiContentDiv);
-    }
-}
-
-function processPageContent(content, container) {
-    // Procesar spoilers primero
-    const spoilerSections = content.split(/{spoiler<([^>]+)>([\s\S]*?)(?=}|$)/g);
-    
-    let lastPos = 0;
-    for (let i = 0; i < spoilerSections.length; i += 3) {
-        // Contenido antes del spoiler
-        if (spoilerSections[i] && i === 0) {
-            processBasicContent(spoilerSections[i].substring(lastPos), container);
-        }
-        
-        if (i + 1 < spoilerSections.length) {
-            const spoilerTitle = spoilerSections[i+1];
-            const spoilerContent = spoilerSections[i+2];
-            
-            const spoilerDiv = document.createElement('div');
-            spoilerDiv.className = 'wiki-spoiler';
-            
-            const spoilerBtn = document.createElement('button');
-            spoilerBtn.className = 'wiki-spoiler-btn';
-            spoilerBtn.innerHTML = `${spoilerTitle} <span class="spoiler-arrow">▼</span>`;
-            
-            const spoilerContentDiv = document.createElement('div');
-            spoilerContentDiv.className = 'wiki-spoiler-content';
-            
-            // Procesar contenido dentro del spoiler
-            processBasicContent(spoilerContent, spoilerContentDiv);
-            
-            spoilerBtn.addEventListener('click', () => {
-                spoilerContentDiv.style.display = spoilerContentDiv.style.display === 'none' ? 'block' : 'none';
-                spoilerBtn.querySelector('.spoiler-arrow').textContent = 
-                    spoilerContentDiv.style.display === 'none' ? '▼' : '▲';
-            });
-            
-            spoilerDiv.appendChild(spoilerBtn);
-            spoilerDiv.appendChild(spoilerContentDiv);
-            container.appendChild(spoilerDiv);
-        }
-    }
-    
-    // Contenido después del último spoiler
-    if (spoilerSections.length === 1) {
-        processBasicContent(content, container);
-    }
-}
-
-function processBasicContent(content, container) {
-    // Dividir en bloques de código y texto normal
-    const parts = content.split(/\*([^*]+)\*/g);
-    
-    for (let i = 0; i < parts.length; i++) {
-        if (i % 2 === 1) {
-            // Bloque de código
-            const codeBlockDiv = document.createElement('div');
-            codeBlockDiv.className = 'wiki-code-block';
-            
-            const pre = document.createElement('pre');
-            const code = document.createElement('code');
-            code.textContent = parts[i].trim();
-            pre.appendChild(code);
-            codeBlockDiv.appendChild(pre);
-            
-            const copyBtn = document.createElement('button');
-            copyBtn.className = 'copy-btn';
-            copyBtn.textContent = 'Copiar';
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(parts[i].trim())
-                    .then(() => {
-                        copyBtn.textContent = '¡Copiado!';
-                        setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
-                    });
-            });
-            
-            codeBlockDiv.appendChild(copyBtn);
-            container.appendChild(codeBlockDiv);
-        } else if (parts[i].trim()) {
-            // Procesar texto normal
-            const lines = parts[i].split('\n');
-            
-            for (const line of lines) {
-                if (line.trim() === '') continue;
+            if (pageSections.length > 1) {
+                const tabContainer = document.createElement('div');
+                tabContainer.className = 'wiki-tab-container';
                 
-                // Títulos con \\ texto \\
-                const titleMatch = line.match(/^\\\\\s*(.+?)\s*\\\\$/);
-                if (titleMatch) {
-                    const title = document.createElement('h3');
-                    title.className = 'wiki-callout-title';
-                    title.textContent = titleMatch[1];
-                    container.appendChild(title);
-                    continue;
+                const tabNav = document.createElement('div');
+                tabNav.className = 'wiki-tab-nav';
+                
+                const contentContainer = document.createElement('div');
+                contentContainer.className = 'wiki-tab-content';
+                
+                for (let i = 1; i < pageSections.length; i += 2) {
+                    const pageName = pageSections[i].trim();
+                    const pageContent = pageSections[i+1] || '';
+                    
+                    const tabBtn = document.createElement('button');
+                    tabBtn.className = 'wiki-tab-btn';
+                    tabBtn.textContent = pageName;
+                    
+                    const tabPage = document.createElement('div');
+                    tabPage.className = 'wiki-tab-page';
+                    tabPage.id = `wiki-page-${pageName.toLowerCase().replace(/\s+/g, '-')}`;
+                    
+                    processPageContent(pageContent, tabPage);
+                    
+                    tabBtn.addEventListener('click', () => {
+                        document.querySelectorAll('.wiki-tab-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('.wiki-tab-page').forEach(page => page.style.display = 'none');
+                        tabBtn.classList.add('active');
+                        tabPage.style.display = 'block';
+                    });
+                    
+                    tabNav.appendChild(tabBtn);
+                    contentContainer.appendChild(tabPage);
                 }
                 
-                // Código en línea con **texto**
-                const processedLine = line.replace(/\*\*([^*]+)\*\*/g, '<code class="wiki-inline-code">$1</code>');
+                if (tabNav.firstChild) {
+                    tabNav.firstChild.classList.add('active');
+                    contentContainer.firstChild.style.display = 'block';
+                }
                 
-                const p = document.createElement('p');
-                p.innerHTML = processedLine;
-                container.appendChild(p);
+                tabContainer.appendChild(tabNav);
+                tabContainer.appendChild(contentContainer);
+                wikiContentDiv.appendChild(tabContainer);
+            } else {
+                processPageContent(content, wikiContentDiv);
             }
         }
-    }
-}
+
+        function processPageContent(content, container) {
+            const spoilerSections = content.split(/{spoiler<([^>]+)>([\s\S]*?)(?=}|$)/g);
+            
+            let lastPos = 0;
+            for (let i = 0; i < spoilerSections.length; i += 3) {
+                if (spoilerSections[i] && i === 0) {
+                    processBasicContent(spoilerSections[i].substring(lastPos), container);
+                }
+                
+                if (i + 1 < spoilerSections.length) {
+                    const spoilerTitle = spoilerSections[i+1];
+                    const spoilerContent = spoilerSections[i+2];
+                    
+                    const spoilerDiv = document.createElement('div');
+                    spoilerDiv.className = 'wiki-spoiler';
+                    
+                    const spoilerBtn = document.createElement('button');
+                    spoilerBtn.className = 'wiki-spoiler-btn';
+                    spoilerBtn.innerHTML = `${spoilerTitle} <span class="spoiler-arrow">▼</span>`;
+                    
+                    const spoilerContentDiv = document.createElement('div');
+                    spoilerContentDiv.className = 'wiki-spoiler-content';
+                    
+                    processBasicContent(spoilerContent, spoilerContentDiv);
+                    
+                    spoilerBtn.addEventListener('click', () => {
+                        spoilerContentDiv.style.display = spoilerContentDiv.style.display === 'none' ? 'block' : 'none';
+                        spoilerBtn.querySelector('.spoiler-arrow').textContent = 
+                            spoilerContentDiv.style.display === 'none' ? '▼' : '▲';
+                    });
+                    
+                    spoilerDiv.appendChild(spoilerBtn);
+                    spoilerDiv.appendChild(spoilerContentDiv);
+                    container.appendChild(spoilerDiv);
+                }
+            }
+            
+            if (spoilerSections.length === 1) {
+                processBasicContent(content, container);
+            }
+        }
+
+        function processBasicContent(content, container) {
+            const parts = content.split(/\*([^*]+)\*/g);
+            
+            for (let i = 0; i < parts.length; i++) {
+                if (i % 2 === 1) {
+                    const codeBlockDiv = document.createElement('div');
+                    codeBlockDiv.className = 'wiki-code-block';
+                    
+                    const pre = document.createElement('pre');
+                    const code = document.createElement('code');
+                    code.textContent = parts[i].trim();
+                    pre.appendChild(code);
+                    codeBlockDiv.appendChild(pre);
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-btn';
+                    copyBtn.textContent = 'Copiar';
+                    copyBtn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(parts[i].trim())
+                            .then(() => {
+                                copyBtn.textContent = '¡Copiado!';
+                                setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
+                            });
+                    });
+                    
+                    codeBlockDiv.appendChild(copyBtn);
+                    container.appendChild(codeBlockDiv);
+                } else if (parts[i].trim()) {
+                    const lines = parts[i].split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.trim() === '') continue;
+                        
+                        const titleMatch = line.match(/^\\\\\s*(.+?)\s*\\\\$/);
+                        if (titleMatch) {
+                            const title = document.createElement('h3');
+                            title.className = 'wiki-callout-title';
+                            title.textContent = titleMatch[1];
+                            container.appendChild(title);
+                            continue;
+                        }
+                        
+                        const processedLine = line.replace(/\*\*([^*]+)\*\*/g, '<code class="wiki-inline-code">$1</code>');
+                        
+                        const p = document.createElement('p');
+                        p.innerHTML = processedLine;
+                        container.appendChild(p);
+                    }
+                }
+            }
+        }
 
         async function copyToClipboard(text, button) {
             try {
@@ -1136,5 +1392,5 @@ function processBasicContent(content, container) {
             }
         }, 250));
     </script>
-
-<div class="sparkle" style="left: 13.0738%; top: 53.6455%;"></div><div class="sparkle" style="left: 20.0553%; top: 67.4926%;"></div><div class="sparkle" style="left: 3.08729%; top: 72.1696%;"></div></body></html>
+</body>
+</html>
