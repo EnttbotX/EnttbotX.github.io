@@ -2,10 +2,10 @@
   "title": "XPad",
   "icon": "https://www.spigotmc.org/resources/xpad-the-best-jumppads-plugin-1-8-1-21.116150",
   "content": [
-    "[section==main]"
+    "[section==main]",
     "Texto normal con *msj*palabras destacadas*msj* adentro.",
-    "[section==commands]"
-    "/*System.out.println(\"Hola Mundo\");/*"
+    "[section==commands]",
+    "/*System.out.println(\"Hola Mundo\");/*",
     "Más texto normal acá."
   ]
 }
