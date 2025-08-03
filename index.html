@@ -1074,18 +1074,13 @@
             }
         }
 
-        function processSectionContent(lines, container) {
-    lines.forEach(line => {
-        if (!line.trim()) return;
-        
-        const codeBlocks = line.split(/(\/\*.*?\*\/)/g);
-        
-        if (codeBlocks.length > 1) {
-            codeBlocks.forEach(block => {
-                if (!block.trim()) return;
+       function processSectionContent(lines, container) {
+            lines.forEach(line => {
+                if (!line.trim()) return;
                 
-                if (block.startsWith('/*') && block.endsWith('/*')) {
-                    const codeContent = block.slice(2, -2).trim();
+                // Procesar bloques de código
+                if (line.startsWith('/*') && line.endsWith('/*')) {
+                    const codeContent = line.slice(2, -2).trim();
                     const codeBlock = document.createElement('div');
                     codeBlock.className = 'wiki-code-block';
                     
@@ -1109,18 +1104,13 @@
                     codeBlock.appendChild(copyBtn);
                     container.appendChild(codeBlock);
                 } else {
+                    // Procesar texto normal con mensajes destacados
                     const p = document.createElement('p');
-                    p.innerHTML = block.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
+                    p.innerHTML = line.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
                     container.appendChild(p);
                 }
             });
-        } else {
-            const p = document.createElement('p');
-            p.innerHTML = line.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
-            container.appendChild(p);
         }
-    });
-}
 
         function processInlineFormatting(text) {
             return text.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
