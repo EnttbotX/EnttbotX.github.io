@@ -943,13 +943,7 @@
             });
         }
 
-        let cachedWikiData = null;
-
-        async function fetchWikiData() {
-            if (cachedWikiData) {
-                return cachedWikiData;
-            }
-            
+        async function fetchWikiContent() {
             try {
                 const response = await fetch(WIKI_FILE_URL);
                 if (!response.ok) {
@@ -957,42 +951,16 @@
                 }
                 const textContent = await response.text();
                 
-                const wikiObjects = {};
-                const jsonBlocks = textContent.split(/(?=\{[\s\S]*?\})/);
-                
-                jsonBlocks.forEach(block => {
-                    const trimmedBlock = block.trim();
-                    if (trimmedBlock.startsWith('{') && trimmedBlock.endsWith('}')) {
-                        try {
-                            const jsonData = JSON.parse(trimmedBlock);
-                            if (jsonData.title) {
-                                wikiObjects[jsonData.title.toLowerCase()] = jsonData;
-                            }
-                        } catch (e) {
-                            console.warn('Failed to parse JSON block:', e);
-                        }
-                    }
-                });
-                
-                cachedWikiData = wikiObjects;
-                return wikiObjects;
-            } catch (error) {
-                console.error('Error fetching wiki data:', error);
-                return null;
-            }
-        }
-
-        async function fetchWikiContent(fileName) {
-            try {
-                const wikiData = await fetchWikiData();
-                if (!wikiData) {
+                try {
+                    // Parsear el contenido como JSON
+                    const jsonData = JSON.parse(textContent);
+                    return jsonData;
+                } catch (e) {
+                    console.error('Error parsing wiki JSON:', e);
                     return null;
                 }
-                
-                const lowerFileName = fileName.toLowerCase();
-                return wikiData[lowerFileName] || null;
             } catch (error) {
-                console.error('Error fetching wiki content:', error);
+                console.error('Error fetching wiki data:', error);
                 return null;
             }
         }
@@ -1047,7 +1015,7 @@
                     tabPage.className = 'wiki-tab-page';
                     tabPage.id = `wiki-page-${sectionName}`;
                     
-                    processSection(sections[sectionName], tabPage);
+                    processSectionContent(sections[sectionName], tabPage);
                     
                     tabBtn.addEventListener('click', () => {
                         document.querySelectorAll('.wiki-tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1070,11 +1038,11 @@
                 wikiContentDiv.appendChild(tabContainer);
             } else {
                 const sectionContent = sections[sectionKeys[0]] || [];
-                processSection(sectionContent, wikiContentDiv);
+                processSectionContent(sectionContent, wikiContentDiv);
             }
         }
 
-       function processSectionContent(lines, container) {
+        function processSectionContent(lines, container) {
             lines.forEach(line => {
                 if (!line.trim()) return;
                 
@@ -1112,10 +1080,6 @@
             });
         }
 
-        function processInlineFormatting(text) {
-            return text.replace(/\*msj\*(.*?)\*msj\*/g, '<span class="wiki-msg-highlight">$1</span>');
-        }
-
         async function openWikiOverlay(pluginName, wikiFileName, wikiIconUrl) {
             wikiOverlay.scrollTop = 0;
             wikiOverlay.classList.add('active');
@@ -1127,18 +1091,18 @@
                 wikiPluginIcon.src = wikiIconUrl;
             }
 
-            fetchWikiContent(wikiFileName)
-                .then(jsonData => {
-                    parseAndDisplayWikiContent(jsonData, pluginName);
-                });
+            try {
+                const jsonData = await fetchWikiContent();
+                parseAndDisplayWikiContent(jsonData, pluginName);
+            } catch (error) {
+                console.error('Error loading wiki:', error);
+                wikiContentDiv.innerHTML = '<p>Error al cargar el contenido de la wiki.</p>';
+            }
         }
 
         function closeWikiOverlay() {
             wikiOverlay.classList.remove('active');
             document.body.style.overflow = '';
-            if (wikiPluginIcon) {
-                wikiPluginIcon.src = '';
-            }
         }
 
         function createSparkle() {
@@ -1219,23 +1183,21 @@
                     }
                 });
             });
-        });
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
 
-        document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll('.tile, .page');
             animatedElements.forEach(el => {
                 el.style.opacity = '0';
