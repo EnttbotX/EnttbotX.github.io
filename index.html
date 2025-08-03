@@ -969,7 +969,7 @@
             wikiContentDiv.innerHTML = '';
             
             if (!jsonData) {
-                wikiContentDiv.innerHTML = '<p>No se pudo cargar el contenido de la wiki.</p>';
+                wikiContentDiv.innerHTML = '<p>Can´t load haha.</p>';
                 return;
             }
 
@@ -1046,28 +1046,27 @@
             lines.forEach(line => {
                 if (!line.trim()) return;
                 
-                // Procesar bloques de código
-                if (line.startsWith('/*') && line.endsWith('/*')) {
-                    const codeContent = line.slice(2, -2).trim();
-                    const codeBlock = document.createElement('div');
-                    codeBlock.className = 'wiki-code-block';
-                    
-                    const pre = document.createElement('pre');
-                    const code = document.createElement('code');
-                    code.textContent = codeContent;
-                    pre.appendChild(code);
-                    codeBlock.appendChild(pre);
-                    
-                    const copyBtn = document.createElement('button');
-                    copyBtn.className = 'copy-btn';
-                    copyBtn.textContent = 'Copiar';
-                    copyBtn.addEventListener('click', () => {
-                        navigator.clipboard.writeText(codeContent)
-                            .then(() => {
-                                copyBtn.textContent = '¡Copiado!';
-                                setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
-                            });
+                 if (part.startsWith('/*') && part.endsWith('*/')) {
+            const codeContent = part.slice(2, -2).trim();
+            const codeBlock = document.createElement('div');
+            codeBlock.className = 'wiki-code-block';
+            
+            const pre = document.createElement('pre');
+            const code = document.createElement('code');
+            code.textContent = codeContent;
+            pre.appendChild(code);
+            codeBlock.appendChild(pre);
+            
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.textContent = 'Copiar';
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(codeContent)
+                    .then(() => {
+                        copyBtn.textContent = '¡Copiado!';
+                        setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
                     });
+            });
                     
                     codeBlock.appendChild(copyBtn);
                     container.appendChild(codeBlock);
