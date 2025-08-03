@@ -1,4 +1,6 @@
-<html lang="es"><head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnttbotX Hub</title>
@@ -909,7 +911,7 @@
                     </div>
                     
                     <div class="tile-actions">
-                        <a href="#" class="btn btn-download wiki-btn" data-plugin="XPad" data-file="xpad" data-icon="https://via.placeholder.com/56/3b82f6/ffffff?text=XP">See Wiki</a>
+                        <a href="#" class="btn btn-download wiki-btn" data-plugin="XPad" data-file="xpad" data-icon="https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701">See Wiki</a>
                     </div>
                 </div>
             </div>
@@ -1013,7 +1015,7 @@
         const wikiTitle = document.getElementById('wiki-title');
         const closeWikiBtn = document.querySelector('#wiki-overlay .close-btn');
         const wikiPluginIcon = document.getElementById('wiki-plugin-icon');
-        const GITHUB_RAW_BASE_URL = 'https://raw.githubusercontent.com/EnttbotX/EnttbotX.github.io/main/wiki/';
+        const WIKI_FILE_URL = 'https://raw.githubusercontent.com/EnttbotX/EnttbotX.github.io/main/wiki.txt';
 
         function handleNavigation() {
             closeWikiOverlay();
@@ -1040,31 +1042,99 @@
             });
         }
 
-        async function fetchWikiContent(fileName) {
+        let cachedWikiData = null;
+
+        async function fetchWikiData() {
+            if (cachedWikiData) {
+                return cachedWikiData;
+            }
+            
             try {
-                const response = await fetch(`${GITHUB_RAW_BASE_URL}${fileName}.wiki`);
+                const response = await fetch(WIKI_FILE_URL);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return await response.text();
+                const textContent = await response.text();
+                
+                // Parse the wiki.txt file to extract JSON objects
+                const wikiObjects = {};
+                const jsonBlocks = textContent.split(/(?=\{[\s\S]*?\})/);
+                
+                jsonBlocks.forEach(block => {
+                    const trimmedBlock = block.trim();
+                    if (trimmedBlock.startsWith('{') && trimmedBlock.endsWith('}')) {
+                        try {
+                            const jsonData = JSON.parse(trimmedBlock);
+                            if (jsonData.title) {
+                                // Use title as key, but also create a lowercase version for filename matching
+                                wikiObjects[jsonData.title.toLowerCase()] = jsonData;
+                            }
+                        } catch (e) {
+                            console.warn('Failed to parse JSON block:', e);
+                        }
+                    }
+                });
+                
+                cachedWikiData = wikiObjects;
+                return wikiObjects;
+            } catch (error) {
+                console.error('Error fetching wiki data:', error);
+                return null;
+            }
+        }
+
+        async function fetchWikiContent(fileName) {
+            try {
+                const wikiData = await fetchWikiData();
+                if (!wikiData) {
+                    return null;
+                }
+                
+                // Try to find the wiki content by filename (case insensitive)
+                const lowerFileName = fileName.toLowerCase();
+                return wikiData[lowerFileName] || null;
             } catch (error) {
                 console.error('Error fetching wiki content:', error);
                 return null;
             }
         }
 
-        function parseAndDisplayWikiContent(content, title) {
+        function parseAndDisplayWikiContent(jsonData, title) {
             wikiContentDiv.innerHTML = '';
-            wikiTitle.textContent = title;
-
-            if (!content) {
+            
+            if (!jsonData) {
                 wikiContentDiv.innerHTML = '<p>No se pudo cargar el contenido de la wiki.</p>';
                 return;
             }
 
-            const pageSections = content.split(/\[\[pag\."([^"]+)"\]\]/);
+            // Use title from JSON or fallback to parameter
+            wikiTitle.textContent = jsonData.title || title;
             
-            if (pageSections.length > 1) {
+            // Update icon if provided
+            if (jsonData.icon && wikiPluginIcon) {
+                wikiPluginIcon.src = jsonData.icon;
+            }
+
+            // Group content by sections
+            const sections = {};
+            let currentSection = 'main';
+            
+            jsonData.content.forEach(line => {
+                const sectionMatch = line.match(/^\[section==(.+)\]$/);
+                if (sectionMatch) {
+                    currentSection = sectionMatch[1];
+                    return;
+                }
+                
+                if (!sections[currentSection]) {
+                    sections[currentSection] = [];
+                }
+                sections[currentSection].push(line);
+            });
+
+            // Create tabs if there are multiple sections
+            const sectionKeys = Object.keys(sections);
+            if (sectionKeys.length > 1) {
                 const tabContainer = document.createElement('div');
                 tabContainer.className = 'wiki-tab-container';
                 
@@ -1074,19 +1144,16 @@
                 const contentContainer = document.createElement('div');
                 contentContainer.className = 'wiki-tab-content';
                 
-                for (let i = 1; i < pageSections.length; i += 2) {
-                    const pageName = pageSections[i].trim();
-                    const pageContent = pageSections[i+1] || '';
-                    
+                sectionKeys.forEach((sectionName, index) => {
                     const tabBtn = document.createElement('button');
                     tabBtn.className = 'wiki-tab-btn';
-                    tabBtn.textContent = pageName;
+                    tabBtn.textContent = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
                     
                     const tabPage = document.createElement('div');
                     tabPage.className = 'wiki-tab-page';
-                    tabPage.id = `wiki-page-${pageName.toLowerCase().replace(/\s+/g, '-')}`;
+                    tabPage.id = `wiki-page-${sectionName}`;
                     
-                    processPageContent(pageContent, tabPage);
+                    processSection(sections[sectionName], tabPage);
                     
                     tabBtn.addEventListener('click', () => {
                         document.querySelectorAll('.wiki-tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1095,115 +1162,77 @@
                         tabPage.style.display = 'block';
                     });
                     
+                    if (index === 0) {
+                        tabBtn.classList.add('active');
+                        tabPage.style.display = 'block';
+                    }
+                    
                     tabNav.appendChild(tabBtn);
                     contentContainer.appendChild(tabPage);
-                }
-                
-                if (tabNav.firstChild) {
-                    tabNav.firstChild.classList.add('active');
-                    contentContainer.firstChild.style.display = 'block';
-                }
+                });
                 
                 tabContainer.appendChild(tabNav);
                 tabContainer.appendChild(contentContainer);
                 wikiContentDiv.appendChild(tabContainer);
             } else {
-                processPageContent(content, wikiContentDiv);
+                // Single section, display directly
+                const sectionContent = sections[sectionKeys[0]] || [];
+                processSection(sectionContent, wikiContentDiv);
             }
         }
 
-        function processPageContent(content, container) {
-            const spoilerSections = content.split(/{spoiler<([^>]+)>([\s\S]*?)(?=}|$)/g);
-            
-            let lastPos = 0;
-            for (let i = 0; i < spoilerSections.length; i += 3) {
-                if (spoilerSections[i] && i === 0) {
-                    processBasicContent(spoilerSections[i].substring(lastPos), container);
-                }
+        function processSection(contentLines, container) {
+            contentLines.forEach(line => {
+                if (!line.trim()) return;
                 
-                if (i + 1 < spoilerSections.length) {
-                    const spoilerTitle = spoilerSections[i+1];
-                    const spoilerContent = spoilerSections[i+2];
-                    
-                    const spoilerDiv = document.createElement('div');
-                    spoilerDiv.className = 'wiki-spoiler';
-                    
-                    const spoilerBtn = document.createElement('button');
-                    spoilerBtn.className = 'wiki-spoiler-btn';
-                    spoilerBtn.innerHTML = `${spoilerTitle} <span class="spoiler-arrow">▼</span>`;
-                    
-                    const spoilerContentDiv = document.createElement('div');
-                    spoilerContentDiv.className = 'wiki-spoiler-content';
-                    
-                    processBasicContent(spoilerContent, spoilerContentDiv);
-                    
-                    spoilerBtn.addEventListener('click', () => {
-                        spoilerContentDiv.style.display = spoilerContentDiv.style.display === 'none' ? 'block' : 'none';
-                        spoilerBtn.querySelector('.spoiler-arrow').textContent = 
-                            spoilerContentDiv.style.display === 'none' ? '▼' : '▲';
-                    });
-                    
-                    spoilerDiv.appendChild(spoilerBtn);
-                    spoilerDiv.appendChild(spoilerContentDiv);
-                    container.appendChild(spoilerDiv);
-                }
-            }
-            
-            if (spoilerSections.length === 1) {
-                processBasicContent(content, container);
-            }
-        }
-
-        function processBasicContent(content, container) {
-            const parts = content.split(/\*([^*]+)\*/g);
-            
-            for (let i = 0; i < parts.length; i++) {
-                if (i % 2 === 1) {
-                    const codeBlockDiv = document.createElement('div');
-                    codeBlockDiv.className = 'wiki-code-block';
-                    
-                    const pre = document.createElement('pre');
-                    const code = document.createElement('code');
-                    code.textContent = parts[i].trim();
-                    pre.appendChild(code);
-                    codeBlockDiv.appendChild(pre);
-                    
-                    const copyBtn = document.createElement('button');
-                    copyBtn.className = 'copy-btn';
-                    copyBtn.textContent = 'Copiar';
-                    copyBtn.addEventListener('click', () => {
-                        navigator.clipboard.writeText(parts[i].trim())
-                            .then(() => {
-                                copyBtn.textContent = '¡Copiado!';
-                                setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
-                            });
-                    });
-                    
-                    codeBlockDiv.appendChild(copyBtn);
-                    container.appendChild(codeBlockDiv);
-                } else if (parts[i].trim()) {
-                    const lines = parts[i].split('\n');
-                    
-                    for (const line of lines) {
-                        if (line.trim() === '') continue;
+                // Handle code blocks /*code/*
+                if (line.includes('/*') && line.includes('/*')) {
+                    const codeMatch = line.match(/\/\*(.+?)\*\//);
+                    if (codeMatch) {
+                        const codeBlockDiv = document.createElement('div');
+                        codeBlockDiv.className = 'wiki-code-block';
                         
-                        const titleMatch = line.match(/^\\\\\s*(.+?)\s*\\\\$/);
-                        if (titleMatch) {
-                            const title = document.createElement('h3');
-                            title.className = 'wiki-callout-title';
-                            title.textContent = titleMatch[1];
-                            container.appendChild(title);
-                            continue;
+                        const pre = document.createElement('pre');
+                        const code = document.createElement('code');
+                        code.textContent = codeMatch[1].trim();
+                        pre.appendChild(code);
+                        codeBlockDiv.appendChild(pre);
+                        
+                        const copyBtn = document.createElement('button');
+                        copyBtn.className = 'copy-btn';
+                        copyBtn.textContent = 'Copiar';
+                        copyBtn.addEventListener('click', () => {
+                            navigator.clipboard.writeText(codeMatch[1].trim())
+                                .then(() => {
+                                    copyBtn.textContent = '¡Copiado!';
+                                    setTimeout(() => copyBtn.textContent = 'Copiar', 2000);
+                                });
+                        });
+                        
+                        codeBlockDiv.appendChild(copyBtn);
+                        container.appendChild(codeBlockDiv);
+                        
+                        // Process remaining text after code block
+                        const remainingText = line.replace(/\/\*(.+?)\*\//, '').trim();
+                        if (remainingText) {
+                            const p = document.createElement('p');
+                            p.innerHTML = processInlineFormatting(remainingText);
+                            container.appendChild(p);
                         }
-                        
-                        const processedLine = line.replace(/\*\*([^*]+)\*\*/g, '<code class="wiki-inline-code">$1</code>');
-                        
-                        const p = document.createElement('p');
-                        p.innerHTML = processedLine;
-                        container.appendChild(p);
+                        return;
                     }
                 }
-            }
+                
+                // Regular text with inline formatting
+                const p = document.createElement('p');
+                p.innerHTML = processInlineFormatting(line);
+                container.appendChild(p);
+            });
+        }
+
+        function processInlineFormatting(text) {
+            // Process *msg*text*msg* for bold formatting
+            return text.replace(/\*msg\*([^*]+)\*msg\*/g, '<code class="wiki-inline-code">$1</code>');
         }
 
         async function copyToClipboard(text, button) {
@@ -1227,19 +1256,12 @@
             wikiOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            if (wikiPluginIcon && wikiIconUrl) {
-                wikiPluginIcon.src = wikiIconUrl;
-                wikiPluginIcon.style.display = 'block';
-            } else if (wikiPluginIcon) {
-                wikiPluginIcon.style.display = 'none';
-            }
-
             wikiContentDiv.innerHTML = '<p>Cargando contenido...</p>';
             wikiTitle.textContent = pluginName;
 
             fetchWikiContent(wikiFileName)
-                .then(content => {
-                    parseAndDisplayWikiContent(content, pluginName);
+                .then(jsonData => {
+                    parseAndDisplayWikiContent(jsonData, pluginName);
                 });
         }
 
