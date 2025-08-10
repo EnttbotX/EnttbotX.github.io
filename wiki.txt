@@ -38,67 +38,71 @@
   ]
 }
 
-[{MODULE=="EnttAPI"}]:
 {
-  "title": "MySQL",
+  "title": "EnttAPI",
   "icon": "https://cdn-icons-png.flaticon.com/512/919/919836.png",
-  "content": [
-    "[section==Info]",
-    "*msj*MySQLAPI*msj* is a database module for EnttAPI",
-    "It allows your plugin to connect and interact",
-    "with a MySQL database easily.",
-    "You can use it to store, update and fetch data",
-    "without writing repetitive JDBC code.",
-    
-    "[section==Starting (Setup)]",
-    "*msj*INITIALIZING THE MODULE*msj*",
-    "First, create an instance of the module:",
-    "/*/MySQLAPI mysql = new MySQLAPI();/*",
-    "",
-    "Then, connect to your database:",
-    "/*/mysql.connect(\"localhost\", \"3306\", \"database\", \"user\", \"pass\");/*",
-    "",
-    "Always check if connected before running commands:",
-    "/*/if(mysql.isConnected()) { ... }/*",
-    
-    "[section==Basic Usage]",
-    "*msj*CREATE TABLE*msj*",
-    "/*/mysql.createTable(\"users\", \"id INT PRIMARY KEY, name VARCHAR(32)\");/*",
-    "",
-    "*msj*INSERT DATA*msj*",
-    "/*/mysql.executeCommand(\"INSERT INTO users (id, name) VALUES (1, 'Steve')\");/*",
-    "",
-    "*msj*FETCH DATA*msj*",
-    "/*/ResultSet rs = mysql.getResult(\"SELECT * FROM users\");/*",
-    "/*/while(rs.next()) { Bukkit.broadcastMessage(rs.getString(\"name\")); }/*",
-    
-    "[section==Disconnecting]",
-    "When your plugin disables or you no longer need the connection:",
-    "/*/mysql.disconnect();/*",
-    "This frees resources and avoids memory leaks.",
-    
-    "[section==General Errors]",
-    "Most errors come from:",
-    "- Wrong credentials",
-    "- Database not running",
-    "- Syntax errors in SQL commands",
-    "",
-    "Always check your console for stacktraces.",
-    
-    "[section==General Tips]",
-    "- Always close your ResultSet when done",
-    "- Avoid blocking main thread with heavy queries",
-    "- Use try-catch for database operations",
-    "- Test your SQL syntax in a MySQL client first",
-    
-    "[section==Recommended steps]",
-    "1: /*/MySQLAPI mysql = new MySQLAPI();/*",
-    "2: /*/mysql.connect(\"localhost\", \"3306\", \"test\", \"root\", \"1234\");/*",
-    "3: /*/mysql.createTable(\"data\", \"uuid VARCHAR(36), coins INT\");/*",
-    "4: /*/mysql.executeCommand(\"INSERT INTO data VALUES ('uuid-here', 100)\");/*",
-    "5: /*/mysql.disconnect();/*",
-    "",
-    "And you have MySQL integration in your plugin!"
-  ]
+  "modules": {
+    "MySQL": {
+      "title": "MySQL",
+      "icon": "https://cdn-icons-png.flaticon.com/512/919/919836.png",
+      "content": [
+        "[section==Info]",
+        "*msj*MySQLAPI*msj* is a database module for EnttAPI",
+        "It allows your plugin to connect and interact",
+        "with a MySQL database easily.",
+        "You can use it to store, update and fetch data",
+        "without writing repetitive JDBC code.",
+        
+        "[section==Starting (Setup)]",
+        "*msj*INITIALIZING THE MODULE*msj*",
+        "First, create an instance of the module:",
+        "/*/MySQLAPI mysql = new MySQLAPI();/*",
+        "",
+        "Then, connect to your database:",
+        "/*/mysql.connect(\"localhost\", \"3306\", \"database\", \"user\", \"pass\");/*",
+        "",
+        "Always check if connected before running commands:",
+        "/*/if(mysql.isConnected()) { ... }/*",
+        
+        "[section==Basic Usage]",
+        "*msj*CREATE TABLE*msj*",
+        "/*/mysql.createTable(\"users\", \"id INT PRIMARY KEY, name VARCHAR(32)\");/*",
+        "",
+        "*msj*INSERT DATA*msj*",
+        "/*/mysql.executeCommand(\"INSERT INTO users (id, name) VALUES (1, 'Steve')\");/*",
+        "",
+        "*msj*FETCH DATA*msj*",
+        "/*/ResultSet rs = mysql.getResult(\"SELECT * FROM users\");/*",
+        "/*/while(rs.next()) { Bukkit.broadcastMessage(rs.getString(\"name\")); }/*",
+        
+        "[section==Disconnecting]",
+        "When your plugin disables or you no longer need the connection:",
+        "/*/mysql.disconnect();/*",
+        "This frees resources and avoids memory leaks.",
+        
+        "[section==General Errors]",
+        "Most errors come from:",
+        "- Wrong credentials",
+        "- Database not running",
+        "- Syntax errors in SQL commands",
+        "",
+        "Always check your console for stacktraces.",
+        
+        "[section==General Tips]",
+        "- Always close your ResultSet when done",
+        "- Avoid blocking main thread with heavy queries",
+        "- Use try-catch for database operations",
+        "- Test your SQL syntax in a MySQL client first",
+        
+        "[section==Recommended steps]",
+        "1: /*/MySQLAPI mysql = new MySQLAPI();/*",
+        "2: /*/mysql.connect(\"localhost\", \"3306\", \"test\", \"root\", \"1234\");/*",
+        "3: /*/mysql.createTable(\"data\", \"uuid VARCHAR(36), coins INT\");/*",
+        "4: /*/mysql.executeCommand(\"INSERT INTO data VALUES ('uuid-here', 100)\");/*",
+        "5: /*/mysql.disconnect();/*",
+        "",
+        "And you have MySQL integration in your plugin!"
+      ]
+    }
+  }
 }
-end(EnttAPI);
