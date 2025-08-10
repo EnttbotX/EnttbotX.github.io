@@ -38,8 +38,9 @@
   ]
 }
 
+[{MODULE=="EnttAPI"}]:
 {
-  "title": "MySQLAPI (EnttAPI Module)",
+  "title": "MySQL",
   "icon": "https://cdn-icons-png.flaticon.com/512/919/919836.png",
   "content": [
     "[section==Info]",
@@ -100,4 +101,4 @@
     "And you have MySQL integration in your plugin!"
   ]
 }
-
+end(EnttAPI);
