@@ -56,7 +56,7 @@
         "[section==Starting (Setup)]",
         "*msj*INITIALIZING THE MODULE*msj*",
         "First, create an instance of the module:",
-        "/*/MySQLAPI mysql = new MySQLAPI();/*",
+        "/*/MySQL mysql = new MySQL();/*",
         "",
         "Then, connect to your database:",
         "/*/mysql.connect(\"localhost\", \"3306\", \"database\", \"user\", \"pass\");/*",
