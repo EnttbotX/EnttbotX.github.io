@@ -40,11 +40,11 @@
 
 {
   "title": "EnttAPI",
-  "icon": "https://cdn-icons-png.flaticon.com/512/919/919836.png",
+  "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
   "modules": {
     "MySQL": {
       "title": "MySQL",
-      "icon": "https://cdn-icons-png.flaticon.com/512/919/919836.png",
+      "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
       "content": [
         "[section==Info]",
         "*msj*MySQLAPI*msj* is a database module for EnttAPI",
