@@ -42,19 +42,46 @@
   "title": "EnttAPI",
   "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
   "modules": {
+    "Integrate the API": {
+      "title": "Integrating EnttAPI into Your Plugin",
+      "content": [
+        "[section==Explanation]",
+        "EnttAPI is available through JitPack, so you can include it in any build system that supports Maven repositories.",
+        "Replace *Tag* with the release/tag you want to use from the GitHub repository.",
+        "",
+        "Supported build systems: Maven, Gradle, Gradle.kts, SBT, Leiningen",
+        
+        "[section==Maven]",
+        "Add the JitPack repository:",
+        "/*<repositories>\n\t<repository>\n\t\t<id>jitpack.io</id>\n\t\t<url>https://jitpack.io</url>\n\t</repository>\n</repositories>/*",
+        "Add the dependency:",
+        "/*<dependencies>\n\t<dependency>\n\t\t<groupId>com.github.EnttbotX</groupId>\n\t\t<artifactId>EnttAPI</artifactId>\n\t\t<version>Tag</version>\n\t</dependency>\n</dependencies>/*",
+        
+        "[section==Gradle]",
+        "/*dependencyResolutionManagement {\n\trepositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n\trepositories {\n\t\tmavenCentral()\n\t\tmaven { url 'https://jitpack.io' }\n\t}\n}\n\ndependencies {\n\timplementation 'com.github.EnttbotX:EnttAPI:Tag'\n}/*",
+        
+        "[section==Gradle.kts]",
+        "/*dependencyResolutionManagement {\n\trepositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n\trepositories {\n\t\tmavenCentral()\n\t\tmaven { url = uri(\"https://jitpack.io\") }\n\t}\n}\n\ndependencies {\n\timplementation(\"com.github.EnttbotX:EnttAPI:Tag\")\n}/*",
+        
+        "[section==SBT]",
+        "/*resolvers += \"jitpack\" at \"https://jitpack.io\"\n\nlibraryDependencies += \"com.github.EnttbotX\" % \"EnttAPI\" % \"Tag\"/*",
+        
+        "[section==Leiningen]",
+        "/*:repositories [[\"jitpack\" \"https://jitpack.io\"]]\n\n:dependencies [[com.github.EnttbotX/EnttAPI \"Tag\"]]/*"
+      ]
+    },
     "MySQL": {
       "title": "MySQL",
-      "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
       "content": [
         "[section==Info]",
-        "*msj*MySQLAPI*msj* is a database module for EnttAPI",
+        "MySQLAPI is a database module for EnttAPI",
         "It allows your plugin to connect and interact",
         "with a MySQL database easily.",
         "You can use it to store, update and fetch data",
         "without writing repetitive JDBC code.",
         
         "[section==Starting (Setup)]",
-        "*msj*INITIALIZING THE MODULE*msj*",
+        "INITIALIZING THE MODULE",
         "First, create an instance of the module:",
         "/*/MySQL mysql = new MySQL();/*",
         "",
@@ -65,13 +92,13 @@
         "/*/if(mysql.isConnected()) { ... }/*",
         
         "[section==Basic Usage]",
-        "*msj*CREATE TABLE*msj*",
+        "CREATE TABLE",
         "/*/mysql.createTable(\"users\", \"id INT PRIMARY KEY, name VARCHAR(32)\");/*",
         "",
-        "*msj*INSERT DATA*msj*",
+        "INSERT DATA",
         "/*/mysql.executeCommand(\"INSERT INTO users (id, name) VALUES (1, 'Steve')\");/*",
         "",
-        "*msj*FETCH DATA*msj*",
+        "FETCH DATA",
         "/*/ResultSet rs = mysql.getResult(\"SELECT * FROM users\");/*",
         "/*/while(rs.next()) { Bukkit.broadcastMessage(rs.getString(\"name\")); }/*",
         
