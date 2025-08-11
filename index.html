@@ -486,29 +486,30 @@
         }
 
         function parseContent(contentArray) {
-            return contentArray.map(line => {
-                if (line.startsWith('[section==') && line.endsWith(']')) {
-                    return `<h3>${line.slice(10, -1)}</h3>`;
-                }
-                if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
-                    return `<p><strong>${line.slice(5, -5)}</strong></p>`;
-                }
-                if (line.startsWith('/*/') && line.endsWith('/*')) {
-                    const codeContent = line.slice(3, -2);
-                    return `
-                        <div class="wiki-code-block">
-                            <pre><code>${codeContent}</code></pre>
-                            <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
-                        </div>
-                    `;
-                }
-                return `<p>${line}</p>`;
-            }).join('');
-        }
+        return contentArray.map(line => {
+            line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            if (line.startsWith('[section==') && line.endsWith(']')) {
+                return `<h3>${line.slice(10, -1)}</h3>`;
+            }
+            if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
+                return `<p><strong>${line.slice(5, -5)}</strong></p>`;
+            }
+            if (line.startsWith('/*/') && line.endsWith('/*')) {
+                const codeContent = line.slice(3, -2);
+                return `
+                    <div class="wiki-code-block">
+                        <pre><code>${codeContent}</code></pre>
+                        <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
+                    </div>
+                `;
+            }
+            return `<p>${line}</p>`;
+        }).join('');
+    }
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                // Visual feedback could be added here
                 console.log('Copied to clipboard');
             });
         }
@@ -568,9 +569,7 @@
             }, 2000);
         }
 
-        // Event Listeners
         document.addEventListener('DOMContentLoaded', async () => {
-            // Navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (event) => {
                     const currentHash = window.location.hash;
@@ -582,14 +581,12 @@
                 });
             });
 
-            // Language selector
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     translatePage(btn.getAttribute('data-lang'));
                 });
             });
 
-            // Modal controls
             closeWikiBtn.addEventListener('click', closeWikiOverlay);
             wikiOverlay.addEventListener('click', (event) => {
                 if (event.target === wikiOverlay) {
@@ -603,19 +600,15 @@
                 }
             });
 
-            // Initialize
             handleNavigation();
             window.addEventListener('popstate', handleNavigation);
             translatePage(currentLanguage);
 
-            // Sparkle effect
             setInterval(createSparkle, 3000);
-
-            // Fetch and display wiki content
+            
             await fetchWikiContent();
         });
 
-        // Responsive navigation
         const debounce = (func, wait) => {
             let timeout;
             return function executedFunction(...args) {
