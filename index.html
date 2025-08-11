@@ -31,10 +31,84 @@
         nav ul li a:hover::before { left: 100%; }
         nav ul li a:hover { color: #3b82f6; transform: translateY(-2px); }
         nav ul li a.active { color: #3b82f6; border-bottom-color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
-        .language-selector { position: absolute; top: 10px; right: 180px; display: flex; gap: 0.5rem; }
-        .language-btn { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: #3b82f6; padding: 0.3rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; font-size: 0.8rem; }
-        .language-btn:hover { background: rgba(59, 130, 246, 0.2); }
-        .language-btn.active { background: rgba(59, 130, 246, 0.3); border-color: #3b82f6; }
+        
+        /* New language dropdown styles */
+        .language-dropdown { 
+            position: absolute; 
+            top: 50%; 
+            right: 180px; 
+            transform: translateY(-50%);
+            z-index: 200; 
+        }
+        .language-current { 
+            background: rgba(59, 130, 246, 0.1); 
+            border: 1px solid rgba(59, 130, 246, 0.3); 
+            color: #3b82f6; 
+            padding: 0.5rem 1rem; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            font-weight: 500; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem;
+        }
+        .language-current:hover { 
+            background: rgba(59, 130, 246, 0.2); 
+        }
+        .language-flag {
+            width: 20px;
+            height: 15px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+        .language-options { 
+            position: absolute; 
+            top: 100%; 
+            right: 0; 
+            background: rgba(30, 41, 59, 0.95); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3); 
+            border-radius: 8px; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: none; 
+            min-width: 120px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .language-options.active { 
+            display: block; 
+            animation: fadeInDown 0.2s ease;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .language-option { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            padding: 0.7rem 1rem; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+        .language-option:hover { 
+            background: rgba(59, 130, 246, 0.1); 
+        }
+        .language-option.active { 
+            background: rgba(59, 130, 246, 0.2); 
+            color: #3b82f6;
+        }
+        .dropdown-arrow {
+            font-size: 0.8em;
+            transition: transform 0.2s ease;
+        }
+        .language-current.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
         main { padding: 120px 2rem 2rem; max-width: 1200px; margin: 0 auto; }
         .page { display: none; background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .page.active { display: block; }
@@ -105,11 +179,22 @@
         .wiki-code-block code { background: #333; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
         .wiki-code-block .copy-btn { position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #ffffff; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.3s ease; }
         .wiki-code-block .copy-btn:hover { background: linear-gradient(135deg, #1d4ed8, #1e40af); transform: scale(1.05); }
+        
+        .wiki-modules-container {
+            margin-bottom: 2rem;
+        }
+        
         @media (max-width: 768px) {
             header { padding: 0 1rem; }
             nav ul { gap: 1rem; flex-wrap: wrap; }
             nav ul li a { padding: 1rem 0.8rem; font-size: 0.9rem; }
-            .language-selector { position: static; margin: 0.5rem auto; justify-content: center; width: 100%; }
+            .language-dropdown { 
+                position: static; 
+                margin: 0.5rem auto; 
+                transform: none;
+                display: flex;
+                justify-content: center;
+            }
             main { padding: 100px 1rem 2rem; }
             .page { padding: 1.5rem; }
             h1 { font-size: 2rem; }
@@ -129,7 +214,7 @@
         ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #1d4ed8, #7c3aed); }
     </style>
 </head>
-<body style="overflow: hidden;">
+<body>
     <header>
         <nav>
             <ul>
@@ -139,10 +224,25 @@
             </ul>
         </nav>
 
-        <div class="language-selector">
-            <button class="language-btn" data-lang="es">ES</button>
-            <button class="language-btn" data-lang="en">EN</button>
-            <button class="language-btn" data-lang="it">IT</button>
+        <div class="language-dropdown">
+            <div class="language-current" id="language-current">
+                <img src="https://flagcdn.com/w20/ar.png" alt="ES" class="language-flag" id="current-flag">
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <div class="language-options" id="language-options">
+                <div class="language-option active" data-lang="es">
+                    <img src="https://flagcdn.com/w20/ar.png" alt="Español" class="language-flag">
+                    <span>Español</span>
+                </div>
+                <div class="language-option" data-lang="en">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag">
+                    <span>English</span>
+                </div>
+                <div class="language-option" data-lang="it">
+                    <img src="https://flagcdn.com/w20/it.png" alt="Italiano" class="language-flag">
+                    <span>Italiano</span>
+                </div>
+            </div>
         </div>
 
         <a href="https://www.spigotmc.org/members/enttbotx.1937569" target="_blank" style="position: absolute; top: 10px; left: 10px; display: flex; align-items: center; gap: 8px; text-decoration: none;">
@@ -298,7 +398,7 @@
                 <img id="wiki-plugin-icon" class="wiki-plugin-icon" src="" alt="Plugin Icon">
                 <h2 id="wiki-title"></h2>
             </div>
-            <div id="wiki-modules" class="wiki-modules-container" style="margin-bottom: 1rem;"></div>
+            <div id="wiki-modules" class="wiki-modules-container"></div>
             <div id="wiki-content"></div>
         </div>
     </div>
@@ -311,9 +411,144 @@
         const closeWikiBtn = document.querySelector('#wiki-overlay .close-btn');
         const wikiPluginIcon = document.getElementById('wiki-plugin-icon');
         const wikiGrid = document.getElementById('wiki-grid');
-        const WIKI_FILE_URL = 'https://raw.githubusercontent.com/EnttbotX/EnttbotX.github.io/main/wiki.txt';
+        
+        // Language dropdown elements
+        const languageCurrent = document.getElementById('language-current');
+        const languageOptions = document.getElementById('language-options');
+        const currentFlag = document.getElementById('current-flag');
+        
         let currentLanguage = 'es';
         let wikiData = {};
+
+        // Wiki data (embedded directly to fix loading issues)
+        const embeddedWikiData = {
+            "XPad": {
+                "title": "XPad",
+                "icon": "https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701",
+                "content": [
+                    "[section==Info]",
+                    "**XPad** is the best launch-pads plugin for Minecraft.",
+                    "In this wiki you will learn how to configure and use it effectively.",
+                    "",
+                    "**Main features:**",
+                    "- Customizable jump pads",
+                    "- Directional launch control",
+                    "- Sound and particle effects",
+                    "[section==Commands]",
+                    "**Basic commands:**",
+                    "/* /xpad create <id> /* - Creates a new pad",
+                    "/* /xpad edit <id> /* - Edits an existing pad",
+                    "",
+                    "**Example usage:**",
+                    "1. First, create a pad:",
+                    "/* /xpad create 1 /*",
+                    "2. Then configure it:",
+                    "/* /xpad edit 1 power 2.5 /*",
+                    "[section==Configuration]",
+                    "You can customize:",
+                    "- **bottom-block**: The block under the pad",
+                    "- **launch-plate**: The pressure plate",
+                    "- **sound**: Effect when launching",
+                    "",
+                    "**Example config:**",
+                    "//*",
+                    "pads:",
+                    "  default:",
+                    "    bottom-block: STONE",
+                    "    launch-plate: OAK_PRESSURE_PLATE",
+                    "    power: 1.5",
+                    "//*/",
+                    "[section==Troubleshooting]",
+                    "**Common errors:**",
+                    "- Invalid block names in config",
+                    "- Missing dependencies",
+                    "- Incorrect permissions",
+                    "",
+                    "**Always check:**",
+                    "1. Your server logs",
+                    "2. Plugin configuration",
+                    "3. Permission nodes"
+                ]
+            },
+            "EnttAPI": {
+                "title": "EnttAPI",
+                "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
+                "modules": {
+                    "Integration": {
+                        "title": "API Integration Guide",
+                        "content": [
+                            "[section==Overview]",
+                            "**EnttAPI** is available through JitPack and supports multiple build systems.",
+                            "",
+                            "**Key features:**",
+                            "- Lightweight design",
+                            "- MySQL support",
+                            "- Easy configuration",
+                            "[section==Maven]",
+                            "Add to your pom.xml:",
+                            "//*",
+                            "<repositories>",
+                            "  <repository>",
+                            "    <id>jitpack.io</id>",
+                            "    <url>https://jitpack.io</url>",
+                            "  </repository>",
+                            "</repositories>",
+                            "",
+                            "<dependencies>",
+                            "  <dependency>",
+                            "    <groupId>com.github.EnttbotX</groupId>",
+                            "    <artifactId>EnttAPI</artifactId>",
+                            "    <version>VERSION</version>",
+                            "  </dependency>",
+                            "</dependencies>",
+                            "//*/",
+                            "[section==Gradle]",
+                            "Add to build.gradle:",
+                            "/* implementation 'com.github.EnttbotX:EnttAPI:VERSION' /*"
+                        ]
+                    },
+                    "MySQL": {
+                        "title": "MySQL Module",
+                        "content": [
+                            "[section==Setup]",
+                            "**Initialize connection:**",
+                            "//*",
+                            "MySQL mysql = new MySQL();",
+                            "mysql.connect(",
+                            "  \"localhost\", ",
+                            "  \"3306\", ",
+                            "  \"database\", ",
+                            "  \"user\", ",
+                            "  \"password\"",
+                            ");",
+                            "//*/",
+                            "[section==Usage]",
+                            "**Create table:**",
+                            "/* mysql.createTable(\"players\", \"uuid VARCHAR(36), name VARCHAR(16)\"); /*",
+                            "",
+                            "**Insert data:**",
+                            "//*",
+                            "mysql.executeCommand(",
+                            "  \"INSERT INTO players (uuid, name) VALUES (?, ?)\", ",
+                            "  player.getUniqueId().toString(),",
+                            "  player.getName()",
+                            ");",
+                            "//*/",
+                            "[section==Best Practices]",
+                            "**Always:**",
+                            "- Use try-catch blocks",
+                            "- Close connections when done",
+                            "- Validate SQL queries first",
+                            "",
+                            "**Avoid:**",
+                            "- Blocking main thread",
+                            "- Hardcoding credentials",
+                            "- Unsanitized inputs"
+                        ]
+                    }
+                }
+            }
+        };
 
         const translations = {
             es: {
@@ -387,28 +622,8 @@
             }
         };
 
-        async function fetchWikiContent() {
-            try {
-                const response = await fetch(WIKI_FILE_URL);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const text = await response.text();
-
-                // Parse the wiki file format from paste-2.txt
-                const wrapped = `[${text.trim().replace(/}\s*{/g, '},{')}]`;
-                const pluginsArray = JSON.parse(wrapped);
-
-                wikiData = {};
-                pluginsArray.forEach(plugin => {
-                    wikiData[plugin.title] = plugin;
-                });
-
-                generateWikiTiles();
-                return wikiData;
-            } catch (error) {
-                console.error('Error fetching wiki data:', error);
-                return null;
-            }
-        }
+        // Initialize with embedded data
+        wikiData = embeddedWikiData;
 
         function generateWikiTiles() {
             wikiGrid.innerHTML = '';
@@ -426,7 +641,7 @@
                         </div>
                     </div>
                     <div class="tile-actions">
-                        <button class="btn btn-download wiki-btn" data-plugin="${plugin.title}">Ver Wiki</button>
+                        <button class="btn btn-download wiki-btn" data-plugin="${plugin.title}" data-i18n="wiki.see_wiki">Ver Wiki</button>
                     </div>
                 `;
                 
@@ -436,6 +651,9 @@
                 
                 wikiGrid.appendChild(tile);
             });
+            
+            // Apply current language translations
+            translatePage(currentLanguage);
         }
 
         function showPluginModal(pluginName) {
@@ -453,7 +671,7 @@
 
             // Display main content
             if (plugin.content) {
-                wikiContentDiv.innerHTML += parseContent(plugin.content);
+                wikiContentDiv.innerHTML = parseContent(plugin.content);
             }
 
             // Display modules if they exist
@@ -464,9 +682,18 @@
                 modulesDiv.style.marginBottom = '1rem';
                 modulesDiv.style.gap = '0.5rem';
                 
+                // Show first module by default
+                let firstModule = true;
+                
                 Object.keys(plugin.modules).forEach(moduleKey => {
                     const moduleBtn = document.createElement('button');
                     moduleBtn.className = 'wiki-module-btn';
+                    if (firstModule) {
+                        moduleBtn.classList.add('active');
+                        firstModule = false;
+                        // Show first module content
+                        wikiContentDiv.innerHTML = `<h3>${plugin.modules[moduleKey].title}</h3>` + parseContent(plugin.modules[moduleKey].content);
+                    }
                     moduleBtn.textContent = moduleKey;
                     
                     moduleBtn.addEventListener('click', () => {
@@ -490,49 +717,51 @@
             let inMultilineCode = false;
             let multilineCode = '';
 
-    for (const line of contentArray) {
-        let processedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            for (const line of contentArray) {
+                let processedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-        if (line.trim() === '//*') {
-            inMultilineCode = true;
-            multilineCode = '';
-            continue;
-        } else if (line.trim() === '//*/') {
-            inMultilineCode = false;
-            htmlOutput += `
-                <div class="wiki-code-block">
-                    <pre><code>${multilineCode.trim()}</code></pre>
-                    <button class="copy-btn" onclick="copyToClipboard(\`${multilineCode.trim().replace(/`/g, '\\`')}\`)">Copy</button>
-                </div>
-            `;
-            continue;
-        } else if (inMultilineCode) {
-            multilineCode += line + '\n';
-            continue;
+                if (line.trim() === '//*') {
+                    inMultilineCode = true;
+                    multilineCode = '';
+                    continue;
+                } else if (line.trim() === '//*/') {
+                    inMultilineCode = false;
+                    htmlOutput += `
+                        <div class="wiki-code-block">
+                            <pre><code>${multilineCode.trim()}</code></pre>
+                            <button class="copy-btn" onclick="copyToClipboard(\`${multilineCode.trim().replace(/`/g, '\\`')}\`)">Copy</button>
+                        </div>
+                    `;
+                    continue;
+                } else if (inMultilineCode) {
+                    multilineCode += line + '\n';
+                    continue;
+                }
+
+                if (line.startsWith('/* ') && line.endsWith(' /*')) {
+                    const codeContent = line.slice(3, -3).trim();
+                    htmlOutput += `
+                        <div class="wiki-code-block">
+                            <pre><code>${codeContent}</code></pre>
+                            <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
+                        </div>
+                    `;
+                    continue;
+                }
+
+                if (line.startsWith('[section==') && line.endsWith(']')) {
+                    htmlOutput += `<h3>${line.slice(10, -1)}</h3>`;
+                } else if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
+                    htmlOutput += `<p><strong>${line.slice(5, -5)}</strong></p>`;
+                } else if (line.trim() === '') {
+                    htmlOutput += '<br>';
+                } else {
+                    htmlOutput += `<p>${processedLine}</p>`;
+                }
+            }
+
+            return htmlOutput;
         }
-
-        if (line.startsWith('/* ') && line.endsWith(' /*')) {
-            const codeContent = line.slice(3, -3).trim();
-            htmlOutput += `
-                <div class="wiki-code-block">
-                    <pre><code>${codeContent}</code></pre>
-                    <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
-                </div>
-            `;
-            continue;
-        }
-
-        if (line.startsWith('[section==') && line.endsWith(']')) {
-            htmlOutput += `<h3>${line.slice(10, -1)}</h3>`;
-        } else if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
-            htmlOutput += `<p><strong>${line.slice(5, -5)}</strong></p>`;
-        } else {
-            htmlOutput += `<p>${processedLine}</p>`;
-        }
-    }
-
-    return htmlOutput;
-}
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
@@ -553,8 +782,19 @@
                     element.textContent = translations[lang][key];
                 }
             });
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            
+            // Update language dropdown
+            const flagMap = {
+                'es': 'https://flagcdn.com/w20/ar.png',
+                'en': 'https://flagcdn.com/w20/gb.png', 
+                'it': 'https://flagcdn.com/w20/it.png'
+            };
+            
+            currentFlag.src = flagMap[lang];
+            
+            // Update active language option
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.toggle('active', option.getAttribute('data-lang') === lang);
             });
         }
 
@@ -595,7 +835,8 @@
             }, 2000);
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (event) => {
                     const currentHash = window.location.hash;
@@ -607,12 +848,29 @@
                 });
             });
 
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    translatePage(btn.getAttribute('data-lang'));
+            // Language dropdown functionality
+            languageCurrent.addEventListener('click', (e) => {
+                e.stopPropagation();
+                languageOptions.classList.toggle('active');
+                languageCurrent.classList.toggle('open');
+            });
+
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const lang = option.getAttribute('data-lang');
+                    translatePage(lang);
+                    languageOptions.classList.remove('active');
+                    languageCurrent.classList.remove('open');
                 });
             });
 
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                languageOptions.classList.remove('active');
+                languageCurrent.classList.remove('open');
+            });
+
+            // Wiki overlay controls
             closeWikiBtn.addEventListener('click', closeWikiOverlay);
             wikiOverlay.addEventListener('click', (event) => {
                 if (event.target === wikiOverlay) {
@@ -626,14 +884,18 @@
                 }
             });
 
+            // Initialize
             handleNavigation();
             window.addEventListener('popstate', handleNavigation);
             translatePage(currentLanguage);
+            generateWikiTiles();
 
+            // Sparkle effect
             setInterval(createSparkle, 3000);
-            
-            await fetchWikiContent();
         });
+
+        // Global function for copy buttons
+        window.copyToClipboard = copyToClipboard;
 
         const debounce = (func, wait) => {
             let timeout;
@@ -657,3 +919,4 @@
     </script>
 </body>
 </html>
+                }
