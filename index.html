@@ -486,27 +486,53 @@
         }
 
         function parseContent(contentArray) {
-        return contentArray.map(line => {
-            line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            
-            if (line.startsWith('[section==') && line.endsWith(']')) {
-                return `<h3>${line.slice(10, -1)}</h3>`;
-            }
-            if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
-                return `<p><strong>${line.slice(5, -5)}</strong></p>`;
-            }
-            if (line.startsWith('/*/') && line.endsWith('/*')) {
-                const codeContent = line.slice(3, -2);
-                return `
-                    <div class="wiki-code-block">
-                        <pre><code>${codeContent}</code></pre>
-                        <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
-                    </div>
-                `;
-            }
-            return `<p>${line}</p>`;
-        }).join('');
+            let htmlOutput = '';
+            let inMultilineCode = false;
+            let multilineCode = '';
+
+    for (const line of contentArray) {
+        let processedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        if (line.trim() === '//*') {
+            inMultilineCode = true;
+            multilineCode = '';
+            continue;
+        } else if (line.trim() === '//*/') {
+            inMultilineCode = false;
+            htmlOutput += `
+                <div class="wiki-code-block">
+                    <pre><code>${multilineCode.trim()}</code></pre>
+                    <button class="copy-btn" onclick="copyToClipboard(\`${multilineCode.trim().replace(/`/g, '\\`')}\`)">Copy</button>
+                </div>
+            `;
+            continue;
+        } else if (inMultilineCode) {
+            multilineCode += line + '\n';
+            continue;
+        }
+
+        if (line.startsWith('/* ') && line.endsWith(' /*')) {
+            const codeContent = line.slice(3, -3).trim();
+            htmlOutput += `
+                <div class="wiki-code-block">
+                    <pre><code>${codeContent}</code></pre>
+                    <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
+                </div>
+            `;
+            continue;
+        }
+
+        if (line.startsWith('[section==') && line.endsWith(']')) {
+            htmlOutput += `<h3>${line.slice(10, -1)}</h3>`;
+        } else if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
+            htmlOutput += `<p><strong>${line.slice(5, -5)}</strong></p>`;
+        } else {
+            htmlOutput += `<p>${processedLine}</p>`;
+        }
     }
+
+    return htmlOutput;
+}
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
