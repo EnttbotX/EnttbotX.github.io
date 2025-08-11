@@ -3,11 +3,11 @@
   "icon": "https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701",
   "content": [
     "[section==Info]",
-    "*msj*XPad*msj* is the best launch-pads plugin",
+    "XPad is the best launch-pads plugin",
     "in this wiki you will have a tutorial",
     "of how to configure the plugin",
     "[section==Starting (CMDs)]",
-    "*msj*USING COMMANDS*msj*",
+    "USING COMMANDS",
     "use /xpad create <id> (like 3)",
     "",
     "you can use that default pad",
@@ -53,21 +53,21 @@
         
         "[section==Maven]",
         "Add the JitPack repository:",
-        "/*<repositories>\n\t<repository>\n\t\t<id>jitpack.io</id>\n\t\t<url>https://jitpack.io</url>\n\t</repository>\n</repositories>/*",
+        "/*/<repositories>\n\t<repository>\n\t\t<id>jitpack.io</id>\n\t\t<url>https://jitpack.io</url>\n\t</repository>\n</repositories>/*",
         "Add the dependency:",
-        "/*<dependencies>\n\t<dependency>\n\t\t<groupId>com.github.EnttbotX</groupId>\n\t\t<artifactId>EnttAPI</artifactId>\n\t\t<version>Tag</version>\n\t</dependency>\n</dependencies>/*",
+        "/*/<dependencies>\n\t<dependency>\n\t\t<groupId>com.github.EnttbotX</groupId>\n\t\t<artifactId>EnttAPI</artifactId>\n\t\t<version>Tag</version>\n\t</dependency>\n</dependencies>/*",
         
         "[section==Gradle]",
-        "/*dependencyResolutionManagement {\n\trepositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n\trepositories {\n\t\tmavenCentral()\n\t\tmaven { url 'https://jitpack.io' }\n\t}\n}\n\ndependencies {\n\timplementation 'com.github.EnttbotX:EnttAPI:Tag'\n}/*",
+        "/*/dependencyResolutionManagement {\n\trepositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n\trepositories {\n\t\tmavenCentral()\n\t\tmaven { url 'https://jitpack.io' }\n\t}\n}\n\ndependencies {\n\timplementation 'com.github.EnttbotX:EnttAPI:Tag'\n}/*",
         
         "[section==Gradle.kts]",
-        "/*dependencyResolutionManagement {\n\trepositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n\trepositories {\n\t\tmavenCentral()\n\t\tmaven { url = uri(\"https://jitpack.io\") }\n\t}\n}\n\ndependencies {\n\timplementation(\"com.github.EnttbotX:EnttAPI:Tag\")\n}/*",
+        "/*/dependencyResolutionManagement {\n\trepositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n\trepositories {\n\t\tmavenCentral()\n\t\tmaven { url = uri(\"https://jitpack.io\") }\n\t}\n}\n\ndependencies {\n\timplementation(\"com.github.EnttbotX:EnttAPI:Tag\")\n}/*",
         
         "[section==SBT]",
-        "/*resolvers += \"jitpack\" at \"https://jitpack.io\"\n\nlibraryDependencies += \"com.github.EnttbotX\" % \"EnttAPI\" % \"Tag\"/*",
+        "/*/resolvers += \"jitpack\" at \"https://jitpack.io\"\n\nlibraryDependencies += \"com.github.EnttbotX\" % \"EnttAPI\" % \"Tag\"/*",
         
         "[section==Leiningen]",
-        "/*:repositories [[\"jitpack\" \"https://jitpack.io\"]]\n\n:dependencies [[com.github.EnttbotX/EnttAPI \"Tag\"]]/*"
+        "/*/:repositories [[\"jitpack\" \"https://jitpack.io\"]]\n\n:dependencies [[com.github.EnttbotX/EnttAPI \"Tag\"]]/*"
       ]
     },
     "MySQL": {
