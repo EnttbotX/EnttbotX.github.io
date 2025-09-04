@@ -1,1 +1,115 @@
-h
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cubo → Presentación</title>
+<style>
+  :root {
+    --bg: #0b0f14;
+    --fg: #e6edf3;
+    --muted: #9fb1c1;
+    --accent: #6ee7ff;
+    --cube: #121a22;
+    --edge: #2a485e;
+    --s: clamp(160px, 24vmin, 260px);
+    --explode: calc(var(--s) * 0.9);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: radial-gradient(1200px 600px at 50% 0%, #12202d, var(--bg)); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }.wrap { position: relative; height: 100%; display: grid; place-items: center; } .hud { position: fixed; top: 18px; left: 50%; transform: translateX(-50%); font-size: 14px; color: var(--muted); opacity: .9; letter-spacing: .3px; } .hud a { color: var(--fg); text-decoration: none; border-bottom: 1px dashed #4d6c83; }
+
+.scene { position: relative; width: var(--s); height: var(--s); perspective: 1200px; filter: drop-shadow(0 30px 60px rgba(0,0,0,.55)); cursor: pointer; } .cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 900ms cubic-bezier(.2,.8,.2,1); animation: idle 14s linear infinite; } @keyframes idle { 0% { transform: rotateX(-22deg) rotateY(0deg); } 50% { transform: rotateX(-22deg) rotateY(180deg); } 100% { transform: rotateX(-22deg) rotateY(360deg); } } .scene:hover .cube { animation-play-state: paused; }
+
+.face { position: absolute; inset: 0; background: linear-gradient(135deg, #14202b, var(--cube)); border: 1px solid var(--edge); border-radius: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03); display: grid; place-items: center; font-weight: 600; color: #9fd7ff; text-transform: uppercase; letter-spacing: 1px; } .face::after { content: ""; position: absolute; inset: -1px; border-radius: 18px; background: radial-gradient(240px 80px at 40% 20%, rgba(110,231,255,.12), transparent 60%); pointer-events: none; }
+
+.front  { transform: translateZ(calc(var(--s) / 2)); } .back   { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); } .right  { transform: rotateY(90deg)  translateZ(calc(var(--s) / 2)); } .left   { transform: rotateY(-90deg) translateZ(calc(var(--s) / 2)); } .top    { transform: rotateX(90deg)  translateZ(calc(var(--s) / 2)); } .bottom { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+
+.glow { position: absolute; inset: 0; background: radial-gradient(60% 80% at 50% 60%, rgba(110,231,255,.15), transparent 70%); filter: blur(40px); z-index: -1; opacity: .8; }
+
+.scene.open .cube { animation: none; transform: rotateX(-10deg) rotateY(25deg) scale(0.98); } .scene.open .face { transition: transform 1000ms cubic-bezier(.15,.85,.15,1), opacity 600ms ease; } .scene.open .front  { transform: translateZ(calc(var(--s) / 2 + var(--explode))) rotateY(2deg) rotateX(-2deg); } .scene.open .back   { transform: rotateY(180deg) translateZ(calc(var(--s) / 2 + var(--explode))) rotateY(-6deg); } .scene.open .right  { transform: rotateY(90deg)  translateZ(calc(var(--s) / 2 + var(--explode))) rotateZ(6deg); } .scene.open .left   { transform: rotateY(-90deg) translateZ(calc(var(--s) / 2 + var(--explode))) rotateZ(-6deg); } .scene.open .top    { transform: rotateX(90deg)  translateZ(calc(var(--s) / 2 + var(--explode))) rotateZ(4deg); } .scene.open .bottom { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2 + var(--explode))) rotateZ(-4deg); }
+
+.cta { position: absolute; bottom: -56px; left: 50%; transform: translateX(-50%); font-size: 13px; color: var(--muted); opacity: .9; }
+
+.viewer { position: fixed; inset: clamp(12px, 3vmin, 24px); display: grid; grid-template-rows: auto 1fr; gap: 12px; opacity: 0; pointer-events: none; transition: opacity 420ms ease; } .viewer.visible { opacity: 1; pointer-events: auto; } .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: rgba(8,12,16,.6); backdrop-filter: blur(10px); border: 1px solid #213242; border-radius: 16px; padding: 10px 12px; } .actions { display: flex; gap: 8px; } button, .inputlike { appearance: none; border: 1px solid #29465a; background: #101821; color: var(--fg); padding: 10px 14px; border-radius: 12px; font-weight: 600; letter-spacing: .2px; } button:hover { filter: brightness(1.08); } iframe { width: 100%; height: 100%; border: 1px solid #213242; border-radius: 16px; background: #0c141b; } .inputlike { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; } .hint { color: var(--muted); font-size: 13px; } .kbd { padding: 2px 6px; border-radius: 6px; border: 1px solid #29465a; background: #0f1922; font-size: 12px; }
+
+.empty { display: grid; place-items: center; border: 1px dashed #29465a; border-radius: 16px; padding: 24px; text-align: center; gap: 6px; } .empty strong { color: var(--fg); } </style>
+
+</head>
+<body>
+  <div class="hud">Click al cubo para abrir. Pasá tu PPTX en la URL: <span class="kbd">?pptx=https://…/archivo.pptx</span></div>
+  <div class="wrap">
+    <div class="scene" id="scene" aria-label="Cubo que se desarma y revela la presentación">
+      <div class="cube" id="cube">
+        <div class="face front">Abrir</div>
+        <div class="face back">PPTX</div>
+        <div class="face right">Cube</div>
+        <div class="face left">3D</div>
+        <div class="face top">Click</div>
+        <div class="face bottom">Play</div>
+        <div class="glow"></div>
+      </div>
+      <div class="cta">Hacé click para desarmar</div>
+    </div>
+  </div>  <div class="viewer" id="viewer">
+    <div class="bar">
+      <div class="inputlike" id="currentSrc">Sin PPTX</div>
+      <div class="actions">
+        <button id="rearmar">Rearmar</button>
+        <button id="copiar">Copiar enlace</button>
+      </div>
+    </div>
+    <div id="stage" class="stage">
+      <div class="empty" id="empty">
+        <div><strong>Falta la presentación.</strong></div>
+        <div>Usá <span class="kbd">?pptx=URL_PUBLICA.pptx</span> o subila a OneDrive/Dropbox con enlace público.</div>
+        <div class="hint">Se usa el visor de Office en modo embed.</div>
+      </div>
+    </div>
+  </div><script>
+  const qs = new URLSearchParams(location.search);
+  const src = qs.get('pptx');
+  const scene = document.getElementById('scene');
+  const viewer = document.getElementById('viewer');
+  const currentSrc = document.getElementById('currentSrc');
+  const stage = document.getElementById('stage');
+  const empty = document.getElementById('empty');
+  const rearmar = document.getElementById('rearmar');
+  const copiar = document.getElementById('copiar');
+
+  function buildEmbed(u){
+    return 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(u);
+  }
+
+  function showViewer(){
+    viewer.classList.add('visible');
+  }
+
+  function mountFrame(u){
+    stage.innerHTML = '';
+    if(!u){ stage.appendChild(empty); currentSrc.textContent = 'Sin PPTX'; return; }
+    const iframe = document.createElement('iframe');
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'no-referrer';
+    iframe.src = buildEmbed(u);
+    stage.appendChild(iframe);
+    currentSrc.textContent = u;
+  }
+
+  scene.addEventListener('click', () => {
+    scene.classList.add('open');
+    setTimeout(showViewer, 650);
+  }, { once: true });
+
+  rearmar.addEventListener('click', () => {
+    viewer.classList.remove('visible');
+    setTimeout(() => { scene.classList.remove('open'); }, 80);
+    setTimeout(() => { location.hash = ''; }, 120);
+    setTimeout(() => { location.reload(); }, 220);
+  });
+
+  copiar.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(location.href); copiar.textContent = 'Copiado'; setTimeout(()=>copiar.textContent='Copiar enlace', 1200); } catch(e) { alert('No pude copiar.'); }
+  });
+
+  mountFrame(src);
+</script></body>
+</html>
