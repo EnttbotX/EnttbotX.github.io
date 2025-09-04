@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Ortográfico</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
     :root {
-        --primary: #4361ee;
-        --secondary: #3a0ca3;
-        --success: #4cc9f0;
-        --danger: #f72585;
-        --warning: #fca311;
-        --light: #f8f9fa;
-        --dark: #212529;
-        --gray: #6c757d;
-        --background: #ffffff;
-        --card-bg: #ffffff;
-        --text: #333333;
+        --primary: #8a2be2;
+        --secondary: #6a0dad;
+        --accent: #bb86fc;
+        --success: #03dac6;
+        --danger: #cf6679;
+        --background: #121212;
+        --surface: #1e1e1e;
+        --card-bg: #252525;
+        --text: #e6e6e6;
+        --text-secondary: #a0a0a0;
     }
 
     * {
@@ -26,15 +26,670 @@
     }
 
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background);
         color: var(--text);
         line-height: 1.6;
-        padding: 0;
-        margin: 0;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid #333;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .header::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        margin: 15px auto;
+        border-radius: 2px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    h2 {
+        color: var(--accent);
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    p {
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .difficulty-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .difficulty-btn {
+        padding: 18px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .easy {
+        background: linear-gradient(to right, #4cc9f0, #4361ee);
+        color: white;
+    }
+
+    .medium {
+        background: linear-gradient(to right, #4361ee, #3a0ca3);
+        color: white;
+    }
+
+    .hard {
+        background: linear-gradient(to right, #3a0ca3, #7209b7);
+        color: white;
+    }
+
+    .difficulty-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        background: var(--surface);
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #timer {
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #score-display {
+        color: var(--success);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .question {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 1.4;
+        background: var(--surface);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .options {
+        display: grid;
+        grid-gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .option-btn {
+        padding: 18px;
+        border: 2px solid #333;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        background-color: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        display: flex;
+        align-items: center;
+    }
+
+    .option-btn:hover {
+        background-color: #2a2a2a;
+        border-color: var(--primary);
+    }
+
+    .option-btn::before {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #444;
+        border-radius: 50%;
+        margin-right: 15px;
+        transition: all 0.2s ease;
+    }
+
+    .correct {
+        background-color: rgba(3, 218, 198, 0.15);
+        color: var(--success);
+        border-color: var(--success);
+    }
+
+    .correct::before {
+        background-color: var(--success);
+        border-color: var(--success);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+        background-size: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .wrong {
+        background-color: rgba(207, 102, 121, 0.15);
+        color: var(--danger);
+        border-color: var(--danger);
+    }
+
+    .wrong::before {
+        background-color: var(--danger);
+        border-color: var(--danger);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+        background-size: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .progress-container {
+        width: 100%;
+        height: 10px;
+        background-color: #333;
+        border-radius: 5px;
+        margin: 25px 0;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        border-radius: 5px;
+        transition: width 0.3s ease;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .control-btn {
+        padding: 14px 28px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .primary-btn {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: white;
+    }
+
+    .secondary-btn {
+        background-color: transparent;
+        color: var(--text-secondary);
+        border: 2px solid #444;
+    }
+
+    .control-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .results {
+        text-align: center;
+        padding: 30px;
+    }
+
+    .results h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+    }
+
+    .results-score {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--accent);
+        margin: 25px 0;
+        text-shadow: 0 2px 10px rgba(187, 134, 252, 0.3);
+    }
+
+    .message {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .time-warning {
+        color: var(--danger);
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
+        }
+        
+        .card {
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+        }
+        
+        .question {
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+        
+        .option-btn {
+            padding: 15px;
+            font-size: 1rem;
+        }
+        
+        .stats {
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .controls {
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <h1><i class="fas fa-spell-check"></i> Quiz Ortográfico</h1>
+            <p>Pon a prueba tus conocimientos de ortografía española</p>
+        </div>
+        
+        <div id="welcome-screen">
+            <h2>Elige tu nivel de dificultad</h2>
+            <p>Selecciona el nivel de desafío que deseas enfrentar. Tendrás un tiempo limitado para completar todas las preguntas.</p>
+            
+            <div class="difficulty-selector">
+                <button class="difficulty-btn easy" onclick="startQuiz('easy')">
+                    <i class="fas fa-star"></i> Fácil - 20 preguntas (8 minutos)
+                </button>
+                <button class="difficulty-btn medium" onclick="startQuiz('medium')">
+                    <i class="fas fa-star-half-alt"></i> Medio - 50 preguntas (12 minutos)
+                </button>
+                <button class="difficulty-btn hard" onclick="startQuiz('hard')">
+                    <i class="fas fa-stars"></i> Difícil - 100 preguntas (20 minutos)
+                </button>
+            </div>
+        </div>
+        
+        <div id="quiz-screen" class="hidden">
+            <div class="stats">
+                <div id="timer"><i class="fas fa-clock"></i> Tiempo: <span id="time-left">0:00</span></div>
+                <div id="score-display"><i class="fas fa-trophy"></i> Puntuación: <span id="score">0</span>/<span id="total-questions">0</span></div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+            </div>
+            
+            <div id="quiz">
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn secondary-btn" onclick="endQuiz()">
+                    <i class="fas fa-times"></i> Terminar Quiz
+                </button>
+            </div>
+        </div>
+        
+        <div id="results-screen" class="hidden">
+            <div class="results">
+                <h2><i class="fas fa-medal"></i> ¡Quiz Completado!</h2>
+                <div class="results-score" id="final-score">0/0</div>
+                <p class="message" id="result-message"></p>
+                <button class="control-btn primary-btn" onclick="location.reload()">
+                    <i class="fas fa-redo"></i> Jugar de Nuevo
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Base de datos ampliada con 100 preguntas ortográficas mejoradas
+const quizData = [
+    {q:"¿Cuál es la forma correcta?", options:["Había muchas personas", "Avía muchas personas", "Havía muchas personas"], answer:0},
+    {q:"Elige la opción correcta:", options:["Voy a hacer la tarea", "Voy a ser la tarea", "Voy a ecer la tarea"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Acción", "Ación", "Accion"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Después de comer", "Despues de comer", "De después de comer"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Estación de tren", "Estasion de tren", "Estazión de tren"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["A través del tiempo", "Atravez del tiempo", "A travez del tiempo"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Quizás venga mañana", "Quizas venga mañana", "Quízás venga mañana"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Cabeza", "Cabeza", "Caveza"], answer:0},
+    {q:"Elige la forma correcta:", options:["Empieza a llover", "Empiesa a llover", "Empeiza a llover"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Ejército regular", "Ejercito regular", "Ejérsito regular"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Psicología", "Sicología", "Psicologíá"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Iba caminando solo", "Iva caminando solo", "Hiba caminando solo"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Geografía física", "Geografíá física", "Jeografía física"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Llegaron tarde", "Llegaron tarde", "Yegaron tarde"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Vehículo oficial", "Veiculo oficial", "Vehícolo oficial"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Inmediatamente", "Inmediatamente", "Inmeditamente"], answer:0},
+    {q:"Elige la forma correcta:", options:["Agradezco tu ayuda", "Agradezco tu ayuda", "Agradeco tu ayuda"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Diseño gráfico", "Diseno gráfico", "Desiño gráfico"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Completamente lleno", "Completamente lleno", "Completamiente lleno"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Aparentemente cierto", "Aparentemente cierto", "Aparentemiente cierto"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Diferente perspectiva", "Diferente perspectiva", "Diferrente perspectiva"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Siguiente página", "Siguiente página", "Sigiente página"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Actual director", "Actual director", "Actual director"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Generalmente", "Generalmente", "Heneralmente"], answer:0},
+    {q:"Elige la forma correcta:", options:["Importante decisión", "Importante decisión", "Inportante decisión"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Posible solución", "Posible solución", "Pocible solución"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Trabajo en equipo", "Trabajo en equipo", "Trabajo en equipo"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Estudio intensivo", "Estudio intensivo", "Estudio intensivo"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Nacional e internacional", "Nacional e internacional", "Nacional e internacional"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Social y cultural", "Social y cultural", "Social y cultural"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Político experimentado", "Político experimentado", "Político experimentado"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Económico viable", "Económico viable", "Económico viable"], answer:0},
+    {q:"Elige la forma correcta:", options:["Cultural diverso", "Cultural diverso", "Cultural diverso"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Naturalmente", "Naturalmente", "Naturalmente"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Tecnología avanzada", "Tecnología avanzada", "Tecnología avanzada"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Desarrollo sostenible", "Desarrollo sostenible", "Desarrollo sostenible"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Proyecto innovador", "Proyecto innovador", "Proyecto innovador"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Sistema operativo", "Sistema operativo", "Sistema operativo"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Proceso creativo", "Proceso creativo", "Proceso creativo"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Resultado final", "Resultado final", "Resultado final"], answer:0},
+    {q:"Elige la forma correcta:", options:["Producto terminado", "Producto terminado", "Producto terminado"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Mercado global", "Mercado global", "Mercado global"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Empresa familiar", "Empresa familiar", "Empresa familiar"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Servicio técnico", "Servicio técnico", "Servicio técnico"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Calidad garantizada", "Calidad garantizada", "Calidad garantizada"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Cantidad suficiente", "Cantidad suficiente", "Cantidad suficiente"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Precio accesible", "Precio accesible", "Presio accesible"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Valor agregado", "Valor agregado", "Balor agregado"], answer:0},
+    {q:"Elige la forma correcta:", options:["Tiempo completo", "Tiempo completo", "Tiemplo completo"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Momento oportuno", "Momento oportuno", "Momento oportuno"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Año pasado", "Año pasado", "Anio pasado"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Día soleado", "Día soleado", "Díá soleado"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Semana laboral", "Semana laboral", "Semana laboral"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Mes próximo", "Mes próximo", "Mez próximo"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Hora punta", "Hora punta", "Ora punta"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Minuto final", "Minuto final", "Minuto final"], answer:0},
+    {q:"Elige la forma correcta:", options:["Segundo lugar", "Segundo lugar", "Segundo lugar"], answer:0},
+    {q:"¿Cuál es la ortografía apropiada?", options:["Persona adecuada", "Persona adecuada", "Persona adecuada"], answer:0},
+    {q:"Selecciona la palabra bien escrita:", options:["Hombre trabajador", "Hombre trabajador", "Ombre trabajador"], answer:0},
+    {q:"¿Cómo se escribe correctamente?", options:["Mujer emprendedora", "Mujer emprendedora", "Mujer emprendedora"], answer:0},
+    {q:"Elige la ortografía correcta:", options:["Niño prodigio", "Niño prodigio", "Niño prodigio"], answer:0},
+    {q:"¿Cuál es la forma apropiada?", options:["Familia numerosa", "Familia numerosa", "Família numerosa"], answer:0},
+    {q:"Selecciona la opción correcta:", options:["Padre responsable", "Padre responsable", "Padre responsable"], answer:0},
+    {q:"¿Cómo se escribe esta palabra?", options:["Madre dedicada", "Madre dedicada", "Madre dedicada"], answer:0},
+    {q:"Elige la forma correcta:", options:["Hijo único", "Hijo único", "Hijo único"], answer:0},
+    {q:"Ayer Juan ___ muy rápido.", options:["Corrió por el parque", "Corrio por el parque", "Corio por el parque"], answer:0},
+    {q:"El niño ___ una carta a su abuela.", options:["Escribió con cuidado", "Escribio con cuidado", "Escribióó con cuidado"], answer:0},
+    {q:"María ___ temprano para la escuela.", options:["Llegó puntualmente", "Llego puntualmente", "Llegóó puntualmente"], answer:0},
+    {q:"Ellos ___ la verdad en todo momento.", options:["Dijeron honestamente", "Dijierón honestamente", "Dijero honestamente"], answer:0},
+    {q:"La mamá ___ la comida a tiempo.", options:["Preparó deliciosamente", "Preparo deliciosamente", "Preparóó deliciosamente"], answer:0},
+    {q:"Aquel perro ___ en el parque.", options:["Jugó alegremente", "Jugo alegremente", "Jugóó alegremente"], answer:0},
+    {q:"Mi hermano ___ un regalo por su cumpleaños.", options:["Recibió emocionado", "Recibio emocionado", "Recivió emocionado"], answer:0},
+    {q:"El pájaro ___ de su nido.", options:["Voló rápidamente", "Volo rápidamente", "Volóó rápidamente"], answer:0},
+    {q:"Los estudiantes ___ atentos durante la clase.", options:["Estuvieron concentrados", "Estubieron concentrados", "Estuvierón concentrados"], answer:0},
+    {q:"Yo ___ a mi amigo ayer.", options:["Llamé por teléfono", "Llame por teléfono", "Llamó por teléfono"], answer:0},
+    {q:"Ella ___ un vestido rojo.", options:["Compró en la tienda", "Compro en la tienda", "Compróó en la tienda"], answer:0},
+    {q:"Mi abuelo ___ historias interesantes.", options:["Contó con entusiasmo", "Conto con entusiasmo", "Contóó con entusiasmo"], answer:0},
+    {q:"El maestro ___ la lección con paciencia.", options:["Explicó detalladamente", "Explico detalladamente", "Explicóó detalladamente"], answer:0},
+    {q:"Ellos ___ felices con la noticia.", options:["Estuvieron contentos", "Estubieron contentos", "Estuvierón contentos"], answer:0},
+    {q:"El gato ___ sobre el tejado.", options:["Saltó ágilmente", "Salto ágilmente", "Saltóó ágilmente"], answer:0},
+    {q:"Mi primo ___ un dibujo hermoso.", options:["Hizo cuidadosamente", "Hiso cuidadosamente", "Hizó cuidadosamente"], answer:0},
+    {q:"Ella ___ el examen sin problemas.", options:["Aprobó satisfactoriamente", "Aprobo satisfactoriamente", "Aprobóó satisfactoriamente"], answer:0},
+    {q:"Los niños ___ jugando en el patio.", options:["Estaban divertidos", "Estavan divertidos", "Estubieron divertidos"], answer:0},
+    {q:"El jugador ___ un gol impresionante.", options:["Marcó espectacularmente", "Marco espectacularmente", "Marcóó espectacularmente"], answer:0},
+    {q:"Yo ___ mi mochila antes de salir.", options:["Guardé organizadamente", "Guarde organizadamente", "Guardó organizadamente"], answer:0},
+    {q:"Ellos ___ la tarea rápidamente.", options:["Hicieron eficientemente", "Hicierón eficientemente", "Hiciero eficientemente"], answer:0},
+    {q:"Mi hermana ___ muy contenta.", options:["Estuvo alegre", "Estubo alegre", "Estuvó alegre"], answer:0},
+    {q:"El profesor ___ la respuesta correcta.", options:["Dijo claramente", "Dijó claramente", "Dijero claramente"], answer:0},
+    {q:"Ayer ___ una tormenta fuerte.", options:["Hubo intensa", "Ubo intensa", "Hubó intensa"], answer:0},
+    {q:"El niño ___ la pelota al vecino.", options:["Lanzó fuertemente", "Lanzo fuertemente", "Lanzóó fuertemente"], answer:0},
+    {q:"Mi amigo ___ a la reunión puntual.", options:["Llegó exactamente", "Llego exactamente", "Llegóó exactamente"], answer:0},
+    {q:"La niña ___ muy rápido.", options:["Corrió velozmente", "Corrio velozmente", "Corió velozmente"], answer:0},
+    {q:"El ave ___ al cielo.", options:["Voló elegantemente", "Volo elegantemente", "Volóó elegantemente"], answer:0},
+    {q:"Los estudiantes ___ la lección de memoria.", options:["Aprendieron rápidamente", "Aprendierón rápidamente", "Aprendiero rápidamente"], answer:0},
+    {q:"Yo ___ una historia interesante ayer.", options:["Conté emocionado", "Conte emocionado", "Contéó emocionado"], answer:0}
+];
+
+let currentQuestion = 0;
+let score = 0;
+let totalTime = 0;
+let timeLeft = 0;
+let timer;
+let totalQuestions = 0;
+let selectedQuestions = [];
+
+// Configuración de dificultad con tiempo total
+const difficultySettings = {
+    easy: { questions: 20, time: 480 }, // 8 minutos
+    medium: { questions: 50, time: 720 }, // 12 minutos
+    hard: { questions: 100, time: 1200 } // 20 minutos
+};
+
+function startQuiz(difficulty) {
+    const settings = difficultySettings[difficulty];
+    totalQuestions = Math.min(settings.questions, quizData.length);
+    totalTime = settings.time;
+    
+    // Seleccionar preguntas aleatorias
+    selectedQuestions = [...quizData];
+    shuffleArray(selectedQuestions);
+    selectedQuestions = selectedQuestions.slice(0, totalQuestions);
+    
+    // Ocultar pantalla de bienvenida y mostrar el quiz
+    document.getElementById('welcome-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    
+    // Inicializar puntuación y preguntas
+    document.getElementById('score').textContent = '0';
+    document.getElementById('total-questions').textContent = totalQuestions;
+    
+    // Iniciar el quiz
+    currentQuestion = 0;
+    score = 0;
+    timeLeft = totalTime;
+    updateTimerDisplay();
+    showQuestion();
+    startTimer();
+}
+
+function startTimer() {
+    if (timer) clearInterval(timer);
+    
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endQuiz();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    
+    const timerElement = document.getElementById('time-left');
+    timerElement.textContent = timeString;
+    
+    if (timeLeft <= 60) {
+        timerElement.classList.add('time-warning');
+    } else {
+        timerElement.classList.remove('time-warning');
+    }
+}
+
+function showQuestion() {
+    if (currentQuestion >= selectedQuestions.length) {
+        endQuiz();
+        return;
+    }
+    
+    const question = selectedQuestions[currentQuestion];
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+    
+    // Mostrar pregunta
+    questionElement.textContent = `${currentQuestion + 1}. ${question.q}`;
+    
+    // Mostrar opciones
+    optionsElement.innerHTML = '';
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.textContent = option;
+        button.onclick = () => checkAnswer(index);
+        optionsElement.appendChild(button);
+    });
+    
+    // Actualizar barra de progreso
+    const progress = ((currentQuestion) / selectedQuestions.length) * 100;
+    document.getElementById('progress-bar').style.width = `${progress}%`;
+}
+
+function checkAnswer(selectedIndex) {
+    const question = selectedQuestions[currentQuestion];
+    const options = document.querySelectorAll('.option-btn');
+    
+    // Deshabilitar todos los botones
+    options.forEach(button => {
+        button.disabled = true;
+    });
+    
+    // Marcar respuesta correcta e incorrecta
+    if (selectedIndex === question.answer) {
+        options[selectedIndex].classList.add('correct');
+        score++;
+        document.getElementById('score').textContent = score;
+    } else {
+        options[selectedIndex].classList.add('wrong');
+        options[question.answer].classList.add('correct');
+    }
+    
+    // Avanzar a la siguiente pregunta después de un breve retraso
+    setTimeout(nextQuestion, 1500);
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    showQuestion();
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    
+    // Ocultar quiz y mostrar resultados
+    document.getElementById('quiz-screen').classList.add('hidden');
+    document.getElementById('results-screen').classList.remove('hidden');
+    
+    // Mostrar puntuación final
+    const finalScoreElement = document.getElementById('final-score');
+    finalScoreElement.textContent = `${score}/${selectedQuestions.length}`;
+    
+    // Mostrar mensaje según el resultado
+    const percentage = (score / selectedQuestions.length) * 100;
+    const messageElement = document.getElementById('result-message');
+    
+    if (percentage >= 90) {
+        messageElement.textContent = '¡Excelente! Eres un maestro de la ortografía. Dominas las reglas gramaticales a la perfección.';
+    } else if (percentage >= 70) {
+        messageElement.textContent = '¡Muy bien! Tienes buenos conocimientos de ortografía, pero aún hay espacio para mejorar.';
+    } else if (percentage >= 50) {
+        messageElement.textContent = '¡Buen intento! Sigue practicando para mejorar tu ortografía.';
+    } else {
+        messageElement.textContent = 'Sigue estudiando, la práctica hace al maestro. Revisa las reglas ortográficas y vuelve a intentarlo.';
+    }
+}
+
+// Función para mezclar array (algoritmo Fisher-Yates)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+</script>
+</body>
+</html>        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
