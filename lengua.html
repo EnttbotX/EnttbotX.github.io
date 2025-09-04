@@ -4,37 +4,674 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Ortográfico</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{
-  --primary:#8a2be2;
-  --accent:#bb86fc;
-  --background:#121212;
-  --card:#1e1e1e;
-  --text:#e6e6e6;
-  --text-secondary:#aaa;
-  --success:#03dac6;
-  --danger:#cf6679;
-  --transition:.3s;
+:root {
+  --primary: #8a2be2;
+  --primary-light: #9c47e5;
+  --accent: #bb86fc;
+  --background: #121212;
+  --card: #1e1e1e;
+  --card-light: #2a2a2a;
+  --text: #e6e6e6;
+  --text-secondary: #aaa;
+  --success: #03dac6;
+  --warning: #ffb300;
+  --danger: #cf6679;
+  --transition: 0.3s;
+  --border-radius: 12px;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Poppins',sans-serif;
-  background:var(--background);
-  color:var(--text);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  padding:10px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container{width:100%;max-width:600px;}
-.card{
-  background:var(--card);
-  border-radius:16px;
-  padding:25px;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px 15px;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--border-radius);
+  padding: 25px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition);
+  margin-bottom: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.description {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+button {
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.easy {
+  background: linear-gradient(to right, #4cc9f0, #4361ee);
+  color: #fff;
+}
+
+.medium {
+  background: linear-gradient(to right, #4361ee, #3a0ca3);
+  color: #fff;
+}
+
+.hard {
+  background: linear-gradient(to right, #3a0ca3, #7209b7);
+  color: #fff;
+}
+
+.option-btn {
+  background: var(--card-light);
+  color: var(--text);
+  margin-bottom: 12px;
+  text-align: left;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-btn:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: transparent;
+  transition: var(--transition);
+}
+
+.option-btn:hover:after {
+  background: var(--primary);
+}
+
+.option-btn.correct {
+  background: rgba(3, 218, 198, 0.15);
+  color: var(--success);
+}
+
+.option-btn.correct:after {
+  background: var(--success);
+}
+
+.option-btn.wrong {
+  background: rgba(207, 102, 121, 0.15);
+  color: var(--danger);
+}
+
+.option-btn.wrong:after {
+  background: var(--danger);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  background: var(--card-light);
+  padding: 12px 15px;
+  border-radius: var(--border-radius);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#timer.time-warning {
+  color: var(--warning);
+  animation: pulse 1s infinite;
+}
+
+#timer.time-critical {
+  color: var(--danger);
+  animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.progress-container {
+  height: 10px;
+  background: var(--card-light);
+  border-radius: 5px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  width: 0;
+  transition: width var(--transition);
+}
+
+.question {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 0 5px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.control-btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 25px;
+  margin: 0 5px;
+  border-radius: var(--border-radius);
+  min-width: 140px;
+}
+
+.control-btn:hover {
+  background: var(--primary-light);
+}
+
+.results-container {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.results-score {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 20px 0;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.result-message {
+  background: var(--card-light);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin: 25px 0;
+  font-size: 1.1rem;
+}
+
+.result-details {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.detail-item {
+  background: var(--card-light);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  min-width: 120px;
+}
+
+.detail-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.hidden {
+  display: none;
+}
+
+.footer {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin-top: 30px;
+  padding: 15px;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Mejoras para móviles */
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+    align-items: flex-start;
+  }
+  
+  .card {
+    padding: 20px 15px;
+    margin-bottom: 15px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+  }
+  
+  button {
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+  
+  .question {
+    font-size: 1.1rem;
+    margin: 15px 0;
+  }
+  
+  .stats {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .results-score {
+    font-size: 2.5rem;
+  }
+  
+  .result-details {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .detail-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 350px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  
+  .button-group {
+    gap: 10px;
+  }
+  
+  button {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Pantalla de bienvenida -->
+  <div class="card fade-in" id="welcome-screen">
+    <div class="header">
+      <h1>Quiz Ortográfico</h1>
+      <div class="subtitle">Mejora tu español con nuestro desafío</div>
+    </div>
+    <div class="description">
+      Pon a prueba tus conocimientos de ortografía con este quiz interactivo. 
+      Elige tu nivel de dificultad y demuestra tu dominio del español.
+    </div>
+    <div class="button-group">
+      <button class="easy" data-level="easy">
+        <i class="fas fa-star"></i> Fácil - 20 preguntas
+      </button>
+      <button class="medium" data-level="medium">
+        <i class="fas fa-star-half-alt"></i> Medio - 30 preguntas
+      </button>
+      <button class="hard" data-level="hard">
+        <i class="fas fa-fire"></i> Difícil - 50 preguntas
+      </button>
+    </div>
+    <div class="footer">
+      Desarrollado para amantes del español correctamente escrito
+    </div>
+  </div>
+
+  <!-- Pantalla de quiz -->
+  <div class="card hidden fade-in" id="quiz-screen">
+    <div class="stats">
+      <div class="stat-item" id="timer">
+        <i class="fas fa-clock"></i> <span id="time-left">0:00</span>
+      </div>
+      <div class="stat-item" id="score-display">
+        <i class="fas fa-trophy"></i> <span id="score">0</span>/<span id="total-questions">0</span>
+      </div>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="question" id="question"></div>
+    <div class="button-group" id="options"></div>
+    <div class="controls">
+      <button class="control-btn" id="end-btn">
+        <i class="fas fa-flag"></i> Terminar Quiz
+      </button>
+    </div>
+  </div>
+
+  <!-- Pantalla de resultados -->
+  <div class="card hidden fade-in" id="results-screen">
+    <div class="header">
+      <h2>¡Resultados!</h2>
+      <div class="subtitle">Así te fue en el desafío</div>
+    </div>
+    <div class="results-container">
+      <div class="results-score" id="final-score">0/0</div>
+      <div class="result-message" id="result-message"></div>
+      
+      <div class="result-details">
+        <div class="detail-item">
+          <div class="detail-value" id="correct-answers">0</div>
+          <div class="detail-label">Correctas</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-value" id="incorrect-answers">0</div>
+          <div class="detail-label">Incorrectas</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-value" id="percentage">0%</div>
+          <div class="detail-label">Porcentaje</div>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <button class="control-btn" id="restart-btn">
+          <i class="fas fa-redo"></i> Jugar de Nuevo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Configuración
+const difficultySettings = {
+  easy: { questions: 20, time: 480 },
+  medium: { questions: 30, time: 600 },
+  hard: { questions: 50, time: 720 }
+};
+
+// Base de datos ampliada de preguntas
+const quizData = [
+  { q: "¿Cuál es la forma correcta?", options: ["Corrió", "Corrio", "Corio"], answer: 0 },
+  { q: "¿Cuál es correcta?", options: ["Exámen", "Examen", "Exmen"], answer: 1 },
+  { q: "Elige la correcta:", options: ["Camión", "Camion", "Camiòn"], answer: 0 },
+  { q: "Se escribe bien:", options: ["Jardín", "Jardin", "Jardìn"], answer: 0 },
+  { q: "Correcto es:", options: ["Aún", "Aun", "An"], answer: 0 },
+  { q: "Indica la forma correcta:", options: ["Té", "Te", "Téé"], answer: 0 },
+  { q: "Ortografía correcta:", options: ["Difícil", "Dificil", "Difícil"], answer: 0 },
+  { q: "Elige la correcta:", options: ["País", "Pais", "Paìs"], answer: 0 },
+  { q: "¿Cuál se escribe bien?", options: ["Está", "Esta", "Està"], answer: 0 },
+  { q: "Selecciona la correcta:", options: ["Niño", "Nino", "Niñó"], answer: 0 },
+  { q: "Elige la correcta:", options: ["Teléfono", "Telefono", "Telèfono"], answer: 0 },
+  { q: "Ortografía correcta:", options: ["Música", "Musica", "Müsica"], answer: 0 },
+  { q: "Se escribe bien:", options: ["Fácil", "Facil", "Fàcil"], answer: 0 },
+  { q: "Forma correcta:", options: ["Difícil", "Dificil", "Díficil"], answer: 0 },
+  { q: "¿Cuál es la escritura apropiada?", options: ["Haber", "A ver", "Haver"], answer: 0 },
+  { q: "Selecciona la opción correcta:", options: ["Valla", "Vaya", "Balla"], answer: 1 },
+  { q: "¿Cómo se escribe correctamente?", options: ["Hecho", "Echo", "Hexo"], answer: 0 },
+  { q: "Elige la ortografía adecuada:", options: ["Botella", "Votella", "Botella"], answer: 0 },
+  { q: "¿Cuál es la forma correcta?", options: ["Caballo", "Cavayo", "Cabayo"], answer: 0 },
+  { q: "Selecciona la escritura apropiada:", options: ["Lluvia", "Yuvia", "Juvia"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Psicología", "Sicología", "Cicología"], answer: 0 },
+  { q: "Elige la opción correcta:", options: ["Acción", "Asión", "Accion"], answer: 0 },
+  { q: "¿Cuál es la ortografía adecuada?", options: ["Dirección", "Direcsión", "Direcion"], answer: 0 },
+  { q: "Selecciona la forma correcta:", options: ["Ejercicio", "Ejercisio", "Ejercio"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Objeto", "Ojeto", "Ovbjeto"], answer: 0 },
+  { q: "Elige la ortografía correcta:", options: ["Inyección", "Inyeccion", "Inyecsión"], answer: 0 },
+  { q: "¿Cuál es la forma apropiada?", options: ["Conocimiento", "Conosimiento", "Conocimiento"], answer: 0 },
+  { q: "Selecciona la escritura correcta:", options: ["Agradecimiento", "Agradecimento", "Agradecimiento"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Inteligencia", "Inteligensia", "Inteligencia"], answer: 0 },
+  { q: "Elige la opción correcta:", options: ["Necesario", "Nesecario", "Nescesario"], answer: 0 },
+  { q: "¿Cuál es la ortografía adecuada?", options: ["Comunicación", "Comunicasion", "Comunicacion"], answer: 0 },
+  { q: "Selecciona la forma correcta:", options: ["Reflexión", "Reflecsión", "Reflexion"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Transformación", "Transformasion", "Transformacion"], answer: 0 },
+  { q: "Elige la ortografía correcta:", options: ["Comprensión", "Comprención", "Comprension"], answer: 0 },
+  { q: "¿Cuál es la forma apropiada?", options: ["Extensión", "Estensión", "Extencion"], answer: 0 },
+  { q: "Selecciona la escritura correcta:", options: ["Atención", "Atencion", "Atensión"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Dirección", "Direcsión", "Direcion"], answer: 0 },
+  { q: "Elige la opción correcta:", options: ["Conclusión", "Conclución", "Conclusion"], answer: 0 },
+  { q: "¿Cuál es la ortografía adecuada?", options: ["Expansión", "Expansion", "Expansión"], answer: 0 },
+  { q: "Selecciona la forma correcta:", options: ["Discusión", "Discucion", "Discusión"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Versión", "Versión", "Version"], answer: 0 },
+  { q: "Elige la ortografía correcta:", options: ["División", "Divicion", "División"], answer: 0 },
+  { q: "¿Cuál es la forma apropiada?", options: ["Profesión", "Profesion", "Profesión"], answer: 0 },
+  { q: "Selecciona la escritura correcta:", options: ["Misión", "Mision", "Misión"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Precisión", "Presición", "Precision"], answer: 0 },
+  { q: "Elige la opción correcta:", options: ["Decisión", "Desición", "Decision"], answer: 0 },
+  { q: "¿Cuál es la ortografía adecuada?", options: ["Visión", "Vición", "Vision"], answer: 0 },
+  { q: "Selecciona la forma correcta:", options: ["Explosión", "Explosion", "Explosión"], answer: 0 },
+  { q: "¿Cómo se escribe esta palabra?", options: ["Conversión", "Conversion", "Conversión"], answer: 0 }
+];
+
+// Variables
+let currentQuestion = 0, score = 0, timeLeft = 0, timer, totalQuestions = 0, selectedQuestions = [];
+
+// Elementos
+const welcomeScreen = document.getElementById('welcome-screen');
+const quizScreen = document.getElementById('quiz-screen');
+const resultsScreen = document.getElementById('results-screen');
+const questionEl = document.getElementById('question');
+const optionsEl = document.getElementById('options');
+const progressBar = document.getElementById('progress-bar');
+const timeLeftEl = document.getElementById('time-left');
+const scoreEl = document.getElementById('score');
+const totalEl = document.getElementById('total-questions');
+const finalScoreEl = document.getElementById('final-score');
+const resultMessageEl = document.getElementById('result-message');
+const correctAnswersEl = document.getElementById('correct-answers');
+const incorrectAnswersEl = document.getElementById('incorrect-answers');
+const percentageEl = document.getElementById('percentage');
+
+// Funciones
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz(level) {
+  const settings = difficultySettings[level];
+  totalQuestions = Math.min(settings.questions, quizData.length);
+  selectedQuestions = shuffle([...quizData]).slice(0, totalQuestions);
+  timeLeft = settings.time;
+  score = 0;
+  currentQuestion = 0;
+  scoreEl.textContent = score;
+  totalEl.textContent = totalQuestions;
+  
+  welcomeScreen.classList.add('hidden');
+  quizScreen.classList.remove('hidden');
+  showQuestion();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function updateTimer() {
+  const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+  timeLeftEl.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+  
+  // Cambiar color según el tiempo restante
+  timeLeftEl.classList.toggle('time-warning', timeLeft <= 60 && timeLeft > 30);
+  timeLeftEl.classList.toggle('time-critical', timeLeft <= 30);
+}
+
+function showQuestion() {
+  if (currentQuestion >= selectedQuestions.length) {
+    endQuiz();
+    return;
+  }
+  
+  const q = selectedQuestions[currentQuestion];
+  questionEl.textContent = `${currentQuestion + 1}. ${q.q}`;
+  optionsEl.innerHTML = '';
+  
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn fade-in';
+    btn.style.animationDelay = `${i * 0.1}s`;
+    btn.textContent = opt;
+    btn.addEventListener('click', () => checkAnswer(i));
+    optionsEl.appendChild(btn);
+  });
+  
+  progressBar.style.width = `${((currentQuestion + 1) / totalQuestions) * 100}%`;
+}
+
+function checkAnswer(idx) {
+  const q = selectedQuestions[currentQuestion];
+  const opts = document.querySelectorAll('.option-btn');
+  opts.forEach(b => b.disabled = true);
+  
+  if (idx === q.answer) {
+    opts[idx].classList.add('correct');
+    score++;
+    scoreEl.textContent = score;
+  } else {
+    opts[idx].classList.add('wrong');
+    opts[q.answer].classList.add('correct');
+  }
+  
+  setTimeout(() => {
+    currentQuestion++;
+    showQuestion();
+  }, 1000);
+}
+
+function endQuiz() {
+  clearInterval(timer);
+  quizScreen.classList.add('hidden');
+  resultsScreen.classList.remove('hidden');
+  
+  const incorrectAnswers = totalQuestions - score;
+  const percentage = Math.round((score / totalQuestions) * 100);
+  
+  finalScoreEl.textContent = `${score}/${totalQuestions}`;
+  correctAnswersEl.textContent = score;
+  incorrectAnswersEl.textContent = incorrectAnswers;
+  percentageEl.textContent = `${percentage}%`;
+  
+  // Mensaje personalizado según el resultado
+  if (percentage >= 90) {
+    resultMessageEl.textContent = '¡Excelente! Eres un maestro de la ortografía española. Tu dominio del idioma es impresionante.';
+  } else if (percentage >= 70) {
+    resultMessageEl.textContent = '¡Muy bien! Tienes un buen nivel de ortografía, pero aún hay espacio para mejorar. Sigue practicando.';
+  } else if (percentage >= 50) {
+    resultMessageEl.textContent = '¡Buen intento! Has acertado más de la mitad, pero necesitas repasar las reglas ortográficas.';
+  } else {
+    resultMessageEl.textContent = 'Sigue estudiando y practicando. La ortografía es fundamental para una buena comunicación. ¡Vuelve a intentarlo!';
+  }
+}
+
+// Eventos
+document.querySelectorAll('[data-level]').forEach(btn => {
+  btn.addEventListener('click', () => startQuiz(btn.dataset.level));
+});
+
+document.getElementById('end-btn').addEventListener('click', endQuiz);
+document.getElementById('restart-btn').addEventListener('click', () => location.reload());
+</script>
+</body>
+</html>  padding:25px;
   box-shadow:0 10px 30px rgba(0,0,0,0.3);
   transition: all var(--transition);
 }
