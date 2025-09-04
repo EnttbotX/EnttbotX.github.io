@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Ortográfico</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#8a2be2;
@@ -15,11 +15,12 @@
   --text-secondary:#aaa;
   --success:#03dac6;
   --danger:#cf6679;
+  --transition:.3s;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  font-family:sans-serif;
+  font-family:'Poppins',sans-serif;
   background:var(--background);
   color:var(--text);
   display:flex;
@@ -32,9 +33,227 @@ body{
 .container{width:100%;max-width:600px;}
 .card{
   background:var(--card);
-  border-radius:12px;
-  padding:20px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  border-radius:16px;
+  padding:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  transition: all var(--transition);
+}
+
+h1,h2{margin-bottom:15px;text-align:center;}
+h1{
+  font-size:2rem;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+p{text-align:center;color:var(--text-secondary);margin-bottom:20px;}
+
+.button-group{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
+button{
+  padding:12px;
+  font-size:1rem;
+  font-weight:600;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition: all var(--transition);
+}
+button:hover{opacity:0.85;}
+
+.easy{background:#4cc9f0;color:#fff;}
+.medium{background:#4361ee;color:#fff;}
+.hard{background:#3a0ca3;color:#fff;}
+.option-btn{background:#333;color:#fff;margin-bottom:10px;}
+.option-btn.correct{background:var(--success);}
+.option-btn.wrong{background:var(--danger);}
+
+.stats{
+  display:flex;
+  justify-content:space-between;
+  font-size:0.9rem;
+  margin-bottom:10px;
+  color:var(--text-secondary);
+}
+
+#timer.time-warning{color:var(--danger);}
+
+.progress-container{
+  height:8px;
+  background:#333;
+  border-radius:4px;
+  margin:10px 0;
+  overflow:hidden;
+}
+.progress-bar{
+  height:100%;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  width:0;
+  transition: width var(--transition);
+}
+
+.controls{display:flex;justify-content:center;margin-top:15px;}
+.control-btn{background:var(--primary);color:#fff;padding:10px 20px;margin:0 5px;border-radius:6px;}
+
+.hidden{display:none;}
+@media(max-width:480px){
+  .card{padding:15px;}
+  button{font-size:0.9rem;padding:10px;}
+  h1{font-size:1.5rem;}
+  .question{font-size:1rem;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card" id="welcome-screen">
+    <h1>Quiz Ortográfico</h1>
+    <p>Elegí el nivel de dificultad</p>
+    <div class="button-group">
+      <button class="easy" data-level="easy">Fácil - 20 preguntas</button>
+      <button class="medium" data-level="medium">Medio - 50 preguntas</button>
+      <button class="hard" data-level="hard">Difícil - 100 preguntas</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="quiz-screen">
+    <div class="stats">
+      <div id="timer"><i class="fas fa-clock"></i> <span id="time-left">0:00</span></div>
+      <div id="score-display"><i class="fas fa-trophy"></i> <span id="score">0</span>/<span id="total-questions">0</span></div>
+    </div>
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="question" id="question"></div>
+    <div class="button-group" id="options"></div>
+    <div class="controls"><button class="control-btn" id="end-btn">Terminar Quiz</button></div>
+  </div>
+
+  <div class="card hidden" id="results-screen">
+    <h2>¡Resultado!</h2>
+    <div class="results-score" id="final-score">0/0</div>
+    <p id="result-message"></p>
+    <div class="controls"><button class="control-btn" id="restart-btn">Jugar de Nuevo</button></div>
+  </div>
+</div>
+
+<script>
+// Configuración
+const difficultySettings={
+  easy:{questions:20,time:480},
+  medium:{questions:50,time:720},
+  hard:{questions:100,time:1200}
+};
+
+const quizData=[
+  {q:"¿Cuál es la forma correcta?", options:["Corrió","Corrio","Corio"], answer:0},
+  {q:"¿Cuál es correcta?", options:["Exámen","Examen","Exmen"], answer:1},
+  {q:"Elige la correcta:", options:["Camión","Camion","Camiòn"], answer:0},
+  {q:"Se escribe bien:", options:["Jardín","Jardin","Jardìn"], answer:0},
+  {q:"Correcto es:", options:["Aún","Aun","An"], answer:0},
+  {q:"Indica la forma correcta:", options:["Té","Te","Téé"], answer:0},
+  {q:"Ortografía correcta:", options:["Difícil","Dificil","Difícil"], answer:0},
+  {q:"Elige la correcta:", options:["País","Pais","Paìs"], answer:0},
+  {q:"¿Cuál se escribe bien?", options:["Está","Esta","Està"], answer:0},
+  {q:"Selecciona la correcta:", options:["Niño","Nino","Niñó"], answer:0},
+  {q:"Elige la correcta:", options:["Teléfono","Telefono","Telèfono"], answer:0},
+  {q:"Ortografía correcta:", options:["Música","Musica","Müsica"], answer:0},
+  {q:"Se escribe bien:", options:["Fácil","Facil","Fàcil"], answer:0},
+  {q:"Forma correcta:", options:["Difícil","Dificil","Díficil"], answer:0},
+];
+
+// Variables
+let currentQuestion=0, score=0, timeLeft=0, timer, totalQuestions=0, selectedQuestions=[];
+
+// Elementos
+const welcomeScreen=document.getElementById('welcome-screen');
+const quizScreen=document.getElementById('quiz-screen');
+const resultsScreen=document.getElementById('results-screen');
+const questionEl=document.getElementById('question');
+const optionsEl=document.getElementById('options');
+const progressBar=document.getElementById('progress-bar');
+const timeLeftEl=document.getElementById('time-left');
+const scoreEl=document.getElementById('score');
+const totalEl=document.getElementById('total-questions');
+const finalScoreEl=document.getElementById('final-score');
+const resultMessageEl=document.getElementById('result-message');
+
+// Funciones
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(level){
+  const settings=difficultySettings[level];
+  totalQuestions=Math.min(settings.questions,quizData.length);
+  selectedQuestions=shuffle([...quizData]).slice(0,totalQuestions);
+  timeLeft=settings.time;
+  score=0;
+  currentQuestion=0;
+  scoreEl.textContent=score;
+  totalEl.textContent=totalQuestions;
+  welcomeScreen.classList.add('hidden');
+  quizScreen.classList.remove('hidden');
+  showQuestion();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    timeLeft--;
+    updateTimer();
+    if(timeLeft<=0){clearInterval(timer); endQuiz();}
+  },1000);
+}
+
+function updateTimer(){
+  const m=Math.floor(timeLeft/60), s=timeLeft%60;
+  timeLeftEl.textContent=`${m}:${s.toString().padStart(2,'0')}`;
+  timeLeftEl.classList.toggle('time-warning',timeLeft<=60);
+}
+
+function showQuestion(){
+  if(currentQuestion>=selectedQuestions.length){endQuiz(); return;}
+  const q=selectedQuestions[currentQuestion];
+  questionEl.textContent=`${currentQuestion+1}. ${q.q}`;
+  optionsEl.innerHTML='';
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.textContent=opt;
+    btn.addEventListener('click',()=>checkAnswer(i));
+    optionsEl.appendChild(btn);
+  });
+  progressBar.style.width=`${((currentQuestion+1)/totalQuestions)*100}%`;
+}
+
+function checkAnswer(idx){
+  const q=selectedQuestions[currentQuestion];
+  const opts=document.querySelectorAll('.option-btn');
+  opts.forEach(b=>b.disabled=true);
+  if(idx===q.answer){opts[idx].classList.add('correct'); score++; scoreEl.textContent=score;}
+  else{opts[idx].classList.add('wrong'); opts[q.answer].classList.add('correct');}
+  setTimeout(()=>{currentQuestion++; showQuestion();},700);
+}
+
+function endQuiz(){
+  clearInterval(timer);
+  quizScreen.classList.add('hidden');
+  resultsScreen.classList.remove('hidden');
+  finalScoreEl.textContent=`${score}/${totalQuestions}`;
+  const p=(score/totalQuestions)*100;
+  if(p>=90) resultMessageEl.textContent='¡Excelente! Sos un maestro de la ortografía.';
+  else if(p>=70) resultMessageEl.textContent='¡Muy bien! Buen nivel, pero seguí practicando.';
+  else if(p>=50) resultMessageEl.textContent='¡Buen intento! Seguí mejorando.';
+  else resultMessageEl.textContent='Seguí estudiando y volvé a intentarlo.';
+}
+
+// Eventos
+document.querySelectorAll('[data-level]').forEach(btn=>{
+  btn.addEventListener('click',()=>startQuiz(btn.dataset.level));
+});
+document.getElementById('end-btn').addEventListener('click',endQuiz);
+document.getElementById('restart-btn').addEventListener('click',()=>location.reload());
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>  box-shadow:0 4px 15px rgba(0,0,0,0.3);
 }
 
 .header{text-align:center;margin-bottom:20px;}
