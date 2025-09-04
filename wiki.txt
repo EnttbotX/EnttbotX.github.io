@@ -91,14 +91,14 @@
         "[section==Setup]",
         "**Initialize connection:**",
         "//*",
-        MySQL mysql = new MySQL();
-        mysql.connect(
-          "localhost", 
-          "3306", 
-          "database", 
-          "user", 
-          "password"
-        );
+        "MySQL mysql = new MySQL();",
+        "mysql.connect(",
+        "  \"localhost\", ",
+        "  \"3306\", ",
+        "  \"database\", ",
+        "  \"user\", ",
+        "  \"password\"",
+        ");",
         "//*/",
         "[section==Usage]",
         "**Create table:**",
@@ -106,11 +106,11 @@
         "",
         "**Insert data:**",
         "//*",
-        mysql.executeCommand(
-          "INSERT INTO players (uuid, name) VALUES (?, ?)", 
-          player.getUniqueId().toString(),
-          player.getName()
-        );
+        "mysql.executeCommand(",
+        "  \"INSERT INTO players (uuid, name) VALUES (?, ?)\", ",
+        "  player.getUniqueId().toString(),",
+        "  player.getName()",
+        ");",
         "//*/",
         "[section==Best Practices]",
         "**Always:**",
@@ -122,6 +122,68 @@
         "- Blocking main thread",
         "- Hardcoding credentials",
         "- Unsanitized inputs"
+      ]
+    },
+    "Radius": {
+      "title": "Radius Module",
+      "content": [
+        "[section==Overview]",
+        "**Radius** allows you to get entities or blocks near a player within a radius.",
+        "[section==Usage]",
+        "**Get nearby entities:**",
+        "//*",
+        "List<Entity> entities = Radius.getNearbyEntities(player, 10);",
+        "//*/",
+        "**Get nearby blocks:**",
+        "//*",
+        "List<Block> blocks = Radius.getNearbyBlocks(player, 5);",
+        "//*/"
+      ]
+    },
+    "NameTag": {
+      "title": "NameTag Module",
+      "content": [
+        "[section==Overview]",
+        "**NameTag** allows you to set or remove custom names on entities.",
+        "[section==Usage]",
+        "**Set name:**",
+        "//*",
+        "NameTag.setNameTag(entity, \"§cHerobrine\", true);",
+        "//*/",
+        "**Remove name:**",
+        "//*",
+        "NameTag.removeNameTag(entity);",
+        "//*/"
+      ]
+    },
+    "ColorMessage": {
+      "title": "ColorMessage Module",
+      "content": [
+        "[section==Overview]",
+        "**ColorMessage** helps send colored messages with `&` formatting easily.",
+        "[section==Usage]",
+        "//*",
+        "ColorMessage.send(player, \"&6Welcome &fto &aEnttAPI!\");",
+        "//*/"
+      ]
+    },
+    "CooldownManager": {
+      "title": "Cooldown Manager Module",
+      "content": [
+        "[section==Overview]",
+        "**CooldownManager** lets you manage timed cooldowns for players or actions.",
+        "[section==Usage]",
+        "**Set a cooldown:**",
+        "//*",
+        "CooldownManager.setCooldown(player.getUniqueId(), \"teleport\", 5000); // 5s",
+        "//*/",
+        "**Check if cooldown is active:**",
+        "//*",
+        "if(CooldownManager.hasCooldown(player.getUniqueId(), \"teleport\")) {",
+        "    long remaining = CooldownManager.getRemaining(player.getUniqueId(), \"teleport\");",
+        "    player.sendMessage(\"Wait \" + (remaining / 1000.0) + \" seconds.\");",
+        "}",
+        "//*/"
       ]
     }
   }
