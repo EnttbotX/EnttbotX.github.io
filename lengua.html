@@ -6,199 +6,184 @@
 <title>Quiz Ortográfico</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root {
-    --primary: #8a2be2;
-    --secondary: #6a0dad;
-    --accent: #bb86fc;
-    --success: #03dac6;
-    --danger: #cf6679;
-    --background: #121212;
-    --surface: #1e1e1e;
-    --card-bg: #252525;
-    --text: #e6e6e6;
-    --text-secondary: #a0a0a0;
+:root{
+  --primary:#8a2be2;
+  --accent:#bb86fc;
+  --background:#121212;
+  --card:#1e1e1e;
+  --text:#e6e6e6;
+  --text-secondary:#aaa;
+  --success:#03dac6;
+  --danger:#cf6679;
 }
 
-* { box-sizing: border-box; margin:0; padding:0; }
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--background);
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:sans-serif;
+  background:var(--background);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:10px;
 }
 
-.container { max-width: 800px; width:100%; }
-
-.card {
-    background: var(--card-bg);
-    border-radius:16px;
-    padding:30px;
-    margin-bottom:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    border:1px solid #333;
-    transition: all 0.3s ease;
+.container{width:100%;max-width:600px;}
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
 }
 
-.header { text-align:center; margin-bottom:25px; position:relative; }
-.header::after {
-    content:'';
-    display:block;
-    width:60px; height:4px;
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    margin:15px auto;
-    border-radius:2px;
+.header{text-align:center;margin-bottom:20px;}
+.header h1{
+  font-size:1.8rem;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.header p{
+  font-size:1rem;
+  color:var(--text-secondary);
 }
 
-h1 {
-    font-size:2.5rem;
-    font-weight:800;
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    letter-spacing:1px;
+.difficulty-selector{display:flex;flex-direction:column;gap:12px;margin-top:15px;}
+.difficulty-btn{
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  font-size:1rem;
+  cursor:pointer;
+  font-weight:600;
+  transition:all 0.2s ease;
+}
+.easy{background:#4cc9f0;color:#fff;}
+.medium{background:#4361ee;color:#fff;}
+.hard{background:#3a0ca3;color:#fff;}
+.difficulty-btn:hover{opacity:0.85;}
+
+.stats{
+  display:flex;
+  justify-content:space-between;
+  font-size:0.9rem;
+  margin-bottom:10px;
+  color:var(--text-secondary);
+}
+#timer.time-warning{color:var(--danger);}
+
+.question{
+  font-size:1.2rem;
+  margin:15px 0;
+  padding:15px;
+  border-radius:8px;
+  background:#2a2a2a;
 }
 
-h2 { color: var(--accent); margin-bottom:15px; font-size:1.5rem; font-weight:600; }
-p { color: var(--text-secondary); margin-bottom:20px; font-size:1.1rem; }
-
-.difficulty-selector { display:flex; flex-direction:column; gap:15px; margin:25px 0; }
-.difficulty-btn {
-    padding:18px;
-    border:none; border-radius:12px;
-    font-size:1.1rem; font-weight:600;
-    cursor:pointer;
-    display:flex; justify-content:center; align-items:center; gap:10px;
-    transition: all 0.3s ease;
+.options{display:flex;flex-direction:column;gap:10px;}
+.option-btn{
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:1rem;
+  background:#333;
+  color:#fff;
+  transition:all 0.2s ease;
 }
-.easy { background: linear-gradient(to right, #4cc9f0, #4361ee); color:white; }
-.medium { background: linear-gradient(to right, #4361ee, #3a0ca3); color:white; }
-.hard { background: linear-gradient(to right, #3a0ca3, #7209b7); color:white; }
-.difficulty-btn:hover { transform:translateY(-3px); box-shadow:0 6px 12px rgba(0,0,0,0.3); }
+.option-btn:hover{background:#444;}
+.correct{background:var(--success);}
+.wrong{background:var(--danger);}
 
-.stats {
-    display:flex; justify-content:space-between; font-weight:600; font-size:1.1rem;
-    background: var(--surface); padding:15px; border-radius:12px;
-    box-shadow:0 4px 6px rgba(0,0,0,0.2);
+.progress-container{
+  height:6px;
+  background:#333;
+  border-radius:3px;
+  margin:10px 0;
 }
-#timer, #score-display { display:flex; align-items:center; gap:8px; }
-#timer.time-warning { color: var(--danger); animation: pulse 1s infinite; }
-
-.question {
-    font-size:1.3rem; font-weight:500; color:var(--text);
-    background: var(--surface); padding:20px; border-radius:12px;
-    box-shadow:0 4px 6px rgba(0,0,0,0.1); margin-bottom:25px; line-height:1.5;
+.progress-bar{
+  height:100%;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  width:0;
+  border-radius:3px;
 }
 
-.options { display:grid; gap:15px; margin-bottom:25px; }
-.option-btn {
-    padding:18px; border:2px solid #333; border-radius:12px;
-    font-size:1.1rem; background:var(--surface); color:var(--text);
-    cursor:pointer; display:flex; align-items:center; transition: all 0.2s ease;
+.controls{
+  display:flex;
+  justify-content:center;
+  margin-top:15px;
 }
-.option-btn::before {
-    content:''; display:inline-block; width:24px; height:24px;
-    border:2px solid #444; border-radius:50%; margin-right:15px;
-    transition: all 0.2s ease;
+.control-btn{
+  padding:8px 16px;
+  margin:0 5px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:var(--primary);
+  color:#fff;
+  transition:0.2s;
 }
-.option-btn:hover { background:#2a2a2a; border-color:var(--primary); }
+.control-btn:hover{opacity:0.85;}
 
-.correct { background:rgba(3,218,198,0.15); color:var(--success); border-color:var(--success); }
-.correct::before {
-    background-color:var(--success); border-color:var(--success);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
-    background-size:16px; background-position:center; background-repeat:no-repeat;
-}
-.wrong { background:rgba(207,102,121,0.15); color:var(--danger); border-color:var(--danger); }
-.wrong::before {
-    background-color:var(--danger); border-color:var(--danger);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
-    background-size:16px; background-position:center; background-repeat:no-repeat;
-}
+.results{ text-align:center;}
+.results-score{ font-size:2rem; color:var(--accent); margin:15px 0;}
+.message{ font-size:1rem; color:var(--text-secondary);}
+.hidden{display:none;}
 
-.progress-container { width:100%; height:10px; background:#333; border-radius:5px; margin:25px 0; overflow:hidden; }
-.progress-bar { height:100%; background:linear-gradient(to right,var(--primary),var(--accent)); transition: width 0.4s ease; border-radius:5px; }
-
-.controls { display:flex; justify-content:center; gap:15px; margin-top:20px; }
-.control-btn {
-    padding:14px 28px; border:none; border-radius:8px;
-    font-size:1rem; font-weight:600; cursor:pointer;
-    display:flex; align-items:center; gap:8px; transition: all 0.3s ease;
-}
-.primary-btn { background:linear-gradient(to right,var(--primary),var(--secondary)); color:white; }
-.secondary-btn { background:transparent; border:2px solid #444; color:var(--text-secondary); }
-.control-btn:hover { transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.3); }
-
-.results { text-align:center; padding:30px; }
-.results-score { font-size:3.5rem; font-weight:800; color:var(--accent); margin:25px 0; text-shadow:0 2px 10px rgba(187,134,252,0.3); }
-.message { font-size:1.2rem; color:var(--text-secondary); line-height:1.6; margin-bottom:30px; }
-
-.hidden { display:none; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-
-@media (max-width:768px){
-    .card { padding:20px; }
-    h1 { font-size:2rem; }
-    .question { font-size:1.1rem; padding:15px; }
-    .option-btn { padding:15px; font-size:1rem; }
-    .stats { flex-direction:column; gap:15px; align-items:center; }
-    .controls { flex-direction:column; }
+@media(max-width:480px){
+  .question{font-size:1rem;padding:10px;}
+  .option-btn{font-size:0.9rem;padding:8px;}
 }
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="card">
-        <div class="header">
-            <h1><i class="fas fa-spell-check"></i> Quiz Ortográfico</h1>
-            <p>Pon a prueba tus conocimientos de ortografía española</p>
-        </div>
+<div class="card">
+  <div class="header">
+    <h1><i class="fas fa-spell-check"></i> Quiz Ortográfico</h1>
+    <p>Elige la respuesta correcta</p>
+  </div>
 
-        <div id="welcome-screen">
-            <h2>Elige tu nivel de dificultad</h2>
-            <p>Selecciona el nivel de desafío que deseas enfrentar. Tendrás un tiempo limitado para completar todas las preguntas.</p>
-            <div class="difficulty-selector">
-                <button class="difficulty-btn easy" onclick="startQuiz('easy')"><i class="fas fa-star"></i> Fácil - 20 preguntas (8 min)</button>
-                <button class="difficulty-btn medium" onclick="startQuiz('medium')"><i class="fas fa-star-half-alt"></i> Medio - 50 preguntas (12 min)</button>
-                <button class="difficulty-btn hard" onclick="startQuiz('hard')"><i class="fas fa-stars"></i> Difícil - 100 preguntas (20 min)</button>
-            </div>
-        </div>
-
-        <div id="quiz-screen" class="hidden">
-            <div class="stats">
-                <div id="timer"><i class="fas fa-clock"></i> Tiempo: <span id="time-left">0:00</span></div>
-                <div id="score-display"><i class="fas fa-trophy"></i> Puntuación: <span id="score">0</span>/<span id="total-questions">0</span></div>
-            </div>
-            <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
-            <div class="question" id="question"></div>
-            <div class="options" id="options"></div>
-            <div class="controls">
-                <button class="control-btn secondary-btn" onclick="endQuiz()"><i class="fas fa-times"></i> Terminar Quiz</button>
-            </div>
-        </div>
-
-        <div id="results-screen" class="hidden">
-            <div class="results">
-                <h2><i class="fas fa-medal"></i> ¡Quiz Completado!</h2>
-                <div class="results-score" id="final-score">0/0</div>
-                <p class="message" id="result-message"></p>
-                <button class="control-btn primary-btn" onclick="location.reload()"><i class="fas fa-redo"></i> Jugar de Nuevo</button>
-            </div>
-        </div>
+  <div id="welcome-screen">
+    <h2>Nivel de dificultad</h2>
+    <div class="difficulty-selector">
+      <button class="difficulty-btn easy" onclick="startQuiz('easy')">Fácil - 20 preguntas</button>
+      <button class="difficulty-btn medium" onclick="startQuiz('medium')">Medio - 50 preguntas</button>
+      <button class="difficulty-btn hard" onclick="startQuiz('hard')">Difícil - 100 preguntas</button>
     </div>
+  </div>
+
+  <div id="quiz-screen" class="hidden">
+    <div class="stats">
+      <div id="timer"><i class="fas fa-clock"></i> <span id="time-left">0:00</span></div>
+      <div id="score-display"><i class="fas fa-trophy"></i> <span id="score">0</span>/<span id="total-questions">0</span></div>
+    </div>
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="controls">
+      <button class="control-btn" onclick="endQuiz()">Terminar Quiz</button>
+    </div>
+  </div>
+
+  <div id="results-screen" class="hidden">
+    <div class="results">
+      <div class="results-score" id="final-score">0/0</div>
+      <p class="message" id="result-message"></p>
+      <button class="control-btn" onclick="location.reload()">Jugar de Nuevo</button>
+    </div>
+  </div>
+</div>
 </div>
 
 <script>
-let currentQuestion=0, score=0, totalTime=0, timeLeft=0, timer, totalQuestions=0, selectedQuestions=[];
+// Variables
+let currentQuestion=0, score=0, timeLeft=0, timer, totalQuestions=0, selectedQuestions=[];
 
 const difficultySettings={easy:{questions:20,time:480},medium:{questions:50,time:720},hard:{questions:100,time:1200}};
 
-// --- Preguntas ---  
+// Preguntas (igual que antes)
 const quizData=[
 {q:"¿Cuál es la forma correcta?", options:["Corrió","Corrio","Corio"], answer:0},
 {q:"¿Cuál es correcta?", options:["Exámen","Examen","Exmen"], answer:1},
@@ -214,34 +199,82 @@ const quizData=[
 {q:"Ortografía correcta:", options:["Música","Musica","Müsica"], answer:0},
 {q:"Se escribe bien:", options:["Fácil","Facil","Fàcil"], answer:0},
 {q:"Forma correcta:", options:["Difícil","Dificil","Díficil"], answer:0},
-{q:"Correcto es:", options:["Héroe","Heroe","Héroé"], answer:0},
-{q:"Elige la correcta:", options:["Reunión","Reunion","Reunìon"], answer:0},
-{q:"Ortografía correcta:", options:["Universidad","Universidád","Universidàd"], answer:0},
-{q:"Selecciona bien:", options:["Césped","Cesped","Céspeđ"], answer:0},
-{q:"Correcto:", options:["Rápido","Rapido","Ràpido"], answer:0},
-{q:"Elige:", options:["Avión","Avion","Avìon"], answer:0},
-{q:"Se escribe bien:", options:["Canción","Cancion","Cansión"], answer:0},
-{q:"Forma correcta:", options:["Fútbol","Futbol","Fútbol"], answer:0},
-{q:"Correcto es:", options:["Lámpara","Lampara","Làmpára"], answer:0},
-{q:"Ortografía correcta:", options:["Bolígrafo","Boligrafo","Bolìgrafo"], answer:0},
-{q:"Elige:", options:["Corazón","Corazon","Corazòn"], answer:0},
-{q:"Se escribe bien:", options:["Frío","Frio","Frìo"], answer:0},
-{q:"Selecciona:", options:["Café","Cafe","Càfe"], answer:0},
-{q:"Correcto:", options:["Mañana","Manana","Mańana"], answer:0},
-{q:"Elige la correcta:", options:["Médico","Medico","Mèdico"], answer:0},
-{q:"Ortografía correcta:", options:["Árbol","Arbol","Àrbol"], answer:0},
 ];
 
-// --- Funciones ---  
+// Funciones
 function startQuiz(level){
-    const settings=difficultySettings[level];
-    totalQuestions=Math.min(settings.questions,quizData.length);
-    totalTime=settings.time;
-    selectedQuestions=shuffleArray([...quizData]).slice(0,totalQuestions);
-    document.getElementById('welcome-screen').classList.add('hidden');
-    document.getElementById('quiz-screen').classList.remove('hidden');
-    score=0; currentQuestion=0; timeLeft=totalTime;
-    document.getElementById('score').textContent='0';
+  const settings=difficultySettings[level];
+  totalQuestions=Math.min(settings.questions,quizData.length);
+  timeLeft=settings.time;
+  selectedQuestions=shuffleArray([...quizData]).slice(0,totalQuestions);
+  document.getElementById('welcome-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  score=0; currentQuestion=0;
+  document.getElementById('score').textContent='0';
+  document.getElementById('total-questions').textContent=totalQuestions;
+  updateTimer(); showQuestion(); startTimer();
+}
+
+function startTimer(){
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    timeLeft--;
+    updateTimer();
+    if(timeLeft<=0){clearInterval(timer); endQuiz();}
+  },1000);
+}
+
+function updateTimer(){
+  const m=Math.floor(timeLeft/60), s=timeLeft%60;
+  const t=`${m}:${s<10?'0':''}${s}`;
+  const el=document.getElementById('time-left');
+  el.textContent=t;
+  el.classList.toggle('time-warning', timeLeft<=60);
+}
+
+function showQuestion(){
+  if(currentQuestion>=selectedQuestions.length){endQuiz(); return;}
+  const q=selectedQuestions[currentQuestion];
+  const questionEl=document.getElementById('question');
+  const optionsEl=document.getElementById('options');
+  questionEl.textContent=`${currentQuestion+1}. ${q.q}`;
+  optionsEl.innerHTML='';
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.textContent=opt;
+    btn.onclick=()=>checkAnswer(i);
+    optionsEl.appendChild(btn);
+  });
+  document.getElementById('progress-bar').style.width=`${(currentQuestion/selectedQuestions.length)*100}%`;
+}
+
+function checkAnswer(idx){
+  const q=selectedQuestions[currentQuestion];
+  const opts=document.querySelectorAll('.option-btn');
+  opts.forEach(b=>b.disabled=true);
+  if(idx===q.answer){opts[idx].classList.add('correct'); score++; document.getElementById('score').textContent=score;}
+  else{opts[idx].classList.add('wrong'); opts[q.answer].classList.add('correct');}
+  setTimeout(()=>{currentQuestion++; showQuestion();},1000);
+}
+
+function endQuiz(){
+  clearInterval(timer);
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('results-screen').classList.remove('hidden');
+  document.getElementById('final-score').textContent=`${score}/${selectedQuestions.length}`;
+  const p=(score/selectedQuestions.length)*100;
+  const msg=document.getElementById('result-message');
+  msg.textContent=p>=90?'¡Excelente! Eres un maestro de la ortografía.'
+                  :p>=70?'¡Muy bien! Buen nivel, pero sigue practicando.'
+                  :p>=50?'¡Buen intento! Sigue practicando para mejorar.'
+                  :'Sigue estudiando y vuelve a intentarlo.';
+}
+
+function shuffleArray(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a;}
+</script>
+</body>
+</html>    document.getElementById('score').textContent='0';
     document.getElementById('total-questions').textContent=totalQuestions;
     updateTimerDisplay(); showQuestion(); startTimer();
 }
