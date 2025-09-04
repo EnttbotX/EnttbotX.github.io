@@ -24,44 +24,70 @@
         .wiki-msg-highlight { background: rgba(139, 92, 246, 0.2); padding: 0.2rem 0.4rem; border-radius: 4px; border-left: 3px solid #8b5cf6; font-family: monospace; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%); color: #e2e8f0; line-height: 1.6; min-height: 100vh; }
-        header { background: rgba(15, 15, 35, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(59, 130, 246, 0.2); padding: 0 2rem; position: fixed; top: 0; width: 100%; z-index: 100; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
-        nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
-        nav ul li a { display: block; padding: 1.2rem 1.5rem; text-decoration: none; color: #94a3b8; font-weight: 600; font-size: 1rem; border-bottom: 3px solid transparent; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
-        nav ul li a::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent); transition: left 0.5s; }
-        nav ul li a:hover::before { left: 100%; }
-        nav ul li a:hover { color: #3b82f6; transform: translateY(-2px); }
-        nav ul li a.active { color: #3b82f6; border-bottom-color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+        header { display:flex; align-items:center; justify-content:space-between; gap: 1rem; padding: 0.6rem 1rem; }
+        .header-left { display:flex; align-items:center; justify-content:flex-start; min-width: 180px; }
+        .header-nav { flex: 1; display:flex; justify-content:center; }
+        .header-nav ul { display: flex; gap: var(--nav-gap, 1.5rem); list-style: none; align-items: center; margin: 0; padding: 0; }
+        .header-nav ul li { display: inline-block; }
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: var(--nav-btn-padding, 0.45rem 1rem);
+            border-radius: var(--nav-btn-radius, 12px);
+            text-decoration: none;
+            color: var(--nav-btn-color, #cbd5e1);
+            background: transparent;
+            border: 1px solid transparent;
+            font-weight: 700;
+            transition: all 0.18s ease;
+        }
+        .nav-link:hover { background: rgba(59,130,246,0.06); color: #e6f0ff; transform: translateY(-1px); }
+        .nav-link.active { background: linear-gradient(90deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08)); border-color: rgba(59,130,246,0.18); color: #ffffff; }
+        .header-right { display:flex; align-items:center; gap: 0.75rem; min-width: 170px; justify-content:flex-end; }
+        
+        /* floating language control (bottom-left) */
+        .language-floating { position: fixed; left: 14px; bottom: 14px; z-index: 400; }
+        .language-floating .language-current { padding: 0.45rem 0.9rem; border-radius: 10px; }
+        @media (max-width: 520px) {
+            .language-floating { left: 10px; bottom: 10px; }
+            header { flex-direction: row; gap: 0.5rem; }
+            .site-title { font-size: 15px; }
+        }
         
         /* New language dropdown styles */
         .language-dropdown { 
-            position: absolute; 
-            top: 50%; 
-            right: 180px; 
-            transform: translateY(-50%);
-            z-index: 200; 
+            position: relative;
+            margin-left: auto;
+            z-index: 200;
+            display: flex;
+            align-items: center;
         }
         .language-current { 
-            background: rgba(59, 130, 246, 0.1); 
-            border: 1px solid rgba(59, 130, 246, 0.3); 
+            background: rgba(59, 130, 246, 0.06); 
+            border: 1px solid rgba(59, 130, 246, 0.12); 
             color: #3b82f6; 
-            padding: 0.5rem 1rem; 
-            border-radius: 8px; 
+            padding: 0.4rem 0.9rem; 
+            border-radius: 10px; 
             cursor: pointer; 
-            transition: all 0.3s ease; 
-            font-weight: 500; 
+            transition: all 0.18s ease; 
+            font-weight: 600; 
             display: flex; 
             align-items: center; 
             gap: 0.5rem;
+            font-size: 0.95rem;
         }
         .language-current:hover { 
             background: rgba(59, 130, 246, 0.2); 
         }
         .language-flag {
-            width: 20px;
-            height: 15px;
+            width: 18px;
+            height: 14px;
             object-fit: cover;
-            border-radius: 2px;
+            border-radius: 3px;
         }
+        .header-right a.profile-link img { width: 36px; height: 36px; border-radius: 8px; }
+        .header-right a[style*="height:48px"] img { height: 40px; }
         .language-options { 
             position: absolute; 
             top: 100%; 
@@ -110,6 +136,8 @@
         }
 
         main { padding: 120px 2rem 2rem; max-width: 1200px; margin: 0 auto; }
+        /* ensure header elements don't overlap small absolute items (profile / ko-fi) */
+        header a[style*="position: absolute"] { position: relative; top: auto; left: auto; right: auto; }
         .page { display: none; background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(10px); padding: 3rem; border-radius: 20px; border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .page.active { display: block; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -135,7 +163,7 @@
         .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(51, 65, 85, 0.3)); border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; color: inherit; position: relative; overflow: hidden; }
         .contact-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent); transition: left 0.5s; }
         .contact-item:hover::before { left: 100%; }
-        .contact-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.5); }
+        .contact-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.5); }
         .contact-icon { width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0; transition: transform 0.3s ease; }
         .contact-item:hover .contact-icon { transform: scale(1.1) rotate(5deg); }
         .contact-info { flex: 1; }
@@ -178,7 +206,7 @@
         .wiki-code-block pre { margin: 0; padding: 1.5rem; overflow-x: auto; color: #e2e8f0; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 0.9em; line-height: 1.6; }
         .wiki-code-block code { background: #333; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
         .wiki-code-block .copy-btn { position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #ffffff; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.3s ease; }
-        .wiki-code-block .copy-btn:hover { background: linear-gradient(135deg, #1d4ed8, #1e40af); transform: scale(1.05); }
+        .wiki-code-block .copy-btn:hover { background: linear-gradient(135deg, #1d4ed8, #7c3aed); transform: scale(1.05); }
         
         .wiki-modules-container {
             margin-bottom: 2rem;
@@ -186,6 +214,7 @@
         
         @media (max-width: 768px) {
             header { padding: 0 1rem; }
+            header { flex-direction: column; align-items: stretch; gap: 0.5rem; padding-bottom: 0.5rem; }
             nav ul { gap: 1rem; flex-wrap: wrap; }
             nav ul li a { padding: 1rem 0.8rem; font-size: 0.9rem; }
             .language-dropdown { 
@@ -216,15 +245,34 @@
 </head>
 <body>
     <header>
-        <nav>
+        <div class="header-left">
+            <a href="https://www.spigotmc.org/members/enttbotx.1937569" class="site-title" style="text-decoration:none; display:flex; align-items:center; gap:10px;" target="_blank">
+                <img src="https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356" alt="EnttbotX" style="width:36px; height:36px; border-radius:8px;">
+                <span style="color: white; font-weight: 700; font-size: 18px;">EnttbotX | Hub</span>
+            </a>
+        </div>
+        
+        <nav class="header-nav">
             <ul>
                 <li><a href="#home" class="nav-link active" data-i18n="nav.home">Home</a></li>
                 <li><a href="#wiki" class="nav-link" data-i18n="nav.wiki">Wiki</a></li>
                 <li><a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a></li>
             </ul>
         </nav>
+        
+        <div class="header-right">
+            <a href="https://www.spigotmc.org/members/enttbotx.1937569" target="_blank" class="profile-link" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                <!-- avatar removed from static HTML; injected dynamically when enabled -->
+            </a>
+            <a href="https://ko-fi.com/enttbot" target="_blank" class="support-link" style="display:flex; align-items:center;">
+                <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support me on Ko-fi" style="height: 34px;">
+            </a>
+        </div>
+    </header>
 
-        <div class="language-dropdown">
+    <!-- Language floating control moved out of header and fixed bottom-left -->
+    <div class="language-floating" aria-hidden="false">
+        <div class="language-dropdown" aria-label="Language selector">
             <div class="language-current" id="language-current">
                 <img src="https://flagcdn.com/w20/ar.png" alt="ES" class="language-flag" id="current-flag">
                 <span class="dropdown-arrow">▼</span>
@@ -244,16 +292,7 @@
                 </div>
             </div>
         </div>
-
-        <a href="https://www.spigotmc.org/members/enttbotx.1937569" target="_blank" style="position: absolute; top: 10px; left: 10px; display: flex; align-items: center; gap: 8px; text-decoration: none;">
-            <img src="https://avatars.githubusercontent.com/u/155677534?v=4&size=64" alt="EnttbotX" style="width: 40px; height: 40px; border-radius: 8px;">
-            <span style="color: white; font-weight: 600; font-size: 16px;">EnttbotX | Hub</span>
-        </a>
-
-        <a href="https://ko-fi.com/enttbot" target="_blank" style="position: absolute; top: 10px; right: 10px;">
-            <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support me on Ko-fi" style="height: 48px;">
-        </a>
-    </header>
+    </div>
 
     <main>
         <section id="home" class="page active">
@@ -404,6 +443,74 @@
     </div>
 
     <script>
+        /* @tweakable controls for header & language floating position */
+        /* @tweakable bottom-left offset for language control */
+        /** @tweakable whether to show the header profile avatar (true = show, false = hide) */
+        const SHOW_HEADER_AVATAR = false;
+        /** @tweakable header avatar size in px */
+        const HEADER_AVATAR_SIZE = 36;
+        /** @tweakable language floating offset (left/bottom in px) */
+        const LANGUAGE_FLOATING_OFFSET = { left: 14, bottom: 14 };
+        /* @tweakable whether to show the header profile avatar (if true it will be injected) */
+        /* @tweakable the URL the site title should link to (profile) */
+        /** @tweakable horizontal gap between nav items in rem */
+        const NAV_ITEM_GAP = 1.5;
+        /** @tweakable navigation button padding (CSS shorthand) */
+        const NAV_BTN_PADDING = '0.45rem 1rem';
+        /** @tweakable navigation button border radius (px) */
+        const NAV_BTN_RADIUS = '12px';
+        /** @tweakable navigation button text color */
+        const NAV_BTN_COLOR = '#cbd5e1';
+        /** @tweakable navigation active background color (semi-transparent gradient allowed) */
+        const NAV_BTN_ACTIVE_BG = 'linear-gradient(90deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08))';
+        /* @tweakable the URL the site title should link to (profile) */
+        const TITLE_PROFILE_URL = "https://www.spigotmc.org/members/enttbotx.1937569";
+        // apply tweakables to live DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            // header avatar: remove if present, or inject when enabled
+            const existingImg = document.getElementById('header-profile-img');
+            if (existingImg) existingImg.remove();
+            if (SHOW_HEADER_AVATAR) {
+                const profileLink = document.querySelector('.profile-link');
+                if (profileLink) {
+                    const img = document.createElement('img');
+                    img.id = 'header-profile-img';
+                    img.src = 'https://avatars.githubusercontent.com/u/155677534?v=4&size=64';
+                    img.alt = 'EnttbotX';
+                    img.style.width = img.style.height = HEADER_AVATAR_SIZE + 'px';
+                    img.style.borderRadius = '8px';
+                    img.style.objectFit = 'cover';
+                    profileLink.prepend(img);
+                }
+            }
+            // apply gap and CSS variables for nav button tweakables
+            document.querySelectorAll('.header-nav ul').forEach(u => u.style.gap = NAV_ITEM_GAP + 'rem');
+            document.documentElement.style.setProperty('--nav-gap', NAV_ITEM_GAP + 'rem');
+            document.documentElement.style.setProperty('--nav-btn-padding', NAV_BTN_PADDING);
+            document.documentElement.style.setProperty('--nav-btn-radius', NAV_BTN_RADIUS);
+            document.documentElement.style.setProperty('--nav-btn-color', NAV_BTN_COLOR);
+            document.documentElement.style.setProperty('--nav-btn-active-bg', NAV_BTN_ACTIVE_BG);
+ 
+            // ensure title links to profile and opens in new tab
+            const siteTitleLink = document.querySelector('.site-title');
+            if (siteTitleLink) {
+                siteTitleLink.href = TITLE_PROFILE_URL;
+                siteTitleLink.target = "_blank";
+            }
+        });
+
+        // Apply tweakables (runtime adjustments)
+        document.documentElement.style.setProperty('--language-left-offset', LANGUAGE_FLOATING_OFFSET.left + 'px');
+        document.documentElement.style.setProperty('--language-bottom-offset', LANGUAGE_FLOATING_OFFSET.bottom + 'px');
+
+        // apply offsets to element after DOM ready
+        function applyLanguageOffset() {
+            const lf = document.querySelector('.language-floating');
+            if (!lf) return;
+            lf.style.left = LANGUAGE_FLOATING_OFFSET.left + 'px';
+            lf.style.bottom = LANGUAGE_FLOATING_OFFSET.bottom + 'px';
+        }
+
         const wikiOverlay = document.getElementById('wiki-overlay');
         const wikiContentDiv = document.getElementById('wiki-content');
         const wikiTitle = document.getElementById('wiki-title');
@@ -568,11 +675,11 @@
                 "wiki.see_wiki": "Ver Wiki",
                 "portfolio.title": "Mis Proyectos",
                 "portfolio.source": "Código",
-                "portfolio.clansx": "ClansX es un plugin de clanes para Minecraft de alto rendimiento y modular. Ofrece sistemas completos de creación, gestión y guerra de clanes, integración de placeholders y soporte para múltiples economías. Está diseñado para ser escalable, personalizable y fácil de integrar en servidores de supervivencia, PvP o RPG.",
-                "portfolio.funkyfeather": "FunkyFeather es un plugin de Spigot/Bukkit que permite a los jugadores retener objetos y experiencia (XP) después de morir si llevan una FunkyFeather, protegiendo así su inventario y progresión. Compatible con Minecraft 1.8 a 1.21, fue desarrollado como una solución modular y eficiente para sistemas de PvP o supervivencia.",
-                "portfolio.xpad": "XPAD es un plugin de Minecraft que extiende la funcionalidad de XP en los servidores, permitiendo la itemización, almacenamiento persistente y transferencia entre jugadores. Diseñado para ser flexible, eficiente y fácilmente configurable, XPAD es ideal para integrar con sistemas de economía y progresión personalizados.",
-                "portfolio.fastgive": "FastGive es un plugin de Spigot/Bukkit que permite a los jugadores otorgar objetos, experiencia y otros elementos mediante comandos simples de chat. Usando símbolos configurables como ::, &lt;, &gt;, {, o cualquier otro, los administradores pueden definir patrones de entrega personalizados. Es ideal para servidores que requieren sistemas de recompensas, kits o interacciones rápidas y sin complicaciones.",
-                "portfolio.instafriend": "InstaFriend es un plugin de Spigot que permite a los jugadores obtener instantáneamente un lobo domesticado usando un huevo generador de lobos. Este plugin está diseñado para ser ligero, fácil de configurar y compatible con versiones de Minecraft desde 1.8 hasta 1.21."
+                "portfolio.clansx": "ClansX es un plugin de clanes para Minecraft de alto rendimiento y modular. Ofrece sistemas completos para la creación, gestión y guerra entre clanes, integración de placeholders y soporte para múltiples economías. Está diseñado para ser escalable, personalizable y fácil de integrar en servidores de supervivencia, PvP o RPG.",
+                "portfolio.funkyfeather": "FunkyFeather es un plugin de Spigot/Bukkit que permite a los jugadores conservar objetos y experiencia (XP) después de morir si tienen una FunkyFeather, protegiendo así su inventario y progresión. Compatible con Minecraft 1.8 a 1.21, fue desarrollado como solución modular y eficiente para sistemas PvP o de supervivencia.",
+                "portfolio.xpad": "XPAD es un plugin de Minecraft que extiende la funcionalidad de XP en los servidores, permitiendo la itemización, el almacenamiento persistente y la transferencia entre jugadores. Proyectado para ser flexible, eficiente y fácilmente configurable, XPAD es ideal para integrar con sistemas de economía y progresión personalizados.",
+                "portfolio.fastgive": "FastGive es un plugin de Spigot/Bukkit que permite a los jugadores otorgar objetos, experiencia y otros elementos mediante comandos simples de chat. Usando símbolos configurables como ::, &lt;, &gt;, {, o cualquier otro, los administradores pueden definir patrones de entrega personalizados. Es ideal para servidores que requieren sistemas de recompensa, kits o interacciones rápidas y sin complicaciones.",
+                "portfolio.instafriend": "InstaFriend es un plugin de Spigot que permite a los jugadores obtener instantáneamente un lobo domesticado usando un huevo generador de lobos. Este plugin está diseñado para ser ligero, fácil de configurar y compatible con las versiones de Minecraft desde 1.8 hasta 1.21."
             },
             en: {
                 "nav.home": "Home",
@@ -624,6 +731,29 @@
 
         // Initialize with embedded data
         wikiData = embeddedWikiData;
+
+        // Try to fetch remote wiki.txt (format: multiple JSON objects separated by whitespace)
+        (async function tryLoadRemoteWiki(){
+            try {
+                const res = await fetch('https://raw.githubusercontent.com/EnttbotX/EnttbotX.github.io/refs/heads/main/wiki.txt', {cache: "no-store"});
+                if (!res.ok) throw new Error('no remote');
+                const txt = await res.text();
+                // normalize multiple JSON objects into an array: replace "}\n\n{" or "} { " combos with "},{"
+                const asArrayText = '[' + txt.replace(/\}\s*\{/g, '},{') + ']';
+                const parsed = JSON.parse(asArrayText);
+                // merge into wikiData (key by title)
+                parsed.forEach(item => {
+                    if (item && item.title) {
+                        wikiData[item.title] = item;
+                    }
+                });
+                // regenerate tiles now that we may have new data
+                generateWikiTiles();
+                console.log('Remote wiki merged:', Object.keys(wikiData));
+            } catch (err) {
+                console.warn('Could not load remote wiki.txt, using embedded data.', err);
+            }
+        })();
 
         function generateWikiTiles() {
             wikiGrid.innerHTML = '';
@@ -716,7 +846,12 @@
             let htmlOutput = '';
             let inMultilineCode = false;
             let multilineCode = '';
-
+            
+            // Escapes HTML so XML/HTML snippets show correctly inside <pre>
+            function escapeHtml(str) {
+                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+            
             for (const line of contentArray) {
                 let processedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
@@ -728,7 +863,7 @@
                     inMultilineCode = false;
                     htmlOutput += `
                         <div class="wiki-code-block">
-                            <pre><code>${multilineCode.trim()}</code></pre>
+                            <pre><code>${escapeHtml(multilineCode.trim())}</code></pre>
                             <button class="copy-btn" onclick="copyToClipboard(\`${multilineCode.trim().replace(/`/g, '\\`')}\`)">Copy</button>
                         </div>
                     `;
@@ -742,7 +877,7 @@
                     const codeContent = line.slice(3, -3).trim();
                     htmlOutput += `
                         <div class="wiki-code-block">
-                            <pre><code>${codeContent}</code></pre>
+                            <pre><code>${escapeHtml(codeContent)}</code></pre>
                             <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
                         </div>
                     `;
@@ -836,6 +971,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            applyLanguageOffset();
             // Navigation links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (event) => {
@@ -919,4 +1055,3 @@
     </script>
 </body>
 </html>
-                }
