@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Gramatical</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 30px; }
+    .container { max-width: 700px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+    h1 { text-align: center; }
+    .question { font-size: 1.2em; margin-bottom: 15px; }
+    .options button { display: block; width: 100%; margin: 5px 0; padding: 10px; font-size: 1em; cursor: pointer; border-radius: 5px; border: 1px solid #aaa; }
+    .correct { background-color: #4caf50; color: white; }
+    .wrong { background-color: #f44336; color: white; }
+    #timer { text-align: right; font-weight: bold; font-size: 1.1em; }
+    #score { text-align: center; font-size: 1.2em; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Quiz Gramatical</h1>
+    <div id="timer">Tiempo: 30s</div>
+    <div id="quiz"></div>
+    <div id="score"></div>
+</div>
+
+<script>
+const quizData = [
+    {q: "¿Cuál es la forma correcta? Yo ___ al cine ayer.", options: ["fui", "voy", "iré"], answer: 0},
+    {q: "El perro ___ muy rápido cuando corre.", options: ["corre", "corrió", "correrá"], answer: 0},
+    {q: "Nosotros ___ terminado el proyecto a tiempo.", options: ["hemos", "habremos", "hubimos"], answer: 0},
+    {q: "Ella dijo que ___ venir a la fiesta.", options: ["podía", "puede", "podrá"], answer: 0},
+    {q: "Si ___ estudiado más, habría aprobado.", options: ["hubiera", "hubiese", "haya"], answer: 0},
+    {q: "Me gusta que tú ___ atento.", options: ["estés", "estás", "estarás"], answer: 0},
+    {q: "El libro que ___ leído es interesante.", options: ["he", "había", "hubo"], answer: 0},
+    {q: "Cuando llegues, ___ la comida lista.", options: ["estarás", "estás", "estés"], answer: 0},
+    {q: "Es importante que ___ a tiempo.", options: ["llegues", "llegas", "llegarás"], answer: 0},
+    {q: "Ayer ___ mucho frío en la ciudad.", options: ["hizo", "hace", "hará"], answer: 0},
+    {q: "Si mañana ___ sol, iremos a la playa.", options: ["hay", "hubiera", "habrá"], answer: 0},
+    {q: "Ellos ___ estudiando cuando llegué.", options: ["estaban", "están", "estarían"], answer: 0},
+    {q: "No creo que ella ___ terminado su tarea.", options: ["haya", "hubiera", "ha"], answer: 0},
+    {q: "Cuando seas mayor, ___ entender todo.", options: ["podrás", "puedes", "pudiste"], answer: 0},
+    {q: "El examen ___ difícil, pero lo aprobé.", options: ["fue", "es", "será"], answer: 0},
+    {q: "Es probable que ellos ___ cansados.", options: ["estén", "están", "estarían"], answer: 0},
+    {q: "Si ___ dinero, viajaría por el mundo.", options: ["tuviera", "tengo", "habré"], answer: 0},
+    {q: "Ella siempre ___ temprano a clase.", options: ["llega", "llegó", "llegará"], answer: 0},
+    {q: "Antes de salir, ___ la puerta.", options: ["cierra", "cerraste", "cerrará"], answer: 0},
+    {q: "Aunque ___ cansado, siguió trabajando.", options: ["estaba", "esté", "estará"], answer: 0},
+    {q: "Cuando ___ niño, me gustaba leer.", options: ["era", "soy", "seré"], answer: 0},
+    {q: "Si ___ más tiempo, te ayudaría.", options: ["tuviera", "tuve", "tendré"], answer: 0},
+    {q: "Ojalá que ___ buen clima mañana.", options: ["haya", "hubiera", "habrá"], answer: 0},
+    {q: "Es evidente que ellos ___ cansados.", options: ["están", "estaban", "estarían"], answer: 0},
+    {q: "Si me ___, te lo diría.", options: ["preguntaras", "preguntas", "preguntaste"], answer: 0},
+    {q: "Cuando llegues, ___ la televisión apagada.", options: ["deja", "dejarás", "dejaste"], answer: 0},
+    {q: "No creo que él ___ la respuesta correcta.", options: ["sepa", "sabe", "sabrá"], answer: 0},
+    {q: "Si ___ preparado, no habrías fallado.", options: ["hubieras", "tuvieras", "tenías"], answer: 0},
+    {q: "Es importante ___ a los demás.", options: ["respetar", "respetas", "respetarás"], answer: 0},
+    {q: "Aunque me ___, no cambiaré de opinión.", options: ["insistas", "insististe", "insistirás"], answer: 0}
+];
+
+let current = 0;
+let score = 0;
+let timeLeft = 30; // segundos por pregunta
+let timer;
+
+function showQuestion() {
+    if(current >= quizData.length) {
+        document.getElementById('quiz').innerHTML = '';
+        document.getElementById('score').textContent = `¡Examen terminado! Puntaje: ${score} / ${quizData.length}`;
+        clearInterval(timer);
+        return;
+    }
+
+    const q = quizData[current];
+    const quizDiv = document.getElementById('quiz');
+    quizDiv.innerHTML = `
+        <div class="question"><strong>${current+1}. ${q.q}</strong></div>
+        <div class="options">
+            ${q.options.map((opt,i)=>`<button onclick="checkAnswer(${i}, this)">${opt}</button>`).join('')}
+        </div>
+    `;
+
+    timeLeft = 30;
+    document.getElementById('timer').textContent = `Tiempo: ${timeLeft}s`;
+    clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = `Tiempo: ${timeLeft}s`;
+        if(timeLeft <= 0) {
+            clearInterval(timer);
+            current++;
+            showQuestion();
+        }
+    }, 1000);
+}
+
+function checkAnswer(i, btn) {
+    if(i === quizData[current].answer) {
+        btn.classList.add('correct');
+        score++;
+    } else {
+        btn.classList.add('wrong');
+    }
+    // deshabilitar todos
+    document.querySelectorAll('.options button').forEach(b => b.disabled = true);
+    setTimeout(()=>{
+        current++;
+        showQuestion();
+    }, 1000);
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
