@@ -443,615 +443,839 @@
     </div>
 
     <script>
-        /* @tweakable controls for header & language floating position */
-        /* @tweakable bottom-left offset for language control */
-        /** @tweakable whether to show the header profile avatar (true = show, false = hide) */
-        const SHOW_HEADER_AVATAR = false;
-        /** @tweakable header avatar size in px */
-        const HEADER_AVATAR_SIZE = 36;
-        /** @tweakable language floating offset (left/bottom in px) */
-        const LANGUAGE_FLOATING_OFFSET = { left: 14, bottom: 14 };
-        /* @tweakable whether to show the header profile avatar (if true it will be injected) */
-        /* @tweakable the URL the site title should link to (profile) */
-        /** @tweakable horizontal gap between nav items in rem */
-        const NAV_ITEM_GAP = 1.5;
-        /** @tweakable navigation button padding (CSS shorthand) */
-        const NAV_BTN_PADDING = '0.45rem 1rem';
-        /** @tweakable navigation button border radius (px) */
-        const NAV_BTN_RADIUS = '12px';
-        /** @tweakable navigation button text color */
-        const NAV_BTN_COLOR = '#cbd5e1';
-        /** @tweakable navigation active background color (semi-transparent gradient allowed) */
-        const NAV_BTN_ACTIVE_BG = 'linear-gradient(90deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08))';
-        /* @tweakable the URL the site title should link to (profile) */
-        const TITLE_PROFILE_URL = "https://www.spigotmc.org/members/enttbotx.1937569";
-        // apply tweakables to live DOM
-        document.addEventListener('DOMContentLoaded', () => {
-            // header avatar: remove if present, or inject when enabled
-            const existingImg = document.getElementById('header-profile-img');
-            if (existingImg) existingImg.remove();
-            if (SHOW_HEADER_AVATAR) {
-                const profileLink = document.querySelector('.profile-link');
-                if (profileLink) {
-                    const img = document.createElement('img');
-                    img.id = 'header-profile-img';
-                    img.src = 'https://avatars.githubusercontent.com/u/155677534?v=4&size=64';
-                    img.alt = 'EnttbotX';
-                    img.style.width = img.style.height = HEADER_AVATAR_SIZE + 'px';
-                    img.style.borderRadius = '8px';
-                    img.style.objectFit = 'cover';
-                    profileLink.prepend(img);
+    const embeddedWikiData = {
+        "XPad": {
+            "title": "XPad",
+            "icon": "https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701",
+            "category": "minecraft",
+            "description": "Sistema de placas de salto personalizables para Minecraft",
+            "content": [
+                "[section==Información General]",
+                "**XPad** es el mejor plugin de placas de salto para Minecraft.",
+                "Con este plugin puedes crear placas de salto personalizadas con diferentes potencias, efectos y sonidos.",
+                "",
+                "**Características principales:**",
+                "- Placas de salto totalmente personalizables",
+                "- Control direccional del lanzamiento",
+                "- Efectos de sonido y partículas",
+                "- Soporte para múltiples direcciones",
+                "- Configuración fácil mediante archivos YAML",
+                "[section==Comandos]",
+                "**Comandos básicos:**",
+                "/* /xpad create <id> */ - Crea una nueva placa",
+                "/* /xpad edit <id> */ - Edita una placa existente",
+                "/* /xpad delete <id> */ - Elimina una placa",
+                "/* /xpad list */ - Lista todas las placas",
+                "",
+                "**Ejemplo de uso:**",
+                "1. Primero, crea una placa:",
+                "/* /xpad create jump1 */",
+                "2. Luego configúrala:",
+                "/* /xpad edit jump1 power 2.5 */",
+                "/* /xpad edit jump1 sound BLOCK_NOTE_BLOCK_PLING */",
+                "[section==Configuración]",
+                "Puedes personalizar:",
+                "- **bottom-block**: El bloque debajo de la placa",
+                "- **launch-plate**: La placa de presión",
+                "- **power**: La fuerza del salto (1.0 = normal)",
+                "- **sound**: Sonido al activarse",
+                "- **particle**: Partículas al activarse",
+                "- **direction**: Dirección del salto (UP, NORTH, etc)",
+                "",
+                "**Ejemplo de configuración:**",
+                "//*",
+                "pads:",
+                "  jump1:",
+                "    bottom-block: STONE",
+                "    launch-plate: OAK_PRESSURE_PLATE",
+                "    power: 1.5",
+                "    sound: BLOCK_NOTE_BLOCK_PLING",
+                "    particle: CLOUD",
+                "    direction: UP",
+                "//*/",
+                "[section==Permisos]",
+                "/* xpad.create */ - Permite crear placas",
+                "/* xpad.edit */ - Permite editar placas",
+                "/* xpad.delete */ - Permite eliminar placas",
+                "/* xpad.use */ - Permite usar placas (por defecto todos pueden)",
+                "[section==Solución de problemas]",
+                "**Errores comunes:**",
+                "- Nombres de bloque inválidos en la configuración",
+                "- Dependencias faltantes",
+                "- Permisos incorrectos",
+                "",
+                "**Siempre verifica:**",
+                "1. Los logs de tu servidor",
+                "2. La configuración del plugin",
+                "3. Los nodos de permisos"
+            ]
+        },
+        "EnttAPI": {
+            "title": "EnttAPI",
+            "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
+            "category": "api",
+            "description": "API para desarrollo de plugins de Minecraft",
+            "modules": {
+                "Integración": {
+                    "title": "Guía de Integración",
+                    "content": [
+                        "[section==Descripción General]",
+                        "**EnttAPI** está disponible a través de JitPack y es compatible con múltiples sistemas de compilación.",
+                        "",
+                        "**Características principales:**",
+                        "- Diseño liviano",
+                        "- Soporte para MySQL",
+                        "- Configuración fácil",
+                        "[section==Maven]",
+                        "Agrega a tu pom.xml:",
+                        "//*",
+                        "<repositories>",
+                        "  <repository>",
+                        "    <id>jitpack.io</id>",
+                        "    <url>https://jitpack.io</url>",
+                        "  </repository>",
+                        "</repositories>",
+                        "",
+                        "<dependencies>",
+                        "  <dependency>",
+                        "    <groupId>com.github.EnttbotX</groupId>",
+                        "    <artifactId>EnttAPI</artifactId>",
+                        "    <version>VERSION</version>",
+                        "    <scope>provided</scope>",
+                        "  </dependency>",
+                        "</dependencies>",
+                        "//*/",
+                        "[section==Gradle]",
+                        "Agrega a build.gradle:",
+                        "/*",
+                        "repositories {",
+                        "    maven { url 'https://jitpack.io' }",
+                        "}",
+                        "",
+                        "dependencies {",
+                        "    implementation 'com.github.EnttbotX:EnttAPI:VERSION'",
+                        "}",
+                        "*/",
+                        "[section==Uso Básico]",
+                        "Para comenzar a usar EnttAPI en tu plugin:",
+                        "//*",
+                        "import com.entt.api.EnttAPI;",
+                        "",
+                        "public class MyPlugin extends JavaPlugin {",
+                        "    ",
+                        "    @Override",
+                        "    public void onEnable() {",
+                        "        EnttAPI.registerPlugin(this);",
+                        "        ",
+                        "        EnttAPI api = EnttAPI.getInstance();",
+                        "        ",
+                        "        api.getDatabaseManager().connect(...);",
+                        "    }",
+                        "}",
+                        "//*/"
+                    ]
+                },
+                "MySQL": {
+                    "title": "Módulo MySQL",
+                    "content": [
+                        "[section==Configuración]",
+                        "**Inicializar conexión:**",
+                        "//*",
+                        "MySQL mysql = new MySQL();",
+                        "mysql.connect(",
+                        "  \"localhost\", ",
+                        "  \"3306\", ",
+                        "  \"database\", ",
+                        "  \"user\", ",
+                        "  \"password\"",
+                        ");",
+                        "//*/",
+                        "[section==Uso]",
+                        "**Crear tabla:**",
+                        "/* mysql.createTable(\"players\", \"uuid VARCHAR(36), name VARCHAR(16)\"); */",
+                        "",
+                        "**Insertar datos:**",
+                        "//*",
+                        "mysql.executeCommand(",
+                        "  \"INSERT INTO players (uuid, name) VALUES (?, ?)\", ",
+                        "  player.getUniqueId().toString(),",
+                        "  player.getName()",
+                        ");",
+                        "//*/",
+                        "[section==Mejores Prácticas]",
+                        "**Siempre:**",
+                        "- Usar bloques try-catch",
+                        "- Cerrar conexiones cuando termines",
+                        "- Validar consultas SQL primero",
+                        "",
+                        "**Evitar:**",
+                        "- Bloquear el hilo principal",
+                        "- Codificar credenciales directamente",
+                        "- Entradas no sanitizadas"
+                    ]
                 }
             }
-            // apply gap and CSS variables for nav button tweakables
-            document.querySelectorAll('.header-nav ul').forEach(u => u.style.gap = NAV_ITEM_GAP + 'rem');
-            document.documentElement.style.setProperty('--nav-gap', NAV_ITEM_GAP + 'rem');
-            document.documentElement.style.setProperty('--nav-btn-padding', NAV_BTN_PADDING);
-            document.documentElement.style.setProperty('--nav-btn-radius', NAV_BTN_RADIUS);
-            document.documentElement.style.setProperty('--nav-btn-color', NAV_BTN_COLOR);
-            document.documentElement.style.setProperty('--nav-btn-active-bg', NAV_BTN_ACTIVE_BG);
- 
-            // ensure title links to profile and opens in new tab
-            const siteTitleLink = document.querySelector('.site-title');
-            if (siteTitleLink) {
-                siteTitleLink.href = TITLE_PROFILE_URL;
-                siteTitleLink.target = "_blank";
+        },
+        "ClansX": {
+            "title": "ClansX",
+            "icon": "https://www.spigotmc.org/data/resource_icons/114/114316.jpg?1724109041",
+            "category": "minecraft",
+            "description": "Sistema de clanes avanzado para Minecraft",
+            "content": [
+                "[section==Información General]",
+                "**ClansX** es un sistema de clanes de alto rendimiento y modular para Minecraft.",
+                "Ofrece sistemas completos de creación, gestión y guerras entre clanes, integración con placeholders y soporte para múltiples economías.",
+                "",
+                "**Características principales:**",
+                "- Sistema de clanes completo",
+                "- Guerras entre clanes",
+                "- Sistema de niveles y experiencia",
+                "- Integración con PlaceholderAPI",
+                "- Soporte para múltiples economías",
+                "- Altamente personalizable",
+                "[section==Comandos Principales]",
+                "/* /clan create <nombre> */ - Crear un clan",
+                "/* /clan invite <jugador> */ - Invitar a un jugador",
+                "/* /clan accept */ - Aceptar invitación",
+                "/* /clan leave */ - Abandonar clan",
+                "/* /clan info */ - Ver información del clan",
+                "/* /clan upgrade */ - Mejorar el clan",
+                "[section==Configuración]",
+                "ClansX es altamente configurable. Los archivos principales son:",
+                "- **config.yml**: Configuración principal",
+                "- **messages.yml**: Mensajes del plugin",
+                "- **levels.yml**: Configuración de niveles",
+                "- **permissions.yml**: Permisos del plugin",
+                "",
+                "**Ejemplo de configuración de niveles:**",
+                "//*",
+                "levels:",
+                "  1:",
+                "    cost: 1000",
+                "    max-members: 10",
+                "  2:",
+                "    cost: 2500",
+                "    max-members: 15",
+                "//*/",
+                "[section==Placeholders]",
+                "ClansX ofrece placeholders para usar con PlaceholderAPI:",
+                "/* %clansx_clan_name% */ - Nombre del clan",
+                "/* %clansx_clan_level% */ - Nivel del clan",
+                "/* %clansx_clan_balance% */ - Dinero del clan",
+                "/* %clansx_player_role% */ - Rol del jugador en el clan"
+            ]
+        },
+        "FunkyFeather": {
+            "title": "FunkyFeather",
+            "icon": "https://www.spigotmc.org/data/resource_icons/115/115289.jpg?1708979359",
+            "category": "minecraft",
+            "description": "Conserva tu inventario al morir con plumas especiales",
+            "content": [
+                "[section==Información General]",
+                "**FunkyFeather** permite a los jugadores conservar objetos y experiencia al morir si llevan una FunkyFeather.",
+                "Compatible con Minecraft 1.8 hasta 1.21, es una solución modular y eficiente para sistemas PvP o de supervivencia.",
+                "",
+                "**Características principales:**",
+                "- Conservar inventario al morir",
+                "- Conservar experiencia al morir",
+                "- Sistema de plumas consumibles",
+                "- Altamente configurable",
+                "- Soporte para permisos",
+                "[section==Uso]",
+                "1. Los jugadores obtienen FunkyFeathers (pueden ser compradas, obtenidas como recompensa, etc.)",
+                "2. Al morir con una FunkyFeather en el inventario, conservan sus objetos y experiencia",
+                "3. La FunkyFeather se consume en el proceso",
+                "",
+                "**Configuración de consumo:**",
+                "Puedes configurar si la pluma se consume siempre o solo con cierta probabilidad:",
+                "//*",
+                "consumption:",
+                "  always: true",
+                "  chance: 100 # Solo aplica si always es false",
+                "//*/",
+                "[section==Permisos]",
+                "/* funkyfeather.use */ - Permite usar la FunkyFeather",
+                "/* funkyfeather.bypass */ - Conserva inventario sin consumir pluma",
+                "/* funkyfeather.admin */ - Acceso a comandos administrativos"
+            ]
+        },
+        "FastGive": {
+            "title": "FastGive",
+            "icon": "https://www.spigotmc.org/data/resource_icons/124/124823.jpg?1746700062",
+            "category": "minecraft",
+            "description": "Sistema de entrega rápida de items mediante chat",
+            "content": [
+                "[section==Información General]",
+                "**FastGive** es un plugin que permite entregar items mediante comandos simples de chat.",
+                "Usa símbolos configurables como ::, <, >, { para definir patrones de entrega personalizados.",
+                "",
+                "**Características principales:**",
+                "- Entrega de items mediante chat",
+                "- Símbolos configurables",
+                "- Soporte para kits y recompensas",
+                "- Fácil configuración",
+                "- Permisos personalizables",
+                "[section==Uso Básico]",
+                "1. Configurar los símbolos en config.yml",
+                "2. Los jugadores usan los símbolos seguidos del nombre del item",
+                "3. El plugin entrega el item automáticamente",
+                "",
+                "**Ejemplos:**",
+                "/* ::diamond */ - Entrega un diamante",
+                "/* <diamond_sword> */ - Entrega una espada de diamante",
+                "/* {cake} */ - Entrega un pastel",
+                "[section==Configuración]",
+                "Puedes configurar:",
+                "- **símbolos**: Los caracteres que activan la entrega",
+                "- **items**: La lista de items disponibles",
+                "- **cooldowns**: Tiempos de espera entre usos",
+                "- **permisos**: Permisos requeridos para cada item",
+                "",
+                "**Ejemplo de configuración:**",
+                "//*",
+                "symbols:",
+                "  - \"::\"",
+                "  - \"<\"",
+                "  - \">\"",
+                "  - \"{\"",
+                "  - \"}\"",
+                "",
+                "items:",
+                "  diamond:",
+                "    material: DIAMOND",
+                "    amount: 1",
+                "    permission: fastgive.diamond",
+                "//*/"
+            ]
+        }
+    };
+
+    const wikiCache = {
+        data: {...embeddedWikiData},
+        lastUpdated: Date.now(),
+        update: function(newData) {
+            this.data = {...this.data, ...newData};
+            this.lastUpdated = Date.now();
+            localStorage.setItem('wikiCache', JSON.stringify({
+                data: this.data,
+                lastUpdated: this.lastUpdated
+            }));
+        },
+        load: function() {
+            const cached = localStorage.getItem('wikiCache');
+            if (cached) {
+                try {
+                    const parsed = JSON.parse(cached);
+                    if (Date.now() - parsed.lastUpdated < 24 * 60 * 60 * 1000) {
+                        this.data = {...this.data, ...parsed.data};
+                        return true;
+                    }
+                } catch (e) {
+                    console.warn('Error loading wiki cache', e);
+                }
+            }
+            return false;
+        }
+    };
+
+    wikiCache.load();
+    let wikiData = wikiCache.data;
+
+    const wikiOverlay = document.getElementById('wiki-overlay');
+    const wikiContentDiv = document.getElementById('wiki-content');
+    const wikiTitle = document.getElementById('wiki-title');
+    const wikiModulesContainer = document.getElementById('wiki-modules');
+    const closeWikiBtn = document.querySelector('#wiki-overlay .close-btn');
+    const wikiPluginIcon = document.getElementById('wiki-plugin-icon');
+    const wikiGrid = document.getElementById('wiki-grid');
+    
+    const languageCurrent = document.getElementById('language-current');
+    const languageOptions = document.getElementById('language-options');
+    const currentFlag = document.getElementById('current-flag');
+    
+    let currentLanguage = 'es';
+
+    const translations = {
+        es: {
+            "nav.home": "Inicio",
+            "nav.wiki": "Wiki",
+            "nav.portfolio": "Portafolio",
+            "home.intro": "Hola, soy Enttbot, o EnttbotX, o Entt, como quieras llamarme.",
+            "home.description": "Soy un desarrollador de plugins de Spigot de 16 años que ama lanzar plugins interesantes y seguir proyectos a largo plazo. Si te gustan mis plugins, agradecería tu donación. Si buscas trabajo de desarrollo a largo plazo, puedes contactarme vía Discord, donde te diré si estoy ocupado o no. Preferiblemente, proyectos cortos como solo un plugin.",
+            "home.contract.title": "Términos del Contrato",
+            "home.contract.term1": "El pago se realiza antes de entregar el plugin",
+            "home.contract.term2": "Debo poder subir el plugin a Spigot",
+            "home.contract.term3": "Información clara requerida",
+            "home.contract.term4": "Comunicación directa preferida",
+            "home.contact.title": "Contáctame vía",
+            "wiki.title": "Wiki",
+            "wiki.subtitle": "Aquí están las Wikis de algunos de mis plugins o softwares",
+            "wiki.see_wiki": "Ver Wiki",
+            "portfolio.title": "Mis Proyectos",
+            "portfolio.source": "Código",
+            "portfolio.clansx": "ClansX es un plugin de clanes para Minecraft de alto rendimiento y modular. Ofrece sistemas completos para la creación, gestión y guerra entre clanes, integración de placeholders y soporte para múltiples economías. Está diseñado para ser escalable, personalizable y fácil de integrar en servidores de supervivencia, PvP o RPG.",
+            "portfolio.funkyfeather": "FunkyFeather es un plugin de Spigot/Bukkit que permite a los jugadores conservar objetos y experiencia (XP) después de morir si tienen una FunkyFeather, protegiendo así su inventario y progresión. Compatible con Minecraft 1.8 a 1.21, fue desarrollado como solución modular y eficiente para sistemas PvP o de supervivencia.",
+            "portfolio.xpad": "XPAD es un plugin de Minecraft que extiende la funcionalidad de XP en los servidores, permitiendo la itemización, el almacenamiento persistente y la transferencia entre jugadores. Proyectado para ser flexible, eficiente y fácilmente configurable, XPAD es ideal para integrar con sistemas de economía y progresión personalizados.",
+            "portfolio.fastgive": "FastGive es un plugin de Spigot/Bukkit que permite a los jugadores otorgar objetos, experiencia y otros elementos mediante comandos simples de chat. Usando símbolos configurables como ::, &lt;, &gt;, {, o cualquier otro, los administradores pueden definir patrones de entrega personalizados. Es ideal para servidores que requieren sistemas de recompensa, kits o interacciones rápidas y sin complicaciones.",
+            "portfolio.instafriend": "InstaFriend es un plugin de Spigot que permite a los jugadores obtener instantáneamente un lobo domesticado usando un huevo generador de lobos. Este plugin está diseñado para ser ligero, fácil de configurar y compatible con las versiones de Minecraft desde 1.8 hasta 1.21."
+        },
+        en: {
+            "nav.home": "Home",
+            "nav.wiki": "Wiki",
+            "nav.portfolio": "Portfolio",
+            "home.intro": "Hi, I'm Enttbot, or EnttbotX, or Entt, whatever you want to call me.",
+            "home.description": "I'm a 16-year-old Spigot plugin developer who loves releasing interesting plugins and following long-term projects. If you like my plugins, I'd appreciate your donation. If you're looking for long-term dev work, you can contact me via Discord, where I'll let you know if I'm busy or not. Preferably, short projects like just one plugin.",
+            "home.contract.title": "Terms of Contract",
+            "home.contract.term1": "Payment is due before the plugin is delivered",
+            "home.contract.term2": "I must be able to upload the plugin to Spigot",
+            "home.contract.term3": "Clear information required",
+            "home.contract.term4": "Direct communication preferred",
+            "home.contact.title": "Contact me via",
+            "wiki.title": "Wiki",
+            "wiki.subtitle": "Here are the Wikis of some of my plugins or softwares",
+            "wiki.see_wiki": "See Wiki",
+            "portfolio.title": "My Projects",
+            "portfolio.source": "Source",
+            "portfolio.clansx": "ClansX is a high-performance, modular Minecraft clan plugin. It offers complete clan creation, management, and war systems, placeholder integration, and support for multiple economies. It is designed to be scalable, customizable, and easy to integrate into survival, PvP, or RPG servers.",
+            "portfolio.funkyfeather": "FunkyFeather is a Spigot/Bukkit plugin that allows players to retain items and experience (XP) after death if they are carrying a FunkyFeather, thus protecting their inventory and progression. Compatible with Minecraft 1.8 to 1.21, it was developed as a modular and efficient solution for PvP or survival systems.",
+            "portfolio.xpad": "XPAD is a Minecraft plugin that extends the functionality of XP on servers, allowing for itemization, persistent storage, and transfer between players. Designed to be flexible, efficient, and easily configurable, XPAD is ideal for integrating with custom economy and progression systems.",
+            "portfolio.fastgive": "FastGive is a Spigot/Bukkit plugin that allows players to grant items, experience, and other items via simple chat commands. Using configurable symbols like ::, &lt;, &gt;, {, or any other, administrators can define custom delivery patterns. It's ideal for servers that require reward systems, kits, or quick, hassle-free interactions.",
+            "portfolio.instafriend": "InstaFriend is a Spigot plugin that allows players to instantly obtain a tamed wolfdog by using a wolf spawner egg. This plugin is designed to be lightweight, easy to configure, and compatible with Minecraft versions 1.8 through 1.21."
+        },
+        it: {
+            "nav.home": "Home",
+            "nav.wiki": "Wiki",
+            "nav.portfolio": "Portfolio",
+            "home.intro": "Ciao, sono Enttbot, o EnttbotX, o Entt, come preferisci chiamarmi.",
+            "home.description": "Sono uno sviluppatore di plugin Spigot di 16 anni che ama rilasciare plugin interessanti e seguire progetti a lungo termine. Se ti piacciono i miei plugin, apprezzerei una donazione. Se cerchi lavoro di sviluppo a lungo termine, puoi contattarmi via Discord, dove ti dirò se sono occupato o meno. Preferibilmente, progetti brevi come un solo plugin.",
+            "home.contract.title": "Termini del Contratto",
+            "home.contract.term1": "Il pagamento è dovuto prima della consegna del plugin",
+            "home.contract.term2": "Devo poter caricare il plugin su Spigot",
+            "home.contract.term3": "Informazioni chiare richieste",
+            "home.contract.term4": "Comunicazione diretta preferita",
+            "home.contact.title": "Contattami via",
+            "wiki.title": "Wiki",
+            "wiki.subtitle": "Ecco le Wiki di alcuni dei miei plugin o software",
+            "wiki.see_wiki": "Vedi Wiki",
+            "portfolio.title": "I Miei Progetti",
+            "portfolio.source": "Codice",
+            "portfolio.clansx": "ClansX è un plugin per clan Minecraft ad alte prestazioni e modulare. Offre sistemi completi per la creazione, gestione e guerra tra clan, integrazione di segnaposto e supporto per più economie. È progettato per essere scalabile, personalizzabile e facile da integrare in server di sopravvivenza, PvP o RPG.",
+            "portfolio.funkyfeather": "FunkyFeather è un plugin Spigot/Bukkit che consente ai giocatori di conservare oggetti ed esperienza (XP) dopo la morte se hanno una FunkyFeather, proteggendo così il loro inventario e progressione. Compatibile con Minecraft 1.8 a 1.21, è stato sviluppato come soluzione modulare ed efficiente per sistemi PvP o di sopravvivenza.",
+            "portfolio.xpad": "XPAD è un plugin Minecraft che estende la funzionalità dell'XP sui server, consentendo l'itemizzazione, lo storage persistente e il trasferimento tra giocatori. Progettato per essere flessibile, efficiente e facilmente configurabile, XPAD è ideale per l'integrazione con sistemi di economia e progressione personalizzati.",
+            "portfolio.fastgive": "FastGive è un plugin Spigot/Bukkit che consente ai giocatori di concedere oggetti, esperienza e altri elementi tramite semplici comandi di chat. Utilizzando simboli configurabili come ::, &lt;, &gt;, {, o qualsiasi altro, gli amministratori possono definire modelli di consegna personalizzati. È ideale per server che richiedono sistemi di ricompensa, kits o interazioni rapide e senza problemi.",
+            "portfolio.instafriend": "InstaFriend è un plugin Spigot che consente ai giocatori di ottenere istantaneamente un lupo addomesticato usando un uovo generatore di lupi. Questo plugin è progettato per essere leggero, facile da configurare e compatibile con le versioni di Minecraft dalla 1.8 alla 1.21."
+        }
+    };
+
+    function generateWikiTiles(filter = 'all', searchTerm = '') {
+        wikiGrid.innerHTML = '';
+        
+        const plugins = Object.values(wikiData)
+            .filter(plugin => {
+                const matchesCategory = filter === 'all' || plugin.category === filter;
+                const matchesSearch = searchTerm === '' || 
+                    plugin.title.toLowerCase().includes(searchTerm) ||
+                    (plugin.description && plugin.description.toLowerCase().includes(searchTerm));
+                return matchesCategory && matchesSearch;
+            })
+            .sort((a, b) => a.title.localeCompare(b.title));
+        
+        if (plugins.length === 0) {
+            wikiGrid.innerHTML = `
+                <div class="tile" style="grid-column: 1 / -1; text-align: center;">
+                    <p>No se encontraron plugins que coincidan con la búsqueda.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        plugins.forEach(plugin => {
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            
+            tile.innerHTML = `
+                <div class="tile-header">
+                    <img class="tile-icon" src="${plugin.icon || 'https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701'}" alt="${plugin.title} Icon">
+                    <div>
+                        <h2 class="tile-title">${plugin.title}</h2>
+                        <span class="tile-category">${plugin.category === 'api' ? 'API' : 'Minecraft'}</span>
+                    </div>
+                </div>
+                ${plugin.description ? `<p class="tile-description">${plugin.description}</p>` : ''}
+                <div class="tile-actions">
+                    <button class="btn btn-download wiki-btn" data-plugin="${plugin.title}" data-i18n="wiki.see_wiki">Ver Wiki</button>
+                </div>
+            `;
+            
+            tile.querySelector('.wiki-btn').addEventListener('click', () => {
+                showPluginModal(plugin.title);
+            });
+            
+            wikiGrid.appendChild(tile);
+        });
+        
+        translatePage(currentLanguage);
+    }
+
+    async function loadRemoteWikiData() {
+        try {
+            const response = await fetch('https://raw.githubusercontent.com/EnttbotX/EnttbotX.github.io/main/wiki.txt', {
+                cache: "no-store",
+                headers: {
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            
+            if (!response.ok) throw new Error('No se pudo cargar wiki.txt');
+            
+            const text = await response.text();
+            const lines = text.split('\n');
+            let currentPlugin = null;
+            let currentContent = [];
+            let inMultiline = false;
+            
+            for (const line of lines) {
+                if (line.startsWith('===') && line.endsWith('===')) {
+                    if (currentPlugin) {
+                        if (!wikiData[currentPlugin]) {
+                            wikiData[currentPlugin] = { title: currentPlugin, content: [] };
+                        }
+                        wikiData[currentPlugin].content = [...currentContent];
+                    }
+                    
+                    currentPlugin = line.replace(/=/g, '').trim();
+                    currentContent = [];
+                } else if (line.trim() !== '') {
+                    currentContent.push(line);
+                }
+            }
+            
+            if (currentPlugin) {
+                if (!wikiData[currentPlugin]) {
+                    wikiData[currentPlugin] = { title: currentPlugin, content: [] };
+                }
+                wikiData[currentPlugin].content = [...currentContent];
+            }
+            
+            wikiCache.update(wikiData);
+            
+            generateWikiTiles();
+            
+        } catch (error) {
+            console.warn('No se pudo cargar la wiki remota, usando datos locales.', error);
+            wikiData = embeddedWikiData;
+            generateWikiTiles();
+        }
+    }
+
+    function showPluginModal(pluginName) {
+        const plugin = wikiData[pluginName];
+        if (!plugin) return;
+
+        wikiOverlay.scrollTop = 0;
+        wikiOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        wikiTitle.textContent = plugin.title;
+        wikiPluginIcon.src = plugin.icon || 'https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701';
+        wikiContentDiv.innerHTML = '';
+        wikiModulesContainer.innerHTML = '';
+
+        if (plugin.content) {
+            wikiContentDiv.innerHTML = parseContent(plugin.content);
+        }
+
+        if (plugin.modules) {
+            const modulesDiv = document.createElement('div');
+            modulesDiv.style.display = 'flex';
+            modulesDiv.style.flexWrap = 'wrap';
+            modulesDiv.style.marginBottom = '1rem';
+            modulesDiv.style.gap = '0.5rem';
+            
+            let firstModule = true;
+            
+            Object.keys(plugin.modules).forEach(moduleKey => {
+                const moduleBtn = document.createElement('button');
+                moduleBtn.className = 'wiki-module-btn';
+                if (firstModule) {
+                    moduleBtn.classList.add('active');
+                    firstModule = false;
+                    wikiContentDiv.innerHTML = `<h3>${plugin.modules[moduleKey].title}</h3>` + parseContent(plugin.modules[moduleKey].content);
+                }
+                moduleBtn.textContent = moduleKey;
+                
+                moduleBtn.addEventListener('click', () => {
+                    wikiContentDiv.innerHTML = `<h3>${plugin.modules[moduleKey].title}</h3>` + parseContent(plugin.modules[moduleKey].content);
+                    
+                    document.querySelectorAll('.wiki-module-btn').forEach(btn => btn.classList.remove('active'));
+                    moduleBtn.classList.add('active');
+                });
+                
+                modulesDiv.appendChild(moduleBtn);
+            });
+            
+            wikiModulesContainer.appendChild(modulesDiv);
+        }
+    }
+
+    function parseContent(contentArray) {
+        let htmlOutput = '';
+        let inMultilineCode = false;
+        let multilineCode = '';
+        
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+        
+        for (const line of contentArray) {
+            let processedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            if (line.trim() === '//*') {
+                inMultilineCode = true;
+                multilineCode = '';
+                continue;
+            } else if (line.trim() === '//*/') {
+                inMultilineCode = false;
+                htmlOutput += `
+                    <div class="wiki-code-block">
+                        <pre><code>${escapeHtml(multilineCode.trim())}</code></pre>
+                        <button class="copy-btn" onclick="copyToClipboard(\`${multilineCode.trim().replace(/`/g, '\\`')}\`)">Copy</button>
+                    </div>
+                `;
+                continue;
+            } else if (inMultilineCode) {
+                multilineCode += line + '\n';
+                continue;
+            }
+
+            if (line.startsWith('/* ') && line.endsWith(' /*')) {
+                const codeContent = line.slice(3, -3).trim();
+                htmlOutput += `
+                    <div class="wiki-code-block">
+                        <pre><code>${escapeHtml(codeContent)}</code></pre>
+                        <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
+                    </div>
+                `;
+                continue;
+            }
+
+            if (line.startsWith('[section==') && line.endsWith(']')) {
+                htmlOutput += `<h3>${line.slice(10, -1)}</h3>`;
+            } else if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
+                htmlOutput += `<p><strong>${line.slice(5, -5)}</strong></p>`;
+            } else if (line.trim() === '') {
+                htmlOutput += '<br>';
+            } else {
+                htmlOutput += `<p>${processedLine}</p>`;
+            }
+        }
+
+        return htmlOutput;
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Copied to clipboard');
+        });
+    }
+
+    function closeWikiOverlay() {
+        wikiOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function translatePage(lang) {
+        currentLanguage = lang;
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                element.textContent = translations[lang][key];
             }
         });
+        
+        const flagMap = {
+            'es': 'https://flagcdn.com/w20/ar.png',
+            'en': 'https://flagcdn.com/w20/gb.png', 
+            'it': 'https://flagcdn.com/w20/it.png'
+        };
+        
+        currentFlag.src = flagMap[lang];
+        
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.classList.toggle('active', option.getAttribute('data-lang') === lang);
+        });
+    }
 
-        // Apply tweakables (runtime adjustments)
-        document.documentElement.style.setProperty('--language-left-offset', LANGUAGE_FLOATING_OFFSET.left + 'px');
-        document.documentElement.style.setProperty('--language-bottom-offset', LANGUAGE_FLOATING_OFFSET.bottom + 'px');
+    function handleNavigation() {
+        closeWikiOverlay();
+        const hash = window.location.hash || '#home';
+        const targetId = hash.substring(1);
 
-        // apply offsets to element after DOM ready
-        function applyLanguageOffset() {
-            const lf = document.querySelector('.language-floating');
-            if (!lf) return;
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+
+        const activePage = document.getElementById(targetId);
+        if (activePage) {
+            activePage.classList.add('active');
+        } else {
+            document.getElementById('home').classList.add('active');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+            sparkle.remove();
+        }, 2000);
+    }
+
+    const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const SHOW_HEADER_AVATAR = false;
+        const HEADER_AVATAR_SIZE = 36;
+        const LANGUAGE_FLOATING_OFFSET = { left: 14, bottom: 14 };
+        const NAV_ITEM_GAP = 1.5;
+        const NAV_BTN_PADDING = '0.45rem 1rem';
+        const NAV_BTN_RADIUS = '12px';
+        const NAV_BTN_COLOR = '#cbd5e1';
+        const NAV_BTN_ACTIVE_BG = 'linear-gradient(90deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08))';
+        const TITLE_PROFILE_URL = "https://www.spigotmc.org/members/enttbotx.1937569";
+        
+        const existingImg = document.getElementById('header-profile-img');
+        if (existingImg) existingImg.remove();
+        if (SHOW_HEADER_AVATAR) {
+            const profileLink = document.querySelector('.profile-link');
+            if (profileLink) {
+                const img = document.createElement('img');
+                img.id = 'header-profile-img';
+                img.src = 'https://avatars.githubusercontent.com/u/155677534?v=4&size=64';
+                img.alt = 'EnttbotX';
+                img.style.width = img.style.height = HEADER_AVATAR_SIZE + 'px';
+                img.style.borderRadius = '8px';
+                img.style.objectFit = 'cover';
+                profileLink.prepend(img);
+            }
+        }
+        
+        document.querySelectorAll('.header-nav ul').forEach(u => u.style.gap = NAV_ITEM_GAP + 'rem');
+        document.documentElement.style.setProperty('--nav-gap', NAV_ITEM_GAP + 'rem');
+        document.documentElement.style.setProperty('--nav-btn-padding', NAV_BTN_PADDING);
+        document.documentElement.style.setProperty('--nav-btn-radius', NAV_BTN_RADIUS);
+        document.documentElement.style.setProperty('--nav-btn-color', NAV_BTN_COLOR);
+        document.documentElement.style.setProperty('--nav-btn-active-bg', NAV_BTN_ACTIVE_BG);
+ 
+        const siteTitleLink = document.querySelector('.site-title');
+        if (siteTitleLink) {
+            siteTitleLink.href = TITLE_PROFILE_URL;
+            siteTitleLink.target = "_blank";
+        }
+
+        const lf = document.querySelector('.language-floating');
+        if (lf) {
             lf.style.left = LANGUAGE_FLOATING_OFFSET.left + 'px';
             lf.style.bottom = LANGUAGE_FLOATING_OFFSET.bottom + 'px';
         }
 
-        const wikiOverlay = document.getElementById('wiki-overlay');
-        const wikiContentDiv = document.getElementById('wiki-content');
-        const wikiTitle = document.getElementById('wiki-title');
-        const wikiModulesContainer = document.getElementById('wiki-modules');
-        const closeWikiBtn = document.querySelector('#wiki-overlay .close-btn');
-        const wikiPluginIcon = document.getElementById('wiki-plugin-icon');
-        const wikiGrid = document.getElementById('wiki-grid');
-        
-        // Language dropdown elements
-        const languageCurrent = document.getElementById('language-current');
-        const languageOptions = document.getElementById('language-options');
-        const currentFlag = document.getElementById('current-flag');
-        
-        let currentLanguage = 'es';
-        let wikiData = {};
-
-        // Wiki data (embedded directly to fix loading issues)
-        const embeddedWikiData = {
-            "XPad": {
-                "title": "XPad",
-                "icon": "https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701",
-                "content": [
-                    "[section==Info]",
-                    "**XPad** is the best launch-pads plugin for Minecraft.",
-                    "In this wiki you will learn how to configure and use it effectively.",
-                    "",
-                    "**Main features:**",
-                    "- Customizable jump pads",
-                    "- Directional launch control",
-                    "- Sound and particle effects",
-                    "[section==Commands]",
-                    "**Basic commands:**",
-                    "/* /xpad create <id> /* - Creates a new pad",
-                    "/* /xpad edit <id> /* - Edits an existing pad",
-                    "",
-                    "**Example usage:**",
-                    "1. First, create a pad:",
-                    "/* /xpad create 1 /*",
-                    "2. Then configure it:",
-                    "/* /xpad edit 1 power 2.5 /*",
-                    "[section==Configuration]",
-                    "You can customize:",
-                    "- **bottom-block**: The block under the pad",
-                    "- **launch-plate**: The pressure plate",
-                    "- **sound**: Effect when launching",
-                    "",
-                    "**Example config:**",
-                    "//*",
-                    "pads:",
-                    "  default:",
-                    "    bottom-block: STONE",
-                    "    launch-plate: OAK_PRESSURE_PLATE",
-                    "    power: 1.5",
-                    "//*/",
-                    "[section==Troubleshooting]",
-                    "**Common errors:**",
-                    "- Invalid block names in config",
-                    "- Missing dependencies",
-                    "- Incorrect permissions",
-                    "",
-                    "**Always check:**",
-                    "1. Your server logs",
-                    "2. Plugin configuration",
-                    "3. Permission nodes"
-                ]
-            },
-            "EnttAPI": {
-                "title": "EnttAPI",
-                "icon": "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224",
-                "modules": {
-                    "Integration": {
-                        "title": "API Integration Guide",
-                        "content": [
-                            "[section==Overview]",
-                            "**EnttAPI** is available through JitPack and supports multiple build systems.",
-                            "",
-                            "**Key features:**",
-                            "- Lightweight design",
-                            "- MySQL support",
-                            "- Easy configuration",
-                            "[section==Maven]",
-                            "Add to your pom.xml:",
-                            "//*",
-                            "<repositories>",
-                            "  <repository>",
-                            "    <id>jitpack.io</id>",
-                            "    <url>https://jitpack.io</url>",
-                            "  </repository>",
-                            "</repositories>",
-                            "",
-                            "<dependencies>",
-                            "  <dependency>",
-                            "    <groupId>com.github.EnttbotX</groupId>",
-                            "    <artifactId>EnttAPI</artifactId>",
-                            "    <version>VERSION</version>",
-                            "  </dependency>",
-                            "</dependencies>",
-                            "//*/",
-                            "[section==Gradle]",
-                            "Add to build.gradle:",
-                            "/* implementation 'com.github.EnttbotX:EnttAPI:VERSION' /*"
-                        ]
-                    },
-                    "MySQL": {
-                        "title": "MySQL Module",
-                        "content": [
-                            "[section==Setup]",
-                            "**Initialize connection:**",
-                            "//*",
-                            "MySQL mysql = new MySQL();",
-                            "mysql.connect(",
-                            "  \"localhost\", ",
-                            "  \"3306\", ",
-                            "  \"database\", ",
-                            "  \"user\", ",
-                            "  \"password\"",
-                            ");",
-                            "//*/",
-                            "[section==Usage]",
-                            "**Create table:**",
-                            "/* mysql.createTable(\"players\", \"uuid VARCHAR(36), name VARCHAR(16)\"); /*",
-                            "",
-                            "**Insert data:**",
-                            "//*",
-                            "mysql.executeCommand(",
-                            "  \"INSERT INTO players (uuid, name) VALUES (?, ?)\", ",
-                            "  player.getUniqueId().toString(),",
-                            "  player.getName()",
-                            ");",
-                            "//*/",
-                            "[section==Best Practices]",
-                            "**Always:**",
-                            "- Use try-catch blocks",
-                            "- Close connections when done",
-                            "- Validate SQL queries first",
-                            "",
-                            "**Avoid:**",
-                            "- Blocking main thread",
-                            "- Hardcoding credentials",
-                            "- Unsanitized inputs"
-                        ]
-                    }
-                }
-            }
-        };
-
-        const translations = {
-            es: {
-                "nav.home": "Inicio",
-                "nav.wiki": "Wiki",
-                "nav.portfolio": "Portafolio",
-                "home.intro": "Hola, soy Enttbot, o EnttbotX, o Entt, como quieras llamarme.",
-                "home.description": "Soy un desarrollador de plugins de Spigot de 16 años que ama lanzar plugins interesantes y seguir proyectos a largo plazo. Si te gustan mis plugins, agradecería tu donación. Si buscas trabajo de desarrollo a largo plazo, puedes contactarme vía Discord, donde te diré si estoy ocupado o no. Preferiblemente, proyectos cortos como solo un plugin.",
-                "home.contract.title": "Términos del Contrato",
-                "home.contract.term1": "El pago se realiza antes de entregar el plugin",
-                "home.contract.term2": "Debo poder subir el plugin a Spigot",
-                "home.contract.term3": "Información clara requerida",
-                "home.contract.term4": "Comunicación directa preferida",
-                "home.contact.title": "Contáctame vía",
-                "wiki.title": "Wiki",
-                "wiki.subtitle": "Aquí están las Wikis de algunos de mis plugins o softwares",
-                "wiki.see_wiki": "Ver Wiki",
-                "portfolio.title": "Mis Proyectos",
-                "portfolio.source": "Código",
-                "portfolio.clansx": "ClansX es un plugin de clanes para Minecraft de alto rendimiento y modular. Ofrece sistemas completos para la creación, gestión y guerra entre clanes, integración de placeholders y soporte para múltiples economías. Está diseñado para ser escalable, personalizable y fácil de integrar en servidores de supervivencia, PvP o RPG.",
-                "portfolio.funkyfeather": "FunkyFeather es un plugin de Spigot/Bukkit que permite a los jugadores conservar objetos y experiencia (XP) después de morir si tienen una FunkyFeather, protegiendo así su inventario y progresión. Compatible con Minecraft 1.8 a 1.21, fue desarrollado como solución modular y eficiente para sistemas PvP o de supervivencia.",
-                "portfolio.xpad": "XPAD es un plugin de Minecraft que extiende la funcionalidad de XP en los servidores, permitiendo la itemización, el almacenamiento persistente y la transferencia entre jugadores. Proyectado para ser flexible, eficiente y fácilmente configurable, XPAD es ideal para integrar con sistemas de economía y progresión personalizados.",
-                "portfolio.fastgive": "FastGive es un plugin de Spigot/Bukkit que permite a los jugadores otorgar objetos, experiencia y otros elementos mediante comandos simples de chat. Usando símbolos configurables como ::, &lt;, &gt;, {, o cualquier otro, los administradores pueden definir patrones de entrega personalizados. Es ideal para servidores que requieren sistemas de recompensa, kits o interacciones rápidas y sin complicaciones.",
-                "portfolio.instafriend": "InstaFriend es un plugin de Spigot que permite a los jugadores obtener instantáneamente un lobo domesticado usando un huevo generador de lobos. Este plugin está diseñado para ser ligero, fácil de configurar y compatible con las versiones de Minecraft desde 1.8 hasta 1.21."
-            },
-            en: {
-                "nav.home": "Home",
-                "nav.wiki": "Wiki",
-                "nav.portfolio": "Portfolio",
-                "home.intro": "Hi, I'm Enttbot, or EnttbotX, or Entt, whatever you want to call me.",
-                "home.description": "I'm a 16-year-old Spigot plugin developer who loves releasing interesting plugins and following long-term projects. If you like my plugins, I'd appreciate your donation. If you're looking for long-term dev work, you can contact me via Discord, where I'll let you know if I'm busy or not. Preferably, short projects like just one plugin.",
-                "home.contract.title": "Terms of Contract",
-                "home.contract.term1": "Payment is due before the plugin is delivered",
-                "home.contract.term2": "I must be able to upload the plugin to Spigot",
-                "home.contract.term3": "Clear information required",
-                "home.contract.term4": "Direct communication preferred",
-                "home.contact.title": "Contact me via",
-                "wiki.title": "Wiki",
-                "wiki.subtitle": "Here are the Wikis of some of my plugins or softwares",
-                "wiki.see_wiki": "See Wiki",
-                "portfolio.title": "My Projects",
-                "portfolio.source": "Source",
-                "portfolio.clansx": "ClansX is a high-performance, modular Minecraft clan plugin. It offers complete clan creation, management, and war systems, placeholder integration, and support for multiple economies. It is designed to be scalable, customizable, and easy to integrate into survival, PvP, or RPG servers.",
-                "portfolio.funkyfeather": "FunkyFeather is a Spigot/Bukkit plugin that allows players to retain items and experience (XP) after death if they are carrying a FunkyFeather, thus protecting their inventory and progression. Compatible with Minecraft 1.8 to 1.21, it was developed as a modular and efficient solution for PvP or survival systems.",
-                "portfolio.xpad": "XPAD is a Minecraft plugin that extends the functionality of XP on servers, allowing for itemization, persistent storage, and transfer between players. Designed to be flexible, efficient, and easily configurable, XPAD is ideal for integrating with custom economy and progression systems.",
-                "portfolio.fastgive": "FastGive is a Spigot/Bukkit plugin that allows players to grant items, experience, and other items via simple chat commands. Using configurable symbols like ::, &lt;, &gt;, {, or any other, administrators can define custom delivery patterns. It's ideal for servers that require reward systems, kits, or quick, hassle-free interactions.",
-                "portfolio.instafriend": "InstaFriend is a Spigot plugin that allows players to instantly obtain a tamed wolfdog by using a wolf spawner egg. This plugin is designed to be lightweight, easy to configure, and compatible with Minecraft versions 1.8 through 1.21."
-            },
-            it: {
-                "nav.home": "Home",
-                "nav.wiki": "Wiki",
-                "nav.portfolio": "Portfolio",
-                "home.intro": "Ciao, sono Enttbot, o EnttbotX, o Entt, come preferisci chiamarmi.",
-                "home.description": "Sono uno sviluppatore di plugin Spigot di 16 anni che ama rilasciare plugin interessanti e seguire progetti a lungo termine. Se ti piacciono i miei plugin, apprezzerei una donazione. Se cerchi lavoro di sviluppo a lungo termine, puoi contattarmi via Discord, dove ti dirò se sono occupato o meno. Preferibilmente, progetti brevi come un solo plugin.",
-                "home.contract.title": "Termini del Contratto",
-                "home.contract.term1": "Il pagamento è dovuto prima della consegna del plugin",
-                "home.contract.term2": "Devo poter caricare il plugin su Spigot",
-                "home.contract.term3": "Informazioni chiare richieste",
-                "home.contract.term4": "Comunicazione diretta preferita",
-                "home.contact.title": "Contattami via",
-                "wiki.title": "Wiki",
-                "wiki.subtitle": "Ecco le Wiki di alcuni dei miei plugin o software",
-                "wiki.see_wiki": "Vedi Wiki",
-                "portfolio.title": "I Miei Progetti",
-                "portfolio.source": "Codice",
-                "portfolio.clansx": "ClansX è un plugin per clan Minecraft ad alte prestazioni e modulare. Offre sistemi completi per la creazione, gestione e guerra tra clan, integrazione di segnaposto e supporto per più economie. È progettato per essere scalabile, personalizzabile e facile da integrare in server di sopravvivenza, PvP o RPG.",
-                "portfolio.funkyfeather": "FunkyFeather è un plugin Spigot/Bukkit che consente ai giocatori di conservare oggetti ed esperienza (XP) dopo la morte se hanno una FunkyFeather, proteggendo così il loro inventario e progressione. Compatibile con Minecraft 1.8 a 1.21, è stato sviluppato come soluzione modulare ed efficiente per sistemi PvP o di sopravvivenza.",
-                "portfolio.xpad": "XPAD è un plugin Minecraft che estende la funzionalità dell'XP sui server, consentendo l'itemizzazione, lo storage persistente e il trasferimento tra giocatori. Progettato per essere flessibile, efficiente e facilmente configurabile, XPAD è ideale per l'integrazione con sistemi di economia e progressione personalizzati.",
-                "portfolio.fastgive": "FastGive è un plugin Spigot/Bukkit che consente ai giocatori di concedere oggetti, esperienza e altri elementi tramite semplici comandi di chat. Utilizzando simboli configurabili come ::, &lt;, &gt;, {, o qualsiasi altro, gli amministratori possono definire modelli di consegna personalizzati. È ideale per server che richiedono sistemi di ricompensa, kit o interazioni rapide e senza problemi.",
-                "portfolio.instafriend": "InstaFriend è un plugin Spigot che consente ai giocatori di ottenere istantaneamente un lupo addomesticato usando un uovo generatore di lupi. Questo plugin è progettato per essere leggero, facile da configurare e compatibile con le versioni di Minecraft dalla 1.8 alla 1.21."
-            }
-        };
-
-        // Initialize with embedded data
-        wikiData = embeddedWikiData;
-
-        // Try to fetch remote wiki.txt (format: multiple JSON objects separated by whitespace)
-        (async function tryLoadRemoteWiki(){
-            try {
-                const res = await fetch('https://raw.githubusercontent.com/EnttbotX/EnttbotX.github.io/refs/heads/main/wiki.txt', {cache: "no-store"});
-                if (!res.ok) throw new Error('no remote');
-                const txt = await res.text();
-                // normalize multiple JSON objects into an array: replace "}\n\n{" or "} { " combos with "},{"
-                const asArrayText = '[' + txt.replace(/\}\s*\{/g, '},{') + ']';
-                const parsed = JSON.parse(asArrayText);
-                // merge into wikiData (key by title)
-                parsed.forEach(item => {
-                    if (item && item.title) {
-                        wikiData[item.title] = item;
-                    }
-                });
-                // regenerate tiles now that we may have new data
-                generateWikiTiles();
-                console.log('Remote wiki merged:', Object.keys(wikiData));
-            } catch (err) {
-                console.warn('Could not load remote wiki.txt, using embedded data.', err);
-            }
-        })();
-
-        function generateWikiTiles() {
-            wikiGrid.innerHTML = '';
-            
-            Object.values(wikiData).forEach(plugin => {
-                const tile = document.createElement('div');
-                tile.className = 'tile';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (event) => {
+                const currentHash = window.location.hash;
+                const newHash = link.getAttribute('href');
                 
-                tile.innerHTML = `
-                    <div class="tile-header">
-                        <img class="tile-icon" src="${plugin.icon || 'https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701'}" alt="${plugin.title} Icon">
-                        <div>
-                            <h2 class="tile-title">${plugin.title}</h2>
-                            <span class="tile-category">${plugin.modules ? 'API' : 'Minecraft'}</span>
-                        </div>
-                    </div>
-                    <div class="tile-actions">
-                        <button class="btn btn-download wiki-btn" data-plugin="${plugin.title}" data-i18n="wiki.see_wiki">Ver Wiki</button>
-                    </div>
-                `;
-                
-                tile.querySelector('.wiki-btn').addEventListener('click', () => {
-                    showPluginModal(plugin.title);
-                });
-                
-                wikiGrid.appendChild(tile);
-            });
-            
-            // Apply current language translations
-            translatePage(currentLanguage);
-        }
-
-        function showPluginModal(pluginName) {
-            const plugin = wikiData[pluginName];
-            if (!plugin) return;
-
-            wikiOverlay.scrollTop = 0;
-            wikiOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            wikiTitle.textContent = plugin.title;
-            wikiPluginIcon.src = plugin.icon || 'https://www.spigotmc.org/data/resource_icons/116/116150.jpg?1748763701';
-            wikiContentDiv.innerHTML = '';
-            wikiModulesContainer.innerHTML = '';
-
-            // Display main content
-            if (plugin.content) {
-                wikiContentDiv.innerHTML = parseContent(plugin.content);
-            }
-
-            // Display modules if they exist
-            if (plugin.modules) {
-                const modulesDiv = document.createElement('div');
-                modulesDiv.style.display = 'flex';
-                modulesDiv.style.flexWrap = 'wrap';
-                modulesDiv.style.marginBottom = '1rem';
-                modulesDiv.style.gap = '0.5rem';
-                
-                // Show first module by default
-                let firstModule = true;
-                
-                Object.keys(plugin.modules).forEach(moduleKey => {
-                    const moduleBtn = document.createElement('button');
-                    moduleBtn.className = 'wiki-module-btn';
-                    if (firstModule) {
-                        moduleBtn.classList.add('active');
-                        firstModule = false;
-                        // Show first module content
-                        wikiContentDiv.innerHTML = `<h3>${plugin.modules[moduleKey].title}</h3>` + parseContent(plugin.modules[moduleKey].content);
-                    }
-                    moduleBtn.textContent = moduleKey;
-                    
-                    moduleBtn.addEventListener('click', () => {
-                        // Clear content and show module content
-                        wikiContentDiv.innerHTML = `<h3>${plugin.modules[moduleKey].title}</h3>` + parseContent(plugin.modules[moduleKey].content);
-                        
-                        // Update active module button
-                        document.querySelectorAll('.wiki-module-btn').forEach(btn => btn.classList.remove('active'));
-                        moduleBtn.classList.add('active');
-                    });
-                    
-                    modulesDiv.appendChild(moduleBtn);
-                });
-                
-                wikiModulesContainer.appendChild(modulesDiv);
-            }
-        }
-
-        function parseContent(contentArray) {
-            let htmlOutput = '';
-            let inMultilineCode = false;
-            let multilineCode = '';
-            
-            // Escapes HTML so XML/HTML snippets show correctly inside <pre>
-            function escapeHtml(str) {
-                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            }
-            
-            for (const line of contentArray) {
-                let processedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-                if (line.trim() === '//*') {
-                    inMultilineCode = true;
-                    multilineCode = '';
-                    continue;
-                } else if (line.trim() === '//*/') {
-                    inMultilineCode = false;
-                    htmlOutput += `
-                        <div class="wiki-code-block">
-                            <pre><code>${escapeHtml(multilineCode.trim())}</code></pre>
-                            <button class="copy-btn" onclick="copyToClipboard(\`${multilineCode.trim().replace(/`/g, '\\`')}\`)">Copy</button>
-                        </div>
-                    `;
-                    continue;
-                } else if (inMultilineCode) {
-                    multilineCode += line + '\n';
-                    continue;
-                }
-
-                if (line.startsWith('/* ') && line.endsWith(' /*')) {
-                    const codeContent = line.slice(3, -3).trim();
-                    htmlOutput += `
-                        <div class="wiki-code-block">
-                            <pre><code>${escapeHtml(codeContent)}</code></pre>
-                            <button class="copy-btn" onclick="copyToClipboard('${codeContent.replace(/'/g, "\\'")}')">Copy</button>
-                        </div>
-                    `;
-                    continue;
-                }
-
-                if (line.startsWith('[section==') && line.endsWith(']')) {
-                    htmlOutput += `<h3>${line.slice(10, -1)}</h3>`;
-                } else if (line.startsWith('*msj*') && line.endsWith('*msj*')) {
-                    htmlOutput += `<p><strong>${line.slice(5, -5)}</strong></p>`;
-                } else if (line.trim() === '') {
-                    htmlOutput += '<br>';
-                } else {
-                    htmlOutput += `<p>${processedLine}</p>`;
-                }
-            }
-
-            return htmlOutput;
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                console.log('Copied to clipboard');
-            });
-        }
-
-        function closeWikiOverlay() {
-            wikiOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function translatePage(lang) {
-            currentLanguage = lang;
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
+                if (currentHash === newHash) {
+                    event.preventDefault();
                 }
             });
-            
-            // Update language dropdown
-            const flagMap = {
-                'es': 'https://flagcdn.com/w20/ar.png',
-                'en': 'https://flagcdn.com/w20/gb.png', 
-                'it': 'https://flagcdn.com/w20/it.png'
-            };
-            
-            currentFlag.src = flagMap[lang];
-            
-            // Update active language option
-            document.querySelectorAll('.language-option').forEach(option => {
-                option.classList.toggle('active', option.getAttribute('data-lang') === lang);
-            });
-        }
+        });
 
-        function handleNavigation() {
-            closeWikiOverlay();
-            const hash = window.location.hash || '#home';
-            const targetId = hash.substring(1);
+        languageCurrent.addEventListener('click', (e) => {
+            e.stopPropagation();
+            languageOptions.classList.toggle('active');
+            languageCurrent.classList.toggle('open');
+        });
 
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-
-            const activePage = document.getElementById(targetId);
-            if (activePage) {
-                activePage.classList.add('active');
-            } else {
-                document.getElementById('home').classList.add('active');
-            }
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === hash) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        }
-
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.classList.add('sparkle');
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            document.body.appendChild(sparkle);
-
-            setTimeout(() => {
-                sparkle.remove();
-            }, 2000);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            applyLanguageOffset();
-            // Navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (event) => {
-                    const currentHash = window.location.hash;
-                    const newHash = link.getAttribute('href');
-                    
-                    if (currentHash === newHash) {
-                        event.preventDefault();
-                    }
-                });
-            });
-
-            // Language dropdown functionality
-            languageCurrent.addEventListener('click', (e) => {
-                e.stopPropagation();
-                languageOptions.classList.toggle('active');
-                languageCurrent.classList.toggle('open');
-            });
-
-            document.querySelectorAll('.language-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    const lang = option.getAttribute('data-lang');
-                    translatePage(lang);
-                    languageOptions.classList.remove('active');
-                    languageCurrent.classList.remove('open');
-                });
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', () => {
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const lang = option.getAttribute('data-lang');
+                translatePage(lang);
                 languageOptions.classList.remove('active');
                 languageCurrent.classList.remove('open');
             });
-
-            // Wiki overlay controls
-            closeWikiBtn.addEventListener('click', closeWikiOverlay);
-            wikiOverlay.addEventListener('click', (event) => {
-                if (event.target === wikiOverlay) {
-                    closeWikiOverlay();
-                }
-            });
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && wikiOverlay.classList.contains('active')) {
-                    closeWikiOverlay();
-                }
-            });
-
-            // Initialize
-            handleNavigation();
-            window.addEventListener('popstate', handleNavigation);
-            translatePage(currentLanguage);
-            generateWikiTiles();
-
-            // Sparkle effect
-            setInterval(createSparkle, 3000);
         });
 
-        // Global function for copy buttons
-        window.copyToClipboard = copyToClipboard;
+        document.addEventListener('click', () => {
+            languageOptions.classList.remove('active');
+            languageCurrent.classList.remove('open');
+        });
 
-        const debounce = (func, wait) => {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        };
-
-        window.addEventListener('resize', debounce(() => {
-            if (window.innerWidth < 768) {
-                document.querySelectorAll('.tile').forEach(tile => {
-                    tile.style.margin = '0 0 1rem 0';
-                });
+        closeWikiBtn.addEventListener('click', closeWikiOverlay);
+        wikiOverlay.addEventListener('click', (event) => {
+            if (event.target === wikiOverlay) {
+                closeWikiOverlay();
             }
-        }, 250));
-    </script>
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && wikiOverlay.classList.contains('active')) {
+                closeWikiOverlay();
+            }
+        });
+
+        document.querySelectorAll('.wiki-tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.wiki-tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                generateWikiTiles(this.dataset.tab);
+            });
+        });
+        
+        const searchInput = document.getElementById('wiki-search-input');
+        searchInput.addEventListener('input', debounce(function() {
+            const activeTab = document.querySelector('.wiki-tab-btn.active').dataset.tab;
+            generateWikiTiles(activeTab, this.value.toLowerCase());
+        }, 300));
+
+        loadRemoteWikiData();
+        handleNavigation();
+        window.addEventListener('popstate', handleNavigation);
+        translatePage(currentLanguage);
+
+        setInterval(createSparkle, 3000);
+    });
+
+    window.copyToClipboard = copyToClipboard;
+
+    window.addEventListener('resize', debounce(() => {
+        if (window.innerWidth < 768) {
+            document.querySelectorAll('.tile').forEach(tile => {
+                tile.style.margin = '0 0 1rem 0';
+            });
+        }
+    }, 250));
+</script>
 </body>
 </html>
