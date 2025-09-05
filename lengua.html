@@ -502,153 +502,107 @@ button:active {
 
 <script>
 const difficultySettings = {
-  easy: { questions: 5, time: 120 },
-  medium: { questions: 10, time: 300 },
-  hard: { questions: 20, time: 600 }
+  easy: { questions: 20, time: 300 },   // 5 minutos
+  medium: { questions: 40, time: 900 }, // 15 minutos
+  hard: { questions: 80, time: 1800 }   // 30 minutos
 };
 
 const questions = [
-  { q:"El otro ___ te vi", r1:"día", r2:"dia", r3:"dias", correct:1 },
-  { q:"Él no ___ venir a la fiesta", r1:"pudo", r2:"pudó", r3:"pudoó", correct:1 },
-  { q:"Yo ___ un avión", r1:"vi", r2:"bí", r3:"vii", correct:1 },
-  { q:"No me ___ mentido", r1:"has", r2:"haz", r3:"hás", correct:1 },
-  { q:"El niño dijo: ___", r1:"mamá", r2:"mama", r3:"mámá", correct:1 },
-  { q:"La casa tiene una ___", r1:"habitación", r2:"avitación", r3:"abitacion", correct:1 },
-  { q:"Vamos a ___ el problema.", r1:"solucionar", r2:"solucionár", r3:"solusionar", correct:1 },
-  { q:"Ese es un ___ muy valioso.", r1:"anillo", r2:"aniyo", r3:"aníllo", correct:1 },
-  { q:"___ hace mucho frío.", r1:"Aquí", r2:"Aqui", r3:"Aki", correct:1 },
-  { q:"¿___ vas a llamar?", r1:"A quién", r2:"A quien", r3:"Aquién", correct:1 },
+  { q:"El otro ___ te vi", r1:"día", r2:"diá", r3:"dias", correct:1 },
+  { q:"Él no ___ venir a la fiesta", r1:"pudo", r2:"pudó", r3:"podio", correct:1 },
+  { q:"Yo ___ un avión", r1:"vi", r2:"ví", r3:"bí", correct:1 },
+  { q:"No me ___ mentido", r1:"has", r2:"haz", r3:"as", correct:1 },
+  { q:"El niño dijo: ___", r1:"mamá", r2:"mama", r3:"mamà", correct:1 },
+  { q:"La casa tiene una ___", r1:"habitación", r2:"abitación", r3:"habitacion", correct:1 },
+  { q:"Vamos a ___ el problema.", r1:"solucionar", r2:"solucionár", r3:"resolver", correct:1 },
+  { q:"Ese es un ___ muy valioso.", r1:"anillo", r2:"aniyo", r3:"aniello", correct:1 },
+  { q:"___ hace mucho frío.", r1:"Aquí", r2:"Aki", r3:"Aqui", correct:1 },
+  { q:"¿___ vas a llamar?", r1:"A quién", r2:"A quien", r3:"Aquien", correct:1 },
   { q:"Me duele la ___.", r1:"cabeza", r2:"cabeça", r3:"kabeza", correct:1 },
-  { q:"___ el libro en la mesa.", r1:"Puso", r2:"Pusó", r3:"Pusoó", correct:1 },
-  { q:"Esa es ___ opinión.", r1:"mi", r2:"mí", r3:"mí", correct:1 },
-  { q:"¿___ es tu cantante favorito?", r1:"Quién", r2:"Quien", r3:"Quiéń", correct:1 },
-  { q:"Tengo que ___ la verdad.", r1:"decir", r2:"desir", r3:"decír", correct:1 },
+  { q:"___ el libro en la mesa.", r1:"Puso", r2:"Púsó", r3:"Puso", correct:1 },
+  { q:"Esa es ___ opinión.", r1:"mi", r2:"mí", r3:"míi", correct:1 },
+  { q:"¿___ es tu cantante favorito?", r1:"Quién", r2:"Quien", r3:"Quien", correct:1 },
+  { q:"Tengo que ___ la verdad.", r1:"decir", r2:"desir", r3:"decir", correct:1 },
   { q:"El agua está ___.", r1:"fría", r2:"fria", r3:"fríá", correct:1 },
-  { q:"Lo ___ con mis propios ojos.", r1:"vi", r2:"ví", r3:"bí", correct:1 },
-  { q:"Necesito un ___ nuevo.", r1:"bolígrafo", r2:"boligrafo", r3:"bolígrado", correct:1 },
-  { q:"¿___ hora es?", r1:"Qué", r2:"Que", r3:"Quë", correct:1 },
-  { q:"Eso está ___ correcto.", r1:"absolutamente", r2:"absolutaménte", r3:"absolutamente", correct:1 },
-  { q:"El ___ de la música.", r1:"ritmo", r2:"ritmo", r3:"ritmo", correct:1 }, // Nota: r2 y r3 son iguales a r1, podría ser un error. Asumiendo que r1 es la correcta.
-  { q:"Voy ___ tienda.", r1:"a la", r2:"ala", r3:"a la", correct:1 }, // Similar caso, r1 y r3 iguales.
+  { q:"Lo ___ con mis propios ojos.", r1:"vi", r2:"ví", r3:"ví", correct:1 },
+  { q:"Necesito un ___ nuevo.", r1:"bolígrafo", r2:"boligrafo", r3:"lapicero", correct:1 },
+  { q:"¿___ hora es?", r1:"Qué", r2:"Que", r3:"Ke", correct:1 },
+  { q:"Eso está ___ correcto.", r1:"absolutamente", r2:"absolutaménte", r3:"totalmente", correct:1 },
+  { q:"El ___ de la música.", r1:"ritmo", r2:"rítmo", r3:"ritmó", correct:2 },
+  { q:"Voy ___ tienda.", r1:"a la", r2:"ala", r3:"alá", correct:1 },
   { q:"¡___ cuidado!", r1:"Ten", r2:"Tén", r3:"Tèn", correct:1 },
-  { q:"El avión ___ a tiempo.", r1:"aterrizó", r2:"aterrizo", r3:"aterrizò", correct:1 },
-  { q:"Es un ___ de alegría.", r1:"grito", r2:"grito", r3:"grito", correct:1 },
-  { q:"La ___ está muy cara.", r1:"gasolina", r2:"gasolina", r3:"gasolína", correct:1 },
-  { q:"¿___ está el supermercado?", r1:"Dónde", r2:"Donde", r3:"Dondé", correct:1 },
-  { q:"___ hecho muy bien.", r1:"Has", r2:"Haz", r3:"Hás", correct:1 },
-  { q:"Ese es un buen ___", r1:"consejo", r2:"concejo", r3:"conséjo", correct:1 },
-  { q:"___ el dinero en el banco.", r1:"Ingresó", r2:"Ingreso", r3:"Ingresò", correct:1 },
+  { q:"El avión ___ a tiempo.", r1:"aterrizó", r2:"aterrizo", r3:"aterrisó", correct:1 },
+  { q:"Es un ___ de alegría.", r1:"grito", r2:"gritó", r3:"grido", correct:1 },
+  { q:"La ___ está muy cara.", r1:"gasolina", r2:"gasólina", r3:"nafta", correct:1 },
+  { q:"¿___ está el supermercado?", r1:"Dónde", r2:"Donde", r3:"Dónde", correct:1 },
+  { q:"___ hecho muy bien.", r1:"Has", r2:"Haz", r3:"Has", correct:1 },
+  { q:"Ese es un buen ___", r1:"consejo", r2:"concejo", r3:"concejo", correct:1 },
+  { q:"___ el dinero en el banco.", r1:"Ingresó", r2:"Ingreso", r3:"Depositó", correct:1 },
   { q:"La ___ de la montaña es preciosa.", r1:"cima", r2:"sima", r3:"cimá", correct:1 },
   { q:"No ___ qué decir.", r1:"sé", r2:"se", r3:"sè", correct:1 },
-  { q:"Trabajo como ___", r1:"ingeniero", r2:"ingeniero", r3:"ingeniero", correct:1 },
-  { q:"¿___ quieres venir?", r1:"Cuándo", r2:"Cuando", r3:"Cuàndo", correct:1 },
+  { q:"Trabajo como ___", r1:"ingeniero", r2:"ingeniero", r3:"ingeneiro", correct:1 },
+  { q:"¿___ quieres venir?", r1:"Cuándo", r2:"Cuando", r3:"Cuándo", correct:1 },
   { q:"Hace un día ___", r1:"espléndido", r2:"esplendido", r3:"espléndido", correct:1 },
-  { q:"El rey vive en un ___", r1:"palacio", r2:"palasio", r3:"palásio", correct:1 },
-  { q:"___ una carta ayer.", r1:"Escribí", r2:"Escribi", r3:"Escribí́", correct:1 },
+  { q:"El rey vive en un ___", r1:"palacio", r2:"palasio", r3:"palacio", correct:1 },
+  { q:"___ una carta ayer.", r1:"Escribí", r2:"Escribi", r3:"Escribí", correct:1 },
   { q:"Es ___ de azúcar.", r1:"un poco", r2:"unpoco", r3:"un poko", correct:1 },
-  { q:"El tren ___ con retraso.", r1:"llegó", r2:"llego", r3:"llegò", correct:1 },
-  { q:"Me gusta el ___ con leche.", r1:"café", r2:"cafe", r3:"caffé", correct:1 },
-  { q:"___ una película muy buena.", r1:"Es", r2:"És", r3:"Ès", correct:1 },
-  { q:"Vamos a ___ al fútbol.", r1:"jugar", r2:"jugar", r3:"jujar", correct:1 },
-  { q:"El ___ está nublado.", r1:"cielo", r2:"sielo", r3:"ciélo", correct:1 },
-  { q:"¿___ es eso?", r1:"Por qué", r2:"Porque", r3:"Porqué", correct:1 },
-  { q:"Ese sonido es muy ___", r1:"estridente", r2:"estridente", r3:"estrídente", correct:1 },
-  { q:"Compré ___ manzanas.", r1:"diez", r2:"diéz", r3:"díez", correct:1 },
-  { q:"El jugador marcó un ___", r1:"gol", r2:"gol", r3:"gól", correct:1 },
-  { q:"___ las instrucciones.", r1:"Sigue", r2:"Cigue", r3:"Sigüe", correct:1 },
-  { q:"La ___ de la risa.", r1:"carcajada", r2:"carcajada", r3:"carcaxada", correct:1 },
-  { q:"Es ___ problema.", r1:"un", r2:"ún", r3:"un", correct:1 },
+  { q:"El tren ___ con retraso.", r1:"llegó", r2:"llego", r3:"llegó", correct:1 },
+  { q:"Me gusta el ___ con leche.", r1:"café", r2:"cafe", r3:"café", correct:1 },
+  { q:"___ una película muy buena.", r1:"Es", r2:"És", r3:"Es", correct:1 },
+  { q:"Vamos a ___ al fútbol.", r1:"jugar", r2:"jugar", r3:"jugár", correct:1 },
+  { q:"El ___ está nublado.", r1:"cielo", r2:"sielo", r3:"cielo", correct:1 },
+  { q:"¿___ es eso?", r1:"Por qué", r2:"Porque", r3:"Por que", correct:1 },
+  { q:"Ese sonido es muy ___", r1:"estridente", r2:"estridente", r3:"agudo", correct:1 },
+  { q:"Compré ___ manzanas.", r1:"diez", r2:"diéz", r3:"diez", correct:1 },
+  { q:"El jugador marcó un ___", r1:"gol", r2:"gól", r3:"goal", correct:1 },
+  { q:"___ las instrucciones.", r1:"Sigue", r2:"Cigue", r3:"Sígue", correct:1 },
+  { q:"La ___ de la risa.", r1:"carcajada", r2:"carcaxada", r3:"risotada", correct:1 },
+  { q:"Es ___ problema.", r1:"un", r2:"ún", r3:"uno", correct:1 },
   { q:"¿___ vas de vacaciones?", r1:"Adónde", r2:"A dónde", r3:"Adonde", correct:2 },
-  { q:"Tengo ___ en el brazo.", r1:"un hueso", r2:"un weso", r3:"un hueso", correct:1 },
-  { q:"El libro ___ interesante.", r1:"parece", r2:"parece", r3:"parése", correct:1 },
-  { q:"Vivo en esta ___", r1:"ciudad", r2:"siudad", r3:"ciudád", correct:1 },
-  { q:"___ el examen.", r1:"Aprobé", r2:"Aprobe", r3:"Aprobè", correct:1 },
-  { q:"El ___ de la oficina.", r1:"jefe", r2:"gefe", r3:"jéfe", correct:1 },
+  { q:"Tengo ___ en el brazo.", r1:"un hueso", r2:"un weso", r3:"un ueso", correct:1 },
+  { q:"El libro ___ interesante.", r1:"parece", r2:"paréce", r3:"parece", correct:1 },
+  { q:"Vivo en esta ___", r1:"ciudad", r2:"siudad", r3:"ciudad", correct:1 },
+  { q:"___ el examen.", r1:"Aprobé", r2:"Aprobe", r3:"Aprobé", correct:1 },
+  { q:"El ___ de la oficina.", r1:"jefe", r2:"gefe", r3:"jefe", correct:1 },
   { q:"¿___ es tu nombre?", r1:"Cuál", r2:"Cual", r3:"Cuál", correct:1 },
-  { q:"Huele muy ___", r1:"bien", r2:"bien", r3:"bién", correct:1 },
-  { q:"La luz ___ intensa.", r1:"es", r2:"és", r3:"èz", correct:1 },
-  { q:"Necesito ___", r1:"ayuda", r2:"alluda", r3:"ayudá", correct:1 },
-  { q:"Ese animal es muy ___", r1:"raro", r2:"raro", r3:"raro", correct:1 },
-  { q:"___ el paquete por correo.", r1:"Envió", r2:"Envio", r3:"Enviò", correct:1 },
-  { q:"La ___ es fundamental.", r1:"familia", r2:"familia", r3:"família", correct:1 },
-  { q:"No ___ nada.", r1:"hice", r2:"ice", r3:"híce", correct:1 },
+  { q:"Huele muy ___", r1:"bien", r2:"bién", r3:"bien", correct:1 },
+  { q:"La luz ___ intensa.", r1:"es", r2:"és", r3:"es", correct:1 },
+  { q:"Necesito ___", r1:"ayuda", r2:"alluda", r3:"auxilio", correct:1 },
+  { q:"Ese animal es muy ___", r1:"raro", r2:"raro", r3:"extraño", correct:1 },
+  { q:"___ el paquete por correo.", r1:"Envió", r2:"Envio", r3:"Mandó", correct:1 },
+  { q:"La ___ es fundamental.", r1:"familia", r2:"família", r3:"familia", correct:1 },
+  { q:"No ___ nada.", r1:"hice", r2:"ice", r3:"hisé", correct:1 },
   { q:"El ___ del equipo.", r1:"capitán", r2:"capitan", r3:"capitán", correct:1 },
-  { q:"¿___ dinero tienes?", r1:"Cuánto", r2:"Cuantó", r3:"Cùanto", correct:1 },
-  { q:"Está ___ llover.", r1:"a punto de", r2:"apunto de", r3:"a punto de", correct:1 },
-  { q:"El ___ de la discusión.", r1:"tema", r2:"tema", r3:"téma", correct:1 },
-  { q:"___ la ventana, por favor.", r1:"Cierra", r2:"Sierra", r3:"Cierrá", correct:1 },
-  { q:"Tengo una ___ importante.", r1:"reunión", r2:"reunión", r3:"reunon", correct:1 },
-  { q:"___ su propia empresa.", r1:"Dirige", r2:"Dirije", r3:"Diríge", correct:1 },
-  { q:"El ___ de la computadora.", r1:"ratón", r2:"raton", r3:"ratón", correct:1 },
-  { q:"¿___ es tu dirección?", r1:"Cuál", r2:"Cual", r3:"Cuál", correct:1 },
-  { q:"Lo haré ___ ti.", r1:"por", r2:"pór", r3:"por", correct:1 },
-  { q:"El niño ___ mucho.", r1:"creció", r2:"crecio", r3:"creciò", correct:1 },
-  { q:"La ___ es muy antigua.", r1:"iglesia", r2:"iglecia", r3:"iglesía", correct:1 },
-  { q:"___ la pregunta correctamente.", r1:"Respondió", r2:"Respondio", r3:"Respondíó", correct:1 },
-  { q:"Es un ___ de vista.", r1:"punto", r2:"punto", r3:"punto", correct:1 },
-  { q:"¿___ vino?", r1:"De dónde", r2:"De donde", r3:"Dedónde", correct:1 },
-  { q:"Hablo ___ mi madre.", r1:"con", r2:"con", r3:"kon", correct:1 },
-  { q:"El ___ del ejército.", r1:"general", r2:"general", r3:"heneral", correct:1 },
-  { q:"___ una noticia increíble.", r1:"Es", r2:"És", r3:"Ès", correct:1 },
-  { q:"Vamos de ___", r1:"compras", r2:"compras", r3:"kompras", correct:1 },
-  { q:"El ___ está caliente.", r1:"sol", r2:"sol", r3:"sól", correct:1 },
-  { q:"¿___ piensas?", r1:"En qué", r2:"En que", r3:"Enque", correct:1 },
-  { q:"Tengo ___ sueño.", r1:"mucho", r2:"mucho", r3:"muncho", correct:1 },
-  { q:"La ___ del bosque.", r1:"naturaleza", r2:"naturaleza", r3:"naturáleza", correct:1 },
-  { q:"___ la puerta con llave.", r1:"Cerró", r2:"Cerro", r3:"Cerrò", correct:1 },
-  { q:"Es una ___ hermosa.", r1:"flor", r2:"flor", r3:"flor", correct:1 },
-  { q:"¿___ es el mejor?", r1:"Quién", r2:"Quien", r3:"Quién", correct:1 },
-  { q:"Está ___ de la ley.", r1:"fuera", r2:"fuera", r3:"fiera", correct:1 },
-  { q:"El ___ de la película.", r1:"director", r2:"director", r3:"diréctor", correct:1 },
-  { q:"___ un regalo para ti.", r1:"Tengo", r2:"Tengo", r3:"Téngo", correct:1 },
-  { q:"El río tiene mucha ___", r1:"corriente", r2:"corriente", r3:"corriénte", correct:1 },
-  { q:"___ la verdad siempre.", r1:"Dile", r2:"Dile", r3:"Díle", correct:1 },
-  { q:"La ___ de la empresa.", r1:"sede", r2:"cede", r3:"séde", correct:1 },
-  { q:"¿___ lo sabes?", r1:"Cómo", r2:"Como", r3:"Cómo", correct:1 },
-  { q:"Llegamos ___", r1:"ayer", r2:"ayer", r3:"aller", correct:1 },
-  { q:"El ___ musical.", r1:"concierto", r2:"concierto", r3:"consierto", correct:1 },
-  { q:"___ el primer lugar.", r1:"Obtuvo", r2:"Obtubo", r3:"Obtuvo", correct:1 },
-  { q:"Es un ___ de tiempo.", r1:"asunto", r2:"asunto", r3:"asúnto", correct:1 },
-  { q:"¿___ es tu color favorito?", r1:"Cuál", r2:"Cual", r3:"Cuál", correct:1 },
-  { q:"Vivo ___ mismo.", r1:"yo", r2:"yo", r3:"llo", correct:1 },
-  { q:"El ___ de la victoria.", r1:"sabor", r2:"sabor", r3:"savór", correct:1 },
-  { q:"___ una buena persona.", r1:"Es", r2:"És", r3:"Ès", correct:1 },
-  { q:"Trabajamos ___", r1:"juntos", r2:"juntos", r3:"juntós", correct:1 },
-  { q:"El ___ de la cuestión.", r1:"fondo", r2:"fondo", r3:"fóndo", correct:1 },
-  { q:"¿___ terminaste?", r1:"Ya", r2:"Ya", r3:"LLa", correct:1 },
-  { q:"Eso es ___ interesante.", r1:"muy", r2:"muy", r3:"mui", correct:1 },
-  { q:"La ___ del trabajo.", r1:"presión", r2:"presión", r3:"preción", correct:1 },
-  { q:"___ la pelota con fuerza.", r1:"Lanzó", r2:"Lanzo", r3:"Lansó", correct:1 },
-  { q:"El ___ de la guitarra.", r1:"sonido", r2:"sonido", r3:"zonido", correct:1 },
-  { q:"¿___ es tu hermano?", r1:"Dónde", r2:"Donde", r3:"Dondé", correct:1 },
-  { q:"Lo vi ___ mis ojos.", r1:"con", r2:"con", r3:"kon", correct:1 },
-  { q:"El ___ del problema.", r1:"origen", r2:"origen", r3:"oríjen", correct:1 },
-  { q:"___ el camino correcto.", r1:"Sigue", r2:"Cigue", r3:"Sigüe", correct:1 },
-  { q:"La ___ de la ciudad.", r1:"historia", r2:"historia", r3:"história", correct:1 },
-  { q:"¿___ quieres hacer?", r1:"Qué", r2:"Que", r3:"Quë", correct:1 },
-  { q:"Estoy ___ acuerdo.", r1:"de", r2:"de", r3:"dé", correct:1 },
+  { q:"¿___ dinero tienes?", r1:"Cuánto", r2:"Cuantó", r3:"Cuánto", correct:1 },
+  { q:"Está ___ llover.", r1:"a punto de", r2:"apunto de", r3:"a punto", correct:1 },
+  { q:"El ___ de la discusión.", r1:"tema", r2:"téma", r3:"asunto", correct:1 },
+  { q:"___ la ventana, por favor.", r1:"Cierra", r2:"Sierra", r3:"Ciérra", correct:1 },
+  { q:"Tengo una ___ importante.", r1:"reunión", r2:"reunion", r3:"junta", correct:1 },
+  { q:"¿___ quieres hacer?", r1:"Qué", r2:"Que", r3:"Qué", correct:1 },
+  { q:"Estoy ___ acuerdo.", r1:"de", r2:"dé", r3:"en", correct:1 },
   { q:"El ___ del avión.", r1:"vuelo", r2:"buelo", r3:"vuelo", correct:1 },
-  { q:"___ la llave inglesa.", r1:"Usó", r2:"Uso", r3:"Usò", correct:1 },
-  { q:"Es un ___ de honor.", r1:"tema", r2:"tema", r3:"téma", correct:1 },
-  { q:"¿___ llegó el paquete?", r1:"Cuándo", r2:"Cuando", r3:"Cuàndo", correct:1 },
-  { q:"Ven ___ aquí.", r1:"para", r2:"para", r3:"pará", correct:1 },
-  { q:"El ___ de la noticia.", r1:"impacto", r2:"impacto", r3:"impácto", correct:1 },
-  { q:"___ una decisión difícil.", r1:"Es", r2:"És", r3:"Ès", correct:1 },
-  { q:"Corrimos ___ la calle.", r1:"hacia", r2:"hacia", r3:"hasia", correct:1 },
-  { q:"El ___ de la cerradura.", r1:"secreto", r2:"secreto", r3:"secréto", correct:1 },
+  { q:"___ la llave inglesa.", r1:"Usó", r2:"Uso", r3:"Utilizó", correct:1 },
+  { q:"Es un ___ de honor.", r1:"tema", r2:"téma", r3:"asunto", correct:1 },
+  { q:"¿___ llegó el paquete?", r1:"Cuándo", r2:"Cuando", r3:"Cuándo", correct:1 },
+  { q:"Ven ___ aquí.", r1:"para", r2:"pará", r3:"hacia", correct:1 },
+  { q:"El ___ de la noticia.", r1:"impacto", r2:"impácto", r3:"impacto", correct:1 },
+  { q:"___ una decisión difícil.", r1:"Es", r2:"És", r3:"Fue", correct:1 },
+  { q:"Corrimos ___ la calle.", r1:"hacia", r2:"hasia", r3:"hacia", correct:1 },
+  { q:"El ___ de la cerradura.", r1:"sécreto", r2:"secreto", r3:"secreto", correct:1 },
   { q:"¿___ es tu médico?", r1:"Quién", r2:"Quien", r3:"Quién", correct:1 },
-  { q:"Quedó ___ segundo lugar.", r1:"en", r2:"en", r3:"én", correct:1 },
+  { q:"Quedó ___ segundo lugar.", r1:"en", r2:"én", r3:"de", correct:1 },
   { q:"El ___ de la operación.", r1:"éxito", r2:"exito", r3:"éxito", correct:1 },
-  { q:"___ la mesa para cenar.", r1:"Puso", r2:"Pusó", r3:"Pusoó", correct:1 },
-  { q:"La ___ del destino.", r1:"rueda", r2:"rueda", r3:"rrueda", correct:1 },
-  { q:"¿___ vas a comer?", r1:"Qué", r2:"Que", r3:"Quë", correct:1 },
-  { q:"Está ___ de la casa.", r1:"dentro", r2:"dentro", r3:"déntro", correct:1 },
+  { q:"___ la mesa para cenar.", r1:"Puso", r2:"Pusó", r3:"Preparó", correct:1 },
+  { q:"La ___ del destino.", r1:"rueda", r2:"rrueda", r3:"rueda", correct:1 },
+  { q:"¿___ vas a comer?", r1:"Qué", r2:"Que", r3:"Qué", correct:1 },
+  { q:"Está ___ de la casa.", r1:"dentro", r2:"déntro", r3:"adentro", correct:1 },
   { q:"El ___ del concierto.", r1:"éxito", r2:"exito", r3:"éxito", correct:1 },
-  { q:"___ un buen ejemplo.", r1:"Da", r2:"Da", r3:"Dá", correct:1 },
-  { q:"El ___ del reloj.", r1:"tic tac", r2:"tic tac", r3:"tictac", correct:1 }
+  { q:"___ un buen ejemplo.", r1:"Da", r2:"Dá", r3:"Da", correct:1 },
+  { q:"El ___ del reloj.", r1:"tic tac", r2:"tictac", r3:"tic-tac", correct:1 }
 ];
 
 let currentQuestion=0, score=0, timeLeft=0, timer, totalQuestions=0, selectedQuestions=[];
+let currentCorrect = 0; // nueva variable para rastrear índice correcto en las opciones actuales
 
 const welcomeScreen=document.getElementById('welcome-screen');
 const quizScreen=document.getElementById('quiz-screen');
@@ -664,6 +618,22 @@ const resultMessageEl=document.getElementById('result-message');
 const correctAnswersEl=document.getElementById('correct-answers');
 const incorrectAnswersEl=document.getElementById('incorrect-answers');
 const percentageEl=document.getElementById('percentage');
+
+// new helper to create minimal distinct variants
+function makeVariant(text){
+  const accents = {'a':'á','e':'é','i':'í','o':'ó','u':'ú','A':'Á','E':'É','I':'Í','O':'Ó','U':'Ú'};
+  // try replacing a vowel with its accented version
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(accents[c]) return text.slice(0,i)+accents[c]+text.slice(i+1);
+  }
+  // fallback: swap two adjacent letters if possible
+  if(text.length>1){
+    return text.slice(0,1)+text[2]+text[1]+text.slice(3);
+  }
+  // last resort: append a soft mark
+  return text + '́';
+}
 
 // Funciones
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
@@ -686,19 +656,42 @@ function updateTimer(){const m=Math.floor(timeLeft/60),s=timeLeft%60;timeLeftEl.
 function showQuestion(){
   if(currentQuestion>=selectedQuestions.length){endQuiz();return;}
   const q=selectedQuestions[currentQuestion];
-  questionEl.textContent=q.q; optionsEl.innerHTML='';
-  [q.r1,q.r2,q.r3].forEach((opt,i)=>{
+  // construir y mezclar opciones manteniendo referencia a la correcta
+  const optsArr = [{text:q.r1, idx:1},{text:q.r2, idx:2},{text:q.r3, idx:3}];
+  // ensure options are minimally distinct
+  const seen = new Map();
+  for(let i=0;i<optsArr.length;i++){
+    let t = optsArr[i].text;
+    while([...seen.values()].includes(t) && t===optsArr[i].text){
+      t = makeVariant(optsArr[i].text);
+      // if variant still collides, slightly modify source for next attempt
+      optsArr[i].text = t;
+    }
+    // if exact duplicates remain, ensure uniqueness by applying variant repeatedly
+    let attempts = 0;
+    while(seen.has(t) && attempts<5){
+      t = makeVariant(t);
+      optsArr[i].text = t;
+      attempts++;
+    }
+    seen.set(i,t);
+  }
+  shuffle(optsArr);
+  optionsEl.innerHTML='';
+  optsArr.forEach((opt,i)=>{
     const btn=document.createElement('button');
-    btn.className='option-btn fade-in'; btn.textContent=`${String.fromCharCode(97+i)}) ${opt}`;
-    btn.addEventListener('click',()=>checkAnswer(i+1,q.correct));
+    btn.className='option-btn fade-in';
+    btn.textContent=`${String.fromCharCode(97+i)}) ${opt.text}`;
+    btn.addEventListener('click',()=>checkAnswer(i+1, optsArr.map(o=>o.idx).indexOf(q.correct)+1));
     optionsEl.appendChild(btn);
   });
+  questionEl.textContent=q.q;
   progressBar.style.width=`${((currentQuestion+1)/totalQuestions)*100}%`;
 }
 
-function checkAnswer(choice,correct){
+function checkAnswer(choice, correct){
   const opts=document.querySelectorAll('.option-btn'); opts.forEach(b=>b.disabled=true);
-  if(choice===correct){opts[choice-1].classList.add('correct');score++;scoreEl.textContent=score;}
+  if(choice===correct){opts[choice-1].classList.add('correct');score++; scoreEl.textContent = score;}
   else{opts[choice-1].classList.add('wrong');opts[correct-1].classList.add('correct');}
   setTimeout(()=>{currentQuestion++;showQuestion();},1000);
 }
