@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Moirai Web</title>
+<style>
+  body { font-family: sans-serif; background: #111; color: #eee; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+  #chat { width: 80%; max-width: 600px; height: 400px; background: #222; overflow-y: auto; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+  #input { width: 80%; max-width: 600px; display: flex; }
+  #input input { flex: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none; }
+  #input button { padding: 10px; border-radius: 0 5px 5px 0; border: none; background: #4caf50; color: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Moirai Web</h1>
+<div id="chat"></div>
+<div id="input">
+  <input type="text" id="message" placeholder="Escribí algo...">
+  <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<script>
+  const chat = document.getElementById('chat');
+  let ws;
+
+  function initWS() {
+    // Cambiá localhost por la IP de la máquina en LAN si quieren jugar con otros
+    ws = new WebSocket('ws://localhost:8080'); 
+    ws.onmessage = (event) => {
+      const msg = document.createElement('div');
+      msg.textContent = event.data;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    };
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('message');
+    if(!input.value) return;
+    ws.send(input.value);
+    input.value = '';
+  }
+
+  initWS();
+</script>
+</body>
+</html>
