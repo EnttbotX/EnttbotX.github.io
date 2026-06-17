@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title id="site-title">EnttbotX Hub</title>
+  <title id="site-title">Wiki — EnttbotX</title>
   <link id="site-favicon" rel="icon" href="https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,16 +13,72 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
   
   <style>
-    .search-box {
-      width: 100%; max-width: 400px; padding: 0.6rem 1rem; margin: 1.5rem auto 0 auto;
-      border-radius: 8px; border: 1px solid var(--border-color, #333);
-      background: #111; color: #fff; font-family: 'Inter', sans-serif; display: block;
+    /* Estructura GitBook de dos columnas */
+    .gitbook-container {
+      display: flex;
+      margin-top: var(--header-h, 70px);
+      min-height: calc(100vh - var(--header-h, 70px));
     }
-    .module-tabs { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
-    .tab-btn { padding: 0.4rem 1rem; background: #222; border: 1px solid #444; color: #ccc; border-radius: 4px; cursor: pointer; transition: 0.2s; }
-    .tab-btn:hover, .tab-btn.active { background: #007bff; color: white; border-color: #007bff; }
-    .module-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; text-align: left; display: none; }
-    .module-card.visible { display: block; }
+
+    /* BARRA LATERAL (SIDEBAR) ESTILO GITHUB/GITBOOK */
+    .wiki-sidebar {
+      width: 280px;
+      background: #111116;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.5rem;
+      position: fixed;
+      top: var(--header-h, 70px);
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 0.5rem 0.8rem;
+      margin-bottom: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #16161c;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-menu { list-style: none; padding: 0; margin: 0; }
+    .sidebar-title { color: var(--text-muted, #888); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 700; }
+    
+    .sidebar-item { margin-bottom: 0.3rem; }
+    .sidebar-link {
+      display: block; padding: 0.4rem 0.7rem; color: #ccc; text-decoration: none; border-radius: 4px; font-size: 0.95rem; cursor: pointer; transition: 0.2s;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      background: rgba(0, 123, 255, 0.15); color: #007bff; font-weight: 500;
+    }
+
+    /* ÁREA DE CONTENIDO PRINCIPAL */
+    .wiki-content {
+      margin-left: 280px;
+      flex: 1;
+      padding: 3rem;
+      max-width: 900px;
+    }
+
+    /* Subsecciones Internas */
+    .sub-block {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #007bff;
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1.5rem;
+    }
+    .sub-block h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; }
+    .sub-block p { color: #b3b3b3; line-height: 1.6; font-size: 0.95rem; }
+
+    /* Contenedores de botones */
+    .btn-container { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .btn-sm { padding: 0.3rem 0.8rem; font-size: 0.85rem; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -38,28 +94,31 @@
     </a>
   </header>
 
-  <main>
-    <section class="page active" style="padding-top: var(--header-h); min-height: calc(100vh - var(--header-h)); display:flex; align-items:center; justify-content:center;">
-      <div class="hero" style="padding:2rem; max-width:820px; width: 100%;">
-        <h1 class="hero-title" id="wiki-title">Cargando...</h1>
-        <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.6rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.95rem;">...</p>
+  <div class="gitbook-container">
+    
+    <aside class="wiki-sidebar">
+      <input type="text" id="wiki-search" class="search-box" placeholder="🔍 Buscar módulo..." oninput="searchModules()">
+      <div class="sidebar-title">Módulos</div>
+      <ul id="sidebar-menu" class="sidebar-menu">
+        </ul>
+    </aside>
 
-        <div style="margin-top:1.6rem; display:flex; gap:0.8rem; align-items:center; justify-content:center; flex-wrap:wrap;">
-          <p id="wiki-description" style="color:var(--text-muted); max-width:620px; text-align:center;">
-            Por favor, espera mientras se actualiza el contenido.
-          </p>
-        </div>
+    <main class="wiki-content">
+      <div class="hero" style="text-align: left; max-width: 100%; padding: 0;">
+        <h1 class="hero-title" id="wiki-title" style="font-size: 2.5rem;">Cargando...</h1>
+        <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.3rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.9rem;">...</p>
+        
+        <p id="wiki-description" style="color:var(--text-muted); margin-top: 1rem; line-height: 1.6;">
+          Por favor, espera...
+        </p>
 
-        <div id="wiki-buttons" style="margin-top:2rem; display:flex; gap:0.6rem; justify-content:center;"></div>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 2rem 0;">
 
-        <input type="text" id="wiki-search" class="search-box" placeholder="🔍 Buscar módulo..." oninput="searchModules()" style="display:none;">
-
-        <div id="module-tabs" class="module-tabs"></div>
-
-        <div id="modules-container"></div>
+        <div id="active-module-content">
+          </div>
       </div>
-    </section>
-  </main>
+    </main>
+  </div>
 
   <script>
     let wikiData = null;
@@ -70,114 +129,122 @@
         const response = await fetch('wiki-config.yml');
         const yamlText = await response.text();
         wikiData = jsyaml.load(yamlText);
-        renderContent();
+        renderWiki();
       } catch (error) {
-        console.error("Error cargando el archivo wiki-config.yml:", error);
+        console.error("Error cargando el archivo:", error);
         document.getElementById('wiki-title').innerText = "Error 404";
-        document.getElementById('wiki-description').innerText = "No se pudo cargar el archivo de configuración.";
       }
     }
 
-    function renderContent() {
+    function renderWiki() {
       if (!wikiData) return;
 
+      // Detectamos la página mediante el hash de la URL (por defecto EnttAPI)
       let currentHash = window.location.hash.replace('#', '').replace(/\//g, '') || 'EnttAPI';
       const pageContent = wikiData.pages[currentHash];
-
-      const tabsContainer = document.getElementById('module-tabs');
-      const modulesContainer = document.getElementById('modules-container');
-      const searchBox = document.getElementById('wiki-search');
-      tabsContainer.innerHTML = '';
-      modulesContainer.innerHTML = '';
-      searchBox.style.display = 'none';
 
       if (pageContent) {
         document.getElementById('wiki-title').innerText = pageContent.title;
         document.getElementById('wiki-subtitle').innerText = pageContent.subtitle;
         document.getElementById('wiki-description').innerText = pageContent.description;
         document.title = pageContent.title + (wikiData.wiki_title_suffix || "");
-        
         if(pageContent.icon) document.getElementById('site-favicon').href = pageContent.icon;
 
-        const buttonsContainer = document.getElementById('wiki-buttons');
-        buttonsContainer.innerHTML = '';
-        if (pageContent.buttons) {
-          pageContent.buttons.forEach(btn => {
-            const linkElement = document.createElement('a');
-            linkElement.href = btn.url;
-            linkElement.className = `btn ${btn.class}`;
-            linkElement.innerText = btn.text;
-            if(btn.url.startsWith('http')) linkElement.target = "_blank";
-            buttonsContainer.appendChild(linkElement);
-          });
-        }
-
+        // Generar el menú del Sidebar izquierdo
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        sidebarMenu.innerHTML = '';
+        
         if (pageContent.modules && pageContent.modules.length > 0) {
           currentModules = pageContent.modules;
-          searchBox.style.display = 'block';
 
           pageContent.modules.forEach((mod, index) => {
-            const tabBtn = document.createElement('button');
-            tabBtn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
-            tabBtn.id = `tab-${mod.id}`;
-            tabBtn.innerText = mod.title;
-            tabBtn.onclick = () => switchModule(mod.id);
-            tabsContainer.appendChild(tabBtn);
-
-            const modCard = document.createElement('div');
-            modCard.className = `module-card ${index === 0 ? 'visible' : ''}`;
-            modCard.id = `mod-${mod.id}`;
-            modCard.innerHTML = `
-              <h3 style="color:#007bff; font-size:1.4rem; margin-bottom:0.2rem;">${mod.title}</h3>
-              <em style="color:var(--text-muted); font-size:0.9rem; display:block; margin-bottom:1rem;">${mod.short_desc}</em>
-              <p style="line-height:1.6; color:#e0e0e0;">${mod.content}</p>
-            `;
-            modulesContainer.appendChild(modCard);
+            const li = document.createElement('li');
+            li.className = 'sidebar-item';
+            li.innerHTML = `<a class="sidebar-link ${index === 0 ? 'active' : ''}" id="tab-${mod.id}" onclick="displayModuleContent('${mod.id}')">${mod.title}</a>`;
+            sidebarMenu.appendChild(li);
           });
+
+          // Mostrar por defecto el primer módulo de la lista
+          displayModuleContent(pageContent.modules[0].id);
         }
-      } else {
-        document.getElementById('wiki-title').innerText = "404 Not Found";
-        document.getElementById('wiki-subtitle').innerText = "Página no encontrada";
-        document.getElementById('wiki-description').innerText = `La documentación para "#${currentHash}" no existe.`;
-        document.getElementById('wiki-buttons').innerHTML = '<a href="index.html" class="btn btn-primary">Ir al inicio</a>';
       }
     }
 
-    function switchModule(moduleId) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.module-card').forEach(card => card.classList.remove('visible'));
+    // Cambia el contenido derecho al hacer clic en un ítem del Sidebar
+    function displayModuleContent(moduleId) {
+      // Cambiar clase activa en el menú lateral
+      document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+      const activeLink = document.getElementById(`tab-${moduleId}`);
+      if(activeLink) activeLink.classList.add('active');
 
-      document.getElementById(`tab-${moduleId}`).classList.add('active');
-      document.getElementById(`mod-${moduleId}`).classList.add('visible');
+      // Buscar los datos del módulo correspondiente
+      const mod = currentModules.find(m => m.id === moduleId);
+      const container = document.getElementById('active-module-content');
+      container.innerHTML = '';
+
+      if (mod) {
+        // Crear estructura del módulo
+        let modHTML = `
+          <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 0.3rem;">${mod.title}</h2>
+          <em style="color: var(--text-muted); display:block; margin-bottom: 1.5rem;">${mod.short_desc}</em>
+          <p style="color: #e0e0e0; line-height: 1.6; font-size: 1.05rem;">${mod.content}</p>
+          <div class="subsections-area" id="subsections-area"></div>
+        `;
+        container.innerHTML = modHTML;
+
+        // Inyectar subsecciones y sus botones específicos si existen
+        if (mod.subsections) {
+          const subArea = document.getElementById('subsections-area');
+          mod.subsections.forEach((sub, idx) => {
+            const subId = `sub-btn-container-${idx}`;
+            const subBlock = document.createElement('div');
+            subBlock.className = 'sub-block';
+            subBlock.innerHTML = `
+              <h4>${sub.title}</h4>
+              <p>${sub.content}</p>
+              <div class="btn-container" id="${subId}"></div>
+            `;
+            subArea.appendChild(subBlock);
+
+            // Cargar botones dentro de la subsección si están definidos
+            if (sub.buttons) {
+              const btnContainer = document.getElementById(subId);
+              sub.buttons.forEach(btn => {
+                const a = document.createElement('a');
+                a.href = btn.url;
+                a.className = `btn btn-sm ${btn.class}`;
+                a.innerText = btn.text;
+                if(btn.url.startsWith('http')) a.target = "_blank";
+                btnContainer.appendChild(a);
+              });
+            }
+          });
+        }
+      }
     }
 
+    // Buscador interactivo del Sidebar
     function searchModules() {
       const query = document.getElementById('wiki-search').value.toLowerCase();
       
-      if(query === "") {
-        if(currentModules.length > 0) switchModule(currentModules[0].id);
-        return;
-      }
-
       currentModules.forEach(mod => {
+        let matchInSubs = false;
+        if(mod.subsections) {
+          matchInSubs = mod.subsections.some(s => s.title.toLowerCase().includes(query) || s.content.toLowerCase().includes(query));
+        }
+
         const matches = mod.title.toLowerCase().includes(query) || 
                         mod.short_desc.toLowerCase().includes(query) || 
-                        mod.content.toLowerCase().includes(query);
+                        matchInSubs;
         
-        const card = document.getElementById(`mod-${mod.id}`);
-        const tab = document.getElementById(`tab-${mod.id}`);
-
-        if(matches) {
-          card.classList.add('visible');
-          tab.classList.add('active');
-        } else {
-          card.classList.remove('visible');
-          tab.classList.remove('active');
+        const sidebarLink = document.getElementById(`tab-${mod.id}`);
+        if(sidebarLink) {
+          sidebarLink.style.display = matches ? 'block' : 'none';
         }
       });
     }
 
-    window.addEventListener('hashchange', renderContent);
+    window.addEventListener('hashchange', renderWiki);
     document.addEventListener('DOMContentLoaded', loadYamlConfig);
   </script>
 </body>
