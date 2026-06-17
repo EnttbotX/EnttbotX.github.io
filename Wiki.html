@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title id="site-title">Wiki — EnttbotX</title>
+  <title id="site-title">EnttbotX Hub</title>
   <link id="site-favicon" rel="icon" href="https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,13 +11,26 @@
   <link rel="stylesheet" href="styles.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  
+  <style>
+    .search-box {
+      width: 100%; max-width: 400px; padding: 0.6rem 1rem; margin: 1.5rem auto 0 auto;
+      border-radius: 8px; border: 1px solid var(--border-color, #333);
+      background: #111; color: #fff; font-family: 'Inter', sans-serif; display: block;
+    }
+    .module-tabs { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+    .tab-btn { padding: 0.4rem 1rem; background: #222; border: 1px solid #444; color: #ccc; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+    .tab-btn:hover, .tab-btn.active { background: #007bff; color: white; border-color: #007bff; }
+    .module-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; text-align: left; display: none; }
+    .module-card.visible { display: block; }
+  </style>
 </head>
 <body>
   <header>
     <nav class="header-nav">
       <ul>
-        <li><a href="index.html#home" class="nav-link" data-i18n="nav.home">Inicio</a></li>
-        <li><a href="index.html#portfolio" class="nav-link" data-i18n="nav.portfolio">Portafolio</a></li>
+        <li><a href="index.html#home" class="nav-link">Inicio</a></li>
+        <li><a href="index.html#portfolio" class="nav-link">Portafolio</a></li>
       </ul>
     </nav>
     <a href="https://ko-fi.com/enttbot" target="_blank" class="kofi-link">
@@ -27,7 +40,7 @@
 
   <main>
     <section class="page active" style="padding-top: var(--header-h); min-height: calc(100vh - var(--header-h)); display:flex; align-items:center; justify-content:center;">
-      <div class="hero" style="padding:2rem; max-width:820px;">
+      <div class="hero" style="padding:2rem; max-width:820px; width: 100%;">
         <h1 class="hero-title" id="wiki-title">Cargando...</h1>
         <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.6rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.95rem;">...</p>
 
@@ -37,23 +50,26 @@
           </p>
         </div>
 
-        <div id="wiki-buttons" style="margin-top:2rem; display:flex; gap:0.6rem; justify-content:center;">
-          </div>
+        <div id="wiki-buttons" style="margin-top:2rem; display:flex; gap:0.6rem; justify-content:center;"></div>
+
+        <input type="text" id="wiki-search" class="search-box" placeholder="🔍 Buscar módulo..." oninput="searchModules()" style="display:none;">
+
+        <div id="module-tabs" class="module-tabs"></div>
+
+        <div id="modules-container"></div>
       </div>
     </section>
   </main>
 
   <script>
     let wikiData = null;
+    let currentModules = [];
 
-    // 1. Función para cargar el archivo YAML externo
     async function loadYamlConfig() {
       try {
         const response = await fetch('wiki-config.yml');
         const yamlText = await response.text();
         wikiData = jsyaml.load(yamlText);
-        
-        // Una vez cargado el YAML, renderizamos según la URL actual
         renderContent();
       } catch (error) {
         console.error("Error cargando el archivo wiki-config.yml:", error);
@@ -65,42 +81,100 @@
     function renderContent() {
       if (!wikiData) return;
 
-      let currentHash = window.location.hash.replace('#', '') || 'BackgroundSaver';
-
+      let currentHash = window.location.hash.replace('#', '').replace(/\//g, '') || 'EnttAPI';
       const pageContent = wikiData.pages[currentHash];
+
+      const tabsContainer = document.getElementById('module-tabs');
+      const modulesContainer = document.getElementById('modules-container');
+      const searchBox = document.getElementById('wiki-search');
+      tabsContainer.innerHTML = '';
+      modulesContainer.innerHTML = '';
+      searchBox.style.display = 'none';
 
       if (pageContent) {
         document.getElementById('wiki-title').innerText = pageContent.title;
         document.getElementById('wiki-subtitle').innerText = pageContent.subtitle;
         document.getElementById('wiki-description').innerText = pageContent.description;
-        
         document.title = pageContent.title + (wikiData.wiki_title_suffix || "");
-        if(pageContent.icon) {
-          document.getElementById('site-favicon').href = pageContent.icon;
-        }
+        
+        if(pageContent.icon) document.getElementById('site-favicon').href = pageContent.icon;
 
         const buttonsContainer = document.getElementById('wiki-buttons');
         buttonsContainer.innerHTML = '';
-        
         if (pageContent.buttons) {
           pageContent.buttons.forEach(btn => {
             const linkElement = document.createElement('a');
             linkElement.href = btn.url;
             linkElement.className = `btn ${btn.class}`;
             linkElement.innerText = btn.text;
-            
-            if(btn.url.startsWith('http')) {
-              linkElement.target = "_blank";
-            }
+            if(btn.url.startsWith('http')) linkElement.target = "_blank";
             buttonsContainer.appendChild(linkElement);
+          });
+        }
+
+        if (pageContent.modules && pageContent.modules.length > 0) {
+          currentModules = pageContent.modules;
+          searchBox.style.display = 'block';
+
+          pageContent.modules.forEach((mod, index) => {
+            const tabBtn = document.createElement('button');
+            tabBtn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
+            tabBtn.id = `tab-${mod.id}`;
+            tabBtn.innerText = mod.title;
+            tabBtn.onclick = () => switchModule(mod.id);
+            tabsContainer.appendChild(tabBtn);
+
+            const modCard = document.createElement('div');
+            modCard.className = `module-card ${index === 0 ? 'visible' : ''}`;
+            modCard.id = `mod-${mod.id}`;
+            modCard.innerHTML = `
+              <h3 style="color:#007bff; font-size:1.4rem; margin-bottom:0.2rem;">${mod.title}</h3>
+              <em style="color:var(--text-muted); font-size:0.9rem; display:block; margin-bottom:1rem;">${mod.short_desc}</em>
+              <p style="line-height:1.6; color:#e0e0e0;">${mod.content}</p>
+            `;
+            modulesContainer.appendChild(modCard);
           });
         }
       } else {
         document.getElementById('wiki-title').innerText = "404 Not Found";
         document.getElementById('wiki-subtitle').innerText = "Página no encontrada";
-        document.getElementById('wiki-description').innerText = `La documentación para "#${currentHash}" no existe en los registros actuales de la Wiki.`;
+        document.getElementById('wiki-description').innerText = `La documentación para "#${currentHash}" no existe.`;
         document.getElementById('wiki-buttons').innerHTML = '<a href="index.html" class="btn btn-primary">Ir al inicio</a>';
       }
+    }
+
+    function switchModule(moduleId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.module-card').forEach(card => card.classList.remove('visible'));
+
+      document.getElementById(`tab-${moduleId}`).classList.add('active');
+      document.getElementById(`mod-${moduleId}`).classList.add('visible');
+    }
+
+    function searchModules() {
+      const query = document.getElementById('wiki-search').value.toLowerCase();
+      
+      if(query === "") {
+        if(currentModules.length > 0) switchModule(currentModules[0].id);
+        return;
+      }
+
+      currentModules.forEach(mod => {
+        const matches = mod.title.toLowerCase().includes(query) || 
+                        mod.short_desc.toLowerCase().includes(query) || 
+                        mod.content.toLowerCase().includes(query);
+        
+        const card = document.getElementById(`mod-${mod.id}`);
+        const tab = document.getElementById(`tab-${mod.id}`);
+
+        if(matches) {
+          card.classList.add('visible');
+          tab.classList.add('active');
+        } else {
+          card.classList.remove('visible');
+          tab.classList.remove('active');
+        }
+      });
     }
 
     window.addEventListener('hashchange', renderContent);
