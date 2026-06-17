@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Background Saver — EnttbotX</title>
-  <link rel="icon" href="https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356" type="image/jpeg">
+  <title id="site-title">Wiki — EnttbotX</title>
+  <link id="site-favicon" rel="icon" href="https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
   <header>
@@ -26,21 +28,83 @@
   <main>
     <section class="page active" style="padding-top: var(--header-h); min-height: calc(100vh - var(--header-h)); display:flex; align-items:center; justify-content:center;">
       <div class="hero" style="padding:2rem; max-width:820px;">
-        <h1 class="hero-title">Background Saver</h1>
-        <p class="hero-sub" style="margin-top:0.6rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.95rem;">Placeholder</p>
+        <h1 class="hero-title" id="wiki-title">Cargando...</h1>
+        <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.6rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.95rem;">...</p>
 
         <div style="margin-top:1.6rem; display:flex; gap:0.8rem; align-items:center; justify-content:center; flex-wrap:wrap;">
-          <p style="color:var(--text-muted); max-width:620px; text-align:center;">
-            This is a placeholder page for the "Background Saver" wiki entry. Replace this content with documentation, download links, changelogs or examples for the plugin.
+          <p id="wiki-description" style="color:var(--text-muted); max-width:620px; text-align:center;">
+            Por favor, espera mientras se actualiza el contenido.
           </p>
         </div>
 
-        <div style="margin-top:2rem; display:flex; gap:0.6rem; justify-content:center;">
-          <a href="index.html#portfolio" class="btn btn-ghost">Back to Portfolio</a>
-          <a href="index.html" class="btn btn-primary">Home</a>
-        </div>
+        <div id="wiki-buttons" style="margin-top:2rem; display:flex; gap:0.6rem; justify-content:center;">
+          </div>
       </div>
     </section>
   </main>
+
+  <script>
+    let wikiData = null;
+
+    // 1. Función para cargar el archivo YAML externo
+    async function loadYamlConfig() {
+      try {
+        const response = await fetch('wiki-config.yml');
+        const yamlText = await response.text();
+        wikiData = jsyaml.load(yamlText);
+        
+        // Una vez cargado el YAML, renderizamos según la URL actual
+        renderContent();
+      } catch (error) {
+        console.error("Error cargando el archivo wiki-config.yml:", error);
+        document.getElementById('wiki-title').innerText = "Error 404";
+        document.getElementById('wiki-description').innerText = "No se pudo cargar el archivo de configuración.";
+      }
+    }
+
+    function renderContent() {
+      if (!wikiData) return;
+
+      let currentHash = window.location.hash.replace('#', '') || 'BackgroundSaver';
+
+      const pageContent = wikiData.pages[currentHash];
+
+      if (pageContent) {
+        document.getElementById('wiki-title').innerText = pageContent.title;
+        document.getElementById('wiki-subtitle').innerText = pageContent.subtitle;
+        document.getElementById('wiki-description').innerText = pageContent.description;
+        
+        document.title = pageContent.title + (wikiData.wiki_title_suffix || "");
+        if(pageContent.icon) {
+          document.getElementById('site-favicon').href = pageContent.icon;
+        }
+
+        const buttonsContainer = document.getElementById('wiki-buttons');
+        buttonsContainer.innerHTML = '';
+        
+        if (pageContent.buttons) {
+          pageContent.buttons.forEach(btn => {
+            const linkElement = document.createElement('a');
+            linkElement.href = btn.url;
+            linkElement.className = `btn ${btn.class}`;
+            linkElement.innerText = btn.text;
+            
+            if(btn.url.startsWith('http')) {
+              linkElement.target = "_blank";
+            }
+            buttonsContainer.appendChild(linkElement);
+          });
+        }
+      } else {
+        document.getElementById('wiki-title').innerText = "404 Not Found";
+        document.getElementById('wiki-subtitle').innerText = "Página no encontrada";
+        document.getElementById('wiki-description').innerText = `La documentación para "#${currentHash}" no existe en los registros actuales de la Wiki.`;
+        document.getElementById('wiki-buttons').innerHTML = '<a href="index.html" class="btn btn-primary">Ir al inicio</a>';
+      }
+    }
+
+    window.addEventListener('hashchange', renderContent);
+    document.addEventListener('DOMContentLoaded', loadYamlConfig);
+  </script>
 </body>
 </html>
