@@ -1,21 +1,8 @@
 wiki_title_suffix: " — EnttbotX"
 
 pages:
-  BackgroundSaver:
-    title: "Background Saver"
-    subtitle: "Plugin de Optimización"
-    description: 'This is the wiki entry for the "Background Saver" plugin. Here you can find documentation, download links, and setup changelogs.'
-    icon: "https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356"
-    buttons:
-      - text: "Back to Portfolio"
-        url: "index.html#portfolio"
-        class: "btn-ghost"
-      - text: "Home"
-        url: "index.html"
-        class: "btn-primary"
-
   EnttAPI:
-    title: "EnttAPI Documentation"
+    title: "EnttAPI"
     subtitle: "Developer API"
     description: "Welcome to the EnttAPI wiki. This section contains the technical documentation, methods, and hooks hooks required to integrate your plugins with EnttbotX systems."
     icon: "https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356"
