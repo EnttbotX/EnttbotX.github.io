@@ -4,33 +4,32 @@ pages:
   EnttAPI:
     title: "EnttAPI"
     subtitle: "Developer API"
-    description: "EnttAPI is an API under development created by me (EnttbotX) to simplify and speed up plugin development. It includes many features and plans for implementing them."
+    description: "EnttAPI es una API diseñada para simplificar y acelerar el desarrollo de tus plugins."
     icon: "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224"
-    buttons:
-      - text: "GitHub Repo"
-        url: "https://github.com/enttbotx"
-        class: "btn-primary"
-      - text: "Spigot Page"
-        url: "https://www.spigotmc.org/resources/enttapi-official-enttbot-api-1-8-1-21.127845/"
-        class: "btn-primary"
     
     modules:
       - id: "mysql"
         title: "Módulo MySQL"
-        short_desc: "Elimina la necesidad de configurar SQL manual."
-        content: "Este módulo te permite conectar bases de datos de forma automática. Olvídate de escribir queries repetitivos, EnttAPI gestiona los pools de conexiones por ti."
-      
-      - id: "peron"
-        title: "Módulo Peron"
-        short_desc: "Gestión de lógicas internas personalizadas."
-        content: "Descripción detallada sobre el funcionamiento del módulo Peron y sus implementaciones principales en el entorno de desarrollo."
-      
-      - id: "loc"
-        title: "Módulo Loc"
-        short_desc: "Manejador de localizaciones y vectores avanzados."
-        content: "Simplifica el guardado y carga de localizaciones en archivos de configuración, manteniendo la compatibilidad entre distintas versiones de Spigot/Paper."
-      
-      - id: "pepe"
-        title: "Módulo Pepe"
-        short_desc: "Utilerías del sistema secundario."
-        content: "Contenido específico del módulo Pepe, con ejemplos prácticos sobre cómo registrar eventos de manera dinámica."
+        short_desc: "Conexión automática de bases de datos."
+        content: "Este módulo elimina por completo la necesidad de escribir código SQL manual y configurar hilos asíncronos."
+        subsections:
+          - title: "Configuración Inicial"
+            content: "Define los datos de tu servidor en el archivo config.yml generado en tu carpeta de plugins."
+            buttons:
+              - text: "Ver Config Base"
+                url: "https://github.com/enttbotx"
+                class: "btn-primary"
+          - title: "Métodos Principales"
+            content: "Utiliza `EnttAPI.getMySQL().executeAsync()` para ejecutar tus consultas sin congelar el servidor."
+
+      - id: "clansex"
+        title: "Módulo Clansex"
+        short_desc: "Gestión avanzada de clanes y equipos."
+        content: "Administra invitaciones, jerarquías y almacenamiento de datos para sistemas competitivos."
+        subsections:
+          - title: "Creación de Clanes"
+            content: "Los jugadores pueden usar la API interna para registrar etiquetas personalizadas en el chat."
+            buttons:
+              - text: "JavaDocs Clansex"
+                url: "https://example.com"
+                class: "btn-ghost"
