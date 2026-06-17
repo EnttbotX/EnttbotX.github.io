@@ -1,15 +1,15 @@
-wiki_title_suffix: " — EnttbotX"
+wiki_title_suffix: " - Wiki"
 
 pages:
   EnttAPI:
     title: "EnttAPI"
     subtitle: "Developer API"
-    description: "Welcome to the EnttAPI wiki. This section contains the technical documentation, methods, and hooks hooks required to integrate your plugins with EnttbotX systems."
-    icon: "https://www.spigotmc.org/data/avatars/s/1937/1937569.jpg?1725636356"
+    description: "EnttAPI is an API under development created by me (EnttbotX) to simplify and speed up plugin development (for example, by eliminating the need to configure MySQL and use SQL code). It includes many features and plans for implementing them."
+    icon: "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224"
     buttons:
       - text: "GitHub Repo"
         url: "https://github.com/enttbotx"
         class: "btn-primary"
-      - text: "Back to Portfolio"
-        url: "index.html#portfolio"
-        class: "btn-ghost"
+      - text: "Spigot Page"
+        url: "https://www.spigotmc.org/resources/enttapi-official-enttbot-api-1-8-1-21.127845/"
+        class: "btn-primary"
