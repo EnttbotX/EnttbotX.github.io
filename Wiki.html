@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -13,14 +13,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
   
   <style>
-    /* Estructura GitBook de dos columnas */
     .gitbook-container {
       display: flex;
       margin-top: var(--header-h, 70px);
       min-height: calc(100vh - var(--header-h, 70px));
     }
 
-    /* BARRA LATERAL (SIDEBAR) ESTILO GITHUB/GITBOOK */
     .wiki-sidebar {
       width: 280px;
       background: #111116;
@@ -36,7 +34,7 @@
     .search-box {
       width: 100%;
       padding: 0.5rem 0.8rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       background: #16161c;
@@ -56,7 +54,6 @@
       background: rgba(0, 123, 255, 0.15); color: #007bff; font-weight: 500;
     }
 
-    /* ÁREA DE CONTENIDO PRINCIPAL */
     .wiki-content {
       margin-left: 280px;
       flex: 1;
@@ -64,7 +61,6 @@
       max-width: 900px;
     }
 
-    /* Subsecciones Internas */
     .sub-block {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.05);
@@ -76,7 +72,6 @@
     .sub-block h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; }
     .sub-block .text-content { color: #b3b3b3; line-height: 1.6; font-size: 0.95rem; }
 
-    /* Estilos para los bloques de código */
     .code-container {
       background: #1e1e24;
       border-radius: 8px;
@@ -126,7 +121,6 @@
       line-height: 1.5;
     }
 
-    /* Contenedores de botones */
     .btn-container { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
     .btn-sm { padding: 0.3rem 0.8rem; font-size: 0.85rem; border-radius: 4px; text-decoration: none; display: inline-block; }
   </style>
@@ -140,71 +134,82 @@
       </ul>
     </nav>
     <a href="https://ko-fi.com/enttbot" target="_blank" class="kofi-link">
-      <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support me on Ko-fi">
+      <img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01c01ea9191809398c_support_me_on_kofi_blue.png" alt="Support">
     </a>
   </header>
 
   <div class="gitbook-container">
-    
     <aside class="wiki-sidebar">
-      <input type="text" id="wiki-search" class="search-box" placeholder="🔍 Buscar módulo..." oninput="searchModules()">
-      <div class="sidebar-title">Módulos</div>
-      <ul id="sidebar-menu" class="sidebar-menu">
-        </ul>
+      <select id="lang-select" class="search-box" onchange="changeLang()">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+      <input type="text" id="wiki-search" class="search-box" placeholder="Search module..." oninput="searchModules()">
+      <div class="sidebar-title" id="lbl-modules">Modules</div>
+      <ul id="sidebar-menu" class="sidebar-menu"></ul>
     </aside>
 
     <main class="wiki-content">
       <div class="hero" style="text-align: left; max-width: 100%; padding: 0;">
-        <h1 class="hero-title" id="wiki-title" style="font-size: 2.5rem;">Cargando...</h1>
-        <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.3rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.9rem;">...</p>
+        <h1 class="hero-title" id="wiki-title" style="font-size: 2.5rem;">Loading...</h1>
+        <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.3rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.9rem;"></p>
         
         <p id="wiki-description" style="color:var(--text-muted); margin-top: 1rem; line-height: 1.6;">
-          Por favor, espera...
+          Please wait...
         </p>
 
         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 2rem 0;">
 
-        <div id="active-module-content">
-          </div>
+        <div id="active-module-content"></div>
       </div>
     </main>
   </div>
 
   <script>
-    let wikiData = null;
     let currentModules = [];
+    let currentLang = 'en';
 
-    // Función para detectar bloques de código (```) y convertirlos en HTML
+    function t(key, mod) {
+      if(mod && mod.translates && mod.translates[key] && mod.translates[key][currentLang]) {
+        return mod.translates[key][currentLang];
+      }
+      return key;
+    }
+
+    function changeLang() {
+      currentLang = document.getElementById('lang-select').value;
+      
+      document.getElementById('lbl-modules').innerText = currentLang === 'en' ? 'Modules' : 'Módulos';
+      document.getElementById('wiki-search').placeholder = currentLang === 'en' ? 'Search module...' : 'Buscar módulo...';
+      document.getElementById('wiki-description').innerText = currentLang === 'en' 
+        ? "EnttAPI is an API designed to simplify and accelerate your plugin development." 
+        : "EnttAPI es una API diseñada para simplificar y acelerar el desarrollo de tus plugins.";
+
+      renderSidebar();
+      const activeLink = document.querySelector('.sidebar-link.active');
+      if(activeLink) {
+        displayModuleContent(activeLink.id.replace('tab-', ''));
+      }
+    }
+
     function formatTextWithCode(text) {
       if (!text) return "";
-      
-      // Protegemos los saltos de línea normales fuera de los bloques de código
       const paragraphs = text.replace(/```(\w+)?\n([\s\S]*?)```/g, function(match, lang, code) {
-        // Escapar HTML dentro del código para que no se renderice
         const escapedCode = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         const language = lang ? lang : 'code';
-        
-        return `<div class="code-container">
-                  <div class="code-header">
-                    <span class="code-lang">${language}</span>
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button>
-                  </div>
-                  <pre><code>${escapedCode}</code></pre>
-                </div>`;
+        const copyBtnText = currentLang === 'en' ? 'Copy' : 'Copiar';
+        return `<div class="code-container"><div class="code-header"><span class="code-lang">${language}</span><button class="copy-btn" onclick="copyToClipboard(this)">${copyBtnText}</button></div><pre><code>${escapedCode}</code></pre></div>`;
       });
-
-      // Convertimos los saltos de línea normales en <br> respetando el HTML del código
       return paragraphs.replace(/\n(?![^<]*>)/g, '<br>');
     }
 
-    // Función para copiar el código al portapapeles
     function copyToClipboard(button) {
       const codeContainer = button.parentElement.nextElementSibling;
       const codeText = codeContainer.innerText;
 
       navigator.clipboard.writeText(codeText).then(() => {
         const originalText = button.innerText;
-        button.innerText = "¡Copiado!";
+        button.innerText = currentLang === 'en' ? "Copied!" : "¡Copiado!";
         button.style.borderColor = "#4ade80";
         button.style.color = "#4ade80";
         
@@ -218,45 +223,49 @@
 
     async function loadYamlConfig() {
       try {
-        const response = await fetch('wiki-config.yml');
-        const yamlText = await response.text();
-        wikiData = jsyaml.load(yamlText);
-        renderWiki();
+        const [invRes, mysqlRes] = await Promise.all([
+          fetch('Wikies/inventory.yml'),
+          fetch('Wikies/mysql.yml')
+        ]);
+        
+        const invText = await invRes.text();
+        const mysqlText = await mysqlRes.text();
+        
+        currentModules = [
+          jsyaml.load(invText),
+          jsyaml.load(mysqlText)
+        ];
+
+        document.getElementById('wiki-title').innerText = "EnttAPI";
+        document.getElementById('wiki-subtitle').innerText = "Developer API";
+        document.getElementById('wiki-description').innerText = "EnttAPI is an API designed to simplify and accelerate your plugin development.";
+        
+        renderSidebar();
+        if(currentModules.length > 0) {
+          displayModuleContent(currentModules[0].id);
+        }
       } catch (error) {
-        console.error("Error cargando el archivo:", error);
         document.getElementById('wiki-title').innerText = "Error 404";
+        document.getElementById('wiki-description').innerText = "Could not load YAML files.";
       }
     }
 
-    function renderWiki() {
-      if (!wikiData) return;
-
-      let currentHash = window.location.hash.replace('#', '').replace(/\//g, '') || 'EnttAPI';
-      const pageContent = wikiData.pages[currentHash];
-
-      if (pageContent) {
-        document.getElementById('wiki-title').innerText = pageContent.title;
-        document.getElementById('wiki-subtitle').innerText = pageContent.subtitle;
-        document.getElementById('wiki-description').innerText = pageContent.description;
-        document.title = pageContent.title + (wikiData.wiki_title_suffix || "");
-        if(pageContent.icon) document.getElementById('site-favicon').href = pageContent.icon;
-
-        const sidebarMenu = document.getElementById('sidebar-menu');
-        sidebarMenu.innerHTML = '';
+    function renderSidebar() {
+      const sidebarMenu = document.getElementById('sidebar-menu');
+      sidebarMenu.innerHTML = '';
+      
+      currentModules.forEach((mod, index) => {
+        const li = document.createElement('li');
+        li.className = 'sidebar-item';
         
-        if (pageContent.modules && pageContent.modules.length > 0) {
-          currentModules = pageContent.modules;
+        const isActive = document.querySelector('.sidebar-link.active') 
+            ? document.querySelector('.sidebar-link.active').id === `tab-${mod.id}`
+            : index === 0;
 
-          pageContent.modules.forEach((mod, index) => {
-            const li = document.createElement('li');
-            li.className = 'sidebar-item';
-            li.innerHTML = `<a class="sidebar-link ${index === 0 ? 'active' : ''}" id="tab-${mod.id}" onclick="displayModuleContent('${mod.id}')">${mod.title}</a>`;
-            sidebarMenu.appendChild(li);
-          });
-
-          displayModuleContent(pageContent.modules[0].id);
-        }
-      }
+        li.innerHTML = `<a class="sidebar-link ${isActive ? 'active' : ''}" id="tab-${mod.id}" onclick="displayModuleContent('${mod.id}')">${t(mod.title, mod)}</a>`;
+        sidebarMenu.appendChild(li);
+      });
+      searchModules();
     }
 
     function displayModuleContent(moduleId) {
@@ -270,9 +279,9 @@
 
       if (mod) {
         let modHTML = `
-          <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 0.3rem;">${mod.title}</h2>
-          <em style="color: var(--text-muted); display:block; margin-bottom: 1.5rem;">${mod.short_desc}</em>
-          <div style="color: #e0e0e0; line-height: 1.6; font-size: 1.05rem;">${formatTextWithCode(mod.content)}</div>
+          <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 0.3rem;">${t(mod.title, mod)}</h2>
+          <em style="color: var(--text-muted); display:block; margin-bottom: 1.5rem;">${t(mod.short_desc, mod)}</em>
+          <div style="color: #e0e0e0; line-height: 1.6; font-size: 1.05rem;">${formatTextWithCode(t(mod.content, mod))}</div>
           <div class="subsections-area" id="subsections-area"></div>
         `;
         container.innerHTML = modHTML;
@@ -283,10 +292,9 @@
             const subId = `sub-btn-container-${idx}`;
             const subBlock = document.createElement('div');
             subBlock.className = 'sub-block';
-            // Cambiamos la etiqueta <p> por un <div> para no romper el HTML al inyectar bloques anidados
             subBlock.innerHTML = `
-              <h4>${sub.title}</h4>
-              <div class="text-content">${formatTextWithCode(sub.content)}</div>
+              <h4>${t(sub.title, mod)}</h4>
+              <div class="text-content">${formatTextWithCode(t(sub.content, mod))}</div>
               <div class="btn-container" id="${subId}"></div>
             `;
             subArea.appendChild(subBlock);
@@ -313,11 +321,14 @@
       currentModules.forEach(mod => {
         let matchInSubs = false;
         if(mod.subsections) {
-          matchInSubs = mod.subsections.some(s => s.title.toLowerCase().includes(query) || s.content.toLowerCase().includes(query));
+          matchInSubs = mod.subsections.some(s => 
+            t(s.title, mod).toLowerCase().includes(query) || 
+            t(s.content, mod).toLowerCase().includes(query)
+          );
         }
 
-        const matches = mod.title.toLowerCase().includes(query) || 
-                        mod.short_desc.toLowerCase().includes(query) || 
+        const matches = t(mod.title, mod).toLowerCase().includes(query) || 
+                        t(mod.short_desc, mod).toLowerCase().includes(query) || 
                         matchInSubs;
         
         const sidebarLink = document.getElementById(`tab-${mod.id}`);
@@ -327,7 +338,6 @@
       });
     }
 
-    window.addEventListener('hashchange', renderWiki);
     document.addEventListener('DOMContentLoaded', loadYamlConfig);
   </script>
 </body>
