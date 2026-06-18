@@ -1,0 +1,124 @@
+id: "mysql_document_api"
+title: "mysql_title"
+short_desc: "mysql_short"
+content: "mysql_content"
+subsections:
+  - title: "mysql_sub1_title"
+    content: "mysql_sub1_content"
+  - title: "mysql_sub2_title"
+    content: "mysql_sub2_content"
+  - title: "mysql_sub3_title"
+    content: "mysql_sub3_content"
+  - title: "mysql_sub4_title"
+    content: "mysql_sub4_content"
+
+translates:
+  mysql_title:
+    en: "MySQL Module (Document API)"
+    es: "Módulo MySQL (Document API)"
+  mysql_short:
+    en: "Fast JSON-based NoSQL storage over MySQL."
+    es: "Almacenamiento NoSQL rápido basado en JSON sobre MySQL."
+  mysql_content:
+    en: |
+      This module provides an advanced and easy-to-use system for managing MySQL databases as if they were document-oriented (MongoDB style). It utilizes the GSON library to serialize and store information in JSON format. This eliminates the need to write complex SQL statements or manually create columns for every variable. Tables are generated automatically with an identifier (`id`) and a long text field (`data`).
+    es: |
+      Este módulo proporciona un sistema avanzado y fácil de usar para manejar bases de datos MySQL como si fueran orientadas a documentos (al estilo de MongoDB). Utiliza la librería GSON para serializar y guardar la información en formato JSON. Esto elimina la necesidad de escribir sentencias SQL complejas o crear columnas manualmente para cada variable. Las tablas se generan de forma automática con un identificador (`id`) y un campo de texto largo (`data`).
+  mysql_sub1_title:
+    en: "1. Connection and Disconnection"
+    es: "1. Conexión y Desconexión"
+  mysql_sub1_content:
+    en: |
+      To use the system, you must first instantiate the main class and initialize the JDBC connection by providing your credentials.
+      
+      ```java
+      MySQL db = new MySQL();
+      boolean connected = db.connect("localhost", "3306", "my_server", "root", "password123");
+      
+      if (connected) {
+          System.out.println("Database connected!");
+      }
+      ```
+    es: |
+      Para utilizar el sistema, primero debes instanciar la clase principal e inicializar la conexión JDBC proporcionando tus credenciales.
+      
+      ```java
+      MySQL db = new MySQL();
+      boolean conectado = db.connect("localhost", "3306", "mi_servidor", "root", "password123");
+      
+      if (conectado) {
+          System.out.println("¡Base de datos conectada!");
+      }
+      ```
+  mysql_sub2_title:
+    en: "2. Document Creation and Editing"
+    es: "2. Creación y Edición de Documentos"
+  mysql_sub2_content:
+    en: |
+      The `Document` object manages a local in-memory cache. You can chain the `set()` method to add or update multiple variables, and finally call `save()` to push the data to MySQL via a safe database query (`INSERT ... ON DUPLICATE KEY UPDATE`).
+      
+      ```java
+      MySQL.Document playerDoc = db.document("players", player.getUniqueId().toString());
+      
+      playerDoc.set("username", player.getName())
+               .set("level", 15)
+               .set("balance", 2500.50)
+               .set("is_admin", false)
+               .save();
+      ```
+    es: |
+      El objeto `Document` maneja un caché local en memoria. Puedes encadenar el método `set()` para añadir o actualizar múltiples variables, y finalmente invocar `save()` para enviar la información a MySQL mediante una consulta asíncrona segura (`INSERT ... ON DUPLICATE KEY UPDATE`).
+      
+      ```java
+      MySQL.Document playerDoc = db.document("jugadores", player.getUniqueId().toString());
+      
+      playerDoc.set("username", player.getName())
+               .set("nivel", 15)
+               .set("balance", 2500.50)
+               .set("es_admin", false)
+               .save();
+      ```
+  mysql_sub3_title:
+    en: "3. Data Retrieval"
+    es: "3. Obtención de Datos"
+  mysql_sub3_content:
+    en: |
+      When requesting a `Document`, it automatically reads the information from the database and stores it in the local cache. You can retrieve values using specific getter methods (`getString`, `getInt`, `getDouble`, etc.) which include automatic conversion handling and protection against number format errors.
+      
+      ```java
+      MySQL.Document playerDoc = db.document("players", player.getUniqueId().toString());
+      
+      String name = playerDoc.getString("username");
+      int level = playerDoc.getInt("level");
+      boolean isAdmin = playerDoc.getBoolean("is_admin");
+      ```
+    es: |
+      Al solicitar un `Document`, este lee automáticamente la información desde la base de datos y la almacena en el caché local. Puedes recuperar los valores usando métodos Getter específicos (`getString`, `getInt`, `getDouble`, etc.) que incluyen manejo automático de conversiones y protección contra errores de formato numérico.
+      
+      ```java
+      MySQL.Document playerDoc = db.document("jugadores", player.getUniqueId().toString());
+      
+      String nombre = playerDoc.getString("username");
+      int nivel = playerDoc.getInt("nivel");
+      boolean esAdmin = playerDoc.getBoolean("es_admin");
+      ```
+  mysql_sub4_title:
+    en: "4. Verification and Record Deletion"
+    es: "4. Verificación y Borrado de Registros"
+  mysql_sub4_content:
+    en: |
+      The API includes utility methods to confirm the existence of a record in the database or to completely destroy it (clearing both the in-memory cache and the row in MySQL).
+      
+      ```java
+      if (playerDoc.exists()) {
+          playerDoc.delete();
+      }
+      ```
+    es: |
+      La API incluye métodos de utilidad para confirmar la existencia de un registro en la base de datos o para destruirlo por completo (limpiando tanto el caché en memoria como la fila en MySQL).
+      
+      ```java
+      if (playerDoc.exists()) {
+          playerDoc.delete();
+      }
+      ```
