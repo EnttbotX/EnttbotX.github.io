@@ -4,7 +4,7 @@ pages:
   EnttAPI:
     title: "EnttAPI"
     subtitle: "Developer API"
-    description: "EnttAPI es una API diseñada para simplificar y acelerar el desarrollo de tus plugins."
+    description: "EnttAPI is an API designed to simplify and accelerate your plugin development."
     icon: "https://www.spigotmc.org/data/resource_icons/127/127845.jpg?1754810224"
     
     modules:
@@ -48,4 +48,62 @@ pages:
               
               ```java
               myMenu.open(player);
+              ```
+
+      - id: "mysql_document_api"
+        title: "MySQL Module (Document API)"
+        short_desc: "Fast JSON-based NoSQL storage over MySQL."
+        content: |
+          This module provides an advanced and easy-to-use system for managing MySQL databases as if they were document-oriented (MongoDB style). It utilizes the GSON library to serialize and store information in JSON format. This eliminates the need to write complex SQL statements or manually create columns for every variable. Tables are generated automatically with an identifier (`id`) and a long text field (`data`).
+        subsections:
+          - title: "1. Connection and Disconnection"
+            content: |
+              To use the system, you must first instantiate the main class and initialize the JDBC connection by providing your credentials.
+              
+              ```java
+              MySQL db = new MySQL();
+              boolean connected = db.connect("localhost", "3306", "my_server", "root", "password123");
+              
+              if (connected) {
+                  System.out.println("Database connected!");
+              }
+              
+              // To safely close the connection when disabling the plugin:
+              // db.disconnect();
+              ```
+          - title: "2. Document Creation and Editing"
+            content: |
+              The `Document` object manages a local in-memory cache. You can chain the `set()` method to add or update multiple variables, and finally call `save()` to push the data to MySQL via a safe database query (`INSERT ... ON DUPLICATE KEY UPDATE`).
+              
+              ```java
+              // Connects to the "players" table using the UUID as a unique ID
+              MySQL.Document playerDoc = db.document("players", player.getUniqueId().toString());
+              
+              // Saves various information using the Builder pattern
+              playerDoc.set("username", player.getName())
+                       .set("level", 15)
+                       .set("balance", 2500.50)
+                       .set("is_admin", false)
+                       .save(); // It is crucial to call save() to persist the cache!
+              ```
+          - title: "3. Data Retrieval"
+            content: |
+              When requesting a `Document`, it automatically reads the information from the database and stores it in the local cache. You can retrieve values using specific getter methods (`getString`, `getInt`, `getDouble`, etc.) which include automatic conversion handling and protection against number format errors.
+              
+              ```java
+              MySQL.Document playerDoc = db.document("players", player.getUniqueId().toString());
+              
+              String name = playerDoc.getString("username");
+              int level = playerDoc.getInt("level"); // Returns 0 if it doesn't exist
+              boolean isAdmin = playerDoc.getBoolean("is_admin"); // Returns false if it doesn't exist
+              ```
+          - title: "4. Verification and Record Deletion"
+            content: |
+              The API includes utility methods to confirm the existence of a record in the database or to completely destroy it (clearing both the in-memory cache and the row in MySQL).
+              
+              ```java
+              if (playerDoc.exists()) {
+                  // Permanently deletes the player's data from the table
+                  playerDoc.delete();
+              }
               ```
