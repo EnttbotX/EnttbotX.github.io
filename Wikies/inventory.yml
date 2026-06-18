@@ -1,0 +1,100 @@
+id: "inventory_api"
+title: "inv_title"
+short_desc: "inv_short"
+content: "inv_content"
+subsections:
+  - title: "inv_sub1_title"
+    content: "inv_sub1_content"
+  - title: "inv_sub2_title"
+    content: "inv_sub2_content"
+  - title: "inv_sub3_title"
+    content: "inv_sub3_content"
+
+translates:
+  inv_title:
+    en: "Inventory API Module"
+    es: "Módulo API de Inventario"
+  inv_short:
+    en: "Fluent builder pattern for custom interactive GUIs."
+    es: "Patrón builder fluido para GUIs interactivas personalizadas."
+  inv_content:
+    en: |
+      This module provides a robust, easy-to-use API for creating custom Bukkit inventories. It eliminates the need to write manual event handlers for clicks, drags, and inventory closing. By utilizing a fluent builder pattern, you can design menus, set permissions, and attach actions directly to items in just a few lines of code.
+      
+      **Important:** Ensure that the `Events` class is registered as a listener in your main plugin class for interactions to work automatically.
+    es: |
+      Este módulo proporciona una API robusta y fácil de usar para crear inventarios Bukkit personalizados. Elimina la necesidad de escribir manejadores de eventos manuales para clics, arrastres y cierre de inventarios. Utilizando un patrón builder fluido, puedes diseñar menús, establecer permisos y adjuntar acciones directamente a los ítems en pocas líneas de código.
+      
+      **Importante:** Asegúrate de que la clase `Events` esté registrada como un listener en la clase principal de tu plugin para que las interacciones funcionen automáticamente.
+  inv_sub1_title:
+    en: "1. Creating Interactive Items"
+    es: "1. Creando Ítems Interactivos"
+  inv_sub1_content:
+    en: |
+      Use the `Item` class to build `ItemStack` objects with custom names, lore, amounts, and click handlers. Colors are automatically translated.
+      
+      ```java
+      Item myItem = Item.of(Material.DIAMOND)
+          .name("&bEpic Diamond")
+          .lore(Arrays.asList("&7Click to receive a reward!"))
+          .onClick(e -> {
+              Player p = (Player) e.getWhoClicked();
+              p.sendMessage("You clicked the diamond!");
+          });
+      ```
+    es: |
+      Usa la clase `Item` para construir objetos `ItemStack` con nombres, lore, cantidades y manejadores de clics personalizados. Los colores se traducen automáticamente.
+      
+      ```java
+      Item myItem = Item.of(Material.DIAMOND)
+          .name("&bEpic Diamond")
+          .lore(Arrays.asList("&7Click to receive a reward!"))
+          .onClick(e -> {
+              Player p = (Player) e.getWhoClicked();
+              p.sendMessage("You clicked the diamond!");
+          });
+      ```
+  inv_sub2_title:
+    en: "2. Building the GUI"
+    es: "2. Construyendo la GUI"
+  inv_sub2_content:
+    en: |
+      Use the `Builder` class to assemble your inventory. You can define the size, title, and easily fill empty spaces or create borders. You can also place items using absolute slots or row/column coordinates.
+      
+      ```java
+      GUI myMenu = Builder.create(27, "&8Server Menu")
+          .needPerm("enttapi.gui.admin")
+          .setNoPermsMessage("&cYou lack the permissions to open this!")
+          .border(Item.of(Material.BLACK_STAINED_GLASS_PANE).name(" "))
+          .item(2, 5, myItem)
+          .onClose(e -> System.out.println("Menu closed!"))
+          .build();
+      ```
+    es: |
+      Usa la clase `Builder` para ensamblar tu inventario. Puedes definir el tamaño, título y rellenar espacios vacíos o crear bordes fácilmente. También puedes colocar ítems usando slots absolutos o coordenadas de fila/columna.
+      
+      ```java
+      GUI myMenu = Builder.create(27, "&8Server Menu")
+          .needPerm("enttapi.gui.admin")
+          .setNoPermsMessage("&cYou lack the permissions to open this!")
+          .border(Item.of(Material.BLACK_STAINED_GLASS_PANE).name(" "))
+          .item(2, 5, myItem)
+          .onClose(e -> System.out.println("Menu closed!"))
+          .build();
+      ```
+  inv_sub3_title:
+    en: "3. Opening the Menu"
+    es: "3. Abriendo el Menú"
+  inv_sub3_content:
+    en: |
+      Once your GUI is built, simply call the `open()` method and pass the player instance. The API handles permission checks and automatically cancels default interactions (like stealing items).
+      
+      ```java
+      myMenu.open(player);
+      ```
+    es: |
+      Una vez que tu GUI esté construida, simplemente llama al método `open()` y pasa la instancia del jugador. La API maneja las verificaciones de permisos y cancela automáticamente las interacciones por defecto (como robar ítems).
+      
+      ```java
+      myMenu.open(player);
+      ```
