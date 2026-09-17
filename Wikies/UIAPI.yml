@@ -68,7 +68,7 @@ modules:
     subsections: []
 
   6:
-    id:: "adding_uiapi"
+    id: "adding_uiapi_menu"
     title: "adding_uiapi"
     short_desc: "none"
     content: "adding_uiapi_calls"
