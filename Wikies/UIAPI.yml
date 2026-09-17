@@ -1,0 +1,531 @@
+id: "UIAPI"
+category: "APIs"
+name: "Untitled Inventories API"
+
+header_image: ""
+
+description: "api_desc"
+
+modules:
+  1:
+    id: "getting_started"
+    title: "getting_started_title"
+    short_desc: "getting_started_short"
+    content: "getting_started_content"
+    header_image: ""
+    subsections:
+      - title: "getting_started_sub1_title"
+        content: "getting_started_sub1_content"
+      - title: "getting_started_sub2_title"
+        content: "getting_started_sub2_content"
+
+  2:
+    id: "items"
+    title: "items_title"
+    short_desc: "items_short"
+    content: "items_content"
+    header_image: ""
+    subsections:
+      - title: "items_sub1_title"
+        content: "items_sub1_content"
+      - title: "items_sub2_title"
+        content: "items_sub2_content"
+      - title: "items_sub3_title"
+        content: "items_sub3_content"
+
+  3:
+    id: "layouts"
+    title: "layouts_title"
+    short_desc: "layouts_short"
+    content: "layouts_content"
+    header_image: ""
+    subsections:
+      - title: "layouts_sub1_title"
+        content: "layouts_sub1_content"
+      - title: "layouts_sub2_title"
+        content: "layouts_sub2_content"
+
+  4:
+    id: "pagination"
+    title: "pagination_title"
+    short_desc: "pagination_short"
+    content: "pagination_content"
+    header_image: ""
+    subsections:
+      - title: "pagination_sub1_title"
+        content: "pagination_sub1_content"
+      - title: "pagination_sub2_title"
+        content: "pagination_sub2_content"
+      - title: "pagination_sub3_title"
+        content: "pagination_sub3_content"
+
+  5:
+    id: "complete_example"
+    title: "complete_example_title"
+    short_desc: "complete_example_short"
+    content: "complete_example_content"
+    header_image: ""
+    subsections: []
+
+translates:
+  api_desc:
+    en: "Untitled Inventories API is a Bukkit/Spigot API designed to simplify and accelerate the creation and organization of interactive inventory GUIs."
+    es: "Untitled Inventories API es una API para Bukkit/Spigot diseñada para simplificar y acelerar la creación y organización de GUIs de inventario interactivas."
+
+  getting_started_title:
+    en: "Getting Started"
+    es: "Primeros pasos"
+
+  getting_started_short:
+    en: "Learn the basic concepts behind Untitled Inventories API."
+    es: "Conoce los conceptos básicos de Untitled Inventories API."
+
+  getting_started_content:
+    en: |
+      Untitled Inventories API is designed to make inventory GUI development simpler and more organized.
+
+      Instead of manually assigning items to individual inventory slots, GUIs are defined using a visual layout. Each character in the layout represents an element of the interface, allowing the structure of the inventory to be understood directly from the source code.
+
+      The API combines layouts, configurable items and built-in pagination into a fluent builder system.
+
+  getting_started_sub1_title:
+    en: "1. Inventory Layouts"
+    es: "1. Layouts de inventario"
+
+  getting_started_sub1_content:
+    en: |
+      An inventory layout can contain up to 9 characters in width and 6 rows in height, matching the maximum dimensions of a standard Bukkit chest inventory.
+
+      Smaller layouts are also supported. The API automatically adapts them to the required inventory size.
+
+      For example:
+
+      ```text
+      #########
+      # X   D #
+      # +++++ #
+      # +++++ #
+      #  < >  #
+      #########
+      ```
+
+      The layout represents the visual structure of the inventory. Characters themselves do not have predefined meanings. Their behavior is assigned using the builder.
+
+  getting_started_sub2_title:
+    en: "2. Basic Structure"
+    es: "2. Estructura básica"
+
+  getting_started_sub2_content:
+    en: |
+      A basic GUI can be created by defining a layout and assigning items to its characters.
+
+      ```java
+      API.create("My Menu")
+          .layout("""
+          #########
+          # X   D #
+          #       #
+          #########
+          """)
+          .slot('#', glass)
+          .slot('X', close)
+          .slot('D', playerHead)
+          .build()
+          .open(player);
+      ```
+
+      This separates the visual structure of the GUI from the implementation of its individual items.
+
+  items_title:
+    en: "Items"
+    es: "Items"
+
+  items_short:
+    en: "Create and configure interactive inventory items."
+    es: "Crea y configura items interactivos para tus inventarios."
+
+  items_content:
+    en: |
+      Items are the elements displayed inside an inventory GUI.
+
+      They can be created from scratch, imported from an existing ItemStack, or generated as player heads. Once created, items can be configured using the fluent API and assigned actions for player interactions.
+
+      A basic item can be created with:
+
+      ```java
+      Item item = Item.of(Material.DIAMOND);
+      ```
+
+  items_sub1_title:
+    en: "1. Creating Items"
+    es: "1. Creando Items"
+
+  items_sub1_content:
+    en: |
+      The API provides three main ways to create an Item.
+
+      **Item.of(Material)**
+
+      Creates an item directly from a Bukkit Material.
+
+      ```java
+      Item diamond = Item.of(Material.DIAMOND);
+      ```
+
+      **Item.fromItemStack(ItemStack)**
+
+      Creates an Item from an existing ItemStack.
+
+      ```java
+      Item item = Item.fromItemStack(existingItemStack);
+      ```
+
+      **Item.playerHead(...)**
+
+      Creates a player head using a player or player name.
+
+      ```java
+      Item head = Item.playerHead(player);
+      ```
+
+  items_sub2_title:
+    en: "2. Item Properties"
+    es: "2. Propiedades de los Items"
+
+  items_sub2_content:
+    en: |
+      Items can be configured using the following properties:
+
+      **name(String)**  
+      Sets the item's display name. Minecraft color codes are supported.
+
+      ```java
+      .name("&bEpic Diamond")
+      ```
+
+      **lore(List<String>)**  
+      Sets the item's lore. Color codes are supported.
+
+      ```java
+      .lore(List.of(
+          "&7A valuable diamond.",
+          "&eClick to purchase."
+      ))
+      ```
+
+      **enchant(...)**  
+      Adds an enchantment and its level.
+
+      ```java
+      .enchant(Enchantment.SHARPNESS, 5)
+      ```
+
+      **flag(...)**  
+      Adds an ItemFlag such as `HIDE_ENCHANTS`.
+
+      ```java
+      .flag(ItemFlag.HIDE_ENCHANTS)
+      ```
+
+      **amount(int)**  
+      Sets the amount of the item.
+
+      ```java
+      .amount(32)
+      ```
+
+      **material(Material)**  
+      Changes the material of an existing item.
+
+      ```java
+      .material(Material.EMERALD)
+      ```
+
+      **customModelData(int)**  
+      Sets Custom Model Data. This feature is currently experimental.
+
+      ```java
+      .customModelData(1001)
+      ```
+
+      **onClick(...)**  
+      Defines the action executed when the player interacts with the item.
+
+      ```java
+      .onClick(player -> {
+          buy(player, Material.DIAMOND);
+      })
+      ```
+
+  items_sub3_title:
+    en: "3. Built-in Items"
+    es: "3. Items incluidos en la API"
+
+  items_sub3_content:
+    en: |
+      Untitled Inventories API provides several pre-configured items for common GUI functionality.
+
+      **API.closeInv()**
+
+      Creates an item that closes the current inventory.
+
+      ```java
+      API.closeInv()
+          .name("&c&lClose")
+      ```
+
+      **API.nextPage()**
+
+      Creates an item used to move to the next page.
+
+      ```java
+      API.nextPage()
+          .name("&a&lNext")
+      ```
+
+      **API.prevPage()**
+
+      Creates an item used to return to the previous page.
+
+      ```java
+      API.prevPage()
+          .name("&c&lBack")
+      ```
+
+      These items already contain the functionality required for their respective actions.
+
+  layouts_title:
+    en: "Layouts"
+    es: "Layouts"
+
+  layouts_short:
+    en: "Define the visual structure of your GUI using text layouts."
+    es: "Define la estructura visual de tu GUI mediante layouts de texto."
+
+  layouts_content:
+    en: |
+      Layouts are the foundation of Untitled Inventories API.
+
+      A layout is a text representation of the inventory. Every character can be associated with an Item, allowing the same element to occupy multiple positions without manually specifying every slot.
+
+      For example:
+
+      ```text
+      #########
+      # X   D #
+      #       #
+      #########
+      ```
+
+      The `#` character can represent a border, while `X` and `D` can represent individual interactive elements.
+
+  layouts_sub1_title:
+    en: "1. Assigning Characters"
+    es: "1. Asignando caracteres"
+
+  layouts_sub1_content:
+    en: |
+      Characters are assigned using the `slot()` method.
+
+      ```java
+      .slot('#', glass)
+      .slot('X', close)
+      .slot('D', playerHead)
+      ```
+
+      Every occurrence of the specified character is replaced with the corresponding item.
+
+      This makes repetitive GUI structures much easier to create and maintain.
+
+  layouts_sub2_title:
+    en: "2. Empty Spaces"
+    es: "2. Espacios vacíos"
+
+  layouts_sub2_content:
+    en: |
+      Spaces in a layout represent empty inventory slots.
+
+      They do not need to be assigned unless the developer wants to explicitly give them an item.
+
+      This allows layouts to remain visually clean and easy to understand.
+
+  pagination_title:
+    en: "Pagination"
+    es: "Paginación"
+
+  pagination_short:
+    en: "Display lists of items across multiple GUI pages."
+    es: "Muestra listas de items distribuidas en múltiples páginas."
+
+  pagination_content:
+    en: |
+      Untitled Inventories API includes a built-in pagination system for displaying collections of items inside a defined area of a layout.
+
+      A pagination area is represented by a character that can appear multiple times in the layout.
+
+      For example:
+
+      ```text
+      #########
+      # X   D #
+      # +++++ #
+      # +++++ #
+      #  < >  #
+      #########
+      ```
+
+      In this example, `+` represents the available slots for paginated content.
+
+      The `+` character does not represent one specific item. Each occurrence becomes a position where an element from the paginated list can be displayed.
+
+  pagination_sub1_title:
+    en: "1. Creating a Paginated List"
+    es: "1. Creando una lista paginada"
+
+  pagination_sub1_content:
+    en: |
+      First, create a list containing the items that should be displayed.
+
+      ```java
+      List<Item> pagedItems = List.of(
+          Item.of(Material.DIAMOND)
+              .name("§bDiamond")
+              .onClick(p -> buy(p, Material.DIAMOND)),
+
+          Item.of(Material.EMERALD)
+              .name("§aEmerald")
+              .onClick(p -> buy(p, Material.EMERALD)),
+
+          Item.of(Material.GOLD_INGOT)
+              .name("§6Gold")
+              .onClick(p -> buy(p, Material.GOLD_INGOT)),
+
+          Item.of(Material.IRON_INGOT)
+              .name("§fIron")
+              .onClick(p -> buy(p, Material.IRON_INGOT))
+      );
+      ```
+
+      The number of available layout positions determines how many elements can be displayed simultaneously.
+
+      Additional elements are automatically placed on subsequent pages.
+
+  pagination_sub2_title:
+    en: "2. Connecting the List to the Layout"
+    es: "2. Conectando la lista al Layout"
+
+  pagination_sub2_content:
+    en: |
+      Use `page()` to associate the list with a layout character.
+
+      ```java
+      .page('+', pagedItems, PageFill.JUSTIFY)
+      ```
+
+      In this example, every `+` in the layout becomes part of the pagination area.
+
+      The API automatically handles the distribution of items and the creation of additional pages when necessary.
+
+  pagination_sub3_title:
+    en: "3. Page Fill Modes"
+    es: "3. Modos de distribución"
+
+  pagination_sub3_content:
+    en: |
+      `PageFill` controls how items are distributed when a page does not completely fill the available positions.
+
+      **LEFT**
+
+      Places elements from left to right.
+
+      ```text
+      + + + + +
+      ```
+
+      **RIGHT**
+
+      Places elements from right to left.
+
+      ```text
+      + + + + +
+            ^ 
+      ```
+
+      **JUSTIFY**
+
+      Distributes the elements as evenly as possible across the available positions, producing a balanced layout when the number of elements is smaller than the available slots.
+
+      ```java
+      .page('+', pagedItems, PageFill.JUSTIFY)
+      ```
+
+  complete_example_title:
+    en: "Complete Example"
+    es: "Ejemplo completo"
+
+  complete_example_short:
+    en: "A complete GUI combining layouts, items and pagination."
+    es: "Una GUI completa combinando layouts, items y paginación."
+
+  complete_example_content:
+    en: |
+      The following example combines the main features of Untitled Inventories API into a single interactive GUI.
+
+      ```java
+      public void test1(Player player) {
+          Item glass = Item.of(Material.BLACK_STAINED_GLASS_PANE)
+                  .name(" ");
+
+          Item playerHead = Item.playerHead(player)
+                  .name(Text.color("&c&l" + player.getName()));
+
+          List<Item> pagedItems = List.of(
+                  Item.of(Material.DIAMOND)
+                          .name("§bDiamante")
+                          .onClick(p -> buy(p, Material.DIAMOND)),
+
+                  Item.of(Material.EMERALD)
+                          .name("§aEsmeralda")
+                          .onClick(p -> buy(p, Material.EMERALD)),
+
+                  Item.of(Material.GOLD_INGOT)
+                          .name("§6Oro")
+                          .onClick(p -> buy(p, Material.GOLD_INGOT)),
+
+                  Item.of(Material.IRON_INGOT)
+                          .name("§fHierro")
+                          .onClick(p -> buy(p, Material.IRON_INGOT))
+          );
+
+          API.create("Papozo")
+                  .layout("""
+                  #########
+                  # X   D #
+                  # +++++ #
+                  # +++++ #
+                  #  < >  #
+                  #########
+                  """)
+                  .page('+', pagedItems, PageFill.JUSTIFY)
+                  .slot('#', glass)
+                  .slot('D', playerHead)
+                  .slot('X', API.closeInv().name("&c&lCerrar"))
+                  .slot('<', API.prevPage().name("&c&lAtrás"))
+                  .slot('>', API.nextPage().name("&c&lSiguiente"))
+                  .build()
+                  .open(player);
+      }
+      ```
+
+      The resulting structure can be understood directly from the layout:
+
+      ```text
+      #########
+      # X   D #
+      # +++++ #
+      # +++++ #
+      #  < >  #
+      #########
+      ```
+
+      `#` defines the border, `X` closes the GUI, `D` displays the player head, `+` contains the paginated items, and `<` and `>` control navigation between pages.
