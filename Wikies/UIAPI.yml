@@ -907,7 +907,7 @@ translates:
 
   adding_uiapi:
     en: "Adding UIAPI to your project"
-    es: "Añadiendo UIAPI a su proyecto"
+    es: "Agregar UIAPI a tu proyecto"
 
   adding_uiapi_calls:
     en: |
@@ -946,37 +946,36 @@ translates:
       }
       ```
 
-  
-    es: |
-      Agregar UIAPI a tu plugin es muy facil, solo debes usar alguno de estos dependiendo el sitema que hayas elegido
+	es: |
+  		Agregar UIAPI a tu plugin es muy fácil. Solo debes utilizar una de las siguientes configuraciones dependiendo del sistema de construcción que hayas elegido.
 
-      Maven:
-      ```
-        <repositories>
-      		<repository>
-      		    <id>jitpack.io</id>
-      		    <url>https://www.jitpack.io</url>
-      		</repository>
-      	</repositories>
+        Maven:
+        ```
+          <repositories>
+      		  <repository>
+      		      <id>jitpack.io</id>
+      		      <url>https://www.jitpack.io</url>
+      		  </repository>
+      	  </repositories>
 
-        	<dependency>
-        	    <groupId>com.github.EnttbotX</groupId>
-        	    <artifactId>UIAPI</artifactId>
-        	    <version>1.0.0</version>
-        	</dependency>
-      ```
+        	  <dependency>
+        	      <groupId>com.github.EnttbotX</groupId>
+        	      <artifactId>UIAPI</artifactId>
+        	      <version>1.0.0</version>
+        	  </dependency>
+        ```
 
-      Gradle:
-      ```
-      dependencyResolutionManagement {
-    		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    		repositories {
-    			mavenCentral()
-    			maven { url 'https://www.jitpack.io' }
-    		}
-    	}
+        Gradle:
+        ```
+        dependencyResolutionManagement {
+    		  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    		  repositories {
+    			  mavenCentral()
+    			  maven { url 'https://www.jitpack.io' }
+    		  }
+    	  }
 
-      dependencies {
-	        implementation 'com.github.EnttbotX:UIAPI:1.0.0'
-    	}
-      ```
+        dependencies {
+	          implementation 'com.github.EnttbotX:UIAPI:1.0.0'
+    	  }
+        ```
