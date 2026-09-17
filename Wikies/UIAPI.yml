@@ -67,7 +67,16 @@ modules:
     header_image: ""
     subsections: []
 
+  6:
+    id:: "adding_uiapi"
+    title: "adding_uiapi"
+    short_desc: "none"
+    content: "adding_uiapi_calls"
+
 translates:
+  none:
+    en: ""
+    es: ""
 
   api_desc:
     en: "Untitled Inventories API is a Bukkit/Spigot API designed to simplify and accelerate the creation and organization of interactive inventory GUIs."
@@ -893,3 +902,79 @@ translates:
       ```
 
       `#` define el borde, `X` cierra la GUI, `D` muestra la cabeza del jugador, `+` contiene los ítems paginados y `<` y `>` controlan la navegación entre páginas.
+
+  adding_uiapi:
+    en: "Adding UIAPI to your project"
+    es: "Añadiendo UIAPI a su proyecto"
+
+  adding_uiapi_calls:
+    en: |
+      Adding UIAPI to your plugin is very easy. Just use one of the following configurations depending on the build system you have chosen.
+      
+      Maven:
+      
+      ```
+        <repositories>
+          <repository>
+            <id>jitpack.io</id>
+            <url>https://www.jitpack.io</url>
+          </repository>
+        </repositories>
+      
+        <dependency>
+          <groupId>com.github.EnttbotX</groupId>
+          <artifactId>UIAPI</artifactId>
+          <version>1.0.0</version>
+        </dependency>
+      ```
+      
+      Gradle:
+      
+      ```
+      dependencyResolutionManagement {
+        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+        repositories {
+          mavenCentral()
+          maven { url 'https://www.jitpack.io' }
+        }
+      }
+      
+      dependencies {
+        implementation 'com.github.EnttbotX:UIAPI:1.0.0'
+      }
+      ```
+
+  
+    es: |
+      Agregar UIAPI a tu plugin es muy facil, solo debes usar alguno de estos dependiendo el sitema que hayas elegido
+
+      Maven:
+      ```
+        <repositories>
+      		<repository>
+      		    <id>jitpack.io</id>
+      		    <url>https://www.jitpack.io</url>
+      		</repository>
+      	</repositories>
+
+        	<dependency>
+        	    <groupId>com.github.EnttbotX</groupId>
+        	    <artifactId>UIAPI</artifactId>
+        	    <version>1.0.0</version>
+        	</dependency>
+      ```
+
+      Gradle:
+      ```
+      dependencyResolutionManagement {
+    		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    		repositories {
+    			mavenCentral()
+    			maven { url 'https://www.jitpack.io' }
+    		}
+    	}
+
+      dependencies {
+	        implementation 'com.github.EnttbotX:UIAPI:1.0.0'
+    	}
+      ```
