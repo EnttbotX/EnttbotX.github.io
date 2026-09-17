@@ -70,16 +70,12 @@ modules:
   6:
     id: "adding_uiapi_menu"
     title: "adding_uiapi"
-    short_desc: "none"
+    short_desc: ""
     content: "adding_uiapi_calls"
     header_image: ""
     subsections: []
 
 translates:
-  none:
-    en: ""
-    es: ""
-
   api_desc:
     en: "Untitled Inventories API is a Bukkit/Spigot API designed to simplify and accelerate the creation and organization of interactive inventory GUIs."
     es: "Untitled Inventories API es una API para Bukkit/Spigot diseñada para simplificar y acelerar la creación y organización de interfaces gráficas de inventario interactivas."
