@@ -72,8 +72,8 @@ modules:
     title: "adding_uiapi"
     short_desc: "none"
     content: "adding_uiapi_calls"
-	header_image: ""
-	subsections: []
+    header_image: ""
+    subsections: []
 
 translates:
   none:
