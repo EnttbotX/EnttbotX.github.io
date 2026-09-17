@@ -164,46 +164,53 @@ async function initWiki() {
         menu.setAttribute('aria-hidden', 'true');
     });
 
-    // fetch wikies.yml and parse with js-yaml
+    // wikies.yml is now just an index: { category: [ "File.yml", ... ] }.
+    // The actual name/category/content of each wiki lives inside its own
+    // file under Wikies/, so we fetch the index first and then each file.
     try {
-        const res = await fetch('/wikies.yml', { cache: 'no-cache' });
-        if (!res.ok) throw new Error('Network error');
-        const text = await res.text();
-
-        // dynamic import of js-yaml
         const jsYaml = await import('https://esm.sh/js-yaml@4.1.0');
-        const data = jsYaml.load(text);
 
-        // data is expected as { category: { index: { name, link } } }
+        const res = await fetch('wikies.yml', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('Network error');
+        const indexData = jsYaml.load(await res.text());
+
         list.innerHTML = '';
-        const categories = Object.keys(data || {});
-        if (categories.length === 0) {
-            loading.hidden = true;
-            err.hidden = false;
-            err.textContent = 'No wiki entries.';
-            return;
-        }
+        const categories = Object.keys(indexData || {});
+        let hasAny = false;
 
         for (const cat of categories) {
+            const files = indexData[cat];
+            if (!files || !files.length) continue;
+
             const catTitle = document.createElement('div');
             catTitle.className = 'wiki-category';
             catTitle.textContent = cat;
             list.appendChild(catTitle);
 
-            const items = data[cat] || {};
-            // sort by numeric keys if present
-            const keys = Object.keys(items).sort((a,b) => Number(a) - Number(b));
-            for (const k of keys) {
-                const it = items[k];
-                if (!it || !it.name || !it.link) continue;
-                const a = document.createElement('a');
-                a.className = 'wiki-item';
-                a.href = it.link;
-                a.target = '_blank';
-                a.rel = 'noopener';
-                a.textContent = it.name;
-                list.appendChild(a);
+            for (const file of files) {
+                try {
+                    const fileRes = await fetch(`Wikies/${file}`, { cache: 'no-cache' });
+                    if (!fileRes.ok) continue;
+                    const wiki = jsYaml.load(await fileRes.text());
+                    if (!wiki || !wiki.id || !wiki.name) continue;
+
+                    const a = document.createElement('a');
+                    a.className = 'wiki-item';
+                    a.href = `Wiki.html#${wiki.id}`;
+                    a.textContent = wiki.name;
+                    list.appendChild(a);
+                    hasAny = true;
+                } catch (fileErr) {
+                    console.error(`Failed to load wiki file ${file}`, fileErr);
+                }
             }
+        }
+
+        if (!hasAny) {
+            loading.hidden = true;
+            err.hidden = false;
+            err.textContent = 'No wiki entries.';
+            return;
         }
 
         loading.hidden = true;

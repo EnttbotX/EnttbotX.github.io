@@ -123,6 +123,55 @@
 
     .btn-container { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
     .btn-sm { padding: 0.3rem 0.8rem; font-size: 0.85rem; border-radius: 4px; text-decoration: none; display: inline-block; }
+
+    /* ── Header banners (replace big plain text with an image/gradient header) ── */
+    .wiki-banner {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+    }
+    .wiki-banner.page-banner { height: 260px; }
+    .wiki-banner.module-banner { height: 190px; margin-top: 0.5rem; margin-bottom: 1.5rem; }
+    .wiki-banner img.banner-img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .wiki-banner .banner-overlay {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(to top, rgba(10,10,14,0.92) 10%, rgba(10,10,14,0.35) 70%, transparent 100%);
+    }
+    .wiki-banner .banner-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #fff;
+      margin: 0;
+      font-weight: 700;
+    }
+    .wiki-banner.page-banner .banner-title { font-size: 2.4rem; }
+    .wiki-banner.module-banner .banner-title { font-size: 1.7rem; }
+    .wiki-banner .banner-sub {
+      color: #d6d6de;
+      margin: 0.4rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 700px;
+    }
+    .sidebar-group-title {
+      color: var(--text-muted, #888);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin: 1rem 0 0.4rem;
+    }
+    .sidebar-group-title:first-of-type { margin-top: 0; }
   </style>
 </head>
 <body>
@@ -151,14 +200,7 @@
 
     <main class="wiki-content">
       <div class="hero" style="text-align: left; max-width: 100%; padding: 0;">
-        <h1 class="hero-title" id="wiki-title" style="font-size: 2.5rem;">Loading...</h1>
-        <p class="hero-sub" id="wiki-subtitle" style="margin-top:0.3rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-size:0.9rem;"></p>
-        
-        <p id="wiki-description" style="color:var(--text-muted); margin-top: 1rem; line-height: 1.6;">
-          Please wait...
-        </p>
-
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 2rem 0;">
+        <div id="page-banner"></div>
 
         <div id="active-module-content"></div>
       </div>
@@ -166,29 +208,65 @@
   </div>
 
   <script>
+    // currentApis: [{ id, category, name, header_image, description, translates, modules: [mod, ...] }]
+    // currentModules: flattened modules, each carrying a back-reference to its parent api ( _api )
+    let currentApis = [];
     let currentModules = [];
     let currentLang = 'en';
 
     function t(key, mod) {
-      if(mod && mod.translates && mod.translates[key] && mod.translates[key][currentLang]) {
-        return mod.translates[key][currentLang];
+      const dict = mod && (mod.translates || (mod._api && mod._api.translates));
+      if (dict && dict[key] && dict[key][currentLang]) {
+        return dict[key][currentLang];
       }
       return key;
     }
 
+    // Deterministic hue from a string, used to build a fallback gradient
+    // banner when a wiki/module doesn't define a header_image.
+    function hashHue(str) {
+      let hash = 0;
+      for (let i = 0; i < (str || '').length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash) % 360;
+    }
+
+    function renderBanner(el, { image, title, subtitle, seedKey, variant }) {
+      el.className = `wiki-banner ${variant}`;
+      el.innerHTML = '';
+
+      if (image) {
+        const img = document.createElement('img');
+        img.className = 'banner-img';
+        img.src = image;
+        img.alt = title || '';
+        el.appendChild(img);
+      } else {
+        const hue = hashHue(seedKey);
+        el.style.background = `linear-gradient(135deg, hsl(${hue}, 65%, 22%), hsl(${(hue + 60) % 360}, 60%, 14%))`;
+      }
+
+      const overlay = document.createElement('div');
+      overlay.className = 'banner-overlay';
+      overlay.innerHTML = `
+        <h2 class="banner-title">${title || ''}</h2>
+        ${subtitle ? `<p class="banner-sub">${subtitle}</p>` : ''}
+      `;
+      el.appendChild(overlay);
+    }
+
     function changeLang() {
       currentLang = document.getElementById('lang-select').value;
-      
+
       document.getElementById('lbl-modules').innerText = currentLang === 'en' ? 'Modules' : 'Módulos';
       document.getElementById('wiki-search').placeholder = currentLang === 'en' ? 'Search module...' : 'Buscar módulo...';
-      document.getElementById('wiki-description').innerText = currentLang === 'en' 
-        ? "EnttAPI is an API designed to simplify and accelerate your plugin development." 
-        : "EnttAPI es una API diseñada para simplificar y acelerar el desarrollo de tus plugins.";
 
       renderSidebar();
       const activeLink = document.querySelector('.sidebar-link.active');
-      if(activeLink) {
-        displayModuleContent(activeLink.id.replace('tab-', ''));
+      if (activeLink) {
+        displayModuleContent(activeLink.dataset.moduleId);
       }
     }
 
@@ -223,122 +301,204 @@
 
     async function loadYamlConfig() {
       try {
-        const [invRes, mysqlRes] = await Promise.all([
-          fetch('Wikies/inventory.yml'),
-          fetch('Wikies/mysql.yml')
-        ]);
-        
-        const invText = await invRes.text();
-        const mysqlText = await mysqlRes.text();
-        
-        currentModules = [
-          jsyaml.load(invText),
-          jsyaml.load(mysqlText)
-        ];
+        // wikies.yml is just an index: { category: [ "File.yml", ... ] }.
+        // Each file under Wikies/ carries its own category/name/modules,
+        // so adding a new wiki only means dropping one file here.
+        const indexRes = await fetch('wikies.yml');
+        if (!indexRes.ok) throw new Error('Could not load wikies.yml');
+        const index = jsyaml.load(await indexRes.text()) || {};
 
-        document.getElementById('wiki-title').innerText = "EnttAPI";
-        document.getElementById('wiki-subtitle').innerText = "Developer API";
-        document.getElementById('wiki-description').innerText = "EnttAPI is an API designed to simplify and accelerate your plugin development.";
-        
+        const fetchJobs = [];
+        for (const category of Object.keys(index)) {
+          const files = index[category];
+          if (!files) continue;
+          for (const file of files) {
+            fetchJobs.push(
+              fetch(`Wikies/${file}`)
+                .then(r => r.text())
+                .then(txt => {
+                  const api = jsyaml.load(txt);
+                  if (!api || !api.id) return null;
+                  api.category = api.category || category;
+                  return api;
+                })
+                .catch(() => null)
+            );
+          }
+        }
+
+        currentApis = (await Promise.all(fetchJobs)).filter(Boolean);
+
+        // Flatten modules (numbered 1, 2, 3... in YAML) into a single list,
+        // keeping a back-reference to the parent API for translations,
+        // grouping and the fallback banner.
+        currentModules = [];
+        currentApis.forEach(api => {
+          const modEntries = api.modules || {};
+          const keys = Object.keys(modEntries).sort((a, b) => Number(a) - Number(b));
+          api._orderedModules = keys.map(k => {
+            const mod = modEntries[k];
+            mod._api = api;
+            currentModules.push(mod);
+            return mod;
+          });
+        });
+
         renderSidebar();
-        if(currentModules.length > 0) {
+
+        // Deep-link support: Wiki.html#EnttAPI opens that API's first
+        // module, Wiki.html#inventory_api opens that module directly.
+        const hash = decodeURIComponent(location.hash.replace('#', ''));
+        const targetApi = currentApis.find(a => a.id === hash);
+        const targetModule = currentModules.find(m => m.id === hash);
+
+        if (targetModule) {
+          displayModuleContent(targetModule.id);
+        } else if (targetApi && targetApi._orderedModules.length) {
+          displayModuleContent(targetApi._orderedModules[0].id);
+        } else if (currentModules.length > 0) {
           displayModuleContent(currentModules[0].id);
         }
       } catch (error) {
-        document.getElementById('wiki-title').innerText = "Error 404";
-        document.getElementById('wiki-description').innerText = "Could not load YAML files.";
+        console.error(error);
+        document.getElementById('active-module-content').innerHTML =
+          `<h2 style="color:#fff;">Error 404</h2><p style="color:var(--text-muted);">Could not load YAML files.</p>`;
       }
     }
 
     function renderSidebar() {
       const sidebarMenu = document.getElementById('sidebar-menu');
       sidebarMenu.innerHTML = '';
-      
-      currentModules.forEach((mod, index) => {
-        const li = document.createElement('li');
-        li.className = 'sidebar-item';
-        
-        const isActive = document.querySelector('.sidebar-link.active') 
-            ? document.querySelector('.sidebar-link.active').id === `tab-${mod.id}`
-            : index === 0;
 
-        li.innerHTML = `<a class="sidebar-link ${isActive ? 'active' : ''}" id="tab-${mod.id}" onclick="displayModuleContent('${mod.id}')">${t(mod.title, mod)}</a>`;
-        sidebarMenu.appendChild(li);
+      const activeLink = document.querySelector('.sidebar-link.active');
+      const activeModuleId = activeLink ? activeLink.dataset.moduleId : null;
+
+      currentApis.forEach((api, apiIdx) => {
+        const groupLi = document.createElement('li');
+        groupLi.innerHTML = `<div class="sidebar-group-title">${api.name}</div>`;
+        sidebarMenu.appendChild(groupLi);
+
+        api._orderedModules.forEach((mod, modIdx) => {
+          const li = document.createElement('li');
+          li.className = 'sidebar-item';
+
+          const isActive = activeModuleId
+            ? activeModuleId === mod.id
+            : (apiIdx === 0 && modIdx === 0);
+
+          const a = document.createElement('a');
+          a.className = `sidebar-link ${isActive ? 'active' : ''}`;
+          a.dataset.moduleId = mod.id;
+          a.textContent = t(mod.title, mod);
+          a.onclick = () => displayModuleContent(mod.id);
+          li.appendChild(a);
+          sidebarMenu.appendChild(li);
+        });
       });
+
       searchModules();
     }
 
     function displayModuleContent(moduleId) {
-      document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
-      const activeLink = document.getElementById(`tab-${moduleId}`);
-      if(activeLink) activeLink.classList.add('active');
+      document.querySelectorAll('.sidebar-link').forEach(link =>
+        link.classList.toggle('active', link.dataset.moduleId === moduleId)
+      );
 
       const mod = currentModules.find(m => m.id === moduleId);
+      if (!mod) return;
+      const api = mod._api;
+
+      // Page-level banner reflects the API the current module belongs to.
+      renderBanner(document.getElementById('page-banner'), {
+        image: api.header_image,
+        title: api.name,
+        subtitle: t(api.description, api),
+        seedKey: api.id,
+        variant: 'page-banner'
+      });
+
+      history.replaceState(null, '', `#${moduleId}`);
+
       const container = document.getElementById('active-module-content');
       container.innerHTML = '';
 
-      if (mod) {
-        let modHTML = `
-          <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 0.3rem;">${t(mod.title, mod)}</h2>
-          <em style="color: var(--text-muted); display:block; margin-bottom: 1.5rem;">${t(mod.short_desc, mod)}</em>
-          <div style="color: #e0e0e0; line-height: 1.6; font-size: 1.05rem;">${formatTextWithCode(t(mod.content, mod))}</div>
-          <div class="subsections-area" id="subsections-area"></div>
-        `;
-        container.innerHTML = modHTML;
+      const moduleBanner = document.createElement('div');
+      container.appendChild(moduleBanner);
+      renderBanner(moduleBanner, {
+        image: mod.header_image,
+        title: t(mod.title, mod),
+        subtitle: t(mod.short_desc, mod),
+        seedKey: mod.id,
+        variant: 'module-banner'
+      });
 
-        if (mod.subsections) {
-          const subArea = document.getElementById('subsections-area');
-          mod.subsections.forEach((sub, idx) => {
-            const subId = `sub-btn-container-${idx}`;
-            const subBlock = document.createElement('div');
-            subBlock.className = 'sub-block';
-            subBlock.innerHTML = `
-              <h4>${t(sub.title, mod)}</h4>
-              <div class="text-content">${formatTextWithCode(t(sub.content, mod))}</div>
-              <div class="btn-container" id="${subId}"></div>
-            `;
-            subArea.appendChild(subBlock);
+      const body = document.createElement('div');
+      body.style.cssText = 'color:#e0e0e0; line-height:1.6; font-size:1.05rem;';
+      body.innerHTML = formatTextWithCode(t(mod.content, mod));
+      container.appendChild(body);
 
-            if (sub.buttons) {
-              const btnContainer = document.getElementById(subId);
-              sub.buttons.forEach(btn => {
-                const a = document.createElement('a');
-                a.href = btn.url;
-                a.className = `btn btn-sm ${btn.class}`;
-                a.innerText = btn.text;
-                if(btn.url.startsWith('http')) a.target = "_blank";
-                btnContainer.appendChild(a);
-              });
-            }
-          });
-        }
+      const subArea = document.createElement('div');
+      subArea.className = 'subsections-area';
+      container.appendChild(subArea);
+
+      if (mod.subsections) {
+        mod.subsections.forEach((sub, idx) => {
+          const subId = `sub-btn-container-${idx}`;
+          const subBlock = document.createElement('div');
+          subBlock.className = 'sub-block';
+          subBlock.innerHTML = `
+            <h4>${t(sub.title, mod)}</h4>
+            <div class="text-content">${formatTextWithCode(t(sub.content, mod))}</div>
+            <div class="btn-container" id="${subId}"></div>
+          `;
+          subArea.appendChild(subBlock);
+
+          if (sub.buttons) {
+            const btnContainer = subBlock.querySelector(`#${subId}`);
+            sub.buttons.forEach(btn => {
+              const a = document.createElement('a');
+              a.href = btn.url;
+              a.className = `btn btn-sm ${btn.class}`;
+              a.innerText = btn.text;
+              if (btn.url.startsWith('http')) a.target = "_blank";
+              btnContainer.appendChild(a);
+            });
+          }
+        });
       }
     }
 
     function searchModules() {
       const query = document.getElementById('wiki-search').value.toLowerCase();
-      
+
       currentModules.forEach(mod => {
         let matchInSubs = false;
-        if(mod.subsections) {
-          matchInSubs = mod.subsections.some(s => 
-            t(s.title, mod).toLowerCase().includes(query) || 
+        if (mod.subsections) {
+          matchInSubs = mod.subsections.some(s =>
+            t(s.title, mod).toLowerCase().includes(query) ||
             t(s.content, mod).toLowerCase().includes(query)
           );
         }
 
-        const matches = t(mod.title, mod).toLowerCase().includes(query) || 
-                        t(mod.short_desc, mod).toLowerCase().includes(query) || 
+        const matches = t(mod.title, mod).toLowerCase().includes(query) ||
+                        t(mod.short_desc, mod).toLowerCase().includes(query) ||
                         matchInSubs;
-        
-        const sidebarLink = document.getElementById(`tab-${mod.id}`);
-        if(sidebarLink) {
-          sidebarLink.style.display = matches ? 'block' : 'none';
+
+        const sidebarLink = document.querySelector(`.sidebar-link[data-module-id="${mod.id}"]`);
+        if (sidebarLink) {
+          sidebarLink.parentElement.style.display = matches ? 'block' : 'none';
         }
       });
     }
 
     document.addEventListener('DOMContentLoaded', loadYamlConfig);
+    window.addEventListener('hashchange', () => {
+      const hash = decodeURIComponent(location.hash.replace('#', ''));
+      const targetModule = currentModules.find(m => m.id === hash);
+      const targetApi = currentApis.find(a => a.id === hash);
+      if (targetModule) displayModuleContent(targetModule.id);
+      else if (targetApi && targetApi._orderedModules.length) displayModuleContent(targetApi._orderedModules[0].id);
+    });
   </script>
 </body>
 </html>

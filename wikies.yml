@@ -1,7 +1,8 @@
+# Índice de wikis. Solo lista qué archivo de la carpeta Wikies/ pertenece a
+# cada categoría; el nombre, la categoría y el contenido viven dentro de
+# cada archivo (ver Wikies/EnttAPI.yml), así no hay que tocar dos sitios
+# cada vez que se agrega o edita una wiki.
 APIs:
-  1:
-    name: "EnttAPI"
-    link: "https://enttbotx.github.io/Wiki#EnttAPI"
-
+  - "EnttAPI.yml"
 Free:
 Premium:
