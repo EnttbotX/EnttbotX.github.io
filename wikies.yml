@@ -3,6 +3,4 @@
 # cada archivo (ver Wikies/EnttAPI.yml), así no hay que tocar dos sitios
 # cada vez que se agrega o edita una wiki.
 APIs:
-  - "EnttAPI.yml"
-Free:
-Premium:
+  - "UIAPI.yml"
