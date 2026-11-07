@@ -1,3 +1,3 @@
 **The Official EnttbotX website**
 
-https://enttbotx.github.io/home -- Direct Link
+https://enttbotx.github.io -- Direct Link
