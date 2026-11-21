@@ -32,6 +32,39 @@
               ]
             },
             "2": {
+              "id": "adding_uiapi_menu",
+              "title": "adding_uiapi_menu_title",
+              "short_desc": "adding_uiapi_menu_short",
+              "content": "adding_uiapi_menu_content",
+              "header_image": "",
+              "subsections": []
+            },
+            "3": {
+              "id": "layouts",
+              "title": "layouts_title",
+              "short_desc": "layouts_short",
+              "content": "layouts_content",
+              "header_image": "",
+              "subsections": [
+                {
+                  "title": "layouts_sub1_title",
+                  "content": "layouts_sub1_content"
+                },
+                {
+                  "title": "layouts_sub2_title",
+                  "content": "layouts_sub2_content"
+                },
+                {
+                  "title": "layouts_sub3_title",
+                  "content": "layouts_sub3_content"
+                },
+                {
+                  "title": "layouts_sub4_title",
+                  "content": "layouts_sub4_content"
+                }
+              ]
+            },
+            "4": {
               "id": "items",
               "title": "items_title",
               "short_desc": "items_short",
@@ -52,28 +85,7 @@
                 }
               ]
             },
-            "3": {
-              "id": "layouts",
-              "title": "layouts_title",
-              "short_desc": "layouts_short",
-              "content": "layouts_content",
-              "header_image": "",
-              "subsections": [
-                {
-                  "title": "layouts_sub1_title",
-                  "content": "layouts_sub1_content"
-                },
-                {
-                  "title": "layouts_sub2_title",
-                  "content": "layouts_sub2_content"
-                },
-                {
-                  "title": "layouts_sub3_title",
-                  "content": "layouts_sub3_content"
-                }
-              ]
-            },
-            "4": {
+            "5": {
               "id": "pagination",
               "title": "pagination_title",
               "short_desc": "pagination_short",
@@ -98,7 +110,28 @@
                 }
               ]
             },
-            "5": {
+            "6": {
+              "id": "editable_slots",
+              "title": "editable_slots_title",
+              "short_desc": "editable_slots_short",
+              "content": "editable_slots_content",
+              "header_image": "",
+              "subsections": [
+                {
+                  "title": "editable_slots_sub1_title",
+                  "content": "editable_slots_sub1_content"
+                },
+                {
+                  "title": "editable_slots_sub2_title",
+                  "content": "editable_slots_sub2_content"
+                },
+                {
+                  "title": "editable_slots_sub3_title",
+                  "content": "editable_slots_sub3_content"
+                }
+              ]
+            },
+            "7": {
               "id": "inventory_types",
               "title": "inventory_types_title",
               "short_desc": "inventory_types_short",
@@ -112,31 +145,38 @@
                 {
                   "title": "inventory_types_sub2_title",
                   "content": "inventory_types_sub2_content"
+                },
+                {
+                  "title": "inventory_types_sub3_title",
+                  "content": "inventory_types_sub3_content"
+                },
+                {
+                  "title": "inventory_types_sub4_title",
+                  "content": "inventory_types_sub4_content"
+                },
+                {
+                  "title": "inventory_types_sub5_title",
+                  "content": "inventory_types_sub5_content"
+                },
+                {
+                  "title": "inventory_types_sub6_title",
+                  "content": "inventory_types_sub6_content"
+                },
+                {
+                  "title": "inventory_types_sub7_title",
+                  "content": "inventory_types_sub7_content"
+                },
+                {
+                  "title": "inventory_types_sub8_title",
+                  "content": "inventory_types_sub8_content"
+                },
+                {
+                  "title": "inventory_types_sub9_title",
+                  "content": "inventory_types_sub9_content"
                 }
               ]
             },
-            "6": {
-              "id": "editable_slots",
-              "title": "editable_title",
-              "short_desc": "editable_short",
-              "content": "editable_content",
-              "header_image": "",
-              "subsections": [
-                {
-                  "title": "editable_sub1_title",
-                  "content": "editable_sub1_content"
-                },
-                {
-                  "title": "editable_sub2_title",
-                  "content": "editable_sub2_content"
-                },
-                {
-                  "title": "editable_sub3_title",
-                  "content": "editable_sub3_content"
-                }
-              ]
-            },
-            "7": {
+            "8": {
               "id": "anvil",
               "title": "anvil_title",
               "short_desc": "anvil_short",
@@ -146,27 +186,43 @@
                 {
                   "title": "anvil_sub1_title",
                   "content": "anvil_sub1_content"
-                }
-              ]
-            },
-            "8": {
-              "id": "gui_instances",
-              "title": "instances_title",
-              "short_desc": "instances_short",
-              "content": "instances_content",
-              "header_image": "",
-              "subsections": [
-                {
-                  "title": "instances_sub1_title",
-                  "content": "instances_sub1_content"
                 },
                 {
-                  "title": "instances_sub2_title",
-                  "content": "instances_sub2_content"
+                  "title": "anvil_sub2_title",
+                  "content": "anvil_sub2_content"
+                },
+                {
+                  "title": "anvil_sub3_title",
+                  "content": "anvil_sub3_content"
+                },
+                {
+                  "title": "anvil_sub4_title",
+                  "content": "anvil_sub4_content"
+                },
+                {
+                  "title": "anvil_sub5_title",
+                  "content": "anvil_sub5_content"
                 }
               ]
             },
             "9": {
+              "id": "gui_instances",
+              "title": "gui_instances_title",
+              "short_desc": "gui_instances_short",
+              "content": "gui_instances_content",
+              "header_image": "",
+              "subsections": [
+                {
+                  "title": "gui_instances_sub1_title",
+                  "content": "gui_instances_sub1_content"
+                },
+                {
+                  "title": "gui_instances_sub2_title",
+                  "content": "gui_instances_sub2_content"
+                }
+              ]
+            },
+            "10": {
               "id": "permissions",
               "title": "permissions_title",
               "short_desc": "permissions_short",
@@ -174,7 +230,7 @@
               "header_image": "",
               "subsections": []
             },
-            "10": {
+            "11": {
               "id": "systems",
               "title": "systems_title",
               "short_desc": "systems_short",
@@ -191,7 +247,7 @@
                 }
               ]
             },
-            "11": {
+            "12": {
               "id": "complete_example",
               "title": "complete_example_title",
               "short_desc": "complete_example_short",
@@ -199,19 +255,11 @@
               "header_image": "",
               "subsections": []
             },
-            "12": {
+            "13": {
               "id": "commands",
               "title": "commands_title",
               "short_desc": "commands_short",
               "content": "commands_content",
-              "header_image": "",
-              "subsections": []
-            },
-            "13": {
-              "id": "adding_uiapi_menu",
-              "title": "adding_uiapi",
-              "short_desc": "",
-              "content": "adding_uiapi_calls",
               "header_image": "",
               "subsections": []
             }
@@ -230,16 +278,16 @@
               "es": "Conoce los conceptos básicos de Untitled Inventories API."
             },
             "getting_started_content": {
-              "en": "Untitled Inventories API is designed to make inventory GUI development simpler and more organized.\n\nInstead of manually assigning items to individual inventory slots, GUIs are defined using a visual layout. Each character in the layout represents an element of the interface, allowing the structure of the inventory to be understood directly from the source code.\n\nThe API combines layouts, configurable items, built-in pagination, editable slots, anvil text input and multiple inventory types into a fluent builder system.\n\nUIAPI runs as a plugin on your server. Your plugin uses it as a dependency and must declare it in its `plugin.yml`:\n\n```yaml\ndepend: [Untitled-Inventories-API]\n```\n",
-              "es": "Untitled Inventories API está diseñada para hacer que el desarrollo de interfaces gráficas de inventario sea más simple y organizado.\n\nEn lugar de asignar manualmente ítems a cada slot del inventario, las GUIs se definen mediante un diseño visual. Cada carácter del diseño representa un elemento de la interfaz, permitiendo comprender la estructura del inventario directamente desde el código fuente.\n\nLa API combina diseños, ítems configurables, paginación integrada, slots editables, entrada de texto con yunque y múltiples tipos de inventario en un sistema de construcción fluido.\n\nUIAPI funciona como un plugin en tu servidor. Tu plugin la utiliza como dependencia y debe declararla en su `plugin.yml`:\n\n```yaml\ndepend: [Untitled-Inventories-API]\n```\n"
+              "en": "Untitled Inventories API is designed to make inventory GUI development simpler and more organized.\n\nInstead of manually assigning items to individual inventory slots, GUIs are defined using a visual layout. Each character in the layout represents an element of the interface, allowing the structure of the inventory to be understood directly from the source code.\n\nThe API combines layouts, configurable items, built-in pagination, editable slots, anvil text input and multiple inventory types into a fluent builder system.\n\nUIAPI runs as a plugin on your server. To add it to your project, see the Adding UIAPI to your project section.\n",
+              "es": "Untitled Inventories API está diseñada para hacer que el desarrollo de interfaces gráficas de inventario sea más simple y organizado.\n\nEn lugar de asignar manualmente ítems a cada slot del inventario, las GUIs se definen mediante un diseño visual. Cada carácter del diseño representa un elemento de la interfaz, permitiendo comprender la estructura del inventario directamente desde el código fuente.\n\nLa API combina diseños, ítems configurables, paginación integrada, slots editables, entrada de texto con yunque y múltiples tipos de inventario en un sistema de construcción fluido.\n\nUIAPI funciona como un plugin en tu servidor. Para agregarla a tu proyecto, consulta la sección Agregar UIAPI a tu proyecto.\n"
             },
             "getting_started_sub1_title": {
-              "en": "1. Inventory Layouts",
-              "es": "1. Diseños de inventario"
+              "en": "1. Core Concepts",
+              "es": "1. Conceptos básicos"
             },
             "getting_started_sub1_content": {
-              "en": "For chest inventories, a layout can contain up to 9 characters in width and 6 rows in height, matching the maximum dimensions of a standard Bukkit chest inventory. Other inventory types have their own grid, described in the Inventory Types section.\n\nSmaller layouts are also supported. The API automatically adapts them to the required inventory size.\n\nFor example:\n\n```text\n#########\n# X   D #\n# +++++ #\n# +++++ #\n#  < >  #\n#########\n```\n\nThe layout represents the visual structure of the inventory. Characters themselves do not have predefined meanings. Their behavior is assigned using the builder.\n",
-              "es": "En los inventarios de cofre, un diseño puede contener hasta 9 caracteres de ancho y 6 filas de alto, coincidiendo con las dimensiones máximas de un inventario de cofre estándar de Bukkit. Los demás tipos de inventario tienen su propia cuadrícula, descrita en la sección Tipos de inventario.\n\nTambién se admiten diseños más pequeños. La API adapta automáticamente el diseño al tamaño de inventario necesario.\n\nPor ejemplo:\n\n```text\n#########\n# X   D #\n# +++++ #\n# +++++ #\n#  < >  #\n#########\n```\n\nEl diseño representa la estructura visual del inventario. Los caracteres no tienen significados predefinidos. Su comportamiento se asigna mediante el builder.\n"
+              "en": "A GUI is made of two parts: a layout that describes where things go, and a builder that describes what each character means.\n\n```text\n#########\n# X   D #\n# +++++ #\n# +++++ #\n#  < >  #\n#########\n```\n\nThe layout represents the visual structure of the inventory. Characters themselves do not have predefined meanings. Their behavior is assigned using the builder.\n\nEvery other section of this wiki builds on this idea: items fill characters, pagination turns a character into a list area, editable slots let players place items and inventory types change the grid.\n",
+              "es": "Una GUI se compone de dos partes: un diseño que describe dónde va cada cosa y un builder que describe qué significa cada carácter.\n\n```text\n#########\n# X   D #\n# +++++ #\n# +++++ #\n#  < >  #\n#########\n```\n\nEl diseño representa la estructura visual del inventario. Los caracteres no tienen significados predefinidos. Su comportamiento se asigna mediante el builder.\n\nEl resto de secciones de esta wiki se apoyan en esta idea: los ítems rellenan caracteres, la paginación convierte un carácter en un área de lista, los slots editables permiten que los jugadores coloquen ítems y los tipos de inventario cambian la cuadrícula.\n"
             },
             "getting_started_sub2_title": {
               "en": "2. Basic Structure",
@@ -254,8 +302,64 @@
               "es": "3. Abrir una GUI"
             },
             "getting_started_sub3_content": {
-              "en": "A GUI can be opened in two equivalent ways:\n\n```java\nbuilder.build().open(player);\nbuilder.open(player);\n```\n\n`open(player)` returns a `GuiInstance`, which represents the GUI opened for that player. It can be used to update the GUI while it is open (see the GUI Instances section). If the GUI has a permission requirement and the player does not meet it, nothing is opened and `null` is returned.\n\nThe instance of a player can also be obtained at any time with `GuiManager.get(player.getUniqueId())`.\n\nCalling `API.create(title, type)` creates a GUI of a specific inventory type. Both the API's `InvType` and Bukkit's `InventoryType` are accepted.\n",
-              "es": "Una GUI puede abrirse de dos formas equivalentes:\n\n```java\nbuilder.build().open(player);\nbuilder.open(player);\n```\n\n`open(player)` devuelve un `GuiInstance`, que representa la GUI abierta para ese jugador. Puede utilizarse para actualizar la GUI mientras está abierta (consulta la sección Instancias de GUI). Si la GUI tiene un permiso requerido y el jugador no lo cumple, no se abre nada y se devuelve `null`.\n\nLa instancia de un jugador también puede obtenerse en cualquier momento con `GuiManager.get(player.getUniqueId())`.\n\nLlamar a `API.create(title, type)` crea una GUI de un tipo de inventario específico. Se aceptan tanto el `InvType` de la API como el `InventoryType` de Bukkit.\n"
+              "en": "A GUI can be opened in two equivalent ways:\n\n```java\nbuilder.build().open(player);\nbuilder.open(player);\n```\n\n`open(player)` returns a `GuiInstance`, which represents the GUI opened for that player. It can be used to update the GUI while it is open (see the GUI Instances section). If the GUI has a permission requirement and the player does not meet it, nothing is opened and `null` is returned.\n\nThe instance of a player can also be obtained at any time with `GuiManager.get(player.getUniqueId())`.\n\nCalling `API.create(title, type)` creates a GUI of a specific inventory type. Both the API's `InvType` and Bukkit's `InventoryType` are accepted. See the Inventory Types section.\n",
+              "es": "Una GUI puede abrirse de dos formas equivalentes:\n\n```java\nbuilder.build().open(player);\nbuilder.open(player);\n```\n\n`open(player)` devuelve un `GuiInstance`, que representa la GUI abierta para ese jugador. Puede utilizarse para actualizar la GUI mientras está abierta (consulta la sección Instancias de GUI). Si la GUI tiene un permiso requerido y el jugador no lo cumple, no se abre nada y se devuelve `null`.\n\nLa instancia de un jugador también puede obtenerse en cualquier momento con `GuiManager.get(player.getUniqueId())`.\n\nLlamar a `API.create(title, type)` crea una GUI de un tipo de inventario específico. Se aceptan tanto el `InvType` de la API como el `InventoryType` de Bukkit. Consulta la sección Tipos de inventario.\n"
+            },
+            "adding_uiapi_menu_title": {
+              "en": "Adding UIAPI to your project",
+              "es": "Agregar UIAPI a tu proyecto"
+            },
+            "adding_uiapi_menu_short": {
+              "en": "Add UIAPI as a dependency of your plugin.",
+              "es": "Agrega UIAPI como dependencia de tu plugin."
+            },
+            "adding_uiapi_menu_content": {
+              "en": "Adding UIAPI to your plugin is very easy. Just use one of the following configurations depending on the build system you have chosen. UIAPI must also be installed on the server, so declare it in your `plugin.yml`:\n\n```yaml\ndepend: [Untitled-Inventories-API]\n```\n\nMaven:\n\n```\n<repositories>\n  <repository>\n    <id>jitpack.io</id>\n    <url>https://www.jitpack.io</url>\n  </repository>\n</repositories>\n<dependency>\n  <groupId>com.github.EnttbotX</groupId>\n  <artifactId>UIAPI</artifactId>\n  <version>1.1.0</version>\n  <scope>provided</scope>\n</dependency>\n```\n\nGradle:\n\n```\ndependencyResolutionManagement {\n  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n  repositories {\n    mavenCentral()\n    maven { url 'https://www.jitpack.io' }\n  }\n}\ndependencies {\n  compileOnly 'com.github.EnttbotX:UIAPI:1.1.0'\n}\n```\n\nRequirements: Java 17 or higher.\n",
+              "es": "Agregar UIAPI a tu plugin es muy fácil. Solo debes utilizar una de las siguientes configuraciones dependiendo del sistema de construcción que hayas elegido. UIAPI también debe estar instalada en el servidor, por lo que debes declararla en tu `plugin.yml`:\n\n```yaml\ndepend: [Untitled-Inventories-API]\n```\n\nMaven:\n\n```\n<repositories>\n  <repository>\n    <id>jitpack.io</id>\n    <url>https://www.jitpack.io</url>\n  </repository>\n</repositories>\n<dependency>\n  <groupId>com.github.EnttbotX</groupId>\n  <artifactId>UIAPI</artifactId>\n  <version>1.1.0</version>\n  <scope>provided</scope>\n</dependency>\n```\n\nGradle:\n\n```\ndependencyResolutionManagement {\n  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n  repositories {\n    mavenCentral()\n    maven { url 'https://www.jitpack.io' }\n  }\n}\ndependencies {\n  compileOnly 'com.github.EnttbotX:UIAPI:1.1.0'\n}\n```\n\nRequisitos: Java 17 o superior.\n"
+            },
+            "layouts_title": {
+              "en": "Layouts",
+              "es": "Diseños"
+            },
+            "layouts_short": {
+              "en": "Define the visual structure of your GUI using text layouts.",
+              "es": "Define la estructura visual de tu GUI mediante diseños de texto."
+            },
+            "layouts_content": {
+              "en": "Layouts are the foundation of Untitled Inventories API.\n\nA layout is a text representation of the inventory. Every character can be associated with an Item, allowing the same element to occupy multiple positions without manually specifying every slot.\n\nFor example:\n\n```text\n#########\n# X   D #\n#       #\n#########\n```\n\nThe `#` character can represent a border, while `X` and `D` can represent individual interactive elements.\n\nBlank lines in the text are ignored, so a layout can be written freely inside a text block.\n",
+              "es": "Los diseños son la base de Untitled Inventories API.\n\nUn diseño es una representación textual del inventario. Cada carácter puede asociarse con un Item, permitiendo que el mismo elemento ocupe múltiples posiciones sin tener que especificar manualmente cada slot.\n\nPor ejemplo:\n\n```text\n#########\n# X   D #\n#       #\n#########\n```\n\nEl carácter `#` puede representar un borde, mientras que `X` y `D` pueden representar elementos interactivos individuales.\n\nLas líneas en blanco del texto se ignoran, por lo que un diseño puede escribirse libremente dentro de un bloque de texto.\n"
+            },
+            "layouts_sub1_title": {
+              "en": "1. Layout Size",
+              "es": "1. Tamaño del diseño"
+            },
+            "layouts_sub1_content": {
+              "en": "For chest inventories, a layout can contain up to 9 characters in width and 6 rows in height, matching the maximum dimensions of a standard Bukkit chest inventory. Other inventory types have their own grid, described in the Inventory Types section.\n\nSmaller layouts are also supported. The API automatically adapts them to the required inventory size.\n\n```text\n#########\n# X   D #\n# +++++ #\n# +++++ #\n#  < >  #\n#########\n```\n",
+              "es": "En los inventarios de cofre, un diseño puede contener hasta 9 caracteres de ancho y 6 filas de alto, coincidiendo con las dimensiones máximas de un inventario de cofre estándar de Bukkit. Los demás tipos de inventario tienen su propia cuadrícula, descrita en la sección Tipos de inventario.\n\nTambién se admiten diseños más pequeños. La API adapta automáticamente el diseño al tamaño de inventario necesario.\n\n```text\n#########\n# X   D #\n# +++++ #\n# +++++ #\n#  < >  #\n#########\n```\n"
+            },
+            "layouts_sub2_title": {
+              "en": "2. Assigning Characters",
+              "es": "2. Asignación de caracteres"
+            },
+            "layouts_sub2_content": {
+              "en": "Characters are assigned using the `slot()` method.\n\n```java\n.slot('#', glass)\n.slot('X', close)\n.slot('D', playerHead)\n```\n\nEvery occurrence of the specified character is replaced with the corresponding item.\n\nThis makes repetitive GUI structures much easier to create and maintain.\n\nEach character can only be assigned once. Assigning the same character twice throws an `IllegalStateException`.\n",
+              "es": "Los caracteres se asignan utilizando el método `slot()`.\n\n```java\n.slot('#', glass)\n.slot('X', close)\n.slot('D', playerHead)\n```\n\nCada aparición del carácter especificado se reemplaza por el ítem correspondiente.\n\nEsto facilita considerablemente la creación y el mantenimiento de estructuras de GUI repetitivas.\n\nCada carácter solo puede asignarse una vez. Asignar el mismo carácter dos veces lanza una `IllegalStateException`.\n"
+            },
+            "layouts_sub3_title": {
+              "en": "3. Empty Spaces",
+              "es": "3. Espacios vacíos"
+            },
+            "layouts_sub3_content": {
+              "en": "Spaces in a layout represent empty inventory slots.\n\nThey do not need to be assigned unless the developer wants to explicitly give them an item.\n\nThis allows layouts to remain visually clean and easy to understand.\n",
+              "es": "Los espacios en un diseño representan slots de inventario vacíos.\n\nNo es necesario asignarles nada, a menos que el desarrollador quiera colocar explícitamente un ítem en ellos.\n\nEsto permite que los diseños se mantengan visualmente limpios y fáciles de comprender.\n"
+            },
+            "layouts_sub4_title": {
+              "en": "4. Validation",
+              "es": "4. Validación"
+            },
+            "layouts_sub4_content": {
+              "en": "The API validates the layout and its assignments when `build()` is called:\n\n- Every row of the layout must have the same width, otherwise an `IllegalArgumentException` is thrown.\n- The layout cannot be empty or exceed the maximum rows and columns of the inventory type.\n- Characters assigned with `slot()`, `page()` or `editable()` must exist in the layout, otherwise an `IllegalStateException` is thrown.\n- A character used in the layout without any assignment only logs a warning in the console.\n- Chest layouts are required. Fixed-size inventory types such as furnaces or anvils can omit the layout entirely and use roles instead.\n",
+              "es": "La API valida el diseño y sus asignaciones al llamar a `build()`:\n\n- Todas las filas del diseño deben tener el mismo ancho, de lo contrario se lanza una `IllegalArgumentException`.\n- El diseño no puede estar vacío ni superar las filas y columnas máximas del tipo de inventario.\n- Los caracteres asignados con `slot()`, `page()` o `editable()` deben existir en el diseño, de lo contrario se lanza una `IllegalStateException`.\n- Un carácter usado en el diseño sin ninguna asignación solo registra una advertencia en la consola.\n- El diseño es obligatorio en los cofres. Los tipos de tamaño fijo como hornos o yunques pueden omitirlo por completo y usar roles en su lugar.\n"
             },
             "items_title": {
               "en": "Items",
@@ -292,42 +396,6 @@
             "items_sub3_content": {
               "en": "Untitled Inventories API provides several pre-configured items for common GUI functionality.\n\n**API.closeInv()**\n\nCreates an item that closes the current inventory.\n\n```java\nAPI.closeInv()\n    .name(\"&c&lClose\")\n```\n\n**API.nextPage()** and **API.nextPage(char)**\n\nCreates an item used to move to the next page. Without arguments it controls the only paginated area of the GUI. If the GUI has several paginated areas, pass the character of the area to control.\n\n```java\nAPI.nextPage()\n    .name(\"&a&lNext\")\nAPI.nextPage('+')\n```\n\n**API.prevPage()** and **API.prevPage(char)**\n\nCreates an item used to return to the previous page, with the same behavior as `nextPage`.\n\n```java\nAPI.prevPage()\n    .name(\"&c&lBack\")\nAPI.prevPage('+')\n```\n\nThese items already contain the functionality required for their respective actions. Their default names can be changed with `name(...)`.\n",
               "es": "Untitled Inventories API proporciona varios ítems preconfigurados para funciones comunes de las GUIs.\n\n**API.closeInv()**\n\nCrea un ítem que cierra el inventario actual.\n\n```java\nAPI.closeInv()\n    .name(\"&c&lCerrar\")\n```\n\n**API.nextPage()** y **API.nextPage(char)**\n\nCrea un ítem utilizado para avanzar a la siguiente página. Sin argumentos controla la única área paginada de la GUI. Si la GUI tiene varias áreas paginadas, indica el carácter del área que se quiere controlar.\n\n```java\nAPI.nextPage()\n    .name(\"&a&lSiguiente\")\nAPI.nextPage('+')\n```\n\n**API.prevPage()** y **API.prevPage(char)**\n\nCrea un ítem utilizado para volver a la página anterior, con el mismo comportamiento que `nextPage`.\n\n```java\nAPI.prevPage()\n    .name(\"&c&lAtrás\")\nAPI.prevPage('+')\n```\n\nEstos ítems ya contienen la funcionalidad necesaria para sus respectivas acciones. Sus nombres por defecto pueden cambiarse con `name(...)`.\n"
-            },
-            "layouts_title": {
-              "en": "Layouts",
-              "es": "Diseños"
-            },
-            "layouts_short": {
-              "en": "Define the visual structure of your GUI using text layouts.",
-              "es": "Define la estructura visual de tu GUI mediante diseños de texto."
-            },
-            "layouts_content": {
-              "en": "Layouts are the foundation of Untitled Inventories API.\n\nA layout is a text representation of the inventory. Every character can be associated with an Item, allowing the same element to occupy multiple positions without manually specifying every slot.\n\nFor example:\n\n```text\n#########\n# X   D #\n#       #\n#########\n```\n\nThe `#` character can represent a border, while `X` and `D` can represent individual interactive elements.\n\nBlank lines in the text are ignored, so a layout can be written freely inside a text block.\n",
-              "es": "Los diseños son la base de Untitled Inventories API.\n\nUn diseño es una representación textual del inventario. Cada carácter puede asociarse con un Item, permitiendo que el mismo elemento ocupe múltiples posiciones sin tener que especificar manualmente cada slot.\n\nPor ejemplo:\n\n```text\n#########\n# X   D #\n#       #\n#########\n```\n\nEl carácter `#` puede representar un borde, mientras que `X` y `D` pueden representar elementos interactivos individuales.\n\nLas líneas en blanco del texto se ignoran, por lo que un diseño puede escribirse libremente dentro de un bloque de texto.\n"
-            },
-            "layouts_sub1_title": {
-              "en": "1. Assigning Characters",
-              "es": "1. Asignación de caracteres"
-            },
-            "layouts_sub1_content": {
-              "en": "Characters are assigned using the `slot()` method.\n\n```java\n.slot('#', glass)\n.slot('X', close)\n.slot('D', playerHead)\n```\n\nEvery occurrence of the specified character is replaced with the corresponding item.\n\nThis makes repetitive GUI structures much easier to create and maintain.\n\nEach character can only be assigned once. Assigning the same character twice throws an `IllegalStateException`.\n",
-              "es": "Los caracteres se asignan utilizando el método `slot()`.\n\n```java\n.slot('#', glass)\n.slot('X', close)\n.slot('D', playerHead)\n```\n\nCada aparición del carácter especificado se reemplaza por el ítem correspondiente.\n\nEsto facilita considerablemente la creación y el mantenimiento de estructuras de GUI repetitivas.\n\nCada carácter solo puede asignarse una vez. Asignar el mismo carácter dos veces lanza una `IllegalStateException`.\n"
-            },
-            "layouts_sub2_title": {
-              "en": "2. Empty Spaces",
-              "es": "2. Espacios vacíos"
-            },
-            "layouts_sub2_content": {
-              "en": "Spaces in a layout represent empty inventory slots.\n\nThey do not need to be assigned unless the developer wants to explicitly give them an item.\n\nThis allows layouts to remain visually clean and easy to understand.\n",
-              "es": "Los espacios en un diseño representan slots de inventario vacíos.\n\nNo es necesario asignarles nada, a menos que el desarrollador quiera colocar explícitamente un ítem en ellos.\n\nEsto permite que los diseños se mantengan visualmente limpios y fáciles de comprender.\n"
-            },
-            "layouts_sub3_title": {
-              "en": "3. Validation",
-              "es": "3. Validación"
-            },
-            "layouts_sub3_content": {
-              "en": "The API validates the layout and its assignments when `build()` is called:\n\n- Every row of the layout must have the same width, otherwise an `IllegalArgumentException` is thrown.\n- The layout cannot be empty or exceed the maximum rows and columns of the inventory type.\n- Characters assigned with `slot()`, `page()` or `editable()` must exist in the layout, otherwise an `IllegalStateException` is thrown.\n- A character used in the layout without any assignment only logs a warning in the console.\n- Chest layouts are required. Fixed-size inventory types such as furnaces or anvils can omit the layout entirely and use roles instead.\n",
-              "es": "La API valida el diseño y sus asignaciones al llamar a `build()`:\n\n- Todas las filas del diseño deben tener el mismo ancho, de lo contrario se lanza una `IllegalArgumentException`.\n- El diseño no puede estar vacío ni superar las filas y columnas máximas del tipo de inventario.\n- Los caracteres asignados con `slot()`, `page()` o `editable()` deben existir en el diseño, de lo contrario se lanza una `IllegalStateException`.\n- Un carácter usado en el diseño sin ninguna asignación solo registra una advertencia en la consola.\n- El diseño es obligatorio en los cofres. Los tipos de tamaño fijo como hornos o yunques pueden omitirlo por completo y usar roles en su lugar.\n"
             },
             "pagination_title": {
               "en": "Pagination",
@@ -373,115 +441,203 @@
               "en": "A GUI can contain several paginated areas, each one with its own character and its own list.\n\n```java\n.page('a', firstList)\n.page('b', secondList, PageFill.RIGHT)\n.slot('<', API.prevPage('a'))\n.slot('>', API.nextPage('a'))\n.slot('[', API.prevPage('b'))\n.slot(']', API.nextPage('b'))\n```\n\nWhen a GUI has more than one paginated area, `API.nextPage()` and `API.prevPage()` without a character do nothing, so the character of the area must be specified.\n\nPage changes can also be triggered from code with `instance.nextPage(char)` and `instance.previousPage(char)`. Both return `false` if there is no page to move to.\n",
               "es": "Una GUI puede contener varias áreas paginadas, cada una con su propio carácter y su propia lista.\n\n```java\n.page('a', firstList)\n.page('b', secondList, PageFill.RIGHT)\n.slot('<', API.prevPage('a'))\n.slot('>', API.nextPage('a'))\n.slot('[', API.prevPage('b'))\n.slot(']', API.nextPage('b'))\n```\n\nCuando una GUI tiene más de un área paginada, `API.nextPage()` y `API.prevPage()` sin carácter no hacen nada, por lo que debe indicarse el carácter del área.\n\nLos cambios de página también pueden lanzarse desde código con `instance.nextPage(char)` y `instance.previousPage(char)`. Ambos devuelven `false` si no hay página a la que moverse.\n"
             },
+            "editable_slots_title": {
+              "en": "Editable Slots",
+              "es": "Slots editables"
+            },
+            "editable_slots_short": {
+              "en": "Let players place and take items inside the GUI.",
+              "es": "Permite que los jugadores coloquen y retiren ítems dentro de la GUI."
+            },
+            "editable_slots_content": {
+              "en": "By default every slot of a GUI is locked: clicks and drags are cancelled and only the item actions run.\n\nEditable slots are the exception. Players can freely place and remove items in them, which allows deposits, crafting grids, custom input slots and similar interfaces.\n\n```java\nAPI.create(\"&bDeposit\")\n    .layout(\"\"\"\n    #########\n    #iiiiiii#\n    #iiiiiii#\n    ####C####\n    \"\"\")\n    .slot('#', glass)\n    .editable('i')\n    .slot('C', Item.of(Material.EMERALD).name(\"&aTotal: &f0\"))\n    .allowPlayerInventory()\n    .open(player);\n```\n",
+              "es": "Por defecto todos los slots de una GUI están bloqueados: los clics y arrastres se cancelan y solo se ejecutan las acciones de los ítems.\n\nLos slots editables son la excepción. Los jugadores pueden colocar y retirar ítems libremente en ellos, lo que permite depósitos, cuadrículas de crafteo, slots de entrada personalizados e interfaces similares.\n\n```java\nAPI.create(\"&bDepósito\")\n    .layout(\"\"\"\n    #########\n    #iiiiiii#\n    #iiiiiii#\n    ####C####\n    \"\"\")\n    .slot('#', glass)\n    .editable('i')\n    .slot('C', Item.of(Material.EMERALD).name(\"&aTotal: &f0\"))\n    .allowPlayerInventory()\n    .open(player);\n```\n"
+            },
+            "editable_slots_sub1_title": {
+              "en": "1. Marking Slots as Editable",
+              "es": "1. Marcar slots como editables"
+            },
+            "editable_slots_sub1_content": {
+              "en": "Use `editable(char)` to make every occurrence of a layout character editable, or `editable(SlotRole)` to make a role slot editable.\n\n```java\n.editable('i')\n.editable(SlotRole.INPUT)\n```\n\nIf an item is also assigned to an editable slot, it is placed only once when the GUI opens and can then be moved or removed by the player.\n\nItems left in editable slots when the GUI closes are returned to the player's inventory. Anything that does not fit is dropped at the player's location.\n",
+              "es": "Usa `editable(char)` para hacer editables todas las apariciones de un carácter del diseño, o `editable(SlotRole)` para hacer editable un slot de un rol.\n\n```java\n.editable('i')\n.editable(SlotRole.INPUT)\n```\n\nSi además se asigna un ítem a un slot editable, se coloca una única vez al abrir la GUI y después el jugador puede moverlo o retirarlo.\n\nLos ítems que queden en slots editables al cerrar la GUI se devuelven al inventario del jugador. Lo que no quepa se suelta en la ubicación del jugador.\n"
+            },
+            "editable_slots_sub2_title": {
+              "en": "2. Player Inventory Access",
+              "es": "2. Acceso al inventario del jugador"
+            },
+            "editable_slots_sub2_content": {
+              "en": "By default the player's own inventory is also locked while the GUI is open. Call `allowPlayerInventory()` so players can move items between their inventory and the editable slots.\n\n```java\n.allowPlayerInventory()\n```\n\nShift-clicking items from the player's inventory is always cancelled, even with this option enabled.\n",
+              "es": "Por defecto el inventario propio del jugador también está bloqueado mientras la GUI está abierta. Llama a `allowPlayerInventory()` para que los jugadores puedan mover ítems entre su inventario y los slots editables.\n\n```java\n.allowPlayerInventory()\n```\n\nEl clic con Shift sobre ítems del inventario del jugador siempre se cancela, incluso con esta opción activada.\n"
+            },
+            "editable_slots_sub3_title": {
+              "en": "3. Reacting to Changes",
+              "es": "3. Reaccionar a los cambios"
+            },
+            "editable_slots_sub3_content": {
+              "en": "Use `onInput(...)` to run code whenever the content of an editable slot changes. The callback runs on the next tick and receives the `GuiInstance`.\n\nRead what the player placed with `getContents(char)` or `getContents(SlotRole)`, and refresh items with `update(char, Item)`.\n\n```java\n.onInput(instance -> {\n    int total = instance.getContents('i').stream()\n        .mapToInt(ItemStack::getAmount)\n        .sum();\n    instance.update('C', Item.of(Material.EMERALD).name(\"&aTotal: &f\" + total));\n})\n```\n\nThe callback is not executed if the GUI was closed in the meantime.\n",
+              "es": "Usa `onInput(...)` para ejecutar código cada vez que cambia el contenido de un slot editable. El callback se ejecuta en el siguiente tick y recibe el `GuiInstance`.\n\nLee lo que el jugador colocó con `getContents(char)` o `getContents(SlotRole)`, y refresca ítems con `update(char, Item)`.\n\n```java\n.onInput(instance -> {\n    int total = instance.getContents('i').stream()\n        .mapToInt(ItemStack::getAmount)\n        .sum();\n    instance.update('C', Item.of(Material.EMERALD).name(\"&aTotal: &f\" + total));\n})\n```\n\nEl callback no se ejecuta si la GUI se cerró mientras tanto.\n"
+            },
             "inventory_types_title": {
               "en": "Inventory Types",
               "es": "Tipos de inventario"
             },
             "inventory_types_short": {
-              "en": "Build GUIs on furnaces, anvils, crafting tables and more.",
-              "es": "Crea GUIs sobre hornos, yunques, mesas de crafteo y más."
+              "en": "A guide to building GUIs on every supported inventory type.",
+              "es": "Guía para crear GUIs sobre cada tipo de inventario soportado."
             },
             "inventory_types_content": {
-              "en": "GUIs are not limited to chests. Pass an inventory type when creating the GUI:\n\n```java\nAPI.create(\"&cSmelting\", InvType.FURNACE)\n```\n\nBukkit's `InventoryType` is also accepted:\n\n```java\nAPI.create(\"&cSmelting\", InventoryType.FURNACE)\n```\n\nSupported types include CHEST (default), DISPENSER, DROPPER, HOPPER, ANVIL, FURNACE, BLAST_FURNACE, SMOKER, WORKBENCH, BREWING, ENCHANTING, GRINDSTONE, CARTOGRAPHY, LOOM, STONECUTTER, BEACON and SMITHING. Any other Bukkit inventory type can also be used with a generic grid.\n\nA type that is not available on the server version in use throws an `IllegalStateException` when the GUI is opened.\n",
-              "es": "Las GUIs no se limitan a los cofres. Indica un tipo de inventario al crear la GUI:\n\n```java\nAPI.create(\"&cFundición\", InvType.FURNACE)\n```\n\nTambién se acepta el `InventoryType` de Bukkit:\n\n```java\nAPI.create(\"&cFundición\", InventoryType.FURNACE)\n```\n\nLos tipos soportados incluyen CHEST (por defecto), DISPENSER, DROPPER, HOPPER, ANVIL, FURNACE, BLAST_FURNACE, SMOKER, WORKBENCH, BREWING, ENCHANTING, GRINDSTONE, CARTOGRAPHY, LOOM, STONECUTTER, BEACON y SMITHING. Cualquier otro tipo de inventario de Bukkit también puede utilizarse con una cuadrícula genérica.\n\nUn tipo que no esté disponible en la versión del servidor utilizada lanza una `IllegalStateException` al abrir la GUI.\n"
+              "en": "GUIs are not limited to chests. Every inventory type is created the same way, by passing the type when creating the GUI, but each family of types is configured differently:\n\n- Layout-based types (chest, hopper, dispenser, dropper) are built with a layout and characters, exactly like the rest of this wiki.\n- Role-based types (furnaces, brewing stand, smithing table, grindstone and more) have slots with a function and are addressed with `SlotRole`.\n- The crafting table mixes both: a layout for the grid and a role for the result.\n- The anvil has its own text input system, described in the Anvil Text Input section.\n\nThe following subsections explain how to use each type, with a working example.\n",
+              "es": "Las GUIs no se limitan a los cofres. Todos los tipos de inventario se crean de la misma forma, indicando el tipo al crear la GUI, pero cada familia de tipos se configura de manera distinta:\n\n- Los tipos basados en diseño (cofre, tolva, dispensador, soltador) se construyen con un diseño y caracteres, igual que el resto de esta wiki.\n- Los tipos basados en roles (hornos, soporte de pociones, mesa de herrería, piedra de afilar y más) tienen slots con una función y se direccionan con `SlotRole`.\n- La mesa de crafteo combina ambos: un diseño para la cuadrícula y un rol para el resultado.\n- El yunque tiene su propio sistema de entrada de texto, descrito en la sección Entrada de texto con yunque.\n\nLas siguientes subsecciones explican cómo usar cada tipo, con un ejemplo funcional.\n"
             },
             "inventory_types_sub1_title": {
-              "en": "1. Layouts per Type",
-              "es": "1. Diseños por tipo"
+              "en": "1. Choosing a Type",
+              "es": "1. Elegir un tipo"
             },
             "inventory_types_sub1_content": {
-              "en": "Each type has its own grid. The layout of a non-chest type must fit in it:\n\n```text\nHOPPER       1 row x 5 columns\nDISPENSER    3 rows x 3 columns\nDROPPER      3 rows x 3 columns\nFURNACE      1 row x 3 columns\nANVIL        1 row x 3 columns\nWORKBENCH    3 rows x 5 columns\n```\n\nThe crafting table grid places the 3x3 crafting area in the first three columns and the result in the last column of the middle row. Characters placed on positions without a real slot, for example `.` in the workbench, are ignored.\n\n```java\nAPI.create(\"&eWorkbench\", InvType.WORKBENCH)\n    .layout(\"\"\"\n    GGG..\n    GGG.X\n    GGG..\n    \"\"\")\n```\n",
-              "es": "Cada tipo tiene su propia cuadrícula. El diseño de un tipo distinto del cofre debe caber en ella:\n\n```text\nHOPPER       1 fila x 5 columnas\nDISPENSER    3 filas x 3 columnas\nDROPPER      3 filas x 3 columnas\nFURNACE      1 fila x 3 columnas\nANVIL        1 fila x 3 columnas\nWORKBENCH    3 filas x 5 columnas\n```\n\nLa cuadrícula de la mesa de crafteo coloca el área de crafteo de 3x3 en las tres primeras columnas y el resultado en la última columna de la fila central. Los caracteres situados en posiciones sin slot real, por ejemplo `.` en la mesa de crafteo, se ignoran.\n\n```java\nAPI.create(\"&eMesa de crafteo\", InvType.WORKBENCH)\n    .layout(\"\"\"\n    GGG..\n    GGG.X\n    GGG..\n    \"\"\")\n```\n"
+              "en": "Pass an inventory type when creating the GUI:\n\n```java\nAPI.create(\"&cSmelting\", InvType.FURNACE)\n```\n\nBukkit's `InventoryType` is also accepted:\n\n```java\nAPI.create(\"&cSmelting\", InventoryType.FURNACE)\n```\n\nSupported types include CHEST (default), DISPENSER, DROPPER, HOPPER, ANVIL, FURNACE, BLAST_FURNACE, SMOKER, WORKBENCH, BREWING, ENCHANTING, GRINDSTONE, CARTOGRAPHY, LOOM, STONECUTTER, BEACON and SMITHING. Any other Bukkit inventory type can also be used with a generic grid.\n\nA type that is not available on the server version in use throws an `IllegalStateException` when the GUI is opened.\n",
+              "es": "Indica un tipo de inventario al crear la GUI:\n\n```java\nAPI.create(\"&cFundición\", InvType.FURNACE)\n```\n\nTambién se acepta el `InventoryType` de Bukkit:\n\n```java\nAPI.create(\"&cFundición\", InventoryType.FURNACE)\n```\n\nLos tipos soportados incluyen CHEST (por defecto), DISPENSER, DROPPER, HOPPER, ANVIL, FURNACE, BLAST_FURNACE, SMOKER, WORKBENCH, BREWING, ENCHANTING, GRINDSTONE, CARTOGRAPHY, LOOM, STONECUTTER, BEACON y SMITHING. Cualquier otro tipo de inventario de Bukkit también puede utilizarse con una cuadrícula genérica.\n\nUn tipo que no esté disponible en la versión del servidor utilizada lanza una `IllegalStateException` al abrir la GUI.\n"
             },
             "inventory_types_sub2_title": {
-              "en": "2. Slot Roles",
-              "es": "2. Roles de slot"
+              "en": "2. Chest, Hopper, Dispenser and Dropper",
+              "es": "2. Cofre, tolva, dispensador y soltador"
             },
             "inventory_types_sub2_content": {
-              "en": "Special inventories have slots with a function, such as the fuel of a furnace. These are addressed with `SlotRole` instead of a layout character:\n\n```java\nAPI.create(\"&cSmelting\", InvType.FURNACE)\n    .slot(SlotRole.INPUT, Item.of(Material.RAW_IRON).name(\"&fOre\"))\n    .slot(SlotRole.FUEL, Item.of(Material.COAL).name(\"&8Fuel\"))\n    .slot(SlotRole.OUTPUT, Item.of(Material.IRON_INGOT)\n        .name(\"&aCollect ingot\")\n        .onClick(p -> collect(p)))\n    .open(player);\n```\n\nAvailable roles: INPUT, SECONDARY_INPUT, TERTIARY_INPUT, TEMPLATE, OUTPUT, FUEL, INGREDIENT and BOTTLE.\n\nRoles per type:\n\n```text\nFURNACE, BLAST_FURNACE, SMOKER   INPUT, FUEL, OUTPUT\nANVIL, GRINDSTONE, CARTOGRAPHY   INPUT, SECONDARY_INPUT, OUTPUT\nWORKBENCH                        INGREDIENT (9 slots), OUTPUT\nBREWING                          BOTTLE (3 slots), INGREDIENT, FUEL\nENCHANTING                       INPUT, SECONDARY_INPUT\nLOOM                             INPUT, SECONDARY_INPUT, TERTIARY_INPUT, OUTPUT\nSTONECUTTER                      INPUT, OUTPUT\nBEACON                           INPUT\nSMITHING                         TEMPLATE, INPUT, SECONDARY_INPUT, OUTPUT\n```\n\nUsing a role that the inventory type does not have throws an `IllegalStateException` listing the roles available for that type. Each role can only be assigned once.\n",
-              "es": "Los inventarios especiales tienen slots con una función, como el combustible de un horno. Se direccionan con `SlotRole` en lugar de un carácter del diseño:\n\n```java\nAPI.create(\"&cFundición\", InvType.FURNACE)\n    .slot(SlotRole.INPUT, Item.of(Material.RAW_IRON).name(\"&fMineral\"))\n    .slot(SlotRole.FUEL, Item.of(Material.COAL).name(\"&8Combustible\"))\n    .slot(SlotRole.OUTPUT, Item.of(Material.IRON_INGOT)\n        .name(\"&aRecoger lingote\")\n        .onClick(p -> collect(p)))\n    .open(player);\n```\n\nRoles disponibles: INPUT, SECONDARY_INPUT, TERTIARY_INPUT, TEMPLATE, OUTPUT, FUEL, INGREDIENT y BOTTLE.\n\nRoles por tipo:\n\n```text\nFURNACE, BLAST_FURNACE, SMOKER   INPUT, FUEL, OUTPUT\nANVIL, GRINDSTONE, CARTOGRAPHY   INPUT, SECONDARY_INPUT, OUTPUT\nWORKBENCH                        INGREDIENT (9 slots), OUTPUT\nBREWING                          BOTTLE (3 slots), INGREDIENT, FUEL\nENCHANTING                       INPUT, SECONDARY_INPUT\nLOOM                             INPUT, SECONDARY_INPUT, TERTIARY_INPUT, OUTPUT\nSTONECUTTER                      INPUT, OUTPUT\nBEACON                           INPUT\nSMITHING                         TEMPLATE, INPUT, SECONDARY_INPUT, OUTPUT\n```\n\nUsar un rol que el tipo de inventario no tiene lanza una `IllegalStateException` con la lista de roles disponibles para ese tipo. Cada rol solo puede asignarse una vez.\n"
+              "en": "These types are built entirely with a layout. The chest is the default and the most flexible, with up to 9 columns and 6 rows.\n\nThe hopper has 1 row of 5 columns:\n\n```java\nAPI.create(\"&6Quick Menu\", InvType.HOPPER)\n    .layout(\"#X#D#\")\n    .slot('#', glass)\n    .slot('X', API.closeInv())\n    .slot('D', playerHead)\n    .open(player);\n```\n\nThe dispenser and the dropper share a 3 x 3 grid:\n\n```java\nAPI.create(\"&cSelector\", InvType.DISPENSER)\n    .layout(\"\"\"\n    #A#\n    BCD\n    #E#\n    \"\"\")\n    .slot('#', glass)\n    .slot('A', Item.of(Material.DIAMOND).name(\"&bOption A\").onClick(p -> choose(p, 1)))\n    .slot('B', Item.of(Material.EMERALD).name(\"&aOption B\").onClick(p -> choose(p, 2)))\n    .slot('C', Item.of(Material.GOLD_INGOT).name(\"&6Option C\").onClick(p -> choose(p, 3)))\n    .slot('D', Item.of(Material.IRON_INGOT).name(\"&fOption D\").onClick(p -> choose(p, 4)))\n    .slot('E', API.closeInv())\n    .open(player);\n```\n\nPagination, editable slots and permissions work the same way on these types, as long as the layout fits the grid.\n",
+              "es": "Estos tipos se construyen completamente con un diseño. El cofre es el tipo por defecto y el más flexible, con hasta 9 columnas y 6 filas.\n\nLa tolva tiene 1 fila de 5 columnas:\n\n```java\nAPI.create(\"&6Menú rápido\", InvType.HOPPER)\n    .layout(\"#X#D#\")\n    .slot('#', glass)\n    .slot('X', API.closeInv())\n    .slot('D', playerHead)\n    .open(player);\n```\n\nEl dispensador y el soltador comparten una cuadrícula de 3 x 3:\n\n```java\nAPI.create(\"&cSelector\", InvType.DISPENSER)\n    .layout(\"\"\"\n    #A#\n    BCD\n    #E#\n    \"\"\")\n    .slot('#', glass)\n    .slot('A', Item.of(Material.DIAMOND).name(\"&bOpción A\").onClick(p -> choose(p, 1)))\n    .slot('B', Item.of(Material.EMERALD).name(\"&aOpción B\").onClick(p -> choose(p, 2)))\n    .slot('C', Item.of(Material.GOLD_INGOT).name(\"&6Opción C\").onClick(p -> choose(p, 3)))\n    .slot('D', Item.of(Material.IRON_INGOT).name(\"&fOpción D\").onClick(p -> choose(p, 4)))\n    .slot('E', API.closeInv())\n    .open(player);\n```\n\nLa paginación, los slots editables y los permisos funcionan igual en estos tipos, siempre que el diseño quepa en la cuadrícula.\n"
             },
-            "editable_title": {
-              "en": "Editable Slots",
-              "es": "Slots editables"
+            "inventory_types_sub3_title": {
+              "en": "3. Grid Sizes",
+              "es": "3. Tamaños de cuadrícula"
             },
-            "editable_short": {
-              "en": "Let players place and take items inside the GUI.",
-              "es": "Permite que los jugadores coloquen y retiren ítems dentro de la GUI."
+            "inventory_types_sub3_content": {
+              "en": "Each type has its own grid. The layout of a non-chest type must fit in it:\n\n```text\nHOPPER       1 row x 5 columns\nDISPENSER    3 rows x 3 columns\nDROPPER      3 rows x 3 columns\nFURNACE      1 row x 3 columns\nANVIL        1 row x 3 columns\nWORKBENCH    3 rows x 5 columns\n```\n\nCharacters placed on positions without a real slot are ignored. Fixed-size types such as furnaces or anvils can omit the layout entirely and use roles instead.\n",
+              "es": "Cada tipo tiene su propia cuadrícula. El diseño de un tipo distinto del cofre debe caber en ella:\n\n```text\nHOPPER       1 fila x 5 columnas\nDISPENSER    3 filas x 3 columnas\nDROPPER      3 filas x 3 columnas\nFURNACE      1 fila x 3 columnas\nANVIL        1 fila x 3 columnas\nWORKBENCH    3 filas x 5 columnas\n```\n\nLos caracteres situados en posiciones sin slot real se ignoran. Los tipos de tamaño fijo como hornos o yunques pueden omitir el diseño por completo y usar roles en su lugar.\n"
             },
-            "editable_content": {
-              "en": "By default every slot of a GUI is locked: clicks and drags are cancelled and only the item actions run.\n\nEditable slots are the exception. Players can freely place and remove items in them, which allows deposits, crafting grids, custom input slots and similar interfaces.\n\n```java\nAPI.create(\"&bDeposit\")\n    .layout(\"\"\"\n    #########\n    #iiiiiii#\n    #iiiiiii#\n    ####C####\n    \"\"\")\n    .slot('#', glass)\n    .editable('i')\n    .slot('C', Item.of(Material.EMERALD).name(\"&aTotal: &f0\"))\n    .allowPlayerInventory()\n    .open(player);\n```\n",
-              "es": "Por defecto todos los slots de una GUI están bloqueados: los clics y arrastres se cancelan y solo se ejecutan las acciones de los ítems.\n\nLos slots editables son la excepción. Los jugadores pueden colocar y retirar ítems libremente en ellos, lo que permite depósitos, cuadrículas de crafteo, slots de entrada personalizados e interfaces similares.\n\n```java\nAPI.create(\"&bDepósito\")\n    .layout(\"\"\"\n    #########\n    #iiiiiii#\n    #iiiiiii#\n    ####C####\n    \"\"\")\n    .slot('#', glass)\n    .editable('i')\n    .slot('C', Item.of(Material.EMERALD).name(\"&aTotal: &f0\"))\n    .allowPlayerInventory()\n    .open(player);\n```\n"
+            "inventory_types_sub4_title": {
+              "en": "4. Slot Roles",
+              "es": "4. Roles de slot"
             },
-            "editable_sub1_title": {
-              "en": "1. Marking Slots as Editable",
-              "es": "1. Marcar slots como editables"
+            "inventory_types_sub4_content": {
+              "en": "Special inventories have slots with a function, such as the fuel of a furnace. These are addressed with `SlotRole` instead of a layout character.\n\nAvailable roles: INPUT, SECONDARY_INPUT, TERTIARY_INPUT, TEMPLATE, OUTPUT, FUEL, INGREDIENT and BOTTLE.\n\nRoles per type:\n\n```text\nFURNACE, BLAST_FURNACE, SMOKER   INPUT, FUEL, OUTPUT\nANVIL, GRINDSTONE, CARTOGRAPHY   INPUT, SECONDARY_INPUT, OUTPUT\nWORKBENCH                        INGREDIENT (9 slots), OUTPUT\nBREWING                          BOTTLE (3 slots), INGREDIENT, FUEL\nENCHANTING                       INPUT, SECONDARY_INPUT\nLOOM                             INPUT, SECONDARY_INPUT, TERTIARY_INPUT, OUTPUT\nSTONECUTTER                      INPUT, OUTPUT\nBEACON                           INPUT\nSMITHING                         TEMPLATE, INPUT, SECONDARY_INPUT, OUTPUT\n```\n\nUsing a role that the inventory type does not have throws an `IllegalStateException` listing the roles available for that type. Each role can only be assigned once.\n\nA role can be given an item with `slot(SlotRole, Item)` or made editable with `editable(SlotRole)`.\n",
+              "es": "Los inventarios especiales tienen slots con una función, como el combustible de un horno. Se direccionan con `SlotRole` en lugar de un carácter del diseño.\n\nRoles disponibles: INPUT, SECONDARY_INPUT, TERTIARY_INPUT, TEMPLATE, OUTPUT, FUEL, INGREDIENT y BOTTLE.\n\nRoles por tipo:\n\n```text\nFURNACE, BLAST_FURNACE, SMOKER   INPUT, FUEL, OUTPUT\nANVIL, GRINDSTONE, CARTOGRAPHY   INPUT, SECONDARY_INPUT, OUTPUT\nWORKBENCH                        INGREDIENT (9 slots), OUTPUT\nBREWING                          BOTTLE (3 slots), INGREDIENT, FUEL\nENCHANTING                       INPUT, SECONDARY_INPUT\nLOOM                             INPUT, SECONDARY_INPUT, TERTIARY_INPUT, OUTPUT\nSTONECUTTER                      INPUT, OUTPUT\nBEACON                           INPUT\nSMITHING                         TEMPLATE, INPUT, SECONDARY_INPUT, OUTPUT\n```\n\nUsar un rol que el tipo de inventario no tiene lanza una `IllegalStateException` con la lista de roles disponibles para ese tipo. Cada rol solo puede asignarse una vez.\n\nA un rol se le puede dar un ítem con `slot(SlotRole, Item)` o hacerlo editable con `editable(SlotRole)`.\n"
             },
-            "editable_sub1_content": {
-              "en": "Use `editable(char)` to make every occurrence of a layout character editable, or `editable(SlotRole)` to make a role slot editable.\n\n```java\n.editable('i')\n.editable(SlotRole.INPUT)\n```\n\nIf an item is also assigned to an editable slot, it is placed only once when the GUI opens and can then be moved or removed by the player.\n\nItems left in editable slots when the GUI closes are returned to the player's inventory. Anything that does not fit is dropped at the player's location.\n",
-              "es": "Usa `editable(char)` para hacer editables todas las apariciones de un carácter del diseño, o `editable(SlotRole)` para hacer editable un slot de un rol.\n\n```java\n.editable('i')\n.editable(SlotRole.INPUT)\n```\n\nSi además se asigna un ítem a un slot editable, se coloca una única vez al abrir la GUI y después el jugador puede moverlo o retirarlo.\n\nLos ítems que queden en slots editables al cerrar la GUI se devuelven al inventario del jugador. Lo que no quepa se suelta en la ubicación del jugador.\n"
+            "inventory_types_sub5_title": {
+              "en": "5. Furnace, Blast Furnace and Smoker",
+              "es": "5. Horno, alto horno y ahumador"
             },
-            "editable_sub2_title": {
-              "en": "2. Player Inventory Access",
-              "es": "2. Acceso al inventario del jugador"
+            "inventory_types_sub5_content": {
+              "en": "The three furnace types share the same roles: INPUT, FUEL and OUTPUT.\n\nUse them as a display, giving each role an item:\n\n```java\nAPI.create(\"&cSmelting\", InvType.FURNACE)\n    .slot(SlotRole.INPUT, Item.of(Material.RAW_IRON).name(\"&fOre\"))\n    .slot(SlotRole.FUEL, Item.of(Material.COAL).name(\"&8Fuel\"))\n    .slot(SlotRole.OUTPUT, Item.of(Material.IRON_INGOT)\n        .name(\"&aCollect ingot\")\n        .onClick(p -> collect(p)))\n    .open(player);\n```\n\nOr let the player place items in the input and fuel slots and react to the output click:\n\n```java\nAPI.create(\"&6Blast Furnace\", InvType.BLAST_FURNACE)\n    .editable(SlotRole.INPUT)\n    .editable(SlotRole.FUEL)\n    .slot(SlotRole.OUTPUT, Item.of(Material.IRON_INGOT)\n        .name(\"&aStart smelting\")\n        .onClick(p -> smelt(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nUse `BLAST_FURNACE` or `SMOKER` instead of `FURNACE` to change the look of the inventory. The roles are identical.\n",
+              "es": "Los tres tipos de horno comparten los mismos roles: INPUT, FUEL y OUTPUT.\n\nÚsalos como una vitrina, dando un ítem a cada rol:\n\n```java\nAPI.create(\"&cFundición\", InvType.FURNACE)\n    .slot(SlotRole.INPUT, Item.of(Material.RAW_IRON).name(\"&fMineral\"))\n    .slot(SlotRole.FUEL, Item.of(Material.COAL).name(\"&8Combustible\"))\n    .slot(SlotRole.OUTPUT, Item.of(Material.IRON_INGOT)\n        .name(\"&aRecoger lingote\")\n        .onClick(p -> collect(p)))\n    .open(player);\n```\n\nO deja que el jugador coloque ítems en los slots de entrada y combustible y reacciona al clic en la salida:\n\n```java\nAPI.create(\"&6Alto horno\", InvType.BLAST_FURNACE)\n    .editable(SlotRole.INPUT)\n    .editable(SlotRole.FUEL)\n    .slot(SlotRole.OUTPUT, Item.of(Material.IRON_INGOT)\n        .name(\"&aIniciar fundición\")\n        .onClick(p -> smelt(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nUsa `BLAST_FURNACE` o `SMOKER` en lugar de `FURNACE` para cambiar el aspecto del inventario. Los roles son idénticos.\n"
             },
-            "editable_sub2_content": {
-              "en": "By default the player's own inventory is also locked while the GUI is open. Call `allowPlayerInventory()` so players can move items between their inventory and the editable slots.\n\n```java\n.allowPlayerInventory()\n```\n\nShift-clicking items from the player's inventory is always cancelled, even with this option enabled.\n",
-              "es": "Por defecto el inventario propio del jugador también está bloqueado mientras la GUI está abierta. Llama a `allowPlayerInventory()` para que los jugadores puedan mover ítems entre su inventario y los slots editables.\n\n```java\n.allowPlayerInventory()\n```\n\nEl clic con Shift sobre ítems del inventario del jugador siempre se cancela, incluso con esta opción activada.\n"
+            "inventory_types_sub6_title": {
+              "en": "6. Crafting Table",
+              "es": "6. Mesa de crafteo"
             },
-            "editable_sub3_title": {
-              "en": "3. Reacting to Changes",
-              "es": "3. Reaccionar a los cambios"
+            "inventory_types_sub6_content": {
+              "en": "The crafting table (`WORKBENCH`) has a 3 x 5 grid. The 3 x 3 crafting area occupies the first three columns and the result is in the last column of the middle row. The remaining positions have no real slot, so any character placed there, for example `.`, is ignored.\n\n```java\nAPI.create(\"&eWorkbench\", InvType.WORKBENCH)\n    .layout(\"\"\"\n    GGG..\n    GGG.X\n    GGG..\n    \"\"\")\n    .editable('G')\n    .slot('X', Item.of(Material.DIAMOND)\n        .name(\"&aCraft\")\n        .onClick(p -> craft(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nRead what the player placed with `instance.getContents('G')` inside `onInput(...)` or in the click action of the result item. The roles INGREDIENT (9 slots) and OUTPUT can be used instead of a layout.\n",
+              "es": "La mesa de crafteo (`WORKBENCH`) tiene una cuadrícula de 3 x 5. El área de crafteo de 3 x 3 ocupa las tres primeras columnas y el resultado está en la última columna de la fila central. Las posiciones restantes no tienen slot real, por lo que cualquier carácter colocado allí, por ejemplo `.`, se ignora.\n\n```java\nAPI.create(\"&eMesa de crafteo\", InvType.WORKBENCH)\n    .layout(\"\"\"\n    GGG..\n    GGG.X\n    GGG..\n    \"\"\")\n    .editable('G')\n    .slot('X', Item.of(Material.DIAMOND)\n        .name(\"&aCraftear\")\n        .onClick(p -> craft(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nLee lo que el jugador colocó con `instance.getContents('G')` dentro de `onInput(...)` o en la acción de clic del ítem de resultado. Los roles INGREDIENT (9 slots) y OUTPUT pueden usarse en lugar de un diseño.\n"
             },
-            "editable_sub3_content": {
-              "en": "Use `onInput(...)` to run code whenever the content of an editable slot changes. The callback runs on the next tick and receives the `GuiInstance`.\n\nRead what the player placed with `getContents(char)` or `getContents(SlotRole)`, and refresh items with `update(char, Item)`.\n\n```java\n.onInput(instance -> {\n    int total = instance.getContents('i').stream()\n        .mapToInt(ItemStack::getAmount)\n        .sum();\n    instance.update('C', Item.of(Material.EMERALD).name(\"&aTotal: &f\" + total));\n})\n```\n\nThe callback is not executed if the GUI was closed in the meantime.\n",
-              "es": "Usa `onInput(...)` para ejecutar código cada vez que cambia el contenido de un slot editable. El callback se ejecuta en el siguiente tick y recibe el `GuiInstance`.\n\nLee lo que el jugador colocó con `getContents(char)` o `getContents(SlotRole)`, y refresca ítems con `update(char, Item)`.\n\n```java\n.onInput(instance -> {\n    int total = instance.getContents('i').stream()\n        .mapToInt(ItemStack::getAmount)\n        .sum();\n    instance.update('C', Item.of(Material.EMERALD).name(\"&aTotal: &f\" + total));\n})\n```\n\nEl callback no se ejecuta si la GUI se cerró mientras tanto.\n"
+            "inventory_types_sub7_title": {
+              "en": "7. Brewing Stand",
+              "es": "7. Soporte de pociones"
+            },
+            "inventory_types_sub7_content": {
+              "en": "The brewing stand uses the roles BOTTLE (3 slots), INGREDIENT and FUEL.\n\n```java\nAPI.create(\"&dPotions\", InvType.BREWING)\n    .slot(SlotRole.INGREDIENT, Item.of(Material.NETHER_WART).name(\"&6Ingredient\"))\n    .slot(SlotRole.FUEL, Item.of(Material.BLAZE_POWDER).name(\"&eFuel\"))\n    .open(player);\n```\n\nTo let players place their own items, make the roles editable and read the result with `instance.getContents(SlotRole.BOTTLE)`:\n\n```java\nAPI.create(\"&dPotions\", InvType.BREWING)\n    .editable(SlotRole.INGREDIENT)\n    .editable(SlotRole.BOTTLE)\n    .allowPlayerInventory()\n    .open(player);\n```\n",
+              "es": "El soporte de pociones usa los roles BOTTLE (3 slots), INGREDIENT y FUEL.\n\n```java\nAPI.create(\"&dPociones\", InvType.BREWING)\n    .slot(SlotRole.INGREDIENT, Item.of(Material.NETHER_WART).name(\"&6Ingrediente\"))\n    .slot(SlotRole.FUEL, Item.of(Material.BLAZE_POWDER).name(\"&eCombustible\"))\n    .open(player);\n```\n\nPara que los jugadores coloquen sus propios ítems, haz los roles editables y lee el resultado con `instance.getContents(SlotRole.BOTTLE)`:\n\n```java\nAPI.create(\"&dPociones\", InvType.BREWING)\n    .editable(SlotRole.INGREDIENT)\n    .editable(SlotRole.BOTTLE)\n    .allowPlayerInventory()\n    .open(player);\n```\n"
+            },
+            "inventory_types_sub8_title": {
+              "en": "8. Smithing, Grindstone and Other Stations",
+              "es": "8. Herrería, piedra de afilar y otras estaciones"
+            },
+            "inventory_types_sub8_content": {
+              "en": "Enchanting table, grindstone, cartography table, loom, stonecutter, beacon and smithing table all work with roles, following the table in the Slot Roles subsection.\n\n```java\nAPI.create(\"&8Upgrade\", InvType.SMITHING)\n    .slot(SlotRole.TEMPLATE, Item.of(Material.PAPER).name(\"&7Template\"))\n    .editable(SlotRole.INPUT)\n    .editable(SlotRole.SECONDARY_INPUT)\n    .slot(SlotRole.OUTPUT, Item.of(Material.NETHERITE_SWORD)\n        .name(\"&aUpgrade\")\n        .onClick(p -> upgrade(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nThe same pattern applies to the rest: editable input roles for what the player brings, and an output role with an `onClick` action to confirm.\n\nThe anvil also supports roles, but when the goal is to ask the player for text, use the dedicated system described in the Anvil Text Input section.\n",
+              "es": "La mesa de encantamientos, la piedra de afilar, la mesa de cartografía, el telar, el cortapiedras, el faro y la mesa de herrería funcionan con roles, siguiendo la tabla de la subsección Roles de slot.\n\n```java\nAPI.create(\"&8Mejora\", InvType.SMITHING)\n    .slot(SlotRole.TEMPLATE, Item.of(Material.PAPER).name(\"&7Plantilla\"))\n    .editable(SlotRole.INPUT)\n    .editable(SlotRole.SECONDARY_INPUT)\n    .slot(SlotRole.OUTPUT, Item.of(Material.NETHERITE_SWORD)\n        .name(\"&aMejorar\")\n        .onClick(p -> upgrade(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nEl mismo patrón se aplica al resto: roles de entrada editables para lo que aporta el jugador y un rol de salida con una acción `onClick` para confirmar.\n\nEl yunque también admite roles, pero cuando el objetivo es pedir texto al jugador, usa el sistema dedicado descrito en la sección Entrada de texto con yunque.\n"
+            },
+            "inventory_types_sub9_title": {
+              "en": "9. Other Bukkit Types",
+              "es": "9. Otros tipos de Bukkit"
+            },
+            "inventory_types_sub9_content": {
+              "en": "Any Bukkit `InventoryType` that is not listed above can be used with a generic grid, passing it directly to `API.create(title, type)`.\n\n```java\nAPI.create(\"&7Custom\", InventoryType.LECTERN)\n    .layout(\"##\")\n    .slot('#', glass)\n    .open(player);\n```\n\nIf the type is not available on the server version in use, an `IllegalStateException` is thrown when the GUI is opened.\n",
+              "es": "Cualquier `InventoryType` de Bukkit que no aparezca arriba puede utilizarse con una cuadrícula genérica, pasándolo directamente a `API.create(title, type)`.\n\n```java\nAPI.create(\"&7Personalizado\", InventoryType.LECTERN)\n    .layout(\"##\")\n    .slot('#', glass)\n    .open(player);\n```\n\nSi el tipo no está disponible en la versión del servidor utilizada, se lanza una `IllegalStateException` al abrir la GUI.\n"
             },
             "anvil_title": {
               "en": "Anvil Text Input",
               "es": "Entrada de texto con yunque"
             },
             "anvil_short": {
-              "en": "Ask players for text using an anvil GUI.",
-              "es": "Solicita texto a los jugadores mediante una GUI de yunque."
+              "en": "Everything about anvil GUIs: text input, result items and submit actions.",
+              "es": "Todo sobre las GUIs de yunque: entrada de texto, ítems de resultado y acciones de confirmación."
             },
             "anvil_content": {
-              "en": "`API.anvil(title)` creates an anvil GUI built to receive text from the player. It opens a real anvil, so the player types into the rename field.\n\n```java\nAPI.anvil(\"&6Type your name\")\n    .text(\"Your name\")\n    .output(text -> text.isBlank() || text.equals(\"Your name\")\n        ? null\n        : Item.of(Material.LIME_DYE).name(\"&aConfirm: &f\" + text))\n    .onText((p, text) -> p.sendMessage(\"Typing: \" + text))\n    .onSubmit((p, text) -> {\n        p.closeInventory();\n        p.sendMessage(\"Hello, \" + text);\n    })\n    .open(player);\n```\n\nThe experience cost of the anvil is cleared, so players never need levels to use it.\n",
-              "es": "`API.anvil(title)` crea una GUI de yunque pensada para recibir texto del jugador. Abre un yunque real, por lo que el jugador escribe en el campo de renombrado.\n\n```java\nAPI.anvil(\"&6Escribe tu nombre\")\n    .text(\"Tu nombre\")\n    .output(text -> text.isBlank() || text.equals(\"Tu nombre\")\n        ? null\n        : Item.of(Material.LIME_DYE).name(\"&aConfirmar: &f\" + text))\n    .onText((p, text) -> p.sendMessage(\"Escribiendo: \" + text))\n    .onSubmit((p, text) -> {\n        p.closeInventory();\n        p.sendMessage(\"Hola, \" + text);\n    })\n    .open(player);\n```\n\nEl coste de experiencia del yunque se elimina, por lo que los jugadores nunca necesitan niveles para usarlo.\n"
+              "en": "**Warning:** the anvil text input only works on Spigot versions above 1.21. On lower versions the text is asked automatically through the chat instead.\n\n`API.anvil(title)` creates an anvil GUI built to receive text from the player. It opens a real anvil, so the player types into the rename field.\n\n```java\nAPI.anvil(\"&6Type your name\")\n    .text(\"Your name\")\n    .output(text -> text.isBlank() || text.equals(\"Your name\")\n        ? null\n        : Item.of(Material.LIME_DYE).name(\"&aConfirm: &f\" + text))\n    .onText((p, text) -> p.sendMessage(\"Typing: \" + text))\n    .onSubmit((p, text) -> {\n        p.closeInventory();\n        p.sendMessage(\"Hello, \" + text);\n    })\n    .open(player);\n```\n\nThis section covers everything related to the anvil: how it works, every method, validation, custom anvil layouts and the behavior on older versions.\n",
+              "es": "**Advertencia:** la entrada de texto con yunque solo funciona en versiones de Spigot superiores a la 1.21. En versiones inferiores el texto se pregunta automáticamente por el chat.\n\n`API.anvil(title)` crea una GUI de yunque pensada para recibir texto del jugador. Abre un yunque real, por lo que el jugador escribe en el campo de renombrado.\n\n```java\nAPI.anvil(\"&6Escribe tu nombre\")\n    .text(\"Tu nombre\")\n    .output(text -> text.isBlank() || text.equals(\"Tu nombre\")\n        ? null\n        : Item.of(Material.LIME_DYE).name(\"&aConfirmar: &f\" + text))\n    .onText((p, text) -> p.sendMessage(\"Escribiendo: \" + text))\n    .onSubmit((p, text) -> {\n        p.closeInventory();\n        p.sendMessage(\"Hola, \" + text);\n    })\n    .open(player);\n```\n\nEsta sección reúne todo lo relacionado con el yunque: cómo funciona, cada método, la validación, los diseños de yunque personalizados y el comportamiento en versiones anteriores.\n"
             },
             "anvil_sub1_title": {
-              "en": "1. Anvil Methods",
-              "es": "1. Métodos del yunque"
+              "en": "1. How It Works",
+              "es": "1. Cómo funciona"
             },
             "anvil_sub1_content": {
-              "en": "**text(String)**  \nSets the initial text shown in the rename field.\n\n**output(Item)**  \nSets a fixed item in the result slot.\n\n**output(Function<String, Item>)**  \nComputes the result item from the text typed so far. Returning `null` leaves the result slot empty, which prevents confirmation.\n\n**onText(BiConsumer<Player, String>)**  \nRuns every time the typed text changes.\n\n**onSubmit(BiConsumer<Player, String>)**  \nRuns when the player clicks the result item, with the text typed at that moment.\n\n**input(Item)**, **secondInput(Item)**  \nPlace items in the first and second anvil slots.\n\nWhen any text feature is used and no input item has been set, the API places a renamable paper item in the first slot automatically.\n",
-              "es": "**text(String)**  \nEstablece el texto inicial mostrado en el campo de renombrado.\n\n**output(Item)**  \nEstablece un ítem fijo en el slot de resultado.\n\n**output(Function<String, Item>)**  \nCalcula el ítem de resultado a partir del texto escrito hasta el momento. Devolver `null` deja vacío el slot de resultado, lo que impide confirmar.\n\n**onText(BiConsumer<Player, String>)**  \nSe ejecuta cada vez que cambia el texto escrito.\n\n**onSubmit(BiConsumer<Player, String>)**  \nSe ejecuta cuando el jugador hace clic en el ítem de resultado, con el texto escrito en ese momento.\n\n**input(Item)**, **secondInput(Item)**  \nColocan ítems en el primer y el segundo slot del yunque.\n\nCuando se utiliza cualquier función de texto y no se ha definido un ítem de entrada, la API coloca automáticamente un papel renombrable en el primer slot.\n"
+              "en": "The anvil GUI follows a simple flow:\n\n- The player opens the anvil and sees the initial text in the rename field.\n- Every time the player changes the text, `onText` runs and the `output` function is evaluated to decide which item appears in the result slot.\n- When the player clicks the result item, `onSubmit` runs with the text typed at that moment.\n\nWhen any text feature is used and no input item has been set, the API places a renamable paper item in the first slot automatically.\n\nThe experience cost of the anvil is cleared, so players never need levels to use it.\n",
+              "es": "La GUI de yunque sigue un flujo sencillo:\n\n- El jugador abre el yunque y ve el texto inicial en el campo de renombrado.\n- Cada vez que el jugador cambia el texto, se ejecuta `onText` y se evalúa la función `output` para decidir qué ítem aparece en el slot de resultado.\n- Cuando el jugador hace clic en el ítem de resultado, se ejecuta `onSubmit` con el texto escrito en ese momento.\n\nCuando se utiliza cualquier función de texto y no se ha definido un ítem de entrada, la API coloca automáticamente un papel renombrable en el primer slot.\n\nEl coste de experiencia del yunque se elimina, por lo que los jugadores nunca necesitan niveles para usarlo.\n"
             },
-            "instances_title": {
+            "anvil_sub2_title": {
+              "en": "2. Method Reference",
+              "es": "2. Referencia de métodos"
+            },
+            "anvil_sub2_content": {
+              "en": "**text(String)**  \nSets the initial text shown in the rename field.\n\n**output(Item)**  \nSets a fixed item in the result slot.\n\n**output(Function<String, Item>)**  \nComputes the result item from the text typed so far. Returning `null` leaves the result slot empty, which prevents confirmation.\n\n**onText(BiConsumer<Player, String>)**  \nRuns every time the typed text changes.\n\n**onSubmit(BiConsumer<Player, String>)**  \nRuns when the player clicks the result item, with the text typed at that moment.\n\n**input(Item)**, **secondInput(Item)**  \nPlace items in the first and second anvil slots.\n",
+              "es": "**text(String)**  \nEstablece el texto inicial mostrado en el campo de renombrado.\n\n**output(Item)**  \nEstablece un ítem fijo en el slot de resultado.\n\n**output(Function<String, Item>)**  \nCalcula el ítem de resultado a partir del texto escrito hasta el momento. Devolver `null` deja vacío el slot de resultado, lo que impide confirmar.\n\n**onText(BiConsumer<Player, String>)**  \nSe ejecuta cada vez que cambia el texto escrito.\n\n**onSubmit(BiConsumer<Player, String>)**  \nSe ejecuta cuando el jugador hace clic en el ítem de resultado, con el texto escrito en ese momento.\n\n**input(Item)**, **secondInput(Item)**  \nColocan ítems en el primer y el segundo slot del yunque.\n"
+            },
+            "anvil_sub3_title": {
+              "en": "3. Validating the Text",
+              "es": "3. Validar el texto"
+            },
+            "anvil_sub3_content": {
+              "en": "The `output` function is the validation point. While it returns `null` the result slot stays empty and the player cannot confirm, so it can be used to reject invalid text before `onSubmit` ever runs.\n\n```java\npublic void askIslandName(Player player) {\n    API.anvil(\"&6Island name\")\n        .text(\"My island\")\n        .output(text -> {\n            String name = text.trim();\n            if (name.length() < 3 || name.length() > 16 || name.equals(\"My island\")) {\n                return null;\n            }\n            return Item.of(Material.NAME_TAG).name(\"&aUse: &f\" + name);\n        })\n        .onSubmit((p, text) -> {\n            p.closeInventory();\n            createIsland(p, text.trim());\n        })\n        .open(player);\n}\n```\n\nUse `onText` for feedback while the player types, such as sending a hint message.\n",
+              "es": "La función `output` es el punto de validación. Mientras devuelva `null` el slot de resultado queda vacío y el jugador no puede confirmar, por lo que sirve para rechazar texto inválido antes de que `onSubmit` llegue a ejecutarse.\n\n```java\npublic void askIslandName(Player player) {\n    API.anvil(\"&6Nombre de la isla\")\n        .text(\"Mi isla\")\n        .output(text -> {\n            String name = text.trim();\n            if (name.length() < 3 || name.length() > 16 || name.equals(\"Mi isla\")) {\n                return null;\n            }\n            return Item.of(Material.NAME_TAG).name(\"&aUsar: &f\" + name);\n        })\n        .onSubmit((p, text) -> {\n            p.closeInventory();\n            createIsland(p, text.trim());\n        })\n        .open(player);\n}\n```\n\nUsa `onText` para dar información mientras el jugador escribe, como enviar un mensaje de ayuda.\n"
+            },
+            "anvil_sub4_title": {
+              "en": "4. Custom Anvil Layouts",
+              "es": "4. Diseños de yunque personalizados"
+            },
+            "anvil_sub4_content": {
+              "en": "The anvil is also available as a regular inventory type. It has a grid of 1 row x 3 columns and the roles INPUT, SECONDARY_INPUT and OUTPUT.\n\n```java\nAPI.create(\"&8Repair\", InvType.ANVIL)\n    .editable(SlotRole.INPUT)\n    .editable(SlotRole.SECONDARY_INPUT)\n    .slot(SlotRole.OUTPUT, Item.of(Material.ANVIL)\n        .name(\"&aConfirm\")\n        .onClick(p -> confirm(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nUse this form when the anvil is just a three-slot interface. Use `API.anvil(title)` whenever the goal is to receive text.\n",
+              "es": "El yunque también está disponible como un tipo de inventario normal. Tiene una cuadrícula de 1 fila x 3 columnas y los roles INPUT, SECONDARY_INPUT y OUTPUT.\n\n```java\nAPI.create(\"&8Reparación\", InvType.ANVIL)\n    .editable(SlotRole.INPUT)\n    .editable(SlotRole.SECONDARY_INPUT)\n    .slot(SlotRole.OUTPUT, Item.of(Material.ANVIL)\n        .name(\"&aConfirmar\")\n        .onClick(p -> confirm(p)))\n    .allowPlayerInventory()\n    .open(player);\n```\n\nUsa esta forma cuando el yunque sea solo una interfaz de tres slots. Usa `API.anvil(title)` siempre que el objetivo sea recibir texto.\n"
+            },
+            "anvil_sub5_title": {
+              "en": "5. Older Versions",
+              "es": "5. Versiones anteriores"
+            },
+            "anvil_sub5_content": {
+              "en": "The anvil text input only works on Spigot versions above 1.21.\n\nOn lower versions the API does not open an anvil. Instead, the text is asked automatically through the chat. No separate code path is needed, so the same `API.anvil(title)` builder can be used on every server version.\n",
+              "es": "La entrada de texto con yunque solo funciona en versiones de Spigot superiores a la 1.21.\n\nEn versiones inferiores la API no abre un yunque. En su lugar, el texto se pregunta automáticamente por el chat. No hace falta un camino de código separado, por lo que el mismo builder `API.anvil(title)` puede usarse en cualquier versión del servidor.\n"
+            },
+            "gui_instances_title": {
               "en": "GUI Instances",
               "es": "Instancias de GUI"
             },
-            "instances_short": {
+            "gui_instances_short": {
               "en": "Update a GUI while it is open and read its state.",
               "es": "Actualiza una GUI mientras está abierta y consulta su estado."
             },
-            "instances_content": {
+            "gui_instances_content": {
               "en": "Opening a GUI returns a `GuiInstance`. It represents that GUI for one player and can be used while it is open.\n\n```java\nGuiInstance instance = GuiManager.get(player.getUniqueId());\n```\n\nEach player has at most one active instance.\n",
               "es": "Abrir una GUI devuelve un `GuiInstance`. Representa esa GUI para un jugador y puede utilizarse mientras está abierta.\n\n```java\nGuiInstance instance = GuiManager.get(player.getUniqueId());\n```\n\nCada jugador tiene como máximo una instancia activa.\n"
             },
-            "instances_sub1_title": {
+            "gui_instances_sub1_title": {
               "en": "1. Updating Content",
               "es": "1. Actualizar el contenido"
             },
-            "instances_sub1_content": {
+            "gui_instances_sub1_content": {
               "en": "**update()**  \nRedraws the whole GUI.\n\n**update(char, Item)**  \nReplaces the item assigned to a layout character and redraws it.\n\n```java\ninstance.update('C', Item.of(Material.EMERALD).name(\"&aTotal: &f\" + total));\n```\n\n**setSlot(int, Item)**  \nSets an item directly on a physical slot.\n\nOnly slots whose content actually changed are modified in the inventory.\n",
               "es": "**update()**  \nVuelve a dibujar toda la GUI.\n\n**update(char, Item)**  \nReemplaza el ítem asignado a un carácter del diseño y lo vuelve a dibujar.\n\n```java\ninstance.update('C', Item.of(Material.EMERALD).name(\"&aTotal: &f\" + total));\n```\n\n**setSlot(int, Item)**  \nColoca un ítem directamente en un slot físico.\n\nSolo se modifican en el inventario los slots cuyo contenido realmente cambió.\n"
             },
-            "instances_sub2_title": {
+            "gui_instances_sub2_title": {
               "en": "2. Reading State",
               "es": "2. Consultar el estado"
             },
-            "instances_sub2_content": {
+            "gui_instances_sub2_content": {
               "en": "**getContents(char)** and **getContents(SlotRole)**  \nReturn the real `ItemStack` list found in those slots, ignoring empty ones.\n\n**getItem(char)**  \nReturns the `Item` currently assigned to a layout character.\n\n**getItemAt(int)**  \nReturns the `Item` drawn on a physical slot.\n\n**getPlayer()**, **getInventory()**, **getDefinition()**, **isClosed()**  \nReturn the viewer, the Bukkit inventory, the GUI definition and whether the GUI has been closed.\n",
               "es": "**getContents(char)** y **getContents(SlotRole)**  \nDevuelven la lista de `ItemStack` reales encontrados en esos slots, ignorando los vacíos.\n\n**getItem(char)**  \nDevuelve el `Item` asignado actualmente a un carácter del diseño.\n\n**getItemAt(int)**  \nDevuelve el `Item` dibujado en un slot físico.\n\n**getPlayer()**, **getInventory()**, **getDefinition()**, **isClosed()**  \nDevuelven al jugador, el inventario de Bukkit, la definición de la GUI y si la GUI ya se cerró.\n"
             },
@@ -548,14 +704,6 @@
             "commands_content": {
               "en": "UIAPI includes a test command that opens example GUIs.\n\n```text\n/uiapi-test <test>\n/uitest <test>\n```\n\nAvailable tests: `1` (paginated menu), `anvil`, `furnace`, `workbench` and `deposit`.\n\nPermissions:\n\n```text\nuiapi.*        Grants all permissions (default: op)\nuiapi.test     Allows using the test command\nuiapi.updates  Allows receiving update notifications\n```\n",
               "es": "UIAPI incluye un comando de prueba que abre GUIs de ejemplo.\n\n```text\n/uiapi-test <prueba>\n/uitest <prueba>\n```\n\nPruebas disponibles: `1` (menú paginado), `anvil`, `furnace`, `workbench` y `deposit`.\n\nPermisos:\n\n```text\nuiapi.*        Otorga todos los permisos (por defecto: op)\nuiapi.test     Permite usar el comando de prueba\nuiapi.updates  Permite recibir notificaciones de actualización\n```\n"
-            },
-            "adding_uiapi": {
-              "en": "Adding UIAPI to your project",
-              "es": "Agregar UIAPI a tu proyecto"
-            },
-            "adding_uiapi_calls": {
-              "en": "Adding UIAPI to your plugin is very easy. Just use one of the following configurations depending on the build system you have chosen. UIAPI must also be installed on the server, so declare it in your `plugin.yml`:\n\n```yaml\ndepend: [Untitled-Inventories-API]\n```\n\nMaven:\n\n```\n<repositories>\n  <repository>\n    <id>jitpack.io</id>\n    <url>https://www.jitpack.io</url>\n  </repository>\n</repositories>\n<dependency>\n  <groupId>com.github.EnttbotX</groupId>\n  <artifactId>UIAPI</artifactId>\n  <version>1.1.0</version>\n  <scope>provided</scope>\n</dependency>\n```\n\nGradle:\n\n```\ndependencyResolutionManagement {\n  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n  repositories {\n    mavenCentral()\n    maven { url 'https://www.jitpack.io' }\n  }\n}\ndependencies {\n  compileOnly 'com.github.EnttbotX:UIAPI:1.1.0'\n}\n```\n\nRequirements: Java 17 or higher.\n",
-              "es": "Agregar UIAPI a tu plugin es muy fácil. Solo debes utilizar una de las siguientes configuraciones dependiendo del sistema de construcción que hayas elegido. UIAPI también debe estar instalada en el servidor, por lo que debes declararla en tu `plugin.yml`:\n\n```yaml\ndepend: [Untitled-Inventories-API]\n```\n\nMaven:\n\n```\n<repositories>\n  <repository>\n    <id>jitpack.io</id>\n    <url>https://www.jitpack.io</url>\n  </repository>\n</repositories>\n<dependency>\n  <groupId>com.github.EnttbotX</groupId>\n  <artifactId>UIAPI</artifactId>\n  <version>1.1.0</version>\n  <scope>provided</scope>\n</dependency>\n```\n\nGradle:\n\n```\ndependencyResolutionManagement {\n  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n  repositories {\n    mavenCentral()\n    maven { url 'https://www.jitpack.io' }\n  }\n}\ndependencies {\n  compileOnly 'com.github.EnttbotX:UIAPI:1.1.0'\n}\n```\n\nRequisitos: Java 17 o superior.\n"
             }
           }
         }
